@@ -11,10 +11,10 @@ import frc.team1918.robot.Helpers;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
+import com.revrobotics.CANSparkMax.ControlType;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -24,8 +24,8 @@ public class ShooterSubsystem extends SubsystemBase {
   private CANSparkMax shoot; // shooter controller
   private double m_shooter_rpm = 0.0; // Current shooter speed
   private double m_shooter_oldrpm = 0.0; // Old shooter speed
-  private CANPIDController m_pidController;
-  private CANEncoder m_encoder;
+  private SparkMaxPIDController m_pidController;
+  private RelativeEncoder m_encoder;
   private Solenoid m_hood;
   /**
    * Creates a new ExampleSubsystem.
