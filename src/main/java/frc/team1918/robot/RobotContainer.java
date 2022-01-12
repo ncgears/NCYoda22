@@ -13,6 +13,8 @@ import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PneumaticsControlModule;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 //Util imports
@@ -43,7 +45,7 @@ import frc.team1918.robot.commandgroups.cg_drive_autoHome;
  */
 public class RobotContainer {
   // private final PowerDistributionPanel m_pdp = new PowerDistributionPanel();
-  private final Compressor m_air = new Compressor();
+  private final Compressor m_air = new Compressor(PneumaticsModuleType.CTREPCM);
   //team 1918 subsystems
   // private final ClimberSubsystem m_climber = new ClimberSubsystem();
   private final CollectorSubsystem m_collector = new CollectorSubsystem();
@@ -109,8 +111,8 @@ public class RobotContainer {
     configureButtonBindings();
 
     // Enable closed loop control of compressor and enable it
-    m_air.setClosedLoopControl(!Constants.Air.AIR_DISABLED);
-    if(Constants.Air.AIR_DISABLED) m_air.stop();
+    //m_air.setClosedLoopControl(!Constants.Air.AIR_DISABLED);
+    if(Constants.Air.AIR_DISABLED) m_air.disable();
 
     // Enable the camera server and start capture
     if(Constants.Global.CAMERA_ENABLED) {
