@@ -1,6 +1,7 @@
 
 package frc.team1918.robot.subsystems;
 
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team1918.robot.Constants;
@@ -18,8 +19,8 @@ public class CollectorSubsystem extends SubsystemBase {
    */
   public CollectorSubsystem() {
     coll = new WPI_TalonSRX(Constants.Collector.COLLECTOR_MC_ID);
-    m_coll1 = new Solenoid(Constants.Air.AIR_COLLECTOR1_ID);
-    m_coll2 = new Solenoid(Constants.Air.AIR_COLLECTOR2_ID);
+    m_coll1 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.AIR_COLLECTOR1_ID);
+    m_coll2 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.AIR_COLLECTOR2_ID);
 
   }
 
