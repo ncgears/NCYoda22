@@ -13,7 +13,6 @@ import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PneumaticsControlModule;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -69,7 +68,7 @@ public class RobotContainer {
   private Joystick dj = new Joystick(Constants.OI.OI_JOY_DRIVER);
   private JoystickButton btn_LOCKANGLE = new JoystickButton(dj, Constants.OI.Driver.BTN_LOCKANGLE);
   private JoystickButton btn_UNLOCKANGLE = new JoystickButton(dj, Constants.OI.Driver.BTN_UNLOCKANGLE);
-  private JoystickButton btn_MECHZERO_KEY1 = new JoystickButton(dj, Constants.OI.Driver.BTN_MECHZERO);
+  // private JoystickButton btn_MECHZERO_KEY1 = new JoystickButton(dj, Constants.OI.Driver.BTN_MECHZERO);
   private JoystickButton btn_HOMESWERVE = new JoystickButton(dj, Constants.OI.Driver.BTN_HOMESWERVE);
   private JoystickButton btn_MIXER_FEED = new JoystickButton(dj, Constants.OI.Driver.BTN_MIXER_FEED);
   private JoystickButton btn_MIXER_FEEDSTUCK = new JoystickButton(dj, Constants.OI.Driver.BTN_MIXER_FEEDSTUCK);
@@ -89,19 +88,19 @@ public class RobotContainer {
 
   //Operator Controller
   private Joystick oj = new Joystick(Constants.OI.OI_JOY_OPER);
-  private JoystickButton btn_SHOOT_WALL = new JoystickButton(oj, Constants.OI.Operator.BTN_SHOOT_WALL);
-  private JoystickButton btn_SHOOT_LINE = new JoystickButton(oj, Constants.OI.Operator.BTN_SHOOT_LINE);
-  private JoystickButton btn_SHOOT_SHORT = new JoystickButton(oj, Constants.OI.Operator.BTN_SHOOT_SHORT);
-  private JoystickButton btn_SHOOT_TRENCH = new JoystickButton(oj, Constants.OI.Operator.BTN_SHOOT_TRENCH);
+  // private JoystickButton btn_SHOOT_WALL = new JoystickButton(oj, Constants.OI.Operator.BTN_SHOOT_WALL);
+  // private JoystickButton btn_SHOOT_LINE = new JoystickButton(oj, Constants.OI.Operator.BTN_SHOOT_LINE);
+  // private JoystickButton btn_SHOOT_SHORT = new JoystickButton(oj, Constants.OI.Operator.BTN_SHOOT_SHORT);
+  // private JoystickButton btn_SHOOT_TRENCH = new JoystickButton(oj, Constants.OI.Operator.BTN_SHOOT_TRENCH);
   // private JoystickButton btn_TOG_MIDDOWN = new JoystickButton(oj, Constants.OI.Operator.BTN_TOG_MIDDOWN);
   private JoystickButton btn_COLLECTOR_IN = new JoystickButton(oj, Constants.OI.Operator.BTN_COLLECTOR_IN);
-  private JoystickButton btn_MECHZERO_KEY2 = new JoystickButton(oj, Constants.OI.Operator.BTN_MECHZERO);
+  // private JoystickButton btn_MECHZERO_KEY2 = new JoystickButton(oj, Constants.OI.Operator.BTN_MECHZERO);
   private POVButton btn_COLLECTOR_UP = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_UP);
   private POVButton btn_COLLECTOR_DOWN = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_DOWN);
   private JoystickButton btn_COLLECTOR_TOGGLE = new JoystickButton(oj, Constants.OI.Operator.BTN_TOG_MIDDOWN);
 
   //Special Bindings
-  private AndButton andbtn_MECHZERO = new AndButton(btn_MECHZERO_KEY1,btn_MECHZERO_KEY2); //AndButton requires both to be true
+  // private AndButton andbtn_MECHZERO = new AndButton(btn_MECHZERO_KEY1,btn_MECHZERO_KEY2); //AndButton requires both to be true
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
