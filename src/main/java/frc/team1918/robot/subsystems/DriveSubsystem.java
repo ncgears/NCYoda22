@@ -167,7 +167,8 @@ public class DriveSubsystem extends SubsystemBase {
 			: new ChassisSpeeds(fwdMPS, strMPS, rot).toString()+" robotCentric");
 		}
 		debug_ticks++;
-		SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, Constants.Swerve.kMaxSpeedMetersPerSecond);
+		SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.kMaxSpeedMetersPerSecond);
+		// SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, Constants.Swerve.kMaxSpeedMetersPerSecond);
 		if(!Constants.Swerve.DISABLE_FL) m_dtFL.setDesiredState(swerveModuleStates[0]);
 		if(!Constants.Swerve.DISABLE_FR) m_dtFR.setDesiredState(swerveModuleStates[1]);
 		if(!Constants.Swerve.DISABLE_RL) m_dtRL.setDesiredState(swerveModuleStates[2]);
@@ -185,7 +186,8 @@ public class DriveSubsystem extends SubsystemBase {
 	 * @param desiredStates The desired SwerveModule states.
 	 */
 	public void setModuleStates(SwerveModuleState[] desiredStates) {
-		SwerveDriveKinematics.normalizeWheelSpeeds(desiredStates, Constants.Swerve.kMaxSpeedMetersPerSecond);
+		SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, Constants.Swerve.kMaxSpeedMetersPerSecond);
+		// SwerveDriveKinematics.normalizeWheelSpeeds(desiredStates, Constants.Swerve.kMaxSpeedMetersPerSecond);
 		m_dtFL.setDesiredState(desiredStates[0]);
 		m_dtFR.setDesiredState(desiredStates[1]);
 		m_dtRL.setDesiredState(desiredStates[2]);
