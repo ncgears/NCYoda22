@@ -134,7 +134,7 @@ public class Constants {
         public static final class FL {  //TODO: PID Tuning
             public static final int DRIVE_MC_ID = 33; //Falcon500 Motor Controller ID
             public static final int TURN_MC_ID = 7; //TalonSRX Motor Controller ID
-            public static final boolean TURN_sensorPhase = false; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
+            public static final boolean TURN_sensorPhase = true; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
             public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
             public static final double TURN_kP = 0.3; //PID P
             public static final double TURN_kI = 0.000; //PID I
