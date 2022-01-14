@@ -1,9 +1,8 @@
 
 package frc.team1918.robot;
 
-// import com.revrobotics.CANEncoder;
-// import com.revrobotics.CANPIDController;
-//Talon SRX
+
+//Talon SRX/Talon FX
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -23,22 +22,22 @@ public class SwerveModule {
     private boolean isDrivePowerInverted = false;
     private String moduleName;
     private double wheelOffsetMM = 0;
-    private boolean absEncoderEnabled = false;
     private int debug_ticks1, debug_ticks2;
-    // private CANPIDController m_drive_pidController;
-
-//SparkMAX Java API Doc: https://www.revrobotics.com/content/sw/max/sw-docs/java/index.html
 
  	/**
-	 * 1918 Swerve Module - Uses Spark Max for drive (Neo) and Talon SRX for turn (bag with gearbox)
+	 * 1918 Swerve Module v2022.1 - This swerve module uses a Falcon 500 (TalonFX) for drive and Talon SRX for turn (bag motor with gearbox).
+     * The module uses a Lamprey Absolute encoder for positioning data
 	 * @param driveMC_ID This is the CAN ID of the drive motor controller
 	 * @param turnMC_ID This is the CAN ID of the turn motor controller
 	 * @param tP The P constant (double) for the turning PID
 	 * @param tI The I constant (double) for the turning PID
 	 * @param tD The D constant (double) for the turning PID
 	 * @param tIZone The IZone value (int) for the turning PID
+     * @param tAllowedError The allowable error (int) for the turning PID
 	 * @param name The name of this module instance
 	 * @param wheelOffsetMM Adjustment to size of the wheel to account for wear
+     * @param sensorPhase [boolean] invert the turn encoder sensor phase
+     * @param inverted [boolean] invert the turn control direction (after making the sensor phase match) to make "forward" green on the talon
 	 */
     public SwerveModule(String name, int driveMC_ID, int turnMC_ID, double tP, double tI, double tD, int tIZone, int tAllowedError, double wheelOffsetMM, boolean sensorPhase, boolean inverted){
         drive = new WPI_TalonFX(driveMC_ID);
@@ -51,17 +50,17 @@ public class SwerveModule {
         TURN_IZONE = tIZone;
         TURN_ALLOWED_ERROR = tAllowedError;
 
-        turn.configFactoryDefault(); //Reset controller to factory defaults to avoid wierd stuff
+        turn.configFactoryDefault(); //Reset controller to factory defaults to avoid wierd stuff from carrying over
         turn.set(ControlMode.PercentOutput, 0); //Set controller to disabled
         turn.setNeutralMode(NeutralMode.Brake); //Set controller to brake mode
         turn.configSelectedFeedbackSensor(  FeedbackDevice.Analog, //  FeedbackDevice.CTRE_MagEncoder_Absolute, // Local Feedback Source
                                             Constants.Global.PID_PRIMARY,				// PID Slot for Source [0, 1]
                                             Constants.Global.kTimeoutMs);				// Configuration Timeout
-        turn.configFeedbackNotContinuous(Constants.Global.SWERVE_SENSOR_NONCONTINUOUS, 0); //Disable continuous feedback tracking (so 0 and 4096 are effectively one and the same)
-        turn.setSelectedSensorPosition(0);
-        turn.setSensorPhase(sensorPhase);
-        turn.setInverted(inverted);
-        turn.config_kP(0, TURN_P);
+        turn.configFeedbackNotContinuous(Constants.Global.SWERVE_SENSOR_NONCONTINUOUS, 0); //Disable continuous feedback tracking (so 0 and 1024 are effectively one and the same)
+        turn.setSelectedSensorPosition(1024); //reset the talon encoder counter to 0 so we dont carry over a large error from a previous testing
+        turn.setSensorPhase(sensorPhase); //set the sensor phase based on the constants setting for this module
+        turn.setInverted(inverted); //set the motor direction based on the constants setting for this module
+        turn.config_kP(0, TURN_P); //set the kP for PID Tuning
         turn.config_kI(0, TURN_I);
         turn.config_kD(0, TURN_D);
         turn.config_IntegralZone(0, TURN_IZONE);
@@ -97,19 +96,18 @@ public class SwerveModule {
             Constants.DriveTrain.DT_DRIVE_SECOND_GEARONE,
             Constants.DriveTrain.DT_DRIVE_SECOND_GEARTWO);
         double wheelDiam = Constants.DriveTrain.DT_WHEEL_DIAM_MM - this.wheelOffsetMM;
-        // double angle = Helpers.General.ticksToRadians(getTurnAbsPos() - homePos); //subtract homePos so it is 0 based
-        // return new SwerveModuleState(Helpers.General.rpmToMetersPerSecond(wheelRpm, wheelDiam), new Rotation2d(angle));
-        return new SwerveModuleState(Helpers.General.rpmToMetersPerSecond(wheelRpm, wheelDiam), getTurnAbsPosAsRotation2d());
+        return new SwerveModuleState(Helpers.General.rpmToMetersPerSecond(wheelRpm, wheelDiam), getTurnPositionAsRotation2d());
     }
 
     /**
      * Minimize the change in heading the desired swerve module state would require by potentially
-     * reversing the direction the wheel spins.  Since we are using a Mag encoder with a 0-4096 value, we have
-     * to set the FeedbackSensor
+     * reversing the direction the wheel spins.  If the desired destination angle is more than 90 degrees either direction from the current position, 
+     * instead choose a new destination that is 180 degrees from the desired destination, but invert the drive motor speed.
      * @param desiredState The desired state.
+     * @return Swerve Module State reflecting the shortest path to the desired turn and the correct drive speed
      */
-    public SwerveModuleState optimize(SwerveModuleState desiredState) {  //New optimize test 2021-03-17 JRB
-        Rotation2d currentAngle = getTurnAbsPosAsRotation2d();
+    public SwerveModuleState optimize(SwerveModuleState desiredState) { 
+        Rotation2d currentAngle = getTurnPositionAsRotation2d();
         Rotation2d delta = desiredState.angle.minus(currentAngle);
         if (Math.abs(delta.getDegrees()) > 90.0 && Math.abs(delta.getDegrees()) < 270) { //new requested delta is between 90 and -90 (270) degrees, invert drive speed and rotate 180 degrees from desired
             return new SwerveModuleState(-desiredState.speedMetersPerSecond, desiredState.angle.rotateBy(Rotation2d.fromDegrees(180.0)));
@@ -125,83 +123,85 @@ public class SwerveModule {
      */
     public void setDesiredState(SwerveModuleState desiredState) {
         double wheelDiam = Constants.DriveTrain.DT_WHEEL_DIAM_MM - this.wheelOffsetMM;
+        // TODO: Test and enable optimization
         SwerveModuleState state = (Constants.Swerve.USE_OPTIMIZATION) ? optimize(desiredState) : desiredState;
         if (Constants.Swerve.USE_DRIVE_PID) {
+            // TODO: Remove this and the USE_DRIVE_PID since we would prefer to use the PID loop built in to the TalonFX
             double motorRpm = (Helpers.General.metersPerSecondToRPM(state.speedMetersPerSecond, wheelDiam) / Constants.DriveTrain.DT_DRIVE_CONVERSION_FACTOR);
             // Helpers.Debug.debug(moduleName+" desired mps: "+state.speedMetersPerSecond+" motorRpm: "+motorRpm);
             //m_drive_pidController.setReference(motorRpm, ControlType.kVelocity);
             drive.set(motorRpm);
         } else {
+            // TODO: Fix this. The drive.set is expecting a value from -1 to 1, but we are feeding speedMetersPerSecond, which could be more or less than this
             drive.set(state.speedMetersPerSecond);
         }
-        //Calculate the turn (always optimize turn direction)
-        int cur_ticks = getTurnAbsPos();
+        
+        //Determine which direction we should turn to get to the desired setpoint
+        int cur_ticks = getTurnPosition();
         int min_ticks = minTurnTicks(Helpers.General.radiansToTicks(state.angle.getRadians()), cur_ticks);
         int turn_ticks = min_ticks + cur_ticks;
-        turn.set(ControlMode.Position, turn_ticks);
+
         if(Helpers.Debug.debugThrottleMet(debug_ticks1)) {
-            Helpers.Debug.debug(moduleName+" Speed="+Helpers.General.roundDouble(state.speedMetersPerSecond,3)+" Turn="+turn_ticks);
+            Helpers.Debug.debug(moduleName+" Speed (metersPerSecond)="+Helpers.General.roundDouble(state.speedMetersPerSecond,3)+" Turn Setpoint="+turn_ticks);
         }
         debug_ticks1++;
+
+        turn.set(ControlMode.Position, turn_ticks); //Set the turn setpoint
     }
 
     /**
      * This function calculates the minimum turn (in encoder ticks) based on the desired location and the current location.
      * It uses the encoder wrap-around to determine if we should turn negative past 0
-     * @param desiredTicks encoder count of desired target
-     * @param curTicks encoder count of current position
-     * @return An encoder count between -2047..0..2047 of the new target
+     * @param desiredPosition encoder count of desired position
+     * @param currentPosition encoder count of current position
+     * @return An encoder count between -1024..0..1024 of the new target
      */
-    public int minTurnTicks(int desiredTicks, int curTicks) {
-        int wrap = (int) Constants.DriveTrain.DT_TURN_ENCODER_FULL_ROTATION;
-        return Helpers.General.minChange(desiredTicks,curTicks,wrap);
+    public int minTurnTicks(int desiredPosition, int currentPosition) {
+        int wrap = (int) Constants.DriveTrain.DT_TURN_ENCODER_FULL_ROTATION; //This is where the encoder changes from high to 0
+        return Helpers.General.minChange(desiredPosition,currentPosition,wrap);
         //minChange calculates the shortest distance to the desired target, even if that means wrapping over 0.
+        //Examples based on 4096 (SRX Mag Encoder)
         //Example: curTicks = 1023 (45deg), desiredTicks = 3073 (1 tick above 270deg)
         //Example result: -2047 ticks (-180deg) instead of +2049 ticks
     }
 
     /**
-     * This function sets the conversion factor on the SparkMAX from the constants DT_DRIVE_CONVERSION_FACTOR
-     */
-    public void setDriveConversionFactor() {
-        // drive.getEncoder().setVelocityConversionFactor(Constants.DriveTrain.DT_DRIVE_CONVERSION_FACTOR);
+     * This function sets the turn power by percentage
+	 * @param power turn power from -1.0 to 1.0
+    */
+    public void setTurnPower(double power){
+        turn.set(ControlMode.PercentOutput, power);
     }
 
     /**
-	 * @param p turn power from -1 to 1
+     * This function sets the drive power by percentage
+	 * @param power drive motor power from -1.0 to 1.0
     */
-    public void setTurnPower(double p){
-        this.turn.set(ControlMode.PercentOutput, p);
-    }
-
-    /**
-	 * @param p drive motor power from -1 to 1
-    */
-    public void setDrivePower(double p){
+    public void setDrivePower(double power){
         if (this.isDrivePowerInverted) {
-            this.drive.set(-p);
+            drive.set(ControlMode.PercentOutput,-power);
         } else {
-            this.drive.set(p);
+            drive.set(ControlMode.PercentOutput,power);
         }
     }
 
-
     /**
-     * Gets the position of the absolute encoder in encoder ticks
-     * @return Integer of absolute encoder ticks
+     * Returns the raw units of the current location of the turn sensor
+     * @return (integer) Raw units (typically encoder ticks) of turn location
      */
-    public int getTurnAbsPos(){
-        //return turn.getSensorCollection().getPulseWidthPosition(); //We reset rotation counter when saving to adjust to 0-4095, so get the full value
-        return (turn.getSensorCollection().getAnalogIn()); //This gets only the most significant bits (0-2047)
+    public int getTurnPosition(){
+        return (int) turn.getSelectedSensorPosition(0);
+        //return (turn.getSensorCollection().getAnalogIn()); //This gets an ADC value for the analog sensor
+        //We may want to use a bitwise "AND" with 0x3FF (1023), 0x7FF (2047), 0xFFF (4095) to get just the most significant bits that we are interested in.
         //Explanation: & is a bitwise "AND" operator, and 0xFFF is 4095 in Hex, consider "0101010101 AND 1111 = 0101"
     }
 
     /**
-     * Gets the position of the absolute encoder in encoder ticks, subtracts the homePos, and returns a rotation2d object
+     * Returns a rotation2d object representing the current location of the turn sensor
      * @return Rotation2d object of the current position
      */
-    public Rotation2d getTurnAbsPosAsRotation2d(){
-        return new Rotation2d(Helpers.General.ticksToRadians(getTurnAbsPos()));
+    public Rotation2d getTurnPositionAsRotation2d(){
+        return new Rotation2d(Helpers.General.ticksToRadians(getTurnPosition()));
     }
 
     /**
@@ -209,7 +209,7 @@ public class SwerveModule {
      * @return Boolean value indicating if this swerve module is at the home position.
      */
     public boolean isTurnAtHome() {
-        int currentPos = getTurnAbsPos();
+        int currentPos = getTurnPosition();
         int marginErr = Constants.DriveTrain.DT_HOME_MARGIN_OF_ERROR;
         
         int lowHome = Constants.DriveTrain.DT_TURN_ENCODER_FULL_ROTATION - marginErr;
@@ -227,61 +227,11 @@ public class SwerveModule {
     }
 
     /**
-     * Resets the relative encoder to 0.
-     */
-    public void resetTurnEnc() {
-        Helpers.Debug.debug(moduleName + " resetTurnEnc");
-		//turn.getSensorCollection().setQuadraturePosition(0,10);
-    }
-
-    public void resetTurnAbsEnc() {
-        Helpers.Debug.debug(moduleName + " resetTurnAbsEnc");
-	    //turn.getSensorCollection().setPulseWidthPosition(0, 10);
-    }
-    /**
-     * Sets the relative encoder to a specific value
-     * @param value Integer from 0 to 4095 indicating the relative encoder position to set
-     */
-    public void setEncPos(int value) {
-        //turn.getSensorCollection().setQuadraturePosition(value,10);
-    }
-
-    /**
-     * Checks if the turn encoder is connected and valid
-     * @return true if the encoder is connected, false otherwise
-     */
-    public boolean isTurnEncConnected() {
-        /**The isSensorPresent() routine had only supported pulse width sensors as these allow for simple
-         * detection of the sensor signal. The getPulseWidthRiseToRiseUs() routine can be used to accomplish
-         * the same task. The getPulseWidthRiseToRiseUs() routine returns zero if the pulse width signal is
-         * no longer present (120ms timeout).
-         */
-        return (turn.getSensorCollection().getPulseWidthRiseToRiseUs() > 0) ? true : false;
-        //isSensorPresent(FeedbackDevice.CTRE_MagEncoder_Relative) == FeedbackDeviceStatus.FeedbackDeviceStatusPresent;
-    }
-
-    /**
-     * Gets the number of rotations that the relative encoder has detected
-     * @return Integer indicating the number of rotations of the relative encoder
-     */
-    public int getTurnRotations() {
-        return (int) (turn.getSensorCollection().getQuadraturePosition() / FULL_ROTATION);
-    }
-
-    /**
-     * Gets the relative encoder position within the current rotation
-     * @return Integer indicating the current location within the current rotation
-     */
-    public double getTurnLocation() {
-        return (turn.getSensorCollection().getQuadraturePosition() % FULL_ROTATION) / FULL_ROTATION;
-    }
-
-    /**
 	 * Set turn to pos from 0 to 1 using PID using shortest turn to get the wheels aimed the right way
 	 * @param wa wheel angle location to set to in radians
 	 */
 	public void setTurnLocation(double waRads) {
-        double currentAngleRads = Helpers.General.ticksToRadians(getTurnAbsPos());
+        double currentAngleRads = Helpers.General.ticksToRadians(getTurnPosition());
         double targetAngleRads = waRads;
         int currentNumRotations = (int) (currentAngleRads / FULL_ROTATION);
         targetAngleRads += (currentNumRotations >= 0) ? currentNumRotations * FULL_ROTATION : (currentNumRotations + 1) * FULL_ROTATION;
@@ -363,28 +313,23 @@ public class SwerveModule {
     }
 
     /**
-     * Switches the turn encoder to either Absolute or Relative.
-     * @param useAbsolute Boolean indicating whether to enable the absolute encoder (true) or the relative encoder (false)
-     */
-    public void setTurnEncoderAbsolute(boolean useAbsolute) {
-        if (useAbsolute) {
-            turn.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, Constants.Global.PID_PRIMARY, Constants.Global.kTimeoutMs);
-        } else {
-            turn.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, Constants.Global.PID_PRIMARY, Constants.Global.kTimeoutMs);
-            if (this.absEncoderEnabled != useAbsolute) {
-                //if we just switched to relative, change the setpoint to 0
-                setTurnLocationInEncoderTicks(0.0);
-            }
-        }
-        this.absEncoderEnabled = useAbsolute;
-    }
-
-    /**
      * Sets the turn position to a specific setpoint using the current encoder (absolute or relative)
      * @param et Encoder Ticks to turn module to.  This depends on which encoder is active.
      */
     public void setTurnLocationInEncoderTicks(double et) {
         // System.out.print(moduleName + " setTurnLocationInEncoderTicks = "+et+"\n");
         turn.set(ControlMode.Position, et);
+    }
+
+    /**
+     * This function is used to output data to the dashboard for debugging the module, typically done in the {@link DriveSubsystem} periodic.
+     */
+    public void updateDashboard() {
+        Dashboard.DriveTrain.setTurnPosition(moduleName, turn.getSelectedSensorPosition(0));
+        Dashboard.DriveTrain.setTurnSetpoint(moduleName, turn.getClosedLoopTarget(0));
+        Dashboard.DriveTrain.setTurnPositionError(moduleName, turn.getClosedLoopError(0));
+        Dashboard.DriveTrain.setTurnVelocity(moduleName, turn.getSelectedSensorVelocity(0));
+        Dashboard.DriveTrain.setTurnPositionErrorChange(moduleName, turn.getErrorDerivative(0));
+        Dashboard.DriveTrain.setDriveVelocity(moduleName, drive.getSelectedSensorVelocity(0));
     }
 }

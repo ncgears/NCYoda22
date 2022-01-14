@@ -20,23 +20,21 @@ public class Constants {
         public final static boolean SWERVE_SENSOR_NONCONTINUOUS = true;
         public final static int kTimeoutMs = 30; //Timeout for reporting in DS if action fails, set to 0 to skip confirmation
         public final static int PID_PRIMARY = 0;  //Talon PID slot for primary loop
-        public final static int PID_TURN = 1; //Talon PID slot for auxillary loop
-        public final static int ROBOT_WIDTH = 23; //Width of the robot frame
-        public final static int ROBOT_LENGTH = 26; //Length of the robot frame
+        public final static int ROBOT_WIDTH = 23; //Width of the robot frame (from the pivot of the wheels)
+        public final static int ROBOT_LENGTH = 26; //Length of the robot frame (from the pivot of the wheels)
         public final static boolean DEBUG_ENABLED_DEFAULT = true; //Default starting state of debug mode
         public final static int DEBUG_RECURRING_TICKS = 100; //Periodic cycles for recurring debug messages
         public final static int DASH_RECURRING_TICKS = 50; //Periodic cycles for dashboard updates
         public final static boolean HOME_ON_TELEOP = true; //Enable home sequence at beginning of teleop
-        public final static boolean HOME_ON_AUTON = !HOME_ON_TELEOP; //Enable home sequence at beginning of auton, always opposit teleop
-        public final static boolean ALLOW_CAL_IN_TELEOP = true; //Allow calibration mode during teleop
+        public final static boolean HOME_ON_AUTON = !HOME_ON_TELEOP; //Enable home sequence at beginning of auton, always opposite teleop
     }
 
     /**
      * Constants for the Autonomous subsystem
      */
     public static final class Auton {
-        public final static double kMaxSpeedMetersPerSecond = 0.0;
-        public final static double kMaxAccelerationMetersPerSecondSquared = 0.0;
+        public final static double kMaxSpeedMetersPerSecond = 0.25;
+        public final static double kMaxAccelMetersPerSecondSquared = 0.0;
     }
 
     /**
@@ -138,11 +136,11 @@ public class Constants {
             public static final int TURN_MC_ID = 7; //TalonSRX Motor Controller ID
             public static final boolean TURN_sensorPhase = false; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
             public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
-            public static final double TURN_kP = 5.5; //PID P //6.0
-            public static final double TURN_kI = 0.005; //PID I //0
-            public static final double TURN_kD = 0.9; //PID D //0.9
+            public static final double TURN_kP = 0.3; //PID P
+            public static final double TURN_kI = 0.000; //PID I
+            public static final double TURN_kD = 0.0; //PID D
             public static final int TURN_kIZone = 0; //PID IZONE
-            public static final int TURN_ALLOWED_ERROR = 2;
+            public static final int TURN_ALLOWED_ERROR = 10;
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
         }
         /**
@@ -153,11 +151,11 @@ public class Constants {
             public static final int TURN_MC_ID = 4; //TalonSRX Motor Controller ID
             public static final boolean TURN_sensorPhase = false; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
             public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
-            public static final double TURN_kP = 5.5; //PID P
-            public static final double TURN_kI = 0.005; //PID I
-            public static final double TURN_kD = 0.9; //PID D
+            public static final double TURN_kP = 0.3; //PID P
+            public static final double TURN_kI = 0.000; //PID I
+            public static final double TURN_kD = 0.0; //PID D
             public static final int TURN_kIZone = 0; //PID IZONE
-            public static final int TURN_ALLOWED_ERROR = 2;
+            public static final int TURN_ALLOWED_ERROR = 10;
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
         }
         /**
@@ -168,11 +166,11 @@ public class Constants {
             public static final int TURN_MC_ID = 8; //TalonSRX Motor Controller ID
             public static final boolean TURN_sensorPhase = false; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
             public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
-            public static final double TURN_kP = 5.5; //PID P
-            public static final double TURN_kI = 0.005; //PID I
-            public static final double TURN_kD = 0.9; //PID D
+            public static final double TURN_kP = 0.3; //PID P
+            public static final double TURN_kI = 0.000; //PID I
+            public static final double TURN_kD = 0.0; //PID D
             public static final int TURN_kIZone = 0; //PID IZONE
-            public static final int TURN_ALLOWED_ERROR = 2;
+            public static final int TURN_ALLOWED_ERROR = 10;
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
         }
         /**
@@ -183,11 +181,11 @@ public class Constants {
             public static final int TURN_MC_ID = 11; //TalonSRX Motor Controller ID
             public static final boolean TURN_sensorPhase = false; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
             public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
-            public static final double TURN_kP = 5.5; //PID P
-            public static final double TURN_kI = 0.005; //PID I
-            public static final double TURN_kD = 0.9; //PID D
+            public static final double TURN_kP = 0.3; //PID P
+            public static final double TURN_kI = 0.000; //PID I
+            public static final double TURN_kD = 0.0; //PID D
             public static final int TURN_kIZone = 0; //PID IZONE
-            public static final int TURN_ALLOWED_ERROR = 2;
+            public static final int TURN_ALLOWED_ERROR = 10;
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
         }
     }
@@ -201,7 +199,6 @@ public class Constants {
         public final static double DT_DRIVESTRAIGHT_P = 0.065; //kP for driveStraight correction
         public static final double DT_kMaxMetersPerSecond = 3.677; //limit full stick speed meters to 12.0fps
         ////Home Tuning
-        public final static String DT_HOMES_FILE = "/home/lvuser/swerveHomes2021.txt"; //The file where we save the homes data to persist reboots
         public final static double DT_HOME_DELAY = 0.75; //Seconds to wait for homing before reset encoders
         public final static int DT_HOME_MARGIN_OF_ERROR = 20; //Encoder ticks margin to consider home (plus or minus this amount)
         ////Turn Tuning
@@ -221,11 +218,6 @@ public class Constants {
         public final static int DT_DRIVE_SECOND_GEARTWO = 45; //swerve drive second gear set output teeth
         public final static double DT_DRIVE_CONVERSION_FACTOR = 0.194444444; //first_gearone / first_geartwo * second_gearone / second_geartwo
         // public final static double DT_DRIVE_CONVERSION_FACTOR = (DT_DRIVE_FIRST_GEARONE / DT_DRIVE_FIRST_GEARTWO) * (DT_DRIVE_SECOND_GEARONE / DT_DRIVE_SECOND_GEARTWO); //Conversion factor to correct RPM from SparkMax getVelocity()
-        ////Defaults if calibration file fails to read -- this shouldnt happen
-        public final static int DT_FL_MECHZERO = 0; //Front Left encoder value at mechanical zero, only change if mechanics broke things
-        public final static int DT_FR_MECHZERO = 0; //Front Right encoder value at mechanical zero, only change if mechanics broke things
-        public final static int DT_RL_MECHZERO = 0; //Rear Left encoder value at mechanical zero, only change if mechanics broke things
-        public final static int DT_RR_MECHZERO = 0; //Rear Right encoder value at mechanical zero, only change if mechanics broke things
     }
     
     /**

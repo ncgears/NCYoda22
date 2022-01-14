@@ -33,8 +33,11 @@ public class Dashboard {
         }
     }
     public static final class DriveTrain {
-        public static final void setDTAngle(String module, int angle) {
-            SmartDashboard.putNumber(module + dash_angle, angle);
-        }
+        public static final void setTurnPosition(String module, double value) { SmartDashboard.putNumber(module+" Position", value); }
+        public static final void setTurnSetpoint(String module, double value) { SmartDashboard.putNumber(module+" Setpoint", value); }
+        public static final void setTurnPositionError(String module, double value) { SmartDashboard.putNumber(module+" Position Error", value); }
+        public static final void setTurnVelocity(String module, double value) { SmartDashboard.putNumber(module+" Velocity", value); }
+        public static final void setTurnPositionErrorChange(String module, double value) { SmartDashboard.putNumber(module+" Position Error Change", value); }
+        public static final void setDriveVelocity(String module, double value) { SmartDashboard.putNumber(module+" Drive Velocity", value); }
     }
 }

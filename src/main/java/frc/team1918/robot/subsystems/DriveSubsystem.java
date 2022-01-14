@@ -64,7 +64,7 @@ public class DriveSubsystem extends SubsystemBase {
 	}
 
 	public DriveSubsystem() { //initialize the class
-		setAllConversionFactor();
+		
 	}
 
 	@Override
@@ -77,15 +77,13 @@ public class DriveSubsystem extends SubsystemBase {
 			m_dtRL.getState(),
 			m_dtRR.getState()
 		);
+
 		if(dash_gyro_ticks % 5 == 0) {
 			Dashboard.Gyro.setGyroAngle(Helpers.General.roundDouble(m_gyro.getAngle(),3)); 
 		} 
 		dash_gyro_ticks++;
 		if(dash_dt_ticks % 5 == 0) {
-			Dashboard.DriveTrain.setDTAngle("FL", m_dtFL.getTurnAbsPos());
-			Dashboard.DriveTrain.setDTAngle("FR", m_dtFR.getTurnAbsPos());
-			Dashboard.DriveTrain.setDTAngle("RL", m_dtRL.getTurnAbsPos());
-			Dashboard.DriveTrain.setDTAngle("RR", m_dtRR.getTurnAbsPos());
+			m_dtFL.updateDashboard();
 		}
 		dash_dt_ticks++;
 	}
@@ -292,13 +290,7 @@ public class DriveSubsystem extends SubsystemBase {
 	//#endregion GYRO STUFF
 
 	//#region MOTOR CONTROLLER STUFF
-	public static void setAllConversionFactor() {
-		m_dtFL.setDriveConversionFactor();
-		m_dtFR.setDriveConversionFactor();
-		m_dtRL.setDriveConversionFactor();
-		m_dtRR.setDriveConversionFactor();
-	}
-
+	
 	public static void setAllDriveBrakeMode(boolean b) {
 		m_dtFL.setBrakeMode("drive", b);
 		m_dtFR.setBrakeMode("drive", b);
@@ -350,13 +342,6 @@ public class DriveSubsystem extends SubsystemBase {
 		m_dtFR.setTurnLocationInEncoderTicks(0);
 		m_dtRL.setTurnLocationInEncoderTicks(0);
 		m_dtRR.setTurnLocationInEncoderTicks(0);
-	}
-
-	public void resetAllAbsEnc() {
-		m_dtFL.resetTurnAbsEnc();
-		m_dtFR.resetTurnAbsEnc();
-		m_dtRL.resetTurnAbsEnc();
-		m_dtRR.resetTurnAbsEnc();
 	}
 
 	public boolean isAllTurnAtHome() {
