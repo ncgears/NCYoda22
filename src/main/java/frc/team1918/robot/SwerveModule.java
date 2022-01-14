@@ -58,7 +58,7 @@ public class SwerveModule {
                                             Constants.Global.kTimeoutMs);				// Configuration Timeout
         turn.configFeedbackNotContinuous(Constants.Global.SWERVE_SENSOR_NONCONTINUOUS, 0); //Disable continuous feedback tracking (so 0 and 1024 are effectively one and the same)
         turn.setSelectedSensorPosition(1024); //reset the talon encoder counter to 0 so we dont carry over a large error from a previous testing
-        turn.set(ControlMode.Position, 1024);
+        //turn.set(ControlMode.Position, 1024); //set this to some fixed value for testing
         turn.setSensorPhase(sensorPhase); //set the sensor phase based on the constants setting for this module
         turn.setInverted(inverted); //set the motor direction based on the constants setting for this module
         turn.config_kP(0, TURN_P); //set the kP for PID Tuning
