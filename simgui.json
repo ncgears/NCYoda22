@@ -1,4 +1,18 @@
 {
+  "HALProvider": {
+    "Other Devices": {
+      "Talon SRX[7]": {
+        "header": {
+          "open": true
+        }
+      },
+      "Talon SRX[7]/Analog In": {
+        "header": {
+          "open": true
+        }
+      }
+    }
+  },
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
@@ -13,6 +27,29 @@
   "NetworkTables": {
     "SmartDashboard": {
       "open": true
+    },
+    "Usage": {
+      "open": true
+    }
+  },
+  "Plot": {
+    "Plot <0>": {
+      "plots": [
+        {
+          "height": 338,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "NT:/SmartDashboard/dtFL Position Error"
+            }
+          ]
+        }
+      ]
     }
   }
 }
