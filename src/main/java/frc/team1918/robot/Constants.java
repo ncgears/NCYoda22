@@ -136,11 +136,11 @@ public class Constants {
         public static final class FL {  //TODO: PID Tuning
             public static final int DRIVE_MC_ID = 33; //Falcon500 Motor Controller ID
             public static final int TURN_MC_ID = 7; //TalonSRX Motor Controller ID
-            public static final boolean TURN_sensorPhase = false; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
+            public static final boolean TURN_sensorPhase = true; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
             public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
-            public static final double TURN_kP = 5.5; //PID P //6.0
-            public static final double TURN_kI = 0.005; //PID I //0
-            public static final double TURN_kD = 0.9; //PID D //0.9
+            public static final double TURN_kP = 0.3; //PID P //6.0
+            public static final double TURN_kI = 0.000; //PID I //0
+            public static final double TURN_kD = 0.0; //PID D //0.9
             public static final int TURN_kIZone = 0; //PID IZONE
             public static final int TURN_ALLOWED_ERROR = 2;
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
@@ -152,7 +152,7 @@ public class Constants {
             public static final int DRIVE_MC_ID = 31; //Falcon500 Motor Controller ID
             public static final int TURN_MC_ID = 4; //TalonSRX Motor Controller ID
             public static final boolean TURN_sensorPhase = false; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
-            public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
+            public static final boolean TURN_isInverted = false; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
             public static final double TURN_kP = 5.5; //PID P
             public static final double TURN_kI = 0.005; //PID I
             public static final double TURN_kD = 0.9; //PID D

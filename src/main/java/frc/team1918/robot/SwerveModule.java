@@ -57,8 +57,9 @@ public class SwerveModule {
         turn.configSelectedFeedbackSensor(  FeedbackDevice.Analog, //  FeedbackDevice.CTRE_MagEncoder_Absolute, // Local Feedback Source
                                             Constants.Global.PID_PRIMARY,				// PID Slot for Source [0, 1]
                                             Constants.Global.kTimeoutMs);				// Configuration Timeout
-        turn.configFeedbackNotContinuous(Constants.Global.SWERVE_SENSOR_NONCONTINUOUS, 0); //Disable continuous feedback tracking (so 0 and 4096 are effectively one and the same)
-        turn.setSelectedSensorPosition(0);
+        // turn.configFeedbackNotContinuous(Constants.Global.SWERVE_SENSOR_NONCONTINUOUS, 0); //Disable continuous feedback tracking (so 0 and 4096 are effectively one and the same)
+        // turn.setSelectedSensorPosition(0);
+        turn.configFeedbackNotContinuous(false,0);
         turn.setSensorPhase(sensorPhase);
         turn.setInverted(inverted);
         turn.config_kP(0, TURN_P);
