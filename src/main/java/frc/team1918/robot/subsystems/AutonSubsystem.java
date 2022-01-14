@@ -25,7 +25,7 @@ public class AutonSubsystem extends SubsystemBase {
   }
 
   public TrajectoryConfig getTrajectoryConfig() {
-    TrajectoryConfig config = new TrajectoryConfig(Constants.Auton.kMaxSpeedMetersPerSecond, Constants.Auton.kMaxAccelerationMetersPerSecondSquared);
+    TrajectoryConfig config = new TrajectoryConfig(Constants.Auton.kMaxSpeedMetersPerSecond, Constants.Auton.kMaxAccelMetersPerSecondSquared);
       config.setKinematics(Constants.Swerve.kDriveKinematics); //Add the kinematics to ensure max speed is obeyed
       // config.addConstraint(autoVoltageConstraint); //Apply a voltage constraint -- see example from wpilib
     return config;

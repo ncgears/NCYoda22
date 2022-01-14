@@ -57,12 +57,11 @@ public class Helpers {
         }
 
         /**
-         * This function takes encoder ticks and returns radians
-         * @param ticks integer value in encoder ticks
-         * @return value in radians
+         * This function converts encoder ticket and returns the value in radians
+         * @param ticks (integer) value in encoder ticks
+         * @return (double) value in radians
          */
         public final static double ticksToRadians(int ticks) {
-            // TODO: Fix this math, since full rotation should be 2048 from -1024 to +1024
             return (ticks * Math.PI / (Constants.DriveTrain.DT_TURN_ENCODER_FULL_ROTATION / 2));
         }
 
