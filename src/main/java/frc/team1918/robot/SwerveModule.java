@@ -57,7 +57,8 @@ public class SwerveModule {
                                             Constants.Global.PID_PRIMARY,				// PID Slot for Source [0, 1]
                                             Constants.Global.kTimeoutMs);				// Configuration Timeout
         turn.configFeedbackNotContinuous(Constants.Global.SWERVE_SENSOR_NONCONTINUOUS, 0); //Disable continuous feedback tracking (so 0 and 1024 are effectively one and the same)
-        turn.setSelectedSensorPosition(1024); //reset the talon encoder counter to 0 so we dont carry over a large error from a previous testing
+       
+        //turn.setSelectedSensorPosition(0); //reset the talon encoder counter to 0 so we dont carry over a large error from a previous testing
         //turn.set(ControlMode.Position, 1024); //set this to some fixed value for testing
         turn.setSensorPhase(sensorPhase); //set the sensor phase based on the constants setting for this module
         turn.setInverted(inverted); //set the motor direction based on the constants setting for this module
@@ -66,6 +67,7 @@ public class SwerveModule {
         turn.config_kD(0, TURN_D);
         turn.config_IntegralZone(0, TURN_IZONE);
         turn.configAllowableClosedloopError(0, TURN_ALLOWED_ERROR); 
+        turn.set(ControlMode.Position, 0); //TODO: Add constant for home_on_init
 
         drive.configFactoryDefault();
         drive.set(ControlMode.PercentOutput, 0);
@@ -140,7 +142,7 @@ public class SwerveModule {
         //Determine which direction we should turn to get to the desired setpoint
         int cur_ticks = getTurnPosition();
         int min_ticks = minTurnTicks(Helpers.General.radiansToTicks(state.angle.getRadians()), cur_ticks);
-        int turn_ticks = min_ticks + cur_ticks;
+        int turn_ticks = min_ticks + cur_ticks; //TODO min ticks should be a delta to add to cur ticks
 
         if(Helpers.Debug.debugThrottleMet(debug_ticks1)) {
             Helpers.Debug.debug(moduleName+" Speed (metersPerSecond)="+Helpers.General.roundDouble(state.speedMetersPerSecond,3)+" Turn Setpoint="+turn_ticks);
@@ -191,7 +193,7 @@ public class SwerveModule {
      * @return (integer) Raw units (typically encoder ticks) of turn location
      */
     public int getTurnPosition(){
-        return (int) turn.getSelectedSensorPosition(0);
+        return ((int) turn.getSelectedSensorPosition(0) & 0x3FF);
         //return (turn.getSensorCollection().getAnalogIn()); //This gets an ADC value for the analog sensor
         //We may want to use a bitwise "AND" with 0x3FF (1023), 0x7FF (2047), 0xFFF (4095) to get just the most significant bits that we are interested in.
         //Explanation: & is a bitwise "AND" operator, and 0xFFF is 4095 in Hex, consider "0101010101 AND 1111 = 0101"
@@ -262,8 +264,8 @@ public class SwerveModule {
      * Gets the closed-loop error. The units depend on which control mode is in use. If closed-loop is seeking a target sensor position, closed-loop error is the difference between target and current sensor value (in sensor units. Example 4096 units per rotation for CTRE Mag Encoder). If closed-loop is seeking a target sensor velocity, closed-loop error is the difference between target and current sensor value (in sensor units per 100ms). If using motion profiling or Motion Magic, closed loop error is calculated against the current target, and not the "final" target at the end of the profile/movement. See Phoenix-Documentation information on units.
      * @return Double precision units of error
      */
-    public double getError() {
-        return turn.getClosedLoopError();
+    public double getTurnError() {
+        return turn.getClosedLoopError(0);
     }
 
     /**

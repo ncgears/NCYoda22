@@ -37,7 +37,7 @@ public class Helpers {
     //General Helpers
     public static final class General {
         /**
-         * This function takes values a and b. It determines the minimum Change between the two based on the wrap value.
+         * This function takes values a and b. It determines the minimum delta between the two based on the wrap value.
          * @param a 
          * @param b
          * @param wrap
@@ -156,7 +156,10 @@ public class Helpers {
          * @return double precision -1 to 1 after applying deadband calculation
          */
         public static final double applyDeadband(double inVal) {
-            return ( Math.abs(inVal) < Constants.OI.OI_JOY_DEADBAND ) ? 0.0 : inVal;
+            double outVal = (Math.abs(inVal) < Constants.OI.OI_JOY_MIN_DEADBAND ) ? 0.0 : inVal;
+            outVal = (outVal > Constants.OI.OI_JOY_MAX_DEADBAND) ? 1.0 : outVal; //positive
+            outVal = (outVal < -Constants.OI.OI_JOY_MAX_DEADBAND) ? -1.0 : outVal; //negative
+            return outVal;
         }
 
         /**
@@ -167,7 +170,7 @@ public class Helpers {
          */
         public static final double applyRampingDeadband(double inVal) {
             double ramped = inVal;
-            return ( Math.abs(inVal) < Constants.OI.OI_JOY_DEADBAND ) ? 0.0 : ramped;
+            return ( Math.abs(inVal) < Constants.OI.OI_JOY_MIN_DEADBAND ) ? 0.0 : ramped;
             //TODO: Figure out math for transformation
             /**
              * The following math is from 2767 Stryke Force ExpoScale Utility
