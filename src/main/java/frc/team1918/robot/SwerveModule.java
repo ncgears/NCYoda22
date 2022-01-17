@@ -131,10 +131,12 @@ public class SwerveModule {
             double motorRpm = (Helpers.General.metersPerSecondToRPM(state.speedMetersPerSecond, wheelDiam) / Constants.DriveTrain.DT_DRIVE_CONVERSION_FACTOR);
             // Helpers.Debug.debug(moduleName+" desired mps: "+state.speedMetersPerSecond+" motorRpm: "+motorRpm);
             //m_drive_pidController.setReference(motorRpm, ControlType.kVelocity);
-            drive.set(motorRpm);
+            drive.set(motorRpm); //TODO: Set ControlMode.Velocity?
         } else {
             // TODO: Fix this. The drive.set is expecting a value from -1 to 1, but we are feeding speedMetersPerSecond, which could be more or less than this
-            drive.set(state.speedMetersPerSecond);
+            double velocity = state.speedMetersPerSecond / Constants.Swerve.kMaxSpeedMetersPerSecond;
+            // drive.set(state.speedMetersPerSecond);
+            drive.set(velocity);
         }
         
         //Determine which direction we should turn to get to the desired setpoint
