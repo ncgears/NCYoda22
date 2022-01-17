@@ -17,7 +17,7 @@ public class Constants {
     public static final class Global {
         //Global Constants
         public final static boolean CAMERA_ENABLED = false; //set to false if UsbCamera is removed
-        public final static boolean SWERVE_SENSOR_NONCONTINUOUS = true;
+        public final static boolean SWERVE_SENSOR_NONCONTINUOUS = false;
         public final static int kTimeoutMs = 30; //Timeout for reporting in DS if action fails, set to 0 to skip confirmation
         public final static int PID_PRIMARY = 0;  //Talon PID slot for primary loop
         public final static int ROBOT_WIDTH = 23; //Width of the robot frame (from the pivot of the wheels)
@@ -109,7 +109,7 @@ public class Constants {
      * Constants for the Swerve Modules
      */
     public static final class Swerve {
-        public static final boolean USE_OPTIMIZATION = false; //false to disable shortest path optimization
+        public static final boolean USE_OPTIMIZATION = true; //false to disable shortest path optimization
         public static final boolean USE_DRIVE_PID = false; //true to enable PID based drive control
         public static final boolean DISABLE_FL = false; //Disable FL Module
         public static final boolean DISABLE_FR = true; //Disable FR Module
@@ -134,9 +134,9 @@ public class Constants {
         public static final class FL {  //TODO: PID Tuning
             public static final int DRIVE_MC_ID = 33; //Falcon500 Motor Controller ID
             public static final int TURN_MC_ID = 7; //TalonSRX Motor Controller ID
-            public static final boolean TURN_sensorPhase = true; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
+            public static final boolean TURN_sensorPhase = false; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
             public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
-            public static final double TURN_kP = 0.3; //PID P
+            public static final double TURN_kP = 2.8; //PID P
             public static final double TURN_kI = 0.000; //PID I
             public static final double TURN_kD = 0.0; //PID D
             public static final int TURN_kIZone = 0; //PID IZONE
@@ -162,7 +162,7 @@ public class Constants {
          * Constants for Rear Left Swerve Module
          */
         public static final class RL {
-            public static final int DRIVE_MC_ID = 34; //Falcon500 Motor Controller ID
+            public static final int DRIVE_MC_ID = 35; //Falcon500 Motor Controller ID
             public static final int TURN_MC_ID = 8; //TalonSRX Motor Controller ID
             public static final boolean TURN_sensorPhase = false; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
             public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
@@ -229,7 +229,8 @@ public class Constants {
     public static final class OI {
         public final static int OI_JOY_DRIVER = 0; //ID of Driver Joystick
         public final static int OI_JOY_OPER = 1; //ID of Operator Joystick
-        public final static double OI_JOY_DEADBAND = 0.1; //Deadband for analog joystick axis
+        public final static double OI_JOY_MIN_DEADBAND = 0.1; //Deadband for analog joystick axis minimum
+        public final static double OI_JOY_MAX_DEADBAND = 0.9; //Deadband for analog joystick axis minimum
 
         /**
          * Constants for the Driver controller
