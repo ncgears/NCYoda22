@@ -120,6 +120,13 @@ public class Constants {
         public static final double kMaxModuleAngularAccelerationRadiansPerSecondSquared = 2 * Math.PI;
         public static final double kMaxSpeedMetersPerSecond = 3.677; //12.0fps calculated; 13.7fps per Mike
         public static final boolean kGyroReversed = false;
+        // Drive Motor Characterization
+        // See {@link https://first.wpi.edu/FRC/roborio/release/docs/java/edu/wpi/first/wpilibj/controller/SimpleMotorFeedforward.html}
+        // How do we determine these numbers? Need to find out. These falcon numbers are from Team364 example
+        public static final double driveKS = (0.667 / 12); //Static Gain //divide by 12 to convert from volts to percent output for CTRE
+        public static final double driveKV = (2.44 / 12); //Velocity Gain
+        public static final double driveKA = (0.27 / 12); //Acceleration Gain
+
         //Forward Positive, Left Positive, Up Positive (NWU Convention)
         public static final SwerveDriveKinematics kDriveKinematics =
         new SwerveDriveKinematics(

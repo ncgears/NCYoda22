@@ -7,10 +7,13 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 //WPILib
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 
 public class SwerveModule {
     private WPI_TalonSRX turn;
@@ -23,6 +26,8 @@ public class SwerveModule {
     private String moduleName;
     private double wheelOffsetMM = 0;
     private int debug_ticks1, debug_ticks2;
+
+    SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.Swerve.driveKS, Constants.Swerve.driveKV, Constants.Swerve.driveKA);
 
  	/**
 	 * 1918 Swerve Module v2022.1 - This swerve module uses a Falcon 500 (TalonFX) for drive and Talon SRX for turn (bag motor with gearbox).
@@ -126,19 +131,17 @@ public class SwerveModule {
      */
     public void setDesiredState(SwerveModuleState desiredState) {
         double wheelDiam = Constants.DriveTrain.DT_WHEEL_DIAM_MM - this.wheelOffsetMM;
-        // TODO: Test and enable optimization
         SwerveModuleState state = (Constants.Swerve.USE_OPTIMIZATION) ? optimize(desiredState) : desiredState;
         if (Constants.Swerve.USE_DRIVE_PID) {
-            // TODO: Remove this and the USE_DRIVE_PID since we would prefer to use the PID loop built in to the TalonFX
+            // TODO: Send speed to closed loop control rather than percent output. Enable USE_DRIVE_PID and test.
             double motorRpm = (Helpers.General.metersPerSecondToRPM(state.speedMetersPerSecond, wheelDiam) / Constants.DriveTrain.DT_DRIVE_CONVERSION_FACTOR);
             // Helpers.Debug.debug(moduleName+" desired mps: "+state.speedMetersPerSecond+" motorRpm: "+motorRpm);
-            //m_drive_pidController.setReference(motorRpm, ControlType.kVelocity);
-            drive.set(motorRpm); //TODO: Set ControlMode.Velocity?
+            drive.set(ControlMode.Velocity, motorRpm, DemandType.ArbitraryFeedForward, feedforward.calculate(state.speedMetersPerSecond));
         } else {
-            // TODO: Fix this. The drive.set is expecting a value from -1 to 1, but we are feeding speedMetersPerSecond, which could be more or less than this
-            double velocity = state.speedMetersPerSecond / Constants.Swerve.kMaxSpeedMetersPerSecond;
+            // old way, which was not correct
             // drive.set(state.speedMetersPerSecond);
-            drive.set(velocity);
+            double percentOutput = state.speedMetersPerSecond / Constants.Swerve.kMaxSpeedMetersPerSecond;
+            drive.set(ControlMode.PercentOutput, percentOutput);
         }
         
         //Determine which direction we should turn to get to the desired setpoint
