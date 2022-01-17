@@ -11,7 +11,6 @@ public class Dashboard {
     private static final String dash_shooter_target = "Shooter Target Speed"; //Target shooter speed
     private static final String dash_hood_pos = "HoodPosition"; //Hood position (up/down)
     private static final String dash_gyro_angle = "GyroAngle"; //Gyro angle
-    private static final String dash_angle = " Angle"; //debugging FL encoder angle
 
     public static final class Shooter {
         public static final void setCurrentSpeed(double speed) {
