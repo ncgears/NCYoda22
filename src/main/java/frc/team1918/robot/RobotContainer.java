@@ -134,7 +134,6 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     //The buttons here are named based on their functional purpose. This abstracts the purpose from which controller it is attached to.
-    btn_HOMESWERVE.whenPressed(new cg_drive_autoHome(m_drive));
     // btn_CALIBRATE_START.whenPressed(new drive_startCalibration(m_drive));
     // btn_CALIBRATE_STOP.whenPressed(new drive_stopCalibration(m_drive));
     btn_GYRO_RESET.whenPressed(new drive_resetGyro(m_drive));
@@ -169,6 +168,7 @@ public class RobotContainer {
   public cg_drive_autoHome getAutoHomeCommand() {
     return m_autoHome;
   }
+
   // public Command getStartCalCommand() {
   //   return m_startCalCommand;
   // }

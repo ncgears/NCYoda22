@@ -112,13 +112,13 @@ public class Constants {
         public static final boolean USE_OPTIMIZATION = true; //false to disable shortest path optimization
         public static final boolean USE_DRIVE_PID = false; //true to enable PID based drive control
         public static final boolean DISABLE_FL = false; //Disable FL Module
-        public static final boolean DISABLE_FR = true; //Disable FR Module
-        public static final boolean DISABLE_RL = true; //Disable RL Module
-        public static final boolean DISABLE_RR = true; //Disable RR Module
+        public static final boolean DISABLE_FR = false; //Disable FR Module
+        public static final boolean DISABLE_RL = false; //Disable RL Module
+        public static final boolean DISABLE_RR = false; //Disable RR Module
         // swerve control definitions
         public static final double kMaxModuleAngularSpeedRadiansPerSecond = 2 * Math.PI;
         public static final double kMaxModuleAngularAccelerationRadiansPerSecondSquared = 2 * Math.PI;
-        public static final double kMaxSpeedMetersPerSecond = 3.677; //12.0fps calculated; 13.7fps per Mike
+        public static final double kMaxSpeedMetersPerSecond = 3.770; //12.0fps calculated; 13.7fps per Mike
         public static final boolean kGyroReversed = false;
         // Drive Motor Characterization
         // See {@link https://first.wpi.edu/FRC/roborio/release/docs/java/edu/wpi/first/wpilibj/controller/SimpleMotorFeedforward.html}
@@ -157,8 +157,9 @@ public class Constants {
             public static final double TURN_kI = 0.000; //PID I
             public static final double TURN_kD = 0.0; //PID D
             public static final int TURN_kIZone = 0; //PID IZONE
-            public static final int TURN_ALLOWED_ERROR = 10;
+            public static final int TURN_ALLOWED_ERROR = 2;
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
+            public static final boolean DRIVE_isInverted = false;
         }
         /**
          * Constants for Front Right Swerve Module
@@ -168,12 +169,13 @@ public class Constants {
             public static final int TURN_MC_ID = 4; //TalonSRX Motor Controller ID
             public static final boolean TURN_sensorPhase = false; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
             public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
-            public static final double TURN_kP = 0.3; //PID P
+            public static final double TURN_kP = 2.8; //PID P
             public static final double TURN_kI = 0.000; //PID I
             public static final double TURN_kD = 0.0; //PID D
             public static final int TURN_kIZone = 0; //PID IZONE
-            public static final int TURN_ALLOWED_ERROR = 10;
+            public static final int TURN_ALLOWED_ERROR = 2;
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
+            public static final boolean DRIVE_isInverted = false;
         }
         /**
          * Constants for Rear Left Swerve Module
@@ -183,12 +185,13 @@ public class Constants {
             public static final int TURN_MC_ID = 8; //TalonSRX Motor Controller ID
             public static final boolean TURN_sensorPhase = false; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
             public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
-            public static final double TURN_kP = 0.3; //PID P
+            public static final double TURN_kP = 2.8; //PID P
             public static final double TURN_kI = 0.000; //PID I
             public static final double TURN_kD = 0.0; //PID D
             public static final int TURN_kIZone = 0; //PID IZONE
-            public static final int TURN_ALLOWED_ERROR = 10;
+            public static final int TURN_ALLOWED_ERROR = 2;
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
+            public static final boolean DRIVE_isInverted = false;
         }
         /**
          * Constants for Rear Right Swerve Module
@@ -198,12 +201,13 @@ public class Constants {
             public static final int TURN_MC_ID = 11; //TalonSRX Motor Controller ID
             public static final boolean TURN_sensorPhase = false; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
             public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
-            public static final double TURN_kP = 0.3; //PID P
+            public static final double TURN_kP = 2.8; //PID P
             public static final double TURN_kI = 0.000; //PID I
             public static final double TURN_kD = 0.0; //PID D
             public static final int TURN_kIZone = 0; //PID IZONE
-            public static final int TURN_ALLOWED_ERROR = 10;
+            public static final int TURN_ALLOWED_ERROR = 2;
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
+            public static final boolean DRIVE_isInverted = false;
         }
     }
 
@@ -219,8 +223,8 @@ public class Constants {
         public final static double DT_HOME_DELAY = 0.75; //Seconds to wait for homing before reset encoders
         public final static int DT_HOME_MARGIN_OF_ERROR = 20; //Encoder ticks margin to consider home (plus or minus this amount)
         ////Turn Tuning
-        public final static double DT_TURN_MULT_STATIONARY = 0.5; //Turn speed multiplier while not moving
-        public final static double DT_TURN_MULT_MOVING = 0.9; //Turn speed multiplier while moving
+        public final static double DT_TURN_MULT_STATIONARY = 1.0; //Turn speed multiplier while not moving
+        public final static double DT_TURN_MULT_MOVING = 1.0; //Turn speed multiplier while moving
         public final static boolean DT_TURN_MULT_BEFORE_DB = true; //Apply turn multiplier before deadband
         public final static int DT_TURN_ENCODER_FULL_ROTATION = 1024;
         public final static boolean DT_USE_FIELD_CENTRIC = true; //Set to true to use field-centric drive
@@ -229,11 +233,12 @@ public class Constants {
         public final static double DT_STR_MULT = 1.0; //Str throttle multiplier
         public final static boolean DT_DRIVE_DISABLED = false; //Set to true to disable the drive motors (for lab)
         public final static double DT_WHEEL_DIAM_MM = 77.1; //diameter of drive wheels in millimeters
-        public final static int DT_DRIVE_FIRST_GEARONE = 21; //swerve drive first gear set input teeth
+        //Falcon500 = 6380RPM  free speed : 945RPM Calculated
+        public final static int DT_DRIVE_FIRST_GEARONE = 16; //swerve drive first gear set input teeth
         public final static int DT_DRIVE_FIRST_GEARTWO = 36; //swerve drive first gear set output teeth
         public final static int DT_DRIVE_SECOND_GEARONE = 15; //swerve drive second gear set input teeth
         public final static int DT_DRIVE_SECOND_GEARTWO = 45; //swerve drive second gear set output teeth
-        public final static double DT_DRIVE_CONVERSION_FACTOR = 0.194444444; //first_gearone / first_geartwo * second_gearone / second_geartwo
+        public final static double DT_DRIVE_CONVERSION_FACTOR = 0.148148; //first_gearone / first_geartwo * second_gearone / second_geartwo
         // public final static double DT_DRIVE_CONVERSION_FACTOR = (DT_DRIVE_FIRST_GEARONE / DT_DRIVE_FIRST_GEARTWO) * (DT_DRIVE_SECOND_GEARONE / DT_DRIVE_SECOND_GEARTWO); //Conversion factor to correct RPM from SparkMax getVelocity()
     }
     

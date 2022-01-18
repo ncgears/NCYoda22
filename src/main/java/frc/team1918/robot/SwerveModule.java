@@ -44,7 +44,7 @@ public class SwerveModule {
      * @param sensorPhase [boolean] invert the turn encoder sensor phase
      * @param inverted [boolean] invert the turn control direction (after making the sensor phase match) to make "forward" green on the talon
 	 */
-    public SwerveModule(String name, int driveMC_ID, int turnMC_ID, double tP, double tI, double tD, int tIZone, int tAllowedError, double wheelOffsetMM, boolean sensorPhase, boolean inverted){
+    public SwerveModule(String name, int driveMC_ID, int turnMC_ID, double tP, double tI, double tD, int tIZone, int tAllowedError, double wheelOffsetMM, boolean sensorPhase, boolean turnInverted, boolean driveInverted){
         drive = new WPI_TalonFX(driveMC_ID);
         turn = new WPI_TalonSRX(turnMC_ID);
         moduleName = name;
@@ -66,7 +66,7 @@ public class SwerveModule {
         //turn.setSelectedSensorPosition(0); //reset the talon encoder counter to 0 so we dont carry over a large error from a previous testing
         //turn.set(ControlMode.Position, 1024); //set this to some fixed value for testing
         turn.setSensorPhase(sensorPhase); //set the sensor phase based on the constants setting for this module
-        turn.setInverted(inverted); //set the motor direction based on the constants setting for this module
+        turn.setInverted(turnInverted); //set the motor direction based on the constants setting for this module
         turn.config_kP(0, TURN_P); //set the kP for PID Tuning
         turn.config_kI(0, TURN_I);
         turn.config_kD(0, TURN_D);
@@ -77,7 +77,7 @@ public class SwerveModule {
         drive.configFactoryDefault();
         drive.set(ControlMode.PercentOutput, 0);
         drive.setNeutralMode(NeutralMode.Brake);
-        drive.setInverted(inverted);
+        drive.setInverted(driveInverted);
         drive.config_kP(0, 0.0005);
         drive.config_kI(0, 0.0);
         drive.config_kD(0, 0.00005);
@@ -147,7 +147,7 @@ public class SwerveModule {
         //Determine which direction we should turn to get to the desired setpoint
         int cur_ticks = getTurnPosition();
         int min_ticks = minTurnTicks(Helpers.General.radiansToTicks(state.angle.getRadians()), cur_ticks);
-        int turn_ticks = min_ticks + cur_ticks; //TODO min ticks should be a delta to add to cur ticks
+        int turn_ticks = min_ticks + cur_ticks;
 
         if(Helpers.Debug.debugThrottleMet(debug_ticks1)) {
             Helpers.Debug.debug(moduleName+" Speed (metersPerSecond)="+Helpers.General.roundDouble(state.speedMetersPerSecond,3)+" Turn Setpoint="+turn_ticks);
