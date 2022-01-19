@@ -84,7 +84,8 @@ public class Constants {
         public final static boolean isDisabled = false; //Disable the shooter subsystem
         public final static int id_Motor1 = 16; //ID of the Shooter Motor 1 Controller
         public final static boolean isInverted_Motor1 = false; //Invert motor direction
-        public final static int kMaxShooterSpeed = 5000; //Max RPM of the Shooter Motor 1
+        public final static int kMaxShooterSpeed = 5000; //Max RPM of the Shooter Motor
+        public final static int kMinShooterSpeed = 100; //Min RPM of the Shooter Motor
         public final static double kSpeedIncrementSize = 25; //RPMs to change the shooter speed per increment
         public final static double kP = 0.001;
         public final static double kI = 0.0;
@@ -268,8 +269,8 @@ public class Constants {
             public final static int AXIS_TURN = Logitech.AXIS_RH; //Axis that controls the rotation of the robot
             public final static int BTN_LOCKANGLE = Logitech.BTN_B; //Move collector to Up position
             public final static int BTN_UNLOCKANGLE = Logitech.BTN_A; //Engage anti-backdrive for climber
-            public final static int BTN_MIXER_FEED = Logitech.BTN_X; //Run the mixer in the forward direction
-            public final static int BTN_MIXER_FEEDSTUCK = Logitech.BTN_LB; //Reverse the mixer direction to unstick power cells
+            public final static int BTN_FEED_FWD = Logitech.BTN_X; //Run the mixer in the forward direction
+            public final static int BTN_FEED_REV = Logitech.BTN_LB; //Reverse the mixer direction to unstick power cells
             public final static int BTN_HOMESWERVE = Logitech.BTN_Y; //Home the swerve modules
             public final static int BTN_MECHZERO = Logitech.BTN_BACK; //DRIVER MECHZERO and OPER MECHZERO are required for this
             public final static int BTN_TOG_DEBUG = Logitech.BTN_START; //Toggle the debugging console messages

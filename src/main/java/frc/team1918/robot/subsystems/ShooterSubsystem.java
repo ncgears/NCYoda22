@@ -10,12 +10,14 @@ import frc.team1918.robot.Helpers;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class ShooterSubsystem extends SubsystemBase {
   private WPI_TalonFX shoot; // shooter controller
   private double m_shooter_rpm = 0.0; // Current shooter speed
+  private double m_shooter_oldrpm = 0.0; // Previous shooter speed
   private Solenoid m_hood;
   /**
    * Creates a new ExampleSubsystem.
@@ -27,30 +29,31 @@ public class ShooterSubsystem extends SubsystemBase {
     shoot.set(ControlMode.PercentOutput, 0);
     shoot.setNeutralMode(NeutralMode.Coast);
     shoot.setInverted(Constants.Shooter.isInverted_Motor1);
+    shoot.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
     shoot.config_kP(0, Constants.Shooter.kP);
     shoot.config_kI(0, Constants.Shooter.kI);
     shoot.config_kD(0, Constants.Shooter.kD);
     shoot.config_IntegralZone(0, Constants.Shooter.kIZone);
     //Setup the solenoid
-    m_hood = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.AIR_HOOD_ID);
+    m_hood = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_HoodSolonoid);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     if (m_shooter_rpm != m_shooter_oldrpm) {
-      m_pidController.setReference(m_shooter_rpm, ControlType.kVelocity); //Set the target
+      shoot.set(ControlMode.Velocity, m_shooter_rpm); //Set the target
       m_shooter_oldrpm=m_shooter_rpm;
     }
     Dashboard.Shooter.setCurrentSpeed(getShooterSpeed());
   }
 
   public double getShooterSpeed() {
-    return Helpers.General.roundDouble(m_encoder.getVelocity(),0);
+    return Helpers.General.roundDouble(shoot.getSelectedSensorVelocity(0),0);
   }
 
   public void setShooterSpeed(double RPM) {
-    m_shooter_rpm = Math.min(RPM, Constants.Shooter.SHOOT_MAX_RPM);
+    m_shooter_rpm = Math.min(RPM, Constants.Shooter.kMaxShooterSpeed);
   }
 
   public void setShooterVbus(double Vbus) {
@@ -58,12 +61,12 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void increaseShooterSpeed() {
-    m_shooter_rpm = Math.min(m_shooter_rpm + Constants.Shooter.SHOOT_speedIncrement, Constants.Shooter.SHOOT_MAX_RPM);
+    m_shooter_rpm = Math.min(m_shooter_rpm + Constants.Shooter.kSpeedIncrementSize, Constants.Shooter.kMaxShooterSpeed);
     Helpers.Debug.debug("New Shooter Speed:"+m_shooter_rpm);
   }
 
   public void decreaseShooterSpeed() {
-    m_shooter_rpm = Math.max(m_shooter_rpm - Constants.Shooter.SHOOT_speedIncrement, Constants.Shooter.SHOOT_MIN_RPM);
+    m_shooter_rpm = Math.max(m_shooter_rpm - Constants.Shooter.kSpeedIncrementSize, Constants.Shooter.kMinShooterSpeed);
     Helpers.Debug.debug("New Shooter Speed:"+m_shooter_rpm);
   }
 
@@ -79,7 +82,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void runFeeder(boolean run) {
     //run the feeder based on boolean
-    if (run && !Constants.Shooter.FEED_isDisabled) {
+    if (run && !Constants.Feeder.isDisabled) {
       feed1.set(ControlMode.PercentOutput, Constants.Shooter.FEED_1_SPEED);
       feed2.set(ControlMode.PercentOutput, Constants.Shooter.FEED_2_SPEED);
     } else {

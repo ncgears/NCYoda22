@@ -49,7 +49,7 @@ public class RobotContainer {
   //team 1918 subsystems
   // private final ClimberSubsystem m_climber = new ClimberSubsystem();
   private final CollectorSubsystem m_collector = new CollectorSubsystem();
-  private final FeederSubsystem m_mixer = new FeederSubsystem();
+  private final FeederSubsystem m_feeder = new FeederSubsystem();
   // private final ShooterSubsystem m_shooter = new ShooterSubsystem();
   private final DriveSubsystem m_drive = new DriveSubsystem();
   //other subsystems
@@ -71,8 +71,8 @@ public class RobotContainer {
   private JoystickButton btn_UNLOCKANGLE = new JoystickButton(dj, Constants.OI.Driver.BTN_UNLOCKANGLE);
   // private JoystickButton btn_MECHZERO_KEY1 = new JoystickButton(dj, Constants.OI.Driver.BTN_MECHZERO);
   private JoystickButton btn_HOMESWERVE = new JoystickButton(dj, Constants.OI.Driver.BTN_HOMESWERVE);
-  private JoystickButton btn_MIXER_FEED = new JoystickButton(dj, Constants.OI.Driver.BTN_MIXER_FEED);
-  private JoystickButton btn_MIXER_FEEDSTUCK = new JoystickButton(dj, Constants.OI.Driver.BTN_MIXER_FEEDSTUCK);
+  private JoystickButton btn_FEEDER_FWD = new JoystickButton(dj, Constants.OI.Driver.BTN_FEED_FWD);
+  private JoystickButton btn_FEEDER_REV = new JoystickButton(dj, Constants.OI.Driver.BTN_FEED_REV);
   // private JoystickButton btn_CALIBRATE_START = new JoystickButton(dj, Constants.OI.Driver.BTN_CALIBRATE_START);
   // private JoystickButton btn_CALIBRATE_STOP = new JoystickButton(dj, Constants.OI.Driver.BTN_CALIBRATE_STOP);
   private JoystickButton btn_TOGGLE_DEBUG = new JoystickButton(dj, Constants.OI.Driver.BTN_TOG_DEBUG);

@@ -16,7 +16,7 @@ public class CollectorSubsystem extends SubsystemBase {
 
   public CollectorSubsystem() {
     coll = new WPI_TalonSRX(Constants.Collector.id_Motor1);
-    m_coll1 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.AIR_COLLECTOR_ID);
+    m_coll1 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_CollectorSolonoid);
   }
 
   @Override
@@ -36,14 +36,14 @@ public class CollectorSubsystem extends SubsystemBase {
     switch(position) {
       case "down":
         //put collector down
-        m_coll1.set(!Constants.Air.AIR_COLL_UP);
+        m_coll1.set(!Constants.Air.stateCollectorUp);
         m_collector_down = true;
         break;
       case "up":
       case "stow":
       default:
         //put collector up
-        m_coll1.set(Constants.Air.AIR_COLL_UP);
+        m_coll1.set(Constants.Air.stateCollectorUp);
         m_collector_down = false;
         break;
     }
