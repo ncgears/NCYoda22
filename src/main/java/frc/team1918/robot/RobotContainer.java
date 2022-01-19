@@ -22,17 +22,18 @@ import frc.team1918.robot.utils.OrPOVButton;
 
 //Subsystems imports
 import frc.team1918.robot.subsystems.AutonSubsystem;
-// import frc.team1918.robot.subsystems.ClimberSubsystem;
+import frc.team1918.robot.subsystems.ClimberSubsystem;
 import frc.team1918.robot.subsystems.CollectorSubsystem;
 import frc.team1918.robot.subsystems.DriveSubsystem;
-// import frc.team1918.robot.subsystems.ShooterSubsystem;
-import frc.team1918.robot.subsystems.MixerSubsystem;
+import frc.team1918.robot.subsystems.FeederSubsystem;
+import frc.team1918.robot.subsystems.ShooterSubsystem;
 //Commands imports
 import frc.team1918.robot.commands.helpers.helpers_toggleDebug;
-import frc.team1918.robot.commands.drive.*;
-// import frc.team1918.robot.commands.shooter.*;
-import frc.team1918.robot.commands.mixer.*;
+import frc.team1918.robot.commands.climber.*;
 import frc.team1918.robot.commands.collector.*;
+import frc.team1918.robot.commands.drive.*;
+import frc.team1918.robot.commands.feeder.*;
+import frc.team1918.robot.commands.shooter.*;
 //CommandGroup imports
 import frc.team1918.robot.commandgroups.cg_drive_autoHome;
 
@@ -48,7 +49,7 @@ public class RobotContainer {
   //team 1918 subsystems
   // private final ClimberSubsystem m_climber = new ClimberSubsystem();
   private final CollectorSubsystem m_collector = new CollectorSubsystem();
-  private final MixerSubsystem m_mixer = new MixerSubsystem();
+  private final FeederSubsystem m_mixer = new FeederSubsystem();
   // private final ShooterSubsystem m_shooter = new ShooterSubsystem();
   private final DriveSubsystem m_drive = new DriveSubsystem();
   //other subsystems
@@ -111,7 +112,7 @@ public class RobotContainer {
 
     // Enable closed loop control of compressor and enable it
     //m_air.setClosedLoopControl(!Constants.Air.AIR_DISABLED);
-    if(Constants.Air.AIR_DISABLED) m_air.disable();
+    if(Constants.Air.isDisabled) m_air.disable();
 
     // Enable the camera server and start capture
     if(Constants.Global.CAMERA_ENABLED) {
@@ -142,8 +143,6 @@ public class RobotContainer {
     // btn_SHOOT_LINE.whenPressed(new shooter_shootLine(m_shooter)).whenReleased(new shooter_stopShooter(m_shooter));
     // btn_SHOOT_SHORT.whenPressed(new shooter_shootShort(m_shooter)).whenReleased(new shooter_stopShooter(m_shooter));
     // btn_SHOOT_TRENCH.whenPressed(new shooter_shootTrench(m_shooter)).whenReleased(new shooter_stopShooter(m_shooter));
-    btn_MIXER_FEED.whileHeld(new mixer_mixerForward(m_mixer));
-    btn_MIXER_FEEDSTUCK.whileHeld(new mixer_mixerReverse(m_mixer));
     btn_COLLECTOR_IN.whileHeld(new collector_intakeForward(m_collector)).whenReleased(new collector_intakeStop(m_collector));
     btn_COLLECTOR_DOWN.whenPressed(new collector_lowerIntake(m_collector));
     btn_COLLECTOR_UP.whenPressed(new collector_raiseIntake(m_collector));

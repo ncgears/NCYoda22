@@ -10,51 +10,27 @@ import frc.team1918.robot.Helpers;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.ControlType;
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxPIDController;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class ShooterSubsystem extends SubsystemBase {
-  private WPI_TalonSRX feed1; // first stage feed controller
-  private WPI_TalonSRX feed2; // second stage feed controller
-  private CANSparkMax shoot; // shooter controller
+  private WPI_TalonFX shoot; // shooter controller
   private double m_shooter_rpm = 0.0; // Current shooter speed
-  private double m_shooter_oldrpm = 0.0; // Old shooter speed
-  private SparkMaxPIDController m_pidController;
-  private RelativeEncoder m_encoder;
   private Solenoid m_hood;
   /**
    * Creates a new ExampleSubsystem.
    */
   public ShooterSubsystem() {
-    //Reset the talonsrx controllers to avoid any leftovers in flash and configure them as desired
-    feed1 = new WPI_TalonSRX(Constants.Shooter.FEED_1_MC_ID);
-    feed2 = new WPI_TalonSRX(Constants.Shooter.FEED_2_MC_ID);
-    feed1.configFactoryDefault();
-    feed2.configFactoryDefault();
-    feed1.set(ControlMode.PercentOutput, 0);
-    feed2.set(ControlMode.PercentOutput, 0);
-    feed1.setNeutralMode(NeutralMode.Coast);
-    feed2.setNeutralMode(NeutralMode.Coast);
-    feed1.setInverted(Constants.Shooter.FEED_1_isInverted);
-    feed2.setInverted(Constants.Shooter.FEED_2_isInverted);
     //Setup the SparkMAX controller as desired
-    shoot = new CANSparkMax(Constants.Shooter.SHOOT_MC_ID, MotorType.kBrushless);
-    shoot.restoreFactoryDefaults();
-    shoot.setInverted(Constants.Shooter.SHOOT_isInverted);
-    shoot.setIdleMode(IdleMode.kCoast);
-    m_pidController = shoot.getPIDController();
-    m_encoder = shoot.getEncoder();
-    m_pidController.setP(Constants.Shooter.SHOOT_PID_P); //PID P
-    m_pidController.setI(Constants.Shooter.SHOOT_PID_I); //PID I
-    m_pidController.setD(Constants.Shooter.SHOOT_PID_D); //PID D
-    m_pidController.setIZone(Constants.Shooter.SHOOT_PID_IZONE); //IZone
-    m_pidController.setFF(Constants.Shooter.SHOOT_PID_FF); //Feed forward
-    m_pidController.setOutputRange(-0.1, 1); //-10% allowed for speed down of shooter
+    shoot = new WPI_TalonFX(Constants.Shooter.id_Motor1);
+    shoot.configFactoryDefault();
+    shoot.set(ControlMode.PercentOutput, 0);
+    shoot.setNeutralMode(NeutralMode.Coast);
+    shoot.setInverted(Constants.Shooter.isInverted_Motor1);
+    shoot.config_kP(0, Constants.Shooter.kP);
+    shoot.config_kI(0, Constants.Shooter.kI);
+    shoot.config_kD(0, Constants.Shooter.kD);
+    shoot.config_IntegralZone(0, Constants.Shooter.kIZone);
     //Setup the solenoid
     m_hood = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.AIR_HOOD_ID);
   }

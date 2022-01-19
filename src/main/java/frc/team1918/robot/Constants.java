@@ -33,6 +33,7 @@ public class Constants {
      * Constants for the Autonomous subsystem
      */
     public static final class Auton {
+        public final static boolean isDisabled = true; //Disable autonomous
         public final static double kMaxSpeedMetersPerSecond = 0.25;
         public final static double kMaxAccelMetersPerSecondSquared = 0.0;
     }
@@ -42,67 +43,71 @@ public class Constants {
      * This is not a subsystem, the pneumatics are controlled directly in their respective subsystems
      */
     public static final class Air {
-        public final static boolean AIR_DISABLED = false; //Set to true to disable compressor
-        public final static int AIR_COLLECTOR1_ID = 0; //ID of solonoid for collector stage 1
-        public final static int AIR_COLLECTOR2_ID = 1; //ID of solonoid for collector stage 2
-        public final static int AIR_HOOD_ID = 2; //ID of solonoid for hood control
-        public final static int AIR_ANTIGRAV_ID = 3; //ID of solonoid for climber anti-backdrive
-        public final static int AIR_SPARE_ID = 4; //ID of solonoid for spare 
-        public final static boolean AIR_COLL1_DOWN = true; //State of the solenoid when COLL1 is down
-        public final static boolean AIR_COLL2_DOWN = true; //State of the solenoid when COLL2 is down
-        public final static boolean AIR_HOOD_UP = true; //State of the solenoid when HOOD is up
+        public final static boolean isDisabled = false; //Disable compressor
+        public final static int AIR_COLLECTOR_ID = 0; //ID of solonoid for collector
+        public final static int AIR_HOOD_ID = 1; //ID of solonoid for hood control
+        public final static int AIR_CLIMBHOOK1_ID = 2; //ID of solonoid for climber hook 1
+        public final static int AIR_CLIMBHOOK2_ID = 3; //ID of solonoid for climber hook 2
+        public final static int AIR_WHIRLYGIG_ID = 4; //ID of solonoid for whirlygig
+        public final static boolean AIR_COLL_UP = true; //State of the solenoid when COLL1 is up
+        public final static boolean AIR_HOOD_UP = true; //State of the solonoid when HOOD is up
+        public final static boolean AIR_CLIMBHOOK1_LOCK = true; //State of the solonoid when the hook is locked
+        public final static boolean AIR_CLIMBHOOK2_LOCK = true; //State of the solonoid when the hook is locked
+        public final static boolean AIR_WHIRLYGIG_UP = true; //State of the solenoid when CLIMBER is up
     }
-    
-    /**
-     * Constants for the Shooter subsystem
-     */
-    public static final class Shooter {
-        public final static boolean FEED_isDisabled = false; //Disable the feed for testing
-
-        public final static int SHOOT_WALL_RPM = 2400; //Wall
-        public final static boolean SHOOT_WALL_HOOD = !Air.AIR_HOOD_UP;
-        public final static int SHOOT_SHORT_RPM = 3400; //Short
-        public final static boolean SHOOT_SHORT_HOOD = Air.AIR_HOOD_UP;
-        public final static int SHOOT_LINE_RPM = 3000; //Line
-        public final static boolean SHOOT_LINE_HOOD = !Air.AIR_HOOD_UP;
-        public final static int SHOOT_TRENCH_RPM = 3150; //Trench
-        public final static boolean SHOOT_TRENCH_HOOD = Air.AIR_HOOD_UP;
-
-        public final static int SHOOT_MC_ID = 12; //ID of the Shooter SparkMAX
-        public final static int FEED_1_MC_ID = 14; //ID of the Shooter stage 1 TalonSRX
-        public final static int FEED_2_MC_ID = 6; //ID of the Shooter stage 2 TalonSRX
-        public final static boolean FEED_1_isInverted = true; //Should the Feed1 talon be inverted
-        public final static double FEED_1_SPEED = 1.0; //Speed for the Feed1 talon
-        public final static boolean FEED_2_isInverted = false; //Should the Feed2 talon be inverted
-        public final static double FEED_2_SPEED = 1.0; //Speed for the Feed2 talon
-        public final static double SHOOT_MAX_RPM = 5600; //Maximum RPMs for setting shooter
-        public final static double SHOOT_MIN_RPM = 2200; //Minimum RPMs for setting shooter
-        public final static double SHOOT_speedIncrement = 25; //Incremental amounts to adjust shooter throttle
-        public final static boolean SHOOT_isInverted = true;
-        public final static double SHOOT_PID_P = 0.001; //9e-6;
-        public final static double SHOOT_PID_I = 0; //4e-7; 
-        public final static double SHOOT_PID_D = 0; 
-        public final static double SHOOT_PID_IZONE = 0;
-        public final static double SHOOT_PID_FF = 1/SHOOT_MAX_RPM; //Feed forward - This should be 1/MAX_RPM
-        //Feed Forward Explanation: Reference output times desired result.. IE, if the MAX is 5400 RPM at a reference output of 1.0, then 1/5400 FF is appropriate.  
-        //This supplies the controller with a known output value to get the desired target result, then the PID can handle deviations from the known behavior.
-        //We should get the MAX RPM from trial and error by running with a reference power of 100% and measuring the actual result from the encoder
-    }
-
-    /**
-     * Constants for the Mixer subsystem
-     */
-    public static final class Mixer {
-        public final static int MIXER_MC_ID = 13; //ID of the Mixer talon
-        public final static double MIXER_SPEED = 0.5; //Speed for the Mixer talon
-    }
-
+ 
     /**
      * Constants for the Collector subsystem
      */
     public static final class Collector {
-        public final static int COLLECTOR_MC_ID = 15; //ID of the Collector talon
-        public final static double COLLECTOR_SPEED = 1.0; //Speed for the Collector talon
+        public final static boolean isDisabled = false; //Disable the collector subsystem
+        public final static int id_Motor1 = 15; 
+        public final static double kDefaultCollectorSpeed = 1.0;
+        public final static int id_ColorSensor1 = 4;
+    }
+   
+    /**
+     * Constants for the Feeder subsystem
+     */
+    public static final class Feeder {
+        public final static boolean isDisabled = false; //Disable the feeder subsystem
+        public final static int id_BeamBreak1 = 0; //ID of the Beam Break 1 DIO
+        public final static int id_Motor1 = 14; //ID of the Feeder Motor 1 Controller
+        public final static boolean isInverted_Motor1 = false; //Invert motor direction
+        public final static double speed_Motor1 = 0.5; //Feeder Motor 1 Speed
+    }
+
+    /**
+     * Constants for the Shooter subsystem
+     */
+    public static final class Shooter {
+        public final static boolean isDisabled = false; //Disable the shooter subsystem
+        public final static int id_Motor1 = 16; //ID of the Shooter Motor 1 Controller
+        public final static boolean isInverted_Motor1 = false; //Invert motor direction
+        public final static int kMaxShooterSpeed = 5000; //Max RPM of the Shooter Motor 1
+        public final static double kSpeedIncrementSize = 25; //RPMs to change the shooter speed per increment
+        public final static double kP = 0.001;
+        public final static double kI = 0.0;
+        public final static double kD = 0.0;
+        public final static double kIZone = 0.0;
+        public final static double kArbitraryFeedForward = 1/kMaxShooterSpeed;
+
+        public static final class Positions {
+            public final static int speed_Pos1 = 2400;
+            public final static boolean hood_Pos1 = !Air.AIR_HOOD_UP;
+            public final static String name_Pos1 = "Over The Rainbow";
+        }
+    }
+
+    /**
+     * Constants for the Climber subsystem
+     */
+    public static final class Climber {
+        public static final boolean isDisabled = false; //Disable the climber subsystem
+        public static final int id_Motor1 = 18; 
+        public static final int id_LimitHook1 = 1;
+        public static final int id_LimitHook2 = 2;
+        public static final int id_PressureSensor = 3; 
     }
 
     /**
