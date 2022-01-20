@@ -121,6 +121,12 @@ public class Constants {
         public static final boolean DISABLE_FR = false; //Disable FR Module
         public static final boolean DISABLE_RL = false; //Disable RL Module
         public static final boolean DISABLE_RR = false; //Disable RR Module
+        // turn pid defaults (used in module definitions)
+        public static final double DEFAULT_TURN_P = 2.8; //PID P
+        public static final double DEFAULT_TURN_I = 0.0; //PID I
+        public static final double DEFAULT_TURN_D = 0.0; //PID D
+        public static final int DEFAULT_TURN_IZONE = 0; //PID IZone
+        public static final int DEFAULT_TURN_ALLOWED_ERROR = 2; //PID Allowed Error
         // swerve control definitions
         public static final double kMaxModuleAngularSpeedRadiansPerSecond = 2 * Math.PI;
         public static final double kMaxModuleAngularAccelerationRadiansPerSecondSquared = 2 * Math.PI;
@@ -156,16 +162,16 @@ public class Constants {
          */
         public static final class FL {  //TODO: PID Tuning
             public static final int DRIVE_MC_ID = 33; //Falcon500 Motor Controller ID
+            public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
+            public static final boolean DRIVE_isInverted = false;
             public static final int TURN_MC_ID = 7; //TalonSRX Motor Controller ID
             public static final boolean TURN_sensorPhase = false; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
             public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
-            public static final double TURN_kP = 2.8; //PID P
-            public static final double TURN_kI = 0.000; //PID I
-            public static final double TURN_kD = 0.0; //PID D
-            public static final int TURN_kIZone = 0; //PID IZONE
-            public static final int TURN_ALLOWED_ERROR = 2;
-            public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
-            public static final boolean DRIVE_isInverted = false;
+            public static final double TURN_kP = Swerve.DEFAULT_TURN_P; //PID P (only change to override default)
+            public static final double TURN_kI = Swerve.DEFAULT_TURN_I; //PID I (only change to override default)
+            public static final double TURN_kD = Swerve.DEFAULT_TURN_D; //PID D (only change to override default)
+            public static final int TURN_kIZone = Swerve.DEFAULT_TURN_IZONE; //PID IZONE (only change to override default)
+            public static final int TURN_ALLOWED_ERROR = Swerve.DEFAULT_TURN_ALLOWED_ERROR; //PID Allowed error  (only change to override default)
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(DRIVE_MC_ID, DRIVE_isInverted, TURN_MC_ID, TURN_sensorPhase, TURN_isInverted, TURN_ALLOWED_ERROR, TURN_kP, TURN_kI, TURN_kD, TURN_kIZone);
         }
         /**
@@ -173,16 +179,16 @@ public class Constants {
          */
         public static final class FR {
             public static final int DRIVE_MC_ID = 31; //Falcon500 Motor Controller ID
+            public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
+            public static final boolean DRIVE_isInverted = false;
             public static final int TURN_MC_ID = 4; //TalonSRX Motor Controller ID
             public static final boolean TURN_sensorPhase = false; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
             public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
-            public static final double TURN_kP = 2.8; //PID P
-            public static final double TURN_kI = 0.000; //PID I
-            public static final double TURN_kD = 0.0; //PID D
-            public static final int TURN_kIZone = 0; //PID IZONE
-            public static final int TURN_ALLOWED_ERROR = 2;
-            public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
-            public static final boolean DRIVE_isInverted = false;
+            public static final double TURN_kP = Swerve.DEFAULT_TURN_P; //PID P (only change to override default)
+            public static final double TURN_kI = Swerve.DEFAULT_TURN_I; //PID I (only change to override default)
+            public static final double TURN_kD = Swerve.DEFAULT_TURN_D; //PID D (only change to override default)
+            public static final int TURN_kIZone = Swerve.DEFAULT_TURN_IZONE; //PID IZONE (only change to override default)
+            public static final int TURN_ALLOWED_ERROR = Swerve.DEFAULT_TURN_ALLOWED_ERROR; //PID Allowed error  (only change to override default)
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(DRIVE_MC_ID, DRIVE_isInverted, TURN_MC_ID, TURN_sensorPhase, TURN_isInverted, TURN_ALLOWED_ERROR, TURN_kP, TURN_kI, TURN_kD, TURN_kIZone);
         }
         /**
@@ -190,16 +196,16 @@ public class Constants {
          */
         public static final class RL {
             public static final int DRIVE_MC_ID = 35; //Falcon500 Motor Controller ID
+            public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
+            public static final boolean DRIVE_isInverted = false;
             public static final int TURN_MC_ID = 8; //TalonSRX Motor Controller ID
             public static final boolean TURN_sensorPhase = false; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
             public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
-            public static final double TURN_kP = 2.8; //PID P
-            public static final double TURN_kI = 0.000; //PID I
-            public static final double TURN_kD = 0.0; //PID D
-            public static final int TURN_kIZone = 0; //PID IZONE
-            public static final int TURN_ALLOWED_ERROR = 2;
-            public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
-            public static final boolean DRIVE_isInverted = false;
+            public static final double TURN_kP = Swerve.DEFAULT_TURN_P; //PID P (only change to override default)
+            public static final double TURN_kI = Swerve.DEFAULT_TURN_I; //PID I (only change to override default)
+            public static final double TURN_kD = Swerve.DEFAULT_TURN_D; //PID D (only change to override default)
+            public static final int TURN_kIZone = Swerve.DEFAULT_TURN_IZONE; //PID IZONE (only change to override default)
+            public static final int TURN_ALLOWED_ERROR = Swerve.DEFAULT_TURN_ALLOWED_ERROR; //PID Allowed error  (only change to override default)
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(DRIVE_MC_ID, DRIVE_isInverted, TURN_MC_ID, TURN_sensorPhase, TURN_isInverted, TURN_ALLOWED_ERROR, TURN_kP, TURN_kI, TURN_kD, TURN_kIZone);
         }
         /**
@@ -207,16 +213,16 @@ public class Constants {
          */
         public static final class RR { //Rear Right
             public static final int DRIVE_MC_ID = 32; //Falcon500 Motor Controller ID
+            public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
+            public static final boolean DRIVE_isInverted = false;
             public static final int TURN_MC_ID = 11; //TalonSRX Motor Controller ID
             public static final boolean TURN_sensorPhase = false; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
             public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
-            public static final double TURN_kP = 2.8; //PID P
-            public static final double TURN_kI = 0.000; //PID I
-            public static final double TURN_kD = 0.0; //PID D
-            public static final int TURN_kIZone = 0; //PID IZONE
-            public static final int TURN_ALLOWED_ERROR = 2;
-            public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
-            public static final boolean DRIVE_isInverted = false;
+            public static final double TURN_kP = Swerve.DEFAULT_TURN_P; //PID P (only change to override default)
+            public static final double TURN_kI = Swerve.DEFAULT_TURN_I; //PID I (only change to override default)
+            public static final double TURN_kD = Swerve.DEFAULT_TURN_D; //PID D (only change to override default)
+            public static final int TURN_kIZone = Swerve.DEFAULT_TURN_IZONE; //PID IZONE (only change to override default)
+            public static final int TURN_ALLOWED_ERROR = Swerve.DEFAULT_TURN_ALLOWED_ERROR; //PID Allowed error  (only change to override default)
             public static final SwerveModuleConstants constants = new SwerveModuleConstants(DRIVE_MC_ID, DRIVE_isInverted, TURN_MC_ID, TURN_sensorPhase, TURN_isInverted, TURN_ALLOWED_ERROR, TURN_kP, TURN_kI, TURN_kD, TURN_kIZone);
         }
     }
