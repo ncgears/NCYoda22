@@ -1,6 +1,6 @@
 
 package frc.team1918.robot;
-
+import frc.team1918.robot.utils.SwerveModuleConstants;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
@@ -166,6 +166,7 @@ public class Constants {
             public static final int TURN_ALLOWED_ERROR = 2;
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
             public static final boolean DRIVE_isInverted = false;
+            public static final SwerveModuleConstants constants = new SwerveModuleConstants(DRIVE_MC_ID, DRIVE_isInverted, TURN_MC_ID, TURN_sensorPhase, TURN_isInverted, TURN_ALLOWED_ERROR, TURN_kP, TURN_kI, TURN_kD, TURN_kIZone);
         }
         /**
          * Constants for Front Right Swerve Module
@@ -182,6 +183,7 @@ public class Constants {
             public static final int TURN_ALLOWED_ERROR = 2;
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
             public static final boolean DRIVE_isInverted = false;
+            public static final SwerveModuleConstants constants = new SwerveModuleConstants(DRIVE_MC_ID, DRIVE_isInverted, TURN_MC_ID, TURN_sensorPhase, TURN_isInverted, TURN_ALLOWED_ERROR, TURN_kP, TURN_kI, TURN_kD, TURN_kIZone);
         }
         /**
          * Constants for Rear Left Swerve Module
@@ -198,6 +200,7 @@ public class Constants {
             public static final int TURN_ALLOWED_ERROR = 2;
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
             public static final boolean DRIVE_isInverted = false;
+            public static final SwerveModuleConstants constants = new SwerveModuleConstants(DRIVE_MC_ID, DRIVE_isInverted, TURN_MC_ID, TURN_sensorPhase, TURN_isInverted, TURN_ALLOWED_ERROR, TURN_kP, TURN_kI, TURN_kD, TURN_kIZone);
         }
         /**
          * Constants for Rear Right Swerve Module
@@ -214,6 +217,7 @@ public class Constants {
             public static final int TURN_ALLOWED_ERROR = 2;
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
             public static final boolean DRIVE_isInverted = false;
+            public static final SwerveModuleConstants constants = new SwerveModuleConstants(DRIVE_MC_ID, DRIVE_isInverted, TURN_MC_ID, TURN_sensorPhase, TURN_isInverted, TURN_ALLOWED_ERROR, TURN_kP, TURN_kI, TURN_kD, TURN_kIZone);
         }
     }
 

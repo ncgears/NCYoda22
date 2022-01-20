@@ -1,6 +1,7 @@
 
 package frc.team1918.robot;
-
+//1918
+import frc.team1918.robot.utils.SwerveModuleConstants;
 
 //Talon SRX/Talon FX
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -32,28 +33,19 @@ public class SwerveModule {
  	/**
 	 * 1918 Swerve Module v2022.1 - This swerve module uses a Falcon 500 (TalonFX) for drive and Talon SRX for turn (bag motor with gearbox).
      * The module uses a Lamprey Absolute encoder for positioning data
-	 * @param driveMC_ID This is the CAN ID of the drive motor controller
-	 * @param turnMC_ID This is the CAN ID of the turn motor controller
-	 * @param tP The P constant (double) for the turning PID
-	 * @param tI The I constant (double) for the turning PID
-	 * @param tD The D constant (double) for the turning PID
-	 * @param tIZone The IZone value (int) for the turning PID
-     * @param tAllowedError The allowable error (int) for the turning PID
-	 * @param name The name of this module instance
-	 * @param wheelOffsetMM Adjustment to size of the wheel to account for wear
-     * @param sensorPhase [boolean] invert the turn encoder sensor phase
-     * @param inverted [boolean] invert the turn control direction (after making the sensor phase match) to make "forward" green on the talon
+	 * @param name This is the name of this swerve module (ie. "dtFL")
+     * @param moduleConstants This is a SwerveModuleConstants object containing the data for this module
 	 */
-    public SwerveModule(String name, int driveMC_ID, int turnMC_ID, double tP, double tI, double tD, int tIZone, int tAllowedError, double wheelOffsetMM, boolean sensorPhase, boolean turnInverted, boolean driveInverted){
-        drive = new WPI_TalonFX(driveMC_ID);
-        turn = new WPI_TalonSRX(turnMC_ID);
+    public SwerveModule(String name, SwerveModuleConstants moduleConstants){
         moduleName = name;
+        drive = new WPI_TalonFX(moduleConstants.idDriveMotor);
+        turn = new WPI_TalonSRX(moduleConstants.idTurnMotor);
         isDrivePowerInverted = false;
-        TURN_P = tP;
-        TURN_I = tI;
-        TURN_D = tD;
-        TURN_IZONE = tIZone;
-        TURN_ALLOWED_ERROR = tAllowedError;
+        TURN_P = moduleConstants.turnP;
+        TURN_I = moduleConstants.turnI;
+        TURN_D = moduleConstants.turnD;
+        TURN_IZONE = moduleConstants.turnIZone;
+        TURN_ALLOWED_ERROR = moduleConstants.turnMaxAllowedError;
 
         turn.configFactoryDefault(); //Reset controller to factory defaults to avoid wierd stuff from carrying over
         turn.set(ControlMode.PercentOutput, 0); //Set controller to disabled
@@ -65,8 +57,8 @@ public class SwerveModule {
        
         //turn.setSelectedSensorPosition(0); //reset the talon encoder counter to 0 so we dont carry over a large error from a previous testing
         //turn.set(ControlMode.Position, 1024); //set this to some fixed value for testing
-        turn.setSensorPhase(sensorPhase); //set the sensor phase based on the constants setting for this module
-        turn.setInverted(turnInverted); //set the motor direction based on the constants setting for this module
+        turn.setSensorPhase(moduleConstants.turnSensorPhase); //set the sensor phase based on the constants setting for this module
+        turn.setInverted(moduleConstants.turnIsInverted); //set the motor direction based on the constants setting for this module
         turn.config_kP(0, TURN_P); //set the kP for PID Tuning
         turn.config_kI(0, TURN_I);
         turn.config_kD(0, TURN_D);
@@ -77,7 +69,7 @@ public class SwerveModule {
         drive.configFactoryDefault();
         drive.set(ControlMode.PercentOutput, 0);
         drive.setNeutralMode(NeutralMode.Brake);
-        drive.setInverted(driveInverted);
+        drive.setInverted(moduleConstants.driveIsInverted);
         drive.config_kP(0, 0.0005);
         drive.config_kI(0, 0.0);
         drive.config_kD(0, 0.00005);
