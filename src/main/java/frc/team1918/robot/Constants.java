@@ -25,8 +25,6 @@ public class Constants {
         public final static boolean DEBUG_ENABLED_DEFAULT = true; //Default starting state of debug mode
         public final static int DEBUG_RECURRING_TICKS = 100; //Periodic cycles for recurring debug messages
         public final static int DASH_RECURRING_TICKS = 50; //Periodic cycles for dashboard updates
-        public final static boolean HOME_ON_TELEOP = true; //Enable home sequence at beginning of teleop
-        public final static boolean HOME_ON_AUTON = !HOME_ON_TELEOP; //Enable home sequence at beginning of auton, always opposite teleop
     }
 
     /**
@@ -235,9 +233,6 @@ public class Constants {
         public final static boolean DT_USE_DRIVESTRAIGHT = true; //enable driveStraight functionality in drive() method
         public final static double DT_DRIVESTRAIGHT_P = 0.065; //kP for driveStraight correction
         public static final double DT_kMaxMetersPerSecond = 3.677; //limit full stick speed meters to 12.0fps
-        ////Home Tuning
-        public final static double DT_HOME_DELAY = 0.75; //Seconds to wait for homing before reset encoders
-        public final static int DT_HOME_MARGIN_OF_ERROR = 20; //Encoder ticks margin to consider home (plus or minus this amount)
         ////Turn Tuning
         public final static double DT_TURN_MULT_STATIONARY = 1.0; //Turn speed multiplier while not moving
         public final static double DT_TURN_MULT_MOVING = 1.0; //Turn speed multiplier while moving

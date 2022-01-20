@@ -270,7 +270,6 @@ public class DriveSubsystem extends SubsystemBase {
 	//#endregion GYRO STUFF
 
 	//#region MOTOR CONTROLLER STUFF
-	
 	public static void setAllDriveBrakeMode(boolean b) {
 		m_dtFL.setBrakeMode("drive", b);
 		m_dtFR.setBrakeMode("drive", b);
@@ -285,55 +284,4 @@ public class DriveSubsystem extends SubsystemBase {
 		m_dtRR.setBrakeMode("turn", b);
 	}
 	//#endregion MOTOR CONTROLLER STUFF
-
-	//#region USER CONTROLS
-	public boolean isDriveControlsLocked() {
-		return driveControlsLocked;
-	}
-
-	public void lockDriveControls(boolean lock) {
-		driveControlsLocked = lock;
-		System.out.println("drive controls lock state: " + lock);
-	}
-	//#endregion USER CONTROLS
-
-	//#region HOMING AND CALIBRATION
-	public void startCalibrationMode() {
-		Helpers.Debug.debug("startCalibrationMode");
-		lockDriveControls(true);
-		setAllTurnBrakeMode(false);
-		m_dtFL.setTurnPowerPercent(0);
-		m_dtFR.setTurnPowerPercent(0);
-        m_dtRL.setTurnPowerPercent(0);
-        m_dtRR.setTurnPowerPercent(0);
-	}
-
-	public void stopCalibrationMode() {
-		Helpers.Debug.debug("stopCalibrationMode");
-		//resetAllAbsEnc(); //reset rotation counter
-		//getAllAbsPos(); //get absolute positions
-		setAllTurnBrakeMode(true);
-		lockDriveControls(false);
-	}
-
-	public void moveAllToHomes() {
-		Helpers.Debug.debug("moveAllToHomes");
-		m_dtFL.setTurnLocationInEncoderTicks(0);
-		m_dtFR.setTurnLocationInEncoderTicks(0);
-		m_dtRL.setTurnLocationInEncoderTicks(0);
-		m_dtRR.setTurnLocationInEncoderTicks(0);
-	}
-
-	public boolean isAllTurnAtHome() {
-		if (
-			m_dtFL.isTurnAtHome() &&
-			m_dtFR.isTurnAtHome() &&
-			m_dtRL.isTurnAtHome() &&
-			m_dtRR.isTurnAtHome()
-			) {
-				return true;
-			}
-		return false;
-	}
-	//#endregion HOMING AND CALIBRATION
 }

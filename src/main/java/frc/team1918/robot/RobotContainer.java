@@ -35,7 +35,7 @@ import frc.team1918.robot.commands.drive.*;
 import frc.team1918.robot.commands.feeder.*;
 import frc.team1918.robot.commands.shooter.*;
 //CommandGroup imports
-import frc.team1918.robot.commandgroups.cg_drive_autoHome;
+import frc.team1918.robot.commandgroups.cg_drive_initOdometry;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -56,7 +56,7 @@ public class RobotContainer {
   private final AutonSubsystem m_auton = new AutonSubsystem();
   //team 1918 commands
   private final drive_resetGyro m_resetGyro = new drive_resetGyro(m_drive);
-  private final cg_drive_autoHome m_autoHome = new cg_drive_autoHome(m_drive);
+  private final cg_drive_initOdometry m_initOdom = new cg_drive_initOdometry(m_drive);
   // private final Command m_startCalCommand = new drive_startCalibration(m_drive);
   // private final Command m_stopCalCommand = new drive_stopCalibration(m_drive);
   // private final shooter_shootWall m_shooter_shootWall = new shooter_shootWall(shooter);
@@ -164,8 +164,8 @@ public class RobotContainer {
   public drive_resetGyro getResetGyroCommand() {
     return m_resetGyro;
   }
-  public cg_drive_autoHome getAutoHomeCommand() {
-    return m_autoHome;
+  public cg_drive_initOdometry getInitOdomCommand() {
+    return m_initOdom;
   }
 
   // public Command getStartCalCommand() {

@@ -11,25 +11,23 @@ package frc.team1918.robot.commandgroups;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 import frc.team1918.robot.subsystems.DriveSubsystem;
-import frc.team1918.robot.commands.drive.drive_lockDriveControls;
 import frc.team1918.robot.commands.drive.drive_resetGyro;
 import frc.team1918.robot.commands.drive.drive_resetOdometry;
 
-public class cg_drive_autoHome extends SequentialCommandGroup {
+public class cg_drive_initOdometry extends SequentialCommandGroup {
   private final DriveSubsystem m_drive;
 
   /**
    * This command group is the sequence for homing the swerve modules to their respective home positions. 
    * This depends on having been previously calibrated, which saves the home position values to the roborio in a file defined by Constants.DriveTrain.DT_HOMES_FILE
    * <ol>
-   * <li>lock drive controls</li>
-   * <li>move all swerver modules to home</li>
-   * <li>unlock drive controls</li>
+   * <li>reset Gyro</li>
+   * <li>reset Odometry</li>
    * </ol>
    * <br>
    * @param subsystem The subsystem this command will run on.
   */
-  public cg_drive_autoHome(DriveSubsystem subsystem) {
+  public cg_drive_initOdometry(DriveSubsystem subsystem) {
     m_drive = subsystem;
     addRequirements(m_drive);
 

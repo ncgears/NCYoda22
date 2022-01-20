@@ -205,28 +205,6 @@ public class SwerveModule {
     }
 
     /**
-     * Returns a boolean indicating if the module is at home position within the margin of error defined in constants by DriveTrain.DT_HOME_MARGIN_OF_ERROR
-     * @return Boolean value indicating if this swerve module is at the home position.
-     */
-    public boolean isTurnAtHome() {
-        int currentPos = getTurnPosition();
-        int marginErr = Constants.DriveTrain.DT_HOME_MARGIN_OF_ERROR;
-        
-        int lowHome = Constants.DriveTrain.DT_TURN_ENCODER_FULL_ROTATION - marginErr;
-        int highHome = 0 + marginErr;
-
-        currentPos -= (currentPos >= Constants.DriveTrain.DT_TURN_ENCODER_FULL_ROTATION) ? Constants.DriveTrain.DT_TURN_ENCODER_FULL_ROTATION : 0;
-
-        if (currentPos <= highHome && currentPos >= lowHome) {
-            debug_ticks2 = Helpers.Debug.debug(moduleName + " isTurnAtHome=true; current="+currentPos+"; target=0;",debug_ticks2);
-            return true;
-        } else {
-            debug_ticks2 = Helpers.Debug.debug(moduleName + " isTurnAtHome=false; current="+currentPos+"; target=0;",debug_ticks2);
-            return false;
-        }
-    }
-
-    /**
 	 * Set turn to pos from 0 to 1 using PID using shortest turn to get the wheels aimed the right way
 	 * @param wa wheel angle location to set to in radians
 	 */

@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-  private Command m_autoHome;
+  private Command m_initOdom;
   private Command m_resetGyro;
 
   private RobotContainer m_robotContainer;
@@ -69,17 +69,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-
-    if(Constants.Global.HOME_ON_AUTON) {
-      m_autoHome = m_robotContainer.getAutoHomeCommand(); 
-      if (m_autoHome != null) m_autoHome.schedule();
-    }
-
     m_resetGyro = m_robotContainer.getResetGyroCommand();
     if (m_resetGyro != null) m_resetGyro.schedule();
 
-    m_autoHome = m_robotContainer.getAutoHomeCommand(); 
-    if (m_autoHome != null) m_autoHome.schedule();
+    m_initOdom = m_robotContainer.getInitOdomCommand(); 
+    if (m_initOdom != null) m_initOdom.schedule();
 
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     if (m_autonomousCommand != null) m_autonomousCommand.schedule();
@@ -102,11 +96,6 @@ public class Robot extends TimedRobot {
 
     m_resetGyro = m_robotContainer.getResetGyroCommand();
     if (m_resetGyro != null) m_resetGyro.schedule();
-
-    if(Constants.Global.HOME_ON_TELEOP) {
-      m_autoHome = m_robotContainer.getAutoHomeCommand(); 
-      if (m_autoHome != null) m_autoHome.schedule();
-    }
   }
 
   /**
