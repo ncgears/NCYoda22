@@ -62,7 +62,6 @@ public class RobotContainer {
   // private final shooter_shootLine m_shooter_shootLine = new shooter_shootLine(shooter);
   // private final shooter_shootTrench m_shooter_shootTrench = new shooter_shootTrench(shooter);
 
-  
   //Define the buttons and where they are bound
   //Driver Controller
   private Joystick dj = new Joystick(Constants.OI.OI_JOY_DRIVER);
