@@ -5,25 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.team1918.robot.commands.shooter;
+package frc.team1918.robot.commands.feeder;
 
 import frc.team1918.robot.Constants;
 import frc.team1918.robot.Helpers;
-import frc.team1918.robot.subsystems.ShooterSubsystem;
+import frc.team1918.robot.subsystems.FeederSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * A command that ...
  */
-public class shooter_stopShooter extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final ShooterSubsystem m_shooter;
+public class feeder_forward extends CommandBase {
+  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"}) //Dont add "unused" under normal operation
+  private final FeederSubsystem m_feeder;
 
   /**
    * @param subsystem The subsystem used by this command.
    */
-  public shooter_stopShooter(ShooterSubsystem subsystem) {
-    m_shooter = subsystem;
+  public feeder_forward(FeederSubsystem subsystem) {
+    m_feeder = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -31,25 +31,23 @@ public class shooter_stopShooter extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    Helpers.Debug.debug("Collector: Intake Forward");
+    // m_feeder.setIntakeSpeed(Constants.Collector.kDefaultCollectorSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-}
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    //stop the shooter
-    Helpers.Debug.debug("Shooter: Stop Shooter");
-    m_shooter.raiseHood(!Constants.Air.stateHoodUp);
-    m_shooter.setShooterSpeed(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

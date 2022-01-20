@@ -79,16 +79,4 @@ public class ShooterSubsystem extends SubsystemBase {
     m_hood.set(up);
     Dashboard.Shooter.setHoodPosition(up);
   }
-
-  public void runFeeder(boolean run) {
-    //run the feeder based on boolean
-    if (run && !Constants.Feeder.isDisabled) {
-      feed1.set(ControlMode.PercentOutput, Constants.Shooter.FEED_1_SPEED);
-      feed2.set(ControlMode.PercentOutput, Constants.Shooter.FEED_2_SPEED);
-    } else {
-      feed1.set(ControlMode.PercentOutput, 0);
-      feed2.set(ControlMode.PercentOutput, 0);
-    }
-  }
-
 }
