@@ -57,24 +57,19 @@ public class RobotContainer {
   //team 1918 commands
   private final drive_resetGyro m_resetGyro = new drive_resetGyro(m_drive);
   private final cg_drive_initOdometry m_initOdom = new cg_drive_initOdometry(m_drive);
-  // private final Command m_startCalCommand = new drive_startCalibration(m_drive);
-  // private final Command m_stopCalCommand = new drive_stopCalibration(m_drive);
   // private final shooter_shootWall m_shooter_shootWall = new shooter_shootWall(shooter);
   // private final shooter_shootShort m_shooter_shootShort = new shooter_shootShort(shooter);
   // private final shooter_shootLine m_shooter_shootLine = new shooter_shootLine(shooter);
   // private final shooter_shootTrench m_shooter_shootTrench = new shooter_shootTrench(shooter);
 
-  //Define the buttons and whhere they are bound
+  
+  //Define the buttons and where they are bound
   //Driver Controller
   private Joystick dj = new Joystick(Constants.OI.OI_JOY_DRIVER);
   private JoystickButton btn_LOCKANGLE = new JoystickButton(dj, Constants.OI.Driver.BTN_LOCKANGLE);
   private JoystickButton btn_UNLOCKANGLE = new JoystickButton(dj, Constants.OI.Driver.BTN_UNLOCKANGLE);
-  // private JoystickButton btn_MECHZERO_KEY1 = new JoystickButton(dj, Constants.OI.Driver.BTN_MECHZERO);
-  private JoystickButton btn_HOMESWERVE = new JoystickButton(dj, Constants.OI.Driver.BTN_HOMESWERVE);
   private JoystickButton btn_FEEDER_FWD = new JoystickButton(dj, Constants.OI.Driver.BTN_FEED_FWD);
   private JoystickButton btn_FEEDER_REV = new JoystickButton(dj, Constants.OI.Driver.BTN_FEED_REV);
-  // private JoystickButton btn_CALIBRATE_START = new JoystickButton(dj, Constants.OI.Driver.BTN_CALIBRATE_START);
-  // private JoystickButton btn_CALIBRATE_STOP = new JoystickButton(dj, Constants.OI.Driver.BTN_CALIBRATE_STOP);
   private JoystickButton btn_TOGGLE_DEBUG = new JoystickButton(dj, Constants.OI.Driver.BTN_TOG_DEBUG);
   private POVButton btn_GYRO_RESET = new POVButton(dj, Constants.OI.Driver.DPAD_GYRO_RESET);
   private POVButton btn_THROTUP_UP = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UP);
@@ -89,18 +84,14 @@ public class RobotContainer {
 
   //Operator Controller
   private Joystick oj = new Joystick(Constants.OI.OI_JOY_OPER);
-  // private JoystickButton btn_SHOOT_WALL = new JoystickButton(oj, Constants.OI.Operator.BTN_SHOOT_WALL);
-  // private JoystickButton btn_SHOOT_LINE = new JoystickButton(oj, Constants.OI.Operator.BTN_SHOOT_LINE);
-  // private JoystickButton btn_SHOOT_SHORT = new JoystickButton(oj, Constants.OI.Operator.BTN_SHOOT_SHORT);
-  // private JoystickButton btn_SHOOT_TRENCH = new JoystickButton(oj, Constants.OI.Operator.BTN_SHOOT_TRENCH);
-  // private JoystickButton btn_TOG_MIDDOWN = new JoystickButton(oj, Constants.OI.Operator.BTN_TOG_MIDDOWN);
   private JoystickButton btn_COLLECTOR_IN = new JoystickButton(oj, Constants.OI.Operator.BTN_COLLECTOR_IN);
-  // private JoystickButton btn_MECHZERO_KEY2 = new JoystickButton(oj, Constants.OI.Operator.BTN_MECHZERO);
   private POVButton btn_COLLECTOR_UP = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_UP);
   private POVButton btn_COLLECTOR_DOWN = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_DOWN);
   private JoystickButton btn_COLLECTOR_TOGGLE = new JoystickButton(oj, Constants.OI.Operator.BTN_TOG_MIDDOWN);
 
-  //Special Bindings
+  //Special Bindings (AndButtons)
+  // private JoystickButton btn_MECHZERO_KEY1 = new JoystickButton(dj, Constants.OI.Operator.BTN_MECHZERO);
+  // private JoystickButton btn_MECHZERO_KEY2 = new JoystickButton(oj, Constants.OI.Operator.BTN_MECHZERO);
   // private AndButton andbtn_MECHZERO = new AndButton(btn_MECHZERO_KEY1,btn_MECHZERO_KEY2); //AndButton requires both to be true
 
   /**
@@ -111,7 +102,6 @@ public class RobotContainer {
     configureButtonBindings();
 
     // Enable closed loop control of compressor and enable it
-    //m_air.setClosedLoopControl(!Constants.Air.AIR_DISABLED);
     if(Constants.Air.isDisabled) m_air.disable();
 
     // Enable the camera server and start capture
@@ -129,14 +119,10 @@ public class RobotContainer {
         () -> Helpers.OI.getAxisTurnValue(true)
       )
     );
-
-
   }
 
   private void configureButtonBindings() {
     //The buttons here are named based on their functional purpose. This abstracts the purpose from which controller it is attached to.
-    // btn_CALIBRATE_START.whenPressed(new drive_startCalibration(m_drive));
-    // btn_CALIBRATE_STOP.whenPressed(new drive_stopCalibration(m_drive));
     btn_GYRO_RESET.whenPressed(new drive_resetGyro(m_drive));
     btn_TOGGLE_DEBUG.whenPressed(new helpers_toggleDebug());
     // btn_SHOOT_WALL.whenPressed(new shooter_shootWall(m_shooter)).whenReleased(new shooter_stopShooter(m_shooter));
@@ -149,8 +135,6 @@ public class RobotContainer {
     btn_COLLECTOR_TOGGLE.whenPressed(new collector_toggleIntake(m_collector));
     btn_LOCKANGLE.whenPressed(new drive_lockAngle(m_drive));
     btn_UNLOCKANGLE.whenPressed(new drive_unlockAngle(m_drive));
-    // btn_ALLUP.whenPressed(new moveArmUp(m_collector));
-    // btn_ANTIGRAV.whenPressed(new engageAntiBackdrive(m_climber)).whenReleased(new disengageAntiBackdrive(m_climber));
 
     //bind all 3 up and all 3 down for shooter throttle up/down
     // orbtn_THROTUP.whenPressed(new shooter_increaseThrottle(m_shooter));
@@ -168,12 +152,6 @@ public class RobotContainer {
     return m_initOdom;
   }
 
-  // public Command getStartCalCommand() {
-  //   return m_startCalCommand;
-  // }
-  // public Command getStopCalCommand() {
-  //   return m_stopCalCommand;
-  // }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    * @return the command to run in autonomous

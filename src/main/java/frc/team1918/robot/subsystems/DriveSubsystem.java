@@ -22,7 +22,6 @@ public class DriveSubsystem extends SubsystemBase {
 
 	private static DriveSubsystem instance;
 	private static double l = Constants.Global.ROBOT_LENGTH, w = Constants.Global.ROBOT_WIDTH, r = Math.sqrt((l * l) + (w * w));
-	private static boolean driveControlsLocked = false; //true while homing operation
 	private int debug_ticks, dash_gyro_ticks, dash_dt_ticks;
 	private static double desiredAngle; //Used for driveStraight function
 	private static boolean angleLocked = false;

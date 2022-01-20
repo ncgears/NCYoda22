@@ -26,7 +26,7 @@ public class SwerveModule {
     private boolean isDrivePowerInverted = false;
     private String moduleName;
     private double wheelOffsetMM = 0;
-    private int debug_ticks1, debug_ticks2;
+    private int debug_ticks1;
 
     SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.Swerve.driveKS, Constants.Swerve.driveKV, Constants.Swerve.driveKA);
 
