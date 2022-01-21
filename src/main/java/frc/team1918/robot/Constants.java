@@ -81,6 +81,7 @@ public class Constants {
     public static final class Shooter {
         public final static boolean isDisabled = false; //Disable the shooter subsystem
         public final static int id_Motor1 = 16; //ID of the Shooter Motor 1 Controller
+        public final static int kEncoderFullRotation = 2048; //Falcon integrated encoder is 2048
         public final static boolean isInverted_Motor1 = false; //Invert motor direction
         public final static int kMaxShooterSpeed = 5000; //Max RPM of the Shooter Motor
         public final static int kMinShooterSpeed = 100; //Min RPM of the Shooter Motor
@@ -244,6 +245,7 @@ public class Constants {
         public final static double DT_STR_MULT = 1.0; //Str throttle multiplier
         public final static boolean DT_DRIVE_DISABLED = false; //Set to true to disable the drive motors (for lab)
         public final static double DT_WHEEL_DIAM_MM = 77.1; //diameter of drive wheels in millimeters
+        public final static int DT_DRIVE_ENCODER_FULL_ROTATION = 2048; //falcon integrated encoder is 2048
         //Falcon500 = 6380RPM  free speed : 945RPM Calculated
         public final static int DT_DRIVE_FIRST_GEARONE = 16; //swerve drive first gear set input teeth
         public final static int DT_DRIVE_FIRST_GEARTWO = 36; //swerve drive first gear set output teeth

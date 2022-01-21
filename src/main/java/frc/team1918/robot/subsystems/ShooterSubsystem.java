@@ -39,24 +39,22 @@ public class ShooterSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    // This method will be called once per scheduler run and change the shooter speed if requested
     if (m_shooter_rpm != m_shooter_oldrpm) {
-      shoot.set(ControlMode.Velocity, m_shooter_rpm); //Set the target
+      shoot.set(ControlMode.Velocity, Helpers.General.rpmToTicksPer100ms(m_shooter_rpm, Constants.Shooter.kEncoderFullRotation)); //Set the target
       m_shooter_oldrpm=m_shooter_rpm;
     }
-    Dashboard.Shooter.setCurrentSpeed(getShooterSpeed());
+    Dashboard.Shooter.setCurrentSpeed(getShooterSpeedRPM());
   }
 
-  public double getShooterSpeed() {
-    return Helpers.General.roundDouble(shoot.getSelectedSensorVelocity(0),0);
+  public double getShooterSpeedRPM() {
+    return Helpers.General.roundDouble(Helpers.General.ticksPer100msToRPM(shoot.getSelectedSensorVelocity(0), Constants.Shooter.kEncoderFullRotation),0);
   }
 
   public void setShooterSpeed(double RPM) {
-    m_shooter_rpm = Math.min(RPM, Constants.Shooter.kMaxShooterSpeed);
-  }
-
-  public void setShooterVbus(double Vbus) {
-    shoot.set(Vbus);
+    RPM = Math.min(RPM, Constants.Shooter.kMaxShooterSpeed);
+    RPM = Math.max(RPM, Constants.Shooter.kMinShooterSpeed);
+    m_shooter_rpm = RPM;
   }
 
   public void increaseShooterSpeed() {
