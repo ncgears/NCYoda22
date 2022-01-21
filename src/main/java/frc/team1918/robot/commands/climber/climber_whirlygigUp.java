@@ -15,14 +15,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * A command that ...
  */
-public class hook2_release extends CommandBase {
+public class climber_whirlygigUp extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"}) //Dont add "unused" under normal operation
   private final ClimberSubsystem m_climber;
 
   /**
    * @param subsystem The subsystem used by this command.
    */
-  public hook2_release(ClimberSubsystem subsystem) {
+  public climber_whirlygigUp(ClimberSubsystem subsystem) {
     m_climber = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
