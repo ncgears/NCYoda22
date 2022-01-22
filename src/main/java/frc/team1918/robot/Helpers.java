@@ -111,6 +111,25 @@ public class Helpers {
             return ((mps * 1000) / (wheelDiamMM * Math.PI)) * 60;
         }
 
+        /**
+         * Converts RPM to Ticks per 100ms
+         * @param rpm - RPM to convert
+         * @param fullRotationTicks - Number of ticks in a full rotation (encoder dependent)
+         * @return
+         */
+        public final static double rpmToTicksPer100ms(double rpm, int fullRotationTicks) {
+            return ((rpm * fullRotationTicks) / 60 / 10);
+        }
+
+        /**
+         * Converts Ticks per 100ms to RPM
+         * @param ticks - Ticks per 100ms to convert
+         * @param fullRotationTicks - Number of ticks in a full rotation (encoder dependent)
+         * @return
+         */
+        public final static double ticksPer100msToRPM(double ticks, int fullRotationTicks) {
+            return ((ticks / fullRotationTicks) * 10 * 60);
+        }
     }
     //Helpers for the Operator Interface
     public static final class OI {
