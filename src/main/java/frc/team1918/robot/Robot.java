@@ -7,7 +7,9 @@
 
 package frc.team1918.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -20,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
+  public Alliance m_alliance;
   private Command m_autonomousCommand;
   private Command m_initOdom;
   private Command m_resetGyro;
@@ -69,6 +72,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    m_alliance = DriverStation.getAlliance(); //Put Alliance.Red or Alliance.Blue in Robot.m_alliance
     m_resetGyro = m_robotContainer.getResetGyroCommand();
     if (m_resetGyro != null) m_resetGyro.schedule();
 
