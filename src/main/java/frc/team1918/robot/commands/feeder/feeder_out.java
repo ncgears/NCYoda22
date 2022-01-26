@@ -32,6 +32,7 @@ public class feeder_out extends CommandBase {
   @Override
   public void initialize() {
     Helpers.Debug.debug("Collector: Intake Forward");
+    m_feeder.runFeeder(false);
     // m_feeder.setIntakeSpeed(Constants.Collector.kDefaultCollectorSpeed);
   }
 
