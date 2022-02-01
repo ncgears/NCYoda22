@@ -14,6 +14,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 //Util imports
@@ -44,7 +45,7 @@ import frc.team1918.robot.commandgroups.cg_drive_initOdometry;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // private final PowerDistributionPanel m_pdp = new PowerDistributionPanel();
+  //private final PowerDistribution m_pdp = new PowerDistribution();
   private final Compressor m_air = new Compressor(PneumaticsModuleType.CTREPCM);
   //team 1918 subsystems
   // private final ClimberSubsystem m_climber = new ClimberSubsystem();

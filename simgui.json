@@ -10,6 +10,18 @@
         "header": {
           "open": true
         }
+      },
+      "navX-Sensor[0]": {
+        "header": {
+          "open": true
+        }
+      }
+    },
+    "PowerDistributions": {
+      "0": {
+        "PowerDistribution[0]": {
+          "open": true
+        }
       }
     }
   },
@@ -19,16 +31,29 @@
       "/LiveWindow/AutonSubsystem": "Subsystem",
       "/LiveWindow/CollectorSubsystem": "Subsystem",
       "/LiveWindow/DriveSubsystem": "Subsystem",
+      "/LiveWindow/FeederSubsystem": "Subsystem",
       "/LiveWindow/MixerSubsystem": "Subsystem",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
       "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro"
     }
   },
   "NetworkTables": {
+    "FMSInfo": {
+      "open": true
+    },
+    "LiveWindow": {
+      "AutonSubsystem": {
+        "open": true
+      },
+      "open": true
+    },
     "SmartDashboard": {
       "open": true
     },
     "Usage": {
+      "Client": {
+        "open": true
+      },
       "open": true
     }
   },
@@ -36,7 +61,7 @@
     "Plot <0>": {
       "plots": [
         {
-          "height": 338,
+          "height": 272,
           "series": [
             {
               "color": [
