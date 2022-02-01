@@ -12,9 +12,11 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class ShooterSubsystem extends SubsystemBase {
   private WPI_TalonFX shoot; // shooter controller
+  private WPI_TalonSRX preShooter;
   private double m_shooter_rpm = 0.0; // Current shooter speed
   private double m_shooter_oldrpm = 0.0; // Previous shooter speed
   private Solenoid m_hood;
@@ -33,6 +35,12 @@ public class ShooterSubsystem extends SubsystemBase {
     shoot.config_kI(0, Constants.Shooter.kI);
     shoot.config_kD(0, Constants.Shooter.kD);
     shoot.config_IntegralZone(0, Constants.Shooter.kIZone);
+    //Setup the Preshooter
+    preShooter = new WPI_TalonSRX(Constants.Shooter.id_Motor2);
+    preShooter.configFactoryDefault();
+    preShooter.set(ControlMode.PercentOutput, 0);
+    preShooter.setNeutralMode(NeutralMode.Coast);
+    preShooter.setInverted(Constants.Shooter.isInverted_Motor1);
     //Setup the solenoid
     m_hood = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_HoodSolonoid);
   }
@@ -55,6 +63,14 @@ public class ShooterSubsystem extends SubsystemBase {
     RPM = Math.min(RPM, Constants.Shooter.kMaxShooterSpeed);
     RPM = Math.max(RPM, Constants.Shooter.kMinShooterSpeed);
     m_shooter_rpm = RPM;
+  }
+
+  public void startPreShooter() {
+    preShooter.set(ControlMode.PercentOutput,Constants.Shooter.kPreShooterSpeed);
+  }
+
+  public void stopPreShooter() {
+    preShooter.set(ControlMode.PercentOutput,0);
   }
 
   public void increaseShooterSpeed() {
