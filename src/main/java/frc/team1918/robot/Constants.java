@@ -34,6 +34,8 @@ public class Constants {
         public final static boolean isDisabled = true; //Disable autonomous
         public final static double kMaxSpeedMetersPerSecond = 0.25;
         public final static double kMaxAccelMetersPerSecondSquared = 0.0;
+        public static final double kMaxOmega =
+        (kMaxSpeedMetersPerSecond / Math.hypot(0.5461 / 2.0, 0.6477 / 2.0));
     }
 
     /**
