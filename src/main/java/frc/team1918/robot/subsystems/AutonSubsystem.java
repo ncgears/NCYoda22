@@ -42,6 +42,15 @@ public class AutonSubsystem extends SubsystemBase {
         intWaypoints.add(new Translation2d(Units.feetToMeters(6.0), Units.feetToMeters(-3.0)));
         endPos = new Pose2d(Units.feetToMeters(9.0), Units.feetToMeters(0.0), new Rotation2d(0)); //set a new endPos
         break;
+      case "TestPath":
+        intWaypoints.add(new Translation2d(Units.feetToMeters(3.0), Units.feetToMeters(3.0)));
+        intWaypoints.add(new Translation2d(Units.feetToMeters(6.0), Units.feetToMeters(-3.0)));
+        intWaypoints.add(new Translation2d(Units.feetToMeters(3.0), Units.feetToMeters(3.0)));
+        intWaypoints.add(new Translation2d(Units.feetToMeters(6.0), Units.feetToMeters(-3.0)));
+        intWaypoints.add(new Translation2d(Units.feetToMeters(3.0), Units.feetToMeters(3.0)));
+        intWaypoints.add(new Translation2d(Units.feetToMeters(6.0), Units.feetToMeters(-3.0)));
+        endPos = new Pose2d(Units.feetToMeters(9.0), Units.feetToMeters(0.0), new Rotation2d(0)); //set a new endPos
+        break;
       default:
         Helpers.Debug.debug("Invalid auton path name requested: "+pathname);
         //Going nowhere in life, doing nothing.
