@@ -34,10 +34,9 @@ public class Constants {
         public final static boolean isDisabled = true; //Disable autonomous
         public final static double kMaxSpeedMetersPerSecond = 0.25;
         public final static double kMaxAccelMetersPerSecondSquared = 0.0;
-        public static final double kMaxOmega =
-        (kMaxSpeedMetersPerSecond / Math.hypot(0.5461 / 2.0, 0.6477 / 2.0));
+        public final static double kMaxOmega =
+            (kMaxSpeedMetersPerSecond / Math.hypot(0.5461 / 2.0, 0.6477 / 2.0));
     }
-
     /**
      * Constants for the Pneumantics system
      * This is not a subsystem, the pneumatics are controlled directly in their respective subsystems
@@ -69,8 +68,7 @@ public class Constants {
     /**
      * Constants for the Feeder subsystem
      */
-    public static final class Feeder {
-        public final static boolean isDisabled = false; //Disable the feeder subsystem
+    public static final class Feeder {        public final static boolean isDisabled = false; //Disable the feeder subsystem
         public final static int id_BeamBreak1 = 0; //ID of the Beam Break 1 DIO
         public final static int id_Motor1 = 14; //ID of the Feeder Motor 1 Controller
         public final static boolean isInverted_Motor1 = false; //Invert motor direction
