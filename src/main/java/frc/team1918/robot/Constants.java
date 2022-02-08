@@ -35,10 +35,9 @@ public class Constants {
         public final static boolean isDisabled = true; //Disable autonomous
         public final static double kMaxSpeedMetersPerSecond = 0.25;
         public final static double kMaxAccelMetersPerSecondSquared = 0.0;
-        public static final double kMaxOmega =
-        (kMaxSpeedMetersPerSecond / Math.hypot(0.5461 / 2.0, 0.6477 / 2.0));
+        public final static double kMaxOmega =
+            (kMaxSpeedMetersPerSecond / Math.hypot(0.5461 / 2.0, 0.6477 / 2.0));
     }
-
     /**
      * Constants for the Pneumantics system
      * This is not a subsystem, the pneumatics are controlled directly in their respective subsystems
@@ -70,8 +69,7 @@ public class Constants {
     /**
      * Constants for the Feeder subsystem
      */
-    public static final class Feeder {
-        public final static boolean isDisabled = false; //Disable the feeder subsystem
+    public static final class Feeder {        public final static boolean isDisabled = false; //Disable the feeder subsystem
         public final static int id_BeamBreak1 = 0; //ID of the Beam Break 1 DIO
         public final static int id_Motor1 = 14; //ID of the Feeder Motor 1 Controller
         public final static boolean isInverted_Motor1 = false; //Invert motor direction
@@ -84,8 +82,10 @@ public class Constants {
     public static final class Shooter {
         public final static boolean isDisabled = false; //Disable the shooter subsystem
         public final static int id_Motor1 = 16; //ID of the Shooter Motor 1 Controller
+        public final static int id_Motor2 = 17; //ID of the Preshooter Motor Controller
         public final static int kEncoderFullRotation = 2048; //Falcon integrated encoder is 2048
         public final static boolean isInverted_Motor1 = false; //Invert motor direction
+        public final static boolean isInverted_Motor2 = false; //Invert motor direction
         public final static int kMaxShooterSpeed = 5000; //Max RPM of the Shooter Motor
         public final static int kMinShooterSpeed = 100; //Min RPM of the Shooter Motor
         public final static double kSpeedIncrementSize = 25; //RPMs to change the shooter speed per increment
@@ -94,6 +94,7 @@ public class Constants {
         public final static double kD = 0.0;
         public final static double kIZone = 0.0;
         public final static double kArbitraryFeedForward = 1/kMaxShooterSpeed;
+        public final static double kPreShooterSpeed = 1.0; //speed of the preshooter
 
         public static final class Positions {
             public final static int speed_Pos1 = 2400;

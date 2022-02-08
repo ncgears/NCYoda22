@@ -14,6 +14,8 @@ import frc.team1918.robot.Constants;
 import frc.team1918.robot.subsystems.AutonSubsystem;
 import frc.team1918.robot.subsystems.DriveSubsystem;
 
+// Translated from StrykeForce 2767's code (https://github.com/strykeforce/infiniterecharge/blob/master/src/main/java/frc/robot/commands/auto/PathDriveCommand.java)
+
 public class auton_pathDrive extends CommandBase {
   private final AutonSubsystem m_auton;
   private final DriveSubsystem m_drive;
@@ -53,16 +55,16 @@ public class auton_pathDrive extends CommandBase {
     holonomicDriveController.setEnabled(true);
     // DriveSubsystem.resetOdometry(trajectory.getInitialPose());
     // logger.info("Resetting timer!!!");
-    // timer.reset();
+    timer.reset();
   }
 
   @Override
   public void execute() {
     state = trajectory.sample(timer.get());
-    odometryPose = m_drive.getPose();  //need to inject dependency
+    odometryPose = m_drive.getPose(); 
     speeds = holonomicDriveController.calculate(odometryPose, state, Rotation2d.fromDegrees(180));
     
-    m_drive.drive( //need to inject dependency    
+    m_drive.drive(  
         speeds.vxMetersPerSecond, speeds.vyMetersPerSecond, speeds.omegaRadiansPerSecond, false);
   }
 
