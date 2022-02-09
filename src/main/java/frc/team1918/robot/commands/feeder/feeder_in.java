@@ -7,7 +7,6 @@
 
 package frc.team1918.robot.commands.feeder;
 
-import frc.team1918.robot.Constants;
 import frc.team1918.robot.Helpers;
 import frc.team1918.robot.subsystems.FeederSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
