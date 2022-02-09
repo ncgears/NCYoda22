@@ -25,6 +25,7 @@ public class Constants {
         public final static boolean DEBUG_ENABLED_DEFAULT = true; //Default starting state of debug mode
         public final static int DEBUG_RECURRING_TICKS = 100; //Periodic cycles for recurring debug messages
         public final static int DASH_RECURRING_TICKS = 50; //Periodic cycles for dashboard updates
+        public final static boolean tuningMode = false; //Enable tunable numbers
     }
 
     /**
