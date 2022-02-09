@@ -10,6 +10,9 @@ import frc.team1918.robot.Constants;
 
 public class FeederSubsystem extends SubsystemBase {
   private WPI_TalonFX m_feeder; // feeder controller
+
+//TODO: See https://www.chiefdelphi.com/t/code-for-ir-break-beam/396373/4 for beam break examples and triggers
+
   /**
    * Creates a new ExampleSubsystem.
    */
