@@ -146,10 +146,10 @@ public class DriveSubsystem extends SubsystemBase {
 		debug_ticks++;
 		SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.kMaxSpeedMetersPerSecond);
 		// SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, Constants.Swerve.kMaxSpeedMetersPerSecond);
-		if(!Constants.Swerve.DISABLE_FL) m_dtFL.setDesiredState(swerveModuleStates[0]);
-		if(!Constants.Swerve.DISABLE_FR) m_dtFR.setDesiredState(swerveModuleStates[1]);
-		if(!Constants.Swerve.DISABLE_RL) m_dtRL.setDesiredState(swerveModuleStates[2]);
-		if(!Constants.Swerve.DISABLE_RR) m_dtRR.setDesiredState(swerveModuleStates[3]);
+		if(!Constants.Swerve.FL.isDisabled) m_dtFL.setDesiredState(swerveModuleStates[0]);
+		if(!Constants.Swerve.FR.isDisabled) m_dtFR.setDesiredState(swerveModuleStates[1]);
+		if(!Constants.Swerve.RL.isDisabled) m_dtRL.setDesiredState(swerveModuleStates[2]);
+		if(!Constants.Swerve.RR.isDisabled) m_dtRR.setDesiredState(swerveModuleStates[3]);
 	}
 
 	public double calcAngleStraight(double targetAngle, double currentAngle, double kP) {

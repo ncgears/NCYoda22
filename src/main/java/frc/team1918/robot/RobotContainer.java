@@ -66,21 +66,21 @@ public class RobotContainer {
   //Define the buttons and where they are bound
   //Driver Controller
   private Joystick dj = new Joystick(Constants.OI.OI_JOY_DRIVER);
-  private JoystickButton btn_LOCKANGLE = new JoystickButton(dj, Constants.OI.Driver.BTN_LOCKANGLE);
-  private JoystickButton btn_UNLOCKANGLE = new JoystickButton(dj, Constants.OI.Driver.BTN_UNLOCKANGLE);
-  private JoystickButton btn_FEEDER_FWD = new JoystickButton(dj, Constants.OI.Driver.BTN_FEED_FWD);
-  private JoystickButton btn_FEEDER_REV = new JoystickButton(dj, Constants.OI.Driver.BTN_FEED_REV);
-  private JoystickButton btn_TOGGLE_DEBUG = new JoystickButton(dj, Constants.OI.Driver.BTN_TOG_DEBUG);
-  private POVButton btn_GYRO_RESET = new POVButton(dj, Constants.OI.Driver.DPAD_GYRO_RESET);
-  private POVButton btn_THROTUP_UP = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UP);
-    private POVButton btn_THROTUP_UL = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UL);
-    private POVButton btn_THROTUP_UR = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UR);
-  private POVButton btn_THROTDN_DN = new POVButton(dj, Constants.OI.Driver.DPAD_THROTDN_DN);
-    private POVButton btn_THROTDN_DL = new POVButton(dj, Constants.OI.Driver.DPAD_THROTDN_DL);
-    private POVButton btn_THROTDN_DR = new POVButton(dj, Constants.OI.Driver.DPAD_THROTDN_DR);
+  // private JoystickButton btn_LOCKANGLE = new JoystickButton(dj, Constants.OI.Driver.BTN_LOCKANGLE);
+  // private JoystickButton btn_UNLOCKANGLE = new JoystickButton(dj, Constants.OI.Driver.BTN_UNLOCKANGLE);
+  // private JoystickButton btn_FEEDER_FWD = new JoystickButton(dj, Constants.OI.Driver.BTN_FEED_FWD);
+  // private JoystickButton btn_FEEDER_REV = new JoystickButton(dj, Constants.OI.Driver.BTN_FEED_REV);
+  // private JoystickButton btn_TOGGLE_DEBUG = new JoystickButton(dj, Constants.OI.Driver.BTN_TOG_DEBUG);
+  // private POVButton btn_GYRO_RESET = new POVButton(dj, Constants.OI.Driver.DPAD_GYRO_RESET);
+  // private POVButton btn_THROTUP_UP = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UP);
+  //   private POVButton btn_THROTUP_UL = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UL);
+  //   private POVButton btn_THROTUP_UR = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UR);
+  // private POVButton btn_THROTDN_DN = new POVButton(dj, Constants.OI.Driver.DPAD_THROTDN_DN);
+  //   private POVButton btn_THROTDN_DL = new POVButton(dj, Constants.OI.Driver.DPAD_THROTDN_DL);
+  //   private POVButton btn_THROTDN_DR = new POVButton(dj, Constants.OI.Driver.DPAD_THROTDN_DR);
   //OrPOVButtons are a custom button type to bind 3 DPAD directions to a single command. See utils/OrPOVButton
-  private OrPOVButton orbtn_THROTUP = new OrPOVButton(btn_THROTUP_UP, btn_THROTUP_UL, btn_THROTUP_UR);
-  private OrPOVButton orbtn_THROTDN = new OrPOVButton(btn_THROTDN_DN, btn_THROTDN_DL, btn_THROTDN_DR);
+  // private OrPOVButton orbtn_THROTUP = new OrPOVButton(btn_THROTUP_UP, btn_THROTUP_UL, btn_THROTUP_UR);
+  // private OrPOVButton orbtn_THROTDN = new OrPOVButton(btn_THROTDN_DN, btn_THROTDN_DL, btn_THROTDN_DR);
 
   //Operator Controller
   private Joystick oj = new Joystick(Constants.OI.OI_JOY_OPER);
@@ -123,18 +123,18 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     //The buttons here are named based on their functional purpose. This abstracts the purpose from which controller it is attached to.
-    btn_GYRO_RESET.whenPressed(new drive_resetGyro(m_drive));
-    btn_TOGGLE_DEBUG.whenPressed(new helpers_toggleDebug());
+    // btn_GYRO_RESET.whenPressed(new drive_resetGyro(m_drive));
+    // btn_TOGGLE_DEBUG.whenPressed(new helpers_toggleDebug());
     // btn_SHOOT_WALL.whenPressed(new shooter_shootWall(m_shooter)).whenReleased(new shooter_stopShooter(m_shooter));
     // btn_SHOOT_LINE.whenPressed(new shooter_shootLine(m_shooter)).whenReleased(new shooter_stopShooter(m_shooter));
     // btn_SHOOT_SHORT.whenPressed(new shooter_shootShort(m_shooter)).whenReleased(new shooter_stopShooter(m_shooter));
     // btn_SHOOT_TRENCH.whenPressed(new shooter_shootTrench(m_shooter)).whenReleased(new shooter_stopShooter(m_shooter));
-    btn_COLLECTOR_IN.whileHeld(new collector_intakeForward(m_collector)).whenReleased(new collector_intakeStop(m_collector));
-    btn_COLLECTOR_DOWN.whenPressed(new collector_lowerIntake(m_collector));
-    btn_COLLECTOR_UP.whenPressed(new collector_raiseIntake(m_collector));
-    btn_COLLECTOR_TOGGLE.whenPressed(new collector_toggleIntake(m_collector));
-    btn_LOCKANGLE.whenPressed(new drive_lockAngle(m_drive));
-    btn_UNLOCKANGLE.whenPressed(new drive_unlockAngle(m_drive));
+    // btn_COLLECTOR_IN.whileHeld(new collector_intakeForward(m_collector)).whenReleased(new collector_intakeStop(m_collector));
+    // btn_COLLECTOR_DOWN.whenPressed(new collector_lowerIntake(m_collector));
+    // btn_COLLECTOR_UP.whenPressed(new collector_raiseIntake(m_collector));
+    // btn_COLLECTOR_TOGGLE.whenPressed(new collector_toggleIntake(m_collector));
+    // btn_LOCKANGLE.whenPressed(new drive_lockAngle(m_drive));
+    // btn_UNLOCKANGLE.whenPressed(new drive_unlockAngle(m_drive));
 
     //bind all 3 up and all 3 down for shooter throttle up/down
     // orbtn_THROTUP.whenPressed(new shooter_increaseThrottle(m_shooter));
