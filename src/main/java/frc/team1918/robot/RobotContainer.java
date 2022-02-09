@@ -128,8 +128,8 @@ public class RobotContainer {
     //The buttons here are named based on their functional purpose. This abstracts the purpose from which controller it is attached to.
     btn_WhirlyForward.whileHeld(new climber_rotateFwd(m_climber));
     btn_WhirlyReverse.whileHeld(new climber_rotateRev(m_climber));
-    btn_ReleaseHook1.whenPressed(new climber_lockHook(m_climber,1).beforeStarting(new climber_unlockHook(m_climber,2)).andThen(new WaitCommand(Constants.Climber.kHookReleaseTime)));
-    btn_ReleaseHook2.whenPressed(new climber_lockHook(m_climber,2).beforeStarting(new climber_unlockHook(m_climber,2)).andThen(new WaitCommand(Constants.Climber.kHookReleaseTime)));
+    btn_ReleaseHook1.whenPressed(new climber_lockHook(m_climber,1).beforeStarting(new climber_unlockHook(m_climber,1).andThen(new WaitCommand(Constants.Climber.kHookReleaseTime))));
+    btn_ReleaseHook2.whenPressed(new climber_lockHook(m_climber,2).beforeStarting(new climber_unlockHook(m_climber,2).andThen(new WaitCommand(Constants.Climber.kHookReleaseTime))));
     // btn_GYRO_RESET.whenPressed(new drive_resetGyro(m_drive));
     // btn_TOGGLE_DEBUG.whenPressed(new helpers_toggleDebug());
     // btn_SHOOT_WALL.whenPressed(new shooter_shootWall(m_shooter)).whenReleased(new shooter_stopShooter(m_shooter));

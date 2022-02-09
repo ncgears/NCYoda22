@@ -39,4 +39,14 @@ public class FeederSubsystem extends SubsystemBase {
     m_feeder.set( (fwd) ? Constants.Feeder.speed_Motor1 : -Constants.Feeder.speed_Motor1);
     //Dashboard.Feeder.setHoodPosition(up);
   }
+
+  public static boolean hasFirstBall() {
+    //This would use the beam break logic to figure these out
+    return false;
+  }
+
+  public static boolean hasSecondBall() {
+    //This would use the beam break logic to figure these out
+    return false;
+  }
 }
