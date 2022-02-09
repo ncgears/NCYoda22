@@ -14,14 +14,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * A command that ...
  */
-public class feeder_in extends CommandBase {
+public class feeder_advance extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"}) //Dont add "unused" under normal operation
   private final FeederSubsystem m_feeder;
 
   /**
    * @param subsystem The subsystem used by this command.
    */
-  public feeder_in(FeederSubsystem subsystem) {
+  public feeder_advance(FeederSubsystem subsystem) {
     m_feeder = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
