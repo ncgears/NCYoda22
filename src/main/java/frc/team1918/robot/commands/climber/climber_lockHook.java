@@ -7,7 +7,6 @@
 
 package frc.team1918.robot.commands.climber;
 
-import frc.team1918.robot.Constants;
 import frc.team1918.robot.Helpers;
 import frc.team1918.robot.subsystems.ClimberSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -15,15 +14,18 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * A command that ...
  */
-public class climber_whirlygigRelease extends CommandBase {
+public class climber_lockHook extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"}) //Dont add "unused" under normal operation
   private final ClimberSubsystem m_climber;
+  private final int m_hookNumber;
 
   /**
    * @param subsystem The subsystem used by this command.
+   * @param hooknumber The hook number to operate on (1 or 2)
    */
-  public climber_whirlygigRelease(ClimberSubsystem subsystem) {
+  public climber_lockHook(ClimberSubsystem subsystem, int hooknumber) {
     m_climber = subsystem;
+    m_hookNumber = hooknumber;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -31,8 +33,8 @@ public class climber_whirlygigRelease extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Helpers.Debug.debug("Collector: Intake Forward");
-    // m_climber.setIntakeSpeed(Constants.Collector.kDefaultCollectorSpeed);
+    Helpers.Debug.debug("Climber: Lock Hook "+m_hookNumber);
+    m_climber.setHookMode(m_hookNumber,false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -48,6 +50,6 @@ public class climber_whirlygigRelease extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

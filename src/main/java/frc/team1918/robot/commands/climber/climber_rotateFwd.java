@@ -7,7 +7,6 @@
 
 package frc.team1918.robot.commands.climber;
 
-import frc.team1918.robot.Constants;
 import frc.team1918.robot.Helpers;
 import frc.team1918.robot.subsystems.ClimberSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -31,8 +30,8 @@ public class climber_rotateFwd extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Helpers.Debug.debug("Collector: Intake Forward");
-    // m_climber.setIntakeSpeed(Constants.Collector.kDefaultCollectorSpeed);
+    Helpers.Debug.debug("Climber: Forward");
+    m_climber.climberForward();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -43,6 +42,8 @@ public class climber_rotateFwd extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    Helpers.Debug.debug("Climber: Stop");
+    m_climber.climberStop();
   }
 
   // Returns true when the command should end.

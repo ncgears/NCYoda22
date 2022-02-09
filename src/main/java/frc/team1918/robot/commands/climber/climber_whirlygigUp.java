@@ -7,7 +7,6 @@
 
 package frc.team1918.robot.commands.climber;
 
-import frc.team1918.robot.Constants;
 import frc.team1918.robot.Helpers;
 import frc.team1918.robot.subsystems.ClimberSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -15,14 +14,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * A command that ...
  */
-public class climber_releaseHook2 extends CommandBase {
+public class climber_whirlygigUp extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"}) //Dont add "unused" under normal operation
   private final ClimberSubsystem m_climber;
 
   /**
    * @param subsystem The subsystem used by this command.
    */
-  public climber_releaseHook2(ClimberSubsystem subsystem) {
+  public climber_whirlygigUp(ClimberSubsystem subsystem) {
     m_climber = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -31,8 +30,8 @@ public class climber_releaseHook2 extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Helpers.Debug.debug("Collector: Intake Forward");
-    // m_climber.setIntakeSpeed(Constants.Collector.kDefaultCollectorSpeed);
+    Helpers.Debug.debug("Climber: Raise Whirlygig");
+    m_climber.raiseWhirlygig();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
