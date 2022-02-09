@@ -45,56 +45,17 @@ import frc.team1918.robot.commandgroups.cg_drive_initOdometry;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  //private final PowerDistribution m_pdp = new PowerDistribution();
-  private final Compressor m_air = new Compressor(PneumaticsModuleType.CTREPCM);
-  //team 1918 subsystems
-  // private final ClimberSubsystem m_climber = new ClimberSubsystem();
-  private final CollectorSubsystem m_collector = new CollectorSubsystem();
-  private final FeederSubsystem m_feeder = new FeederSubsystem();
-  // private final ShooterSubsystem m_shooter = new ShooterSubsystem();
-  private final DriveSubsystem m_drive = new DriveSubsystem();
-  //other subsystems
-  private final AutonSubsystem m_auton = new AutonSubsystem();
-  //team 1918 commands
-  private final drive_resetGyro m_resetGyro = new drive_resetGyro(m_drive);
-  private final cg_drive_initOdometry m_initOdom = new cg_drive_initOdometry(m_drive);
-  // private final shooter_shootWall m_shooter_shootWall = new shooter_shootWall(shooter);
-  // private final shooter_shootShort m_shooter_shootShort = new shooter_shootShort(shooter);
-  // private final shooter_shootLine m_shooter_shootLine = new shooter_shootLine(shooter);
-  // private final shooter_shootTrench m_shooter_shootTrench = new shooter_shootTrench(shooter);
+  //subsystems definitions
+    private final PowerDistribution m_pdp = new PowerDistribution();
+    private final Compressor m_air = new Compressor(PneumaticsModuleType.CTREPCM);
+    private final ClimberSubsystem m_climber = new ClimberSubsystem();
+    private final CollectorSubsystem m_collector = new CollectorSubsystem();
+    private final FeederSubsystem m_feeder = new FeederSubsystem();
+    private final ShooterSubsystem m_shooter = new ShooterSubsystem();
+    private final DriveSubsystem m_drive = new DriveSubsystem();
+    private final AutonSubsystem m_auton = new AutonSubsystem();
 
-  //Define the buttons and where they are bound
-  //Driver Controller
-  private Joystick dj = new Joystick(Constants.OI.OI_JOY_DRIVER);
-  // private JoystickButton btn_LOCKANGLE = new JoystickButton(dj, Constants.OI.Driver.BTN_LOCKANGLE);
-  // private JoystickButton btn_UNLOCKANGLE = new JoystickButton(dj, Constants.OI.Driver.BTN_UNLOCKANGLE);
-  // private JoystickButton btn_FEEDER_FWD = new JoystickButton(dj, Constants.OI.Driver.BTN_FEED_FWD);
-  // private JoystickButton btn_FEEDER_REV = new JoystickButton(dj, Constants.OI.Driver.BTN_FEED_REV);
-  // private JoystickButton btn_TOGGLE_DEBUG = new JoystickButton(dj, Constants.OI.Driver.BTN_TOG_DEBUG);
-  // private POVButton btn_GYRO_RESET = new POVButton(dj, Constants.OI.Driver.DPAD_GYRO_RESET);
-  // private POVButton btn_THROTUP_UP = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UP);
-  //   private POVButton btn_THROTUP_UL = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UL);
-  //   private POVButton btn_THROTUP_UR = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UR);
-  // private POVButton btn_THROTDN_DN = new POVButton(dj, Constants.OI.Driver.DPAD_THROTDN_DN);
-  //   private POVButton btn_THROTDN_DL = new POVButton(dj, Constants.OI.Driver.DPAD_THROTDN_DL);
-  //   private POVButton btn_THROTDN_DR = new POVButton(dj, Constants.OI.Driver.DPAD_THROTDN_DR);
-  //OrPOVButtons are a custom button type to bind 3 DPAD directions to a single command. See utils/OrPOVButton
-  // private OrPOVButton orbtn_THROTUP = new OrPOVButton(btn_THROTUP_UP, btn_THROTUP_UL, btn_THROTUP_UR);
-  // private OrPOVButton orbtn_THROTDN = new OrPOVButton(btn_THROTDN_DN, btn_THROTDN_DL, btn_THROTDN_DR);
-
-  //Operator Controller
-  private Joystick oj = new Joystick(Constants.OI.OI_JOY_OPER);
-  private JoystickButton btn_COLLECTOR_IN = new JoystickButton(oj, Constants.OI.Operator.BTN_COLLECTOR_IN);
-  private POVButton btn_COLLECTOR_UP = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_UP);
-  private POVButton btn_COLLECTOR_DOWN = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_DOWN);
-  private JoystickButton btn_COLLECTOR_TOGGLE = new JoystickButton(oj, Constants.OI.Operator.BTN_TOG_MIDDOWN);
-
-  //Special Bindings (AndButtons)
-  // private JoystickButton btn_MECHZERO_KEY1 = new JoystickButton(dj, Constants.OI.Operator.BTN_MECHZERO);
-  // private JoystickButton btn_MECHZERO_KEY2 = new JoystickButton(oj, Constants.OI.Operator.BTN_MECHZERO);
-  // private AndButton andbtn_MECHZERO = new AndButton(btn_MECHZERO_KEY1,btn_MECHZERO_KEY2); //AndButton requires both to be true
-
-  /**
+      /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
@@ -111,18 +72,63 @@ public class RobotContainer {
     }
 
     // Set the default command that is run for the robot. Normally, this is the drive command
-    m_drive.setDefaultCommand(
-      new drive_defaultDrive(
-        m_drive,
-        () -> Helpers.OI.getAxisFwdValue(true),
-        () -> Helpers.OI.getAxisStrafeValue(true),
-        () -> Helpers.OI.getAxisTurnValue(true)
-      )
-    );
+    if(!Constants.DriveTrain.isDisabled) {
+      m_drive.setDefaultCommand(
+        new drive_defaultDrive(
+          m_drive,
+          () -> Helpers.OI.getAxisFwdValue(true),
+          () -> Helpers.OI.getAxisStrafeValue(true),
+          () -> Helpers.OI.getAxisTurnValue(true)
+        )
+      );
+    }
   }
+
+  //commands definitions
+    // private final drive_resetGyro m_resetGyro = new drive_resetGyro(m_drive);
+    // private final cg_drive_initOdometry m_initOdom = new cg_drive_initOdometry(m_drive);
+    // private final shooter_shootWall m_shooter_shootWall = new shooter_shootWall(shooter);
+    // private final shooter_shootShort m_shooter_shootShort = new shooter_shootShort(shooter);
+    // private final shooter_shootLine m_shooter_shootLine = new shooter_shootLine(shooter);
+    // private final shooter_shootTrench m_shooter_shootTrench = new shooter_shootTrench(shooter);
+
+  //button definitions
+    //Driver Controller
+      private Joystick dj = new Joystick(Constants.OI.OI_JOY_DRIVER);
+      private JoystickButton btn_WhirlyForward = new JoystickButton(dj, Constants.OI.Driver.BTN_WHIRLYFWD);
+      private JoystickButton btn_WhirlyReverse = new JoystickButton(dj, Constants.OI.Driver.BTN_WHIRLYREV);
+      private JoystickButton btn_ReleaseHook1 = new JoystickButton(dj, Constants.OI.Driver.BTN_RELEASEHOOK1);
+      private JoystickButton btn_ReleaseHook2 = new JoystickButton(dj, Constants.OI.Driver.BTN_RELEASEHOOK2);
+      // private JoystickButton btn_TOGGLE_DEBUG = new JoystickButton(dj, Constants.OI.Driver.BTN_TOG_DEBUG);
+      // private POVButton btn_GYRO_RESET = new POVButton(dj, Constants.OI.Driver.DPAD_GYRO_RESET);
+      // private POVButton btn_THROTUP_UP = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UP);
+      //   private POVButton btn_THROTUP_UL = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UL);
+      //   private POVButton btn_THROTUP_UR = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UR);
+      // private POVButton btn_THROTDN_DN = new POVButton(dj, Constants.OI.Driver.DPAD_THROTDN_DN);
+      //   private POVButton btn_THROTDN_DL = new POVButton(dj, Constants.OI.Driver.DPAD_THROTDN_DL);
+      //   private POVButton btn_THROTDN_DR = new POVButton(dj, Constants.OI.Driver.DPAD_THROTDN_DR);
+      //OrPOVButtons are a custom button type to bind 3 DPAD directions to a single command. See utils/OrPOVButton
+      // private OrPOVButton orbtn_THROTUP = new OrPOVButton(btn_THROTUP_UP, btn_THROTUP_UL, btn_THROTUP_UR);
+      // private OrPOVButton orbtn_THROTDN = new OrPOVButton(btn_THROTDN_DN, btn_THROTDN_DL, btn_THROTDN_DR);
+
+    //Operator Controller
+      private Joystick oj = new Joystick(Constants.OI.OI_JOY_OPER);
+      // private JoystickButton btn_COLLECTOR_IN = new JoystickButton(oj, Constants.OI.Operator.BTN_COLLECTOR_IN);
+      // private POVButton btn_COLLECTOR_UP = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_UP);
+      // private POVButton btn_COLLECTOR_DOWN = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_DOWN);
+      // private JoystickButton btn_COLLECTOR_TOGGLE = new JoystickButton(oj, Constants.OI.Operator.BTN_TOG_MIDDOWN);
+
+    //Special Bindings (AndButtons)
+      // private JoystickButton btn_MECHZERO_KEY1 = new JoystickButton(dj, Constants.OI.Operator.BTN_MECHZERO);
+      // private JoystickButton btn_MECHZERO_KEY2 = new JoystickButton(oj, Constants.OI.Operator.BTN_MECHZERO);
+      // private AndButton andbtn_MECHZERO = new AndButton(btn_MECHZERO_KEY1,btn_MECHZERO_KEY2); //AndButton requires both to be true
 
   private void configureButtonBindings() {
     //The buttons here are named based on their functional purpose. This abstracts the purpose from which controller it is attached to.
+    btn_WhirlyForward.whileHeld(new climber_rotateFwd(m_climber));
+    btn_WhirlyReverse.whileHeld(new climber_rotateRev(m_climber));
+    btn_ReleaseHook1.whenPressed(new climber_lockHook(m_climber,1).beforeStarting(new climber_unlockHook(m_climber,2)).andThen(new WaitCommand(Constants.Climber.kHookReleaseTime)));
+    btn_ReleaseHook2.whenPressed(new climber_lockHook(m_climber,2).beforeStarting(new climber_unlockHook(m_climber,2)).andThen(new WaitCommand(Constants.Climber.kHookReleaseTime)));
     // btn_GYRO_RESET.whenPressed(new drive_resetGyro(m_drive));
     // btn_TOGGLE_DEBUG.whenPressed(new helpers_toggleDebug());
     // btn_SHOOT_WALL.whenPressed(new shooter_shootWall(m_shooter)).whenReleased(new shooter_stopShooter(m_shooter));
@@ -145,12 +151,13 @@ public class RobotContainer {
   }
 
   // These functions return the commands, this is only needed for things that happen during robot init in Robot.java
-  public drive_resetGyro getResetGyroCommand() {
-    return m_resetGyro;
-  }
-  public cg_drive_initOdometry getInitOdomCommand() {
-    return m_initOdom;
-  }
+  
+  // public drive_resetGyro getResetGyroCommand() {
+  //   return m_resetGyro;
+  // }
+  // public cg_drive_initOdometry getInitOdomCommand() {
+  //   return m_initOdom;
+  // }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

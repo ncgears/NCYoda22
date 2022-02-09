@@ -73,11 +73,11 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_alliance = DriverStation.getAlliance(); //Put Alliance.Red or Alliance.Blue in Robot.m_alliance
-    m_resetGyro = m_robotContainer.getResetGyroCommand();
-    if (m_resetGyro != null) m_resetGyro.schedule();
+    // m_resetGyro = m_robotContainer.getResetGyroCommand();
+    // if (m_resetGyro != null) m_resetGyro.schedule();
 
-    m_initOdom = m_robotContainer.getInitOdomCommand(); 
-    if (m_initOdom != null) m_initOdom.schedule();
+    // m_initOdom = m_robotContainer.getInitOdomCommand(); 
+    // if (m_initOdom != null) m_initOdom.schedule();
 
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     if (m_autonomousCommand != null) m_autonomousCommand.schedule();
@@ -98,8 +98,8 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
     if (m_autonomousCommand != null) m_autonomousCommand.cancel();
 
-    m_resetGyro = m_robotContainer.getResetGyroCommand();
-    if (m_resetGyro != null) m_resetGyro.schedule();
+    // m_resetGyro = m_robotContainer.getResetGyroCommand();
+    // if (m_resetGyro != null) m_resetGyro.schedule();
   }
 
   /**
