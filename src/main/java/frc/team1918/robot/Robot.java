@@ -24,8 +24,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   public Alliance m_alliance;
   private Command m_autonomousCommand;
-  private Command m_initOdom;
-  private Command m_resetGyro;
+  // private Command m_initOdom;
+  // private Command m_resetGyro;
 
   private RobotContainer m_robotContainer;
 
