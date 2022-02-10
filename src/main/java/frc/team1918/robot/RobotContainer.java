@@ -37,7 +37,8 @@ import frc.team1918.robot.commands.drive.*;
 import frc.team1918.robot.commands.feeder.*;
 import frc.team1918.robot.commands.shooter.*;
 //CommandGroup imports
-import frc.team1918.robot.commandgroups.cg_drive_initOdometry;
+import frc.team1918.robot.commandgroups.*;
+// import frc.team1918.robot.commandgroups.cg_drive_initOdometry;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -167,6 +168,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     //return m_autonCommand;
-    return null;
+    // return null;
+    return new cg_auton_testAuto1(m_drive, m_collector, m_feeder, m_shooter);
   }
 }
