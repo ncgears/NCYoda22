@@ -31,10 +31,10 @@ public class collector_toggleIntake extends CommandBase {
   @Override
   public void initialize() {
     Helpers.Debug.debug("Collector: Toggle");
-    if(m_collector.isCollectorDown()) {
-      m_collector.setCollectorPosition("up");
+    if(m_collector.isCollectorDeployed()) {
+      m_collector.setCollectorPosition("deploy");
     } else {
-      m_collector.setCollectorPosition("down");
+      m_collector.setCollectorPosition("retract");
     }
   }
 

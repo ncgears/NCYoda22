@@ -84,6 +84,19 @@ public class DriveSubsystem extends SubsystemBase {
 	}
 
 	/**
+     * Returns the heading of the robot.
+     * @return the robot's heading as a Rotation2d
+     */
+	public Rotation2d getHeadingAsRotation2d() {
+		double raw_yaw = m_gyro.getYaw();
+		double calc_yaw = raw_yaw;
+		if (0.0 > raw_yaw) { //yaw is negative
+			calc_yaw += 360.0;
+		}
+		return Rotation2d.fromDegrees(-calc_yaw); //TODO: Tie this to kGyroReversed, but move it out of swerve (why is it there?)
+	}
+
+	/**
 	 * Returns the turn rate of the robot.
 	 * @return The turn rate of the robot, in degrees per second
 	 */
@@ -150,6 +163,26 @@ public class DriveSubsystem extends SubsystemBase {
 		if(!Constants.Swerve.FR.isDisabled) m_dtFR.setDesiredState(swerveModuleStates[1]);
 		if(!Constants.Swerve.RL.isDisabled) m_dtRL.setDesiredState(swerveModuleStates[2]);
 		if(!Constants.Swerve.RR.isDisabled) m_dtRR.setDesiredState(swerveModuleStates[3]);
+	}
+	public void drive(ChassisSpeeds speeds, boolean normalize) {
+		if (speeds.vxMetersPerSecond == 0 && speeds.vyMetersPerSecond == 0 && speeds.omegaRadiansPerSecond == 0) {
+			brake();
+			return;
+		}
+		SwerveModuleState[] swerveModuleStates = Constants.Swerve.kDriveKinematics.toSwerveModuleStates(speeds);
+		if (normalize) SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.kMaxSpeedMetersPerSecond);
+		// setModuleStates(swerveModuleStates);
+		if(!Constants.Swerve.FL.isDisabled) m_dtFL.setDesiredState(swerveModuleStates[0]);
+		if(!Constants.Swerve.FR.isDisabled) m_dtFR.setDesiredState(swerveModuleStates[1]);
+		if(!Constants.Swerve.RL.isDisabled) m_dtRL.setDesiredState(swerveModuleStates[2]);
+		if(!Constants.Swerve.RR.isDisabled) m_dtRR.setDesiredState(swerveModuleStates[3]);
+	}
+
+	public void brake() {
+		m_dtFL.setDesiredState(new SwerveModuleState(0, m_dtFL.getState().angle));
+		m_dtFR.setDesiredState(new SwerveModuleState(0, m_dtFR.getState().angle));
+		m_dtRL.setDesiredState(new SwerveModuleState(0, m_dtRL.getState().angle));
+		m_dtRR.setDesiredState(new SwerveModuleState(0, m_dtRR.getState().angle));
 	}
 
 	public double calcAngleStraight(double targetAngle, double currentAngle, double kP) {

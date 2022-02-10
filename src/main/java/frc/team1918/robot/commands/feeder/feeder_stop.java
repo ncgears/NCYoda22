@@ -5,24 +5,24 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.team1918.robot.commands.collector;
+package frc.team1918.robot.commands.feeder;
 
 import frc.team1918.robot.Helpers;
-import frc.team1918.robot.subsystems.CollectorSubsystem;
+import frc.team1918.robot.subsystems.FeederSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * A command that ...
  */
-public class collector_lowerIntake extends CommandBase {
+public class feeder_stop extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"}) //Dont add "unused" under normal operation
-  private final CollectorSubsystem m_collector;
+  private final FeederSubsystem m_feeder;
 
   /**
    * @param subsystem The subsystem used by this command.
    */
-  public collector_lowerIntake(CollectorSubsystem subsystem) {
-    m_collector = subsystem;
+  public feeder_stop(FeederSubsystem subsystem) {
+    m_feeder = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -30,13 +30,13 @@ public class collector_lowerIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    Helpers.Debug.debug("Collector: Intake Stop");
+    m_feeder.stopFeeder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Helpers.Debug.debug("Collector: Lower Collector");
-    m_collector.setCollectorPosition("down");
   }
 
   // Called once the command ends or is interrupted.

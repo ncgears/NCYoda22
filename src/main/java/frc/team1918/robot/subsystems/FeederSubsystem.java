@@ -36,8 +36,12 @@ public class FeederSubsystem extends SubsystemBase {
    */
   public void runFeeder(boolean fwd) {
     //send command to run Feeder
-    m_feeder.set( (fwd) ? Constants.Feeder.speed_Motor1 : -Constants.Feeder.speed_Motor1);
+    m_feeder.set(ControlMode.PercentOutput, (fwd) ? Constants.Feeder.speed_Motor1 : -Constants.Feeder.speed_Motor1);
     //Dashboard.Feeder.setHoodPosition(up);
+  }
+
+  public void stopFeeder() {
+    m_feeder.set(ControlMode.PercentOutput,0);
   }
 
   public static boolean hasFirstBall() {

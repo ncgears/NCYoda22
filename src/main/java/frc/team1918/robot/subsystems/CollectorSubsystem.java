@@ -12,7 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 public class CollectorSubsystem extends SubsystemBase {
   private WPI_TalonSRX coll; //collector controller
   private Solenoid m_coll1; //collector solenoid 1
-  private boolean m_collector_down = false;
+  private boolean m_collector_deployed = false;
 
   public CollectorSubsystem() {
     coll = new WPI_TalonSRX(Constants.Collector.id_Motor1);
@@ -28,23 +28,35 @@ public class CollectorSubsystem extends SubsystemBase {
     coll.set(ControlMode.PercentOutput, speed);
   }
 
-  public boolean isCollectorDown() {
-    return m_collector_down;
+  public void startIntake(boolean reverse) {
+    coll.set(ControlMode.PercentOutput, (reverse) ? -Constants.Collector.kDefaultCollectorSpeed : Constants.Collector.kDefaultCollectorSpeed);
+  }
+
+  public void stopIntake() {
+    coll.set(ControlMode.PercentOutput, 0);
+  }
+
+  public boolean isCollectorDeployed() {
+    return m_collector_deployed;
   }
 
   public void setCollectorPosition(String position) {
     switch(position) {
+      case "deploy":
       case "down":
-        //put collector down
-        m_coll1.set(!Constants.Air.stateCollectorUp);
-        m_collector_down = true;
+      case "out":
+        //deploy
+        m_coll1.set(!Constants.Air.stateCollectorDeployed);
+        m_collector_deployed = true;
         break;
+      case "retract":
       case "up":
+      case "in":
       case "stow":
       default:
-        //put collector up
-        m_coll1.set(Constants.Air.stateCollectorUp);
-        m_collector_down = false;
+        //retract/stow
+        m_coll1.set(Constants.Air.stateCollectorDeployed);
+        m_collector_deployed = false;
         break;
     }
   }

@@ -43,6 +43,7 @@ public class feeder_advance extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_feeder.stopFeeder();
   }
 
   // Returns true when the command should end.

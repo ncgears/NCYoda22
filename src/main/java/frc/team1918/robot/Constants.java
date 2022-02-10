@@ -35,8 +35,9 @@ public class Constants {
         public static final boolean isDisabled = true; //Disable autonomous
         public static final double kMaxSpeedMetersPerSecond = 0.25;
         public static final double kMaxAccelMetersPerSecondSquared = 0.0;
-        public static final double kMaxOmega =
-        (kMaxSpeedMetersPerSecond / Math.hypot(0.5461 / 2.0, 0.6477 / 2.0));
+        public static final double kMaxOmega = (kMaxSpeedMetersPerSecond / Math.hypot(0.5461 / 2.0, 0.6477 / 2.0));
+        public static final double kPTranslationController = 0.0;
+        public static final double kPThetaController = 0.0;
     }
 
     /**
@@ -50,7 +51,7 @@ public class Constants {
         public static final int id_ClimbHook1Solonoid = 1; //ID of solonoid for climber hook 1
         public static final int id_ClimbHook2Solonoid = 2; //ID of solonoid for climber hook 2
         public static final int id_WhirlyGigSolonoid = 4; //ID of solonoid for whirlygig
-        public static final boolean stateCollectorUp = true; //State of the solenoid when COLL1 is up
+        public static final boolean stateCollectorDeployed = true; //State of the solenoid when COLL1 is deployed
         public static final boolean stateHoodUp = true; //State of the solonoid when HOOD is up
         public static final boolean stateClimbHookLocked = false; //State of the solonoid when the hook is locked
         public static final boolean stateWhirlygigUp = true; //State of the solenoid when CLIMBER is up

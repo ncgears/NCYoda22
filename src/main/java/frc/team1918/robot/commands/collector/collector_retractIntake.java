@@ -14,14 +14,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * A command that ...
  */
-public class collector_raiseIntake extends CommandBase {
+public class collector_retractIntake extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"}) //Dont add "unused" under normal operation
   private final CollectorSubsystem m_collector;
 
   /**
    * @param subsystem The subsystem used by this command.
    */
-  public collector_raiseIntake(CollectorSubsystem subsystem) {
+  public collector_retractIntake(CollectorSubsystem subsystem) {
     m_collector = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
