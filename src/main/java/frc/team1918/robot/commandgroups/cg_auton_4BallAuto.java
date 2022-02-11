@@ -24,13 +24,13 @@ import frc.team1918.robot.subsystems.DriveSubsystem;
 import frc.team1918.robot.subsystems.FeederSubsystem;
 import frc.team1918.robot.subsystems.ShooterSubsystem;
 
-public class cg_auton_testAuto1 extends SequentialCommandGroup {
+public class cg_auton_4BallAuto extends SequentialCommandGroup {
   private final CollectorSubsystem m_collector;
   private final DriveSubsystem m_drive;
   private final FeederSubsystem m_feeder;
   private final ShooterSubsystem m_shooter;
 
-  public cg_auton_testAuto1(DriveSubsystem drive, CollectorSubsystem collector, FeederSubsystem feeder, ShooterSubsystem shooter) {
+  public cg_auton_4BallAuto(DriveSubsystem drive, CollectorSubsystem collector, FeederSubsystem feeder, ShooterSubsystem shooter) {
     m_collector = collector;
     m_drive = drive;
     m_feeder = feeder;
@@ -42,15 +42,13 @@ public class cg_auton_testAuto1 extends SequentialCommandGroup {
         new collector_deployIntake(m_collector), //deploy collector
         new ParallelDeadlineGroup( //do until trajectory complete
           // new WaitCommand(3.0), //placeholder for trajectory follower
-          // new drive_followTrajectory(m_drive, new auton_getPath("GetBall2")), //go to ball 2 location
           new drive_followTrajectory(m_drive, new OnePointEightMetersForward()),
-          new helpers_debugMessage("Auton: followTrajectory - OnePointEightMetersForward"),
+          new helpers_debugMessage("Auton: followTrajectory - OnePointEightMetersForward"), //move to ball1
           new collector_intakeForward(m_collector) //start collector
         ),
         new collector_intakeStop(m_collector), //stop collector
         new collector_retractIntake(m_collector),  //retract collector
-        // new drive_followTrajectory(m_drive, new auton_getPath("ShootingPosition1")), //go to shooting position from ball 2
-        new shooter_shootNamed(m_shooter, "AutonTarmac"),
+        new shooter_shootNamed(m_shooter, "AutonFromBall2"), //shoot from the ball 2 position
         new WaitCommand(1.0), //wait for shooter to be at speed
         new feeder_advance(m_feeder), //start advancing the feeder
         new WaitCommand(1.25), //give time for shot
@@ -60,14 +58,13 @@ public class cg_auton_testAuto1 extends SequentialCommandGroup {
         new collector_deployIntake(m_collector), //deploy collector
         new ParallelDeadlineGroup( //do until trajectory complete
           new WaitCommand(3.0), //placeholder for trajectory follower
-        // new drive_followTrajectory(m_drive, new auton_getPath("GetBall3And4")), //go to ball 3 and 4 location
-          // new drive_followTrajectory(m_drive, new CollectSecondBall()),
+          new drive_followTrajectory(m_drive, new CollectBall3AndBall4()), //This goes to human station for 4th ball, via 3rd ball
           new helpers_debugMessage("Auton: followTrajectory - CollectSecondBall"),
           new collector_intakeForward(m_collector) //start collector
         ),
-        // new drive_followTrajectory(m_drive, new GoHome()),
+        new drive_followTrajectory(m_drive, new GoHome()), //go to home shooting position from ball 4
         new helpers_debugMessage("Auton: followTrajectory - GoHome"),
-        new shooter_shootNamed(m_shooter, "AutonTarmac"), //start the shooter for named shot
+        new shooter_shootNamed(m_shooter, "AutonFromHome"), //shoot from the home position
         new feeder_advance(m_feeder), //start advancing the feeder
         new WaitCommand(1.25), //give time for shot
         new shooter_stopShooter(m_shooter), //stop shooter

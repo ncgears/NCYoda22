@@ -2,7 +2,7 @@ package frc.team1918.paths;
 
 import frc.team1918.lib.control.SwerveTrajectory;
 
-public class CollectSecondBall extends Path {
+public class CollectBall3AndBall4 extends Path {
    private final static double[][] points = {
        {0,-1.02,0.0,-0.15,-0.0,-0.0,0.0},
        {0.016,-1.02,-0.0,-0.15,0.0188,0.0222,-0.0259},

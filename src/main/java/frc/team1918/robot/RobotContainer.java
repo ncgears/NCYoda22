@@ -169,6 +169,6 @@ public class RobotContainer {
     // An ExampleCommand will run in autonomous
     //return m_autonCommand;
     // return null;
-    return new cg_auton_testAuto1(m_drive, m_collector, m_feeder, m_shooter);
+    return new cg_auton_4BallAuto(m_drive, m_collector, m_feeder, m_shooter);
   }
 }

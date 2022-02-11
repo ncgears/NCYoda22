@@ -31,8 +31,8 @@ public class drive_followTrajectory extends CommandBase {
    * @param subsystem The drive subsystem this command will run on.
    */
   public drive_followTrajectory(DriveSubsystem subsystem, Path path) {
-    addRequirements(m_drive);
     m_drive = subsystem;
+    addRequirements(m_drive);
     m_trajectory = path.getPath();
   }
 
