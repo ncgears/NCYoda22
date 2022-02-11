@@ -1,0 +1,4 @@
+#install the libraries in requirements.txt
+pip3 install --upgrade -r src/main/python/requirements.txt
+
+generator.generate() creates trajectories and places them in the appropriate place and names them accordingly.

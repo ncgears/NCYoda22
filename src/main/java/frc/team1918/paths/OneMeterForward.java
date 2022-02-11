@@ -2,7 +2,7 @@ package frc.team1918.paths;
 
 import frc.team1918.lib.control.SwerveTrajectory;
 
-public class OnePointEightMetersForward extends Path {
+public class OneMeterForward extends Path {
    private final static double[][] points = {
        {0,0.0,0.0,0.0,-0.0,-0.0,0.0},
        {0.0154,-0.0,-0.0,0.0,-0.0259,-0.0,-0.0039},
