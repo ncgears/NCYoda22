@@ -5,43 +5,29 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.team1918.robot.commands.collector;
+package frc.team1918.robot.commands.helpers;
 
-import frc.team1918.robot.Helpers;
-import frc.team1918.robot.subsystems.CollectorSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.team1918.robot.Helpers;
 
 /**
  * A command that ...
  */
-public class collector_deployIntake extends CommandBase {
+public class helpers_debugMessage extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"}) //Dont add "unused" under normal operation
-  private final CollectorSubsystem m_collector;
+  private String m_message;
 
   /**
    * @param subsystem The subsystem used by this command.
    */
-  public collector_deployIntake(CollectorSubsystem subsystem) {
-    m_collector = subsystem;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
-  }
-
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
+  public helpers_debugMessage(String message) {
+    m_message = message;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Helpers.Debug.debug("Collector: Deploy Intake");
-    m_collector.setCollectorPosition("deploy");
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
+    Helpers.Debug.debug(m_message);
   }
 
   // Returns true when the command should end.

@@ -30,7 +30,7 @@ public class feeder_advance extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Helpers.Debug.debug("Collector: Intake Forward");
+    Helpers.Debug.debug("Feeder: Advance");
     m_feeder.runFeeder(true);
     // m_feeder.setIntakeSpeed(Constants.Collector.kDefaultCollectorSpeed);
   }
@@ -43,12 +43,11 @@ public class feeder_advance extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_feeder.stopFeeder();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

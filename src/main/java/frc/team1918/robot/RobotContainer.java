@@ -30,7 +30,7 @@ import frc.team1918.robot.subsystems.DriveSubsystem;
 import frc.team1918.robot.subsystems.FeederSubsystem;
 import frc.team1918.robot.subsystems.ShooterSubsystem;
 //Commands imports
-import frc.team1918.robot.commands.helpers.helpers_toggleDebug;
+import frc.team1918.robot.commands.helpers.helpers_debugMessage;
 import frc.team1918.robot.commands.climber.*;
 import frc.team1918.robot.commands.collector.*;
 import frc.team1918.robot.commands.drive.*;

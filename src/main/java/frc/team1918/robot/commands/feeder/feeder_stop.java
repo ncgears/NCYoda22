@@ -30,7 +30,7 @@ public class feeder_stop extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Helpers.Debug.debug("Collector: Intake Stop");
+    Helpers.Debug.debug("Feeder: Stop");
     m_feeder.stopFeeder();
   }
 
