@@ -53,12 +53,12 @@ public class FeederSubsystem extends SubsystemBase {
 
   public boolean hasFirstBall() {
     //We have a ball by the intake
-    return m_beam_intake.get();
+    return !m_beam_intake.get();
   }
 
   public boolean hasSecondBall() {
     //We have a ball up by the shooter
-    return m_beam_shooter.get();
+    return !m_beam_shooter.get();
   }
 
   public boolean ballsCleared() {
