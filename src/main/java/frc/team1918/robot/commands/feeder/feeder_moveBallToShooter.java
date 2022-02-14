@@ -47,6 +47,7 @@ public class feeder_moveBallToShooter extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    Helpers.Debug.debug("Feeder: Auto-Stopped");
     m_feeder.stopFeeder();
   }
 
