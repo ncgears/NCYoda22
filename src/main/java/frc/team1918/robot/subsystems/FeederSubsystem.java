@@ -5,11 +5,15 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.math.filter.Debouncer;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team1918.robot.Constants;
 
 public class FeederSubsystem extends SubsystemBase {
   private WPI_TalonFX m_feeder; // feeder controller
+  private DigitalInput m_beam_intake; //First Beam Break (at intake)
+  private DigitalInput m_beam_shooter; //Second Beam Break (before shooter)
 
 //TODO: See https://www.chiefdelphi.com/t/code-for-ir-break-beam/396373/4 for beam break examples and triggers
 
@@ -17,7 +21,10 @@ public class FeederSubsystem extends SubsystemBase {
    * Creates a new ExampleSubsystem.
    */
   public FeederSubsystem() {
- //Setup the SparkMAX controller as desired
+    // Setup the beam breaks
+    m_beam_intake = new DigitalInput(Constants.Feeder.id_BeamBreak1);
+    m_beam_shooter = new DigitalInput(Constants.Feeder.id_BeamBreak2);
+    // Setup the feeder
     m_feeder = new WPI_TalonFX(Constants.Feeder.id_Motor1);
     m_feeder.configFactoryDefault();
     m_feeder.set(ControlMode.PercentOutput, 0);
@@ -44,13 +51,18 @@ public class FeederSubsystem extends SubsystemBase {
     m_feeder.set(ControlMode.PercentOutput,0);
   }
 
-  public static boolean hasFirstBall() {
-    //This would use the beam break logic to figure these out
-    return false;
+  public boolean hasFirstBall() {
+    //We have a ball by the intake
+    return m_beam_intake.get();
   }
 
-  public static boolean hasSecondBall() {
-    //This would use the beam break logic to figure these out
-    return false;
+  public boolean hasSecondBall() {
+    //We have a ball up by the shooter
+    return m_beam_shooter.get();
+  }
+
+  public boolean ballsCleared() {
+    Debouncer m_debouncer = new Debouncer(Constants.Feeder.debounce_delay, Debouncer.DebounceType.kFalling);
+    return m_debouncer.calculate(hasFirstBall() || hasSecondBall());
   }
 }

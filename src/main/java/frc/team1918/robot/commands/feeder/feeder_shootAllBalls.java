@@ -5,24 +5,24 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.team1918.robot.commands.collector;
+package frc.team1918.robot.commands.feeder;
 
 import frc.team1918.robot.Helpers;
-import frc.team1918.robot.subsystems.CollectorSubsystem;
+import frc.team1918.robot.subsystems.FeederSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * A command that ...
  */
-public class collector_intakeReverse extends CommandBase {
+public class feeder_shootAllBalls extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"}) //Dont add "unused" under normal operation
-  private final CollectorSubsystem m_collector;
+  private final FeederSubsystem m_feeder;
 
   /**
    * @param subsystem The subsystem used by this command.
    */
-  public collector_intakeReverse(CollectorSubsystem subsystem) {
-    m_collector = subsystem;
+  public feeder_shootAllBalls(FeederSubsystem subsystem) {
+    m_feeder = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -30,23 +30,24 @@ public class collector_intakeReverse extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Helpers.Debug.debug("Collector: Intake Reverse");
-    m_collector.startIntake(true);
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
+    Helpers.Debug.debug("Feeder: Move all balls into shooter");
+    if(m_feeder.hasFirstBall() || m_feeder.hasSecondBall()) {
+      m_feeder.runFeeder(true);
+    } else {
+      Helpers.Debug.debug("Feeder: No balls to move at position 1 or 2");
+      this.end(true);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_feeder.stopFeeder();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return m_feeder.ballsCleared();
   }
 }

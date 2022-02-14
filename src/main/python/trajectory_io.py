@@ -23,7 +23,7 @@ def export_trajectory(x, y, theta, vx, vy, omega, dts, N_per_segment, name):
     thetas.append(theta[-1])
 
     f = open("src/main/java/frc/team1918/paths/" + name + ".java", "w")
-    f.write("package frc.paths;\n")
+    f.write("package frc.team1918.paths;\n")
     f.write("\n")
     f.write("import frc.team1918.lib.control.SwerveTrajectory;\n")
     f.write("\n")
