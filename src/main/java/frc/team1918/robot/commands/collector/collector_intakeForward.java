@@ -7,7 +7,6 @@
 
 package frc.team1918.robot.commands.collector;
 
-import frc.team1918.robot.Constants;
 import frc.team1918.robot.Helpers;
 import frc.team1918.robot.subsystems.CollectorSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;

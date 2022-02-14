@@ -72,10 +72,12 @@ public class Constants {
      */
     public static final class Feeder {
         public static final boolean isDisabled = true; //Disable the feeder subsystem
-        public static final int id_BeamBreak1 = 0; //ID of the Beam Break 1 DIO
+        public static final int id_BeamBreak1 = 0; //ID of the Beam Break 1 DIO (intake)
+        public static final int id_BeamBreak2 = 1; //ID of the Beam Break 2 DIO (shooter)
         public static final int id_Motor1 = 14; //ID of the Feeder Motor 1 Controller
         public static final boolean isInverted_Motor1 = false; //Invert motor direction
-        public static final double speed_Motor1 = 0.5; //Feeder Motor 1 Speed
+        public static final double speed_Motor1 = 0.75; //Feeder Motor 1 Speed
+        public static final double debounce_delay = 3.0; //Seconds to wait for feeder beams
     }
 
     /**
