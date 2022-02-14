@@ -23,7 +23,7 @@ import frc.team1918.robot.utils.AndButton;
 import frc.team1918.robot.utils.OrPOVButton;
 
 //Subsystems imports
-import frc.team1918.robot.subsystems.AutonSubsystem;
+import frc.team1918.robot.subsystems.VisionSubsystem;
 import frc.team1918.robot.subsystems.ClimberSubsystem;
 import frc.team1918.robot.subsystems.CollectorSubsystem;
 import frc.team1918.robot.subsystems.DriveSubsystem;
@@ -55,7 +55,7 @@ public class RobotContainer {
     private final FeederSubsystem m_feeder = new FeederSubsystem();
     private final ShooterSubsystem m_shooter = new ShooterSubsystem();
     private final DriveSubsystem m_drive = new DriveSubsystem();
-    private final AutonSubsystem m_auton = new AutonSubsystem();
+    private final VisionSubsystem m_auton = new VisionSubsystem();
 
       /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.

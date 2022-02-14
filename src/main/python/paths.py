@@ -21,10 +21,14 @@ def main():
 
     # array points are [xMeters,yMeters,rotationInRadians]
 
+    # generator.generate(
+    #                     [[0,0,0],
+    #                     [-1.0,0,-0.15]],
+    #                     "OneMeterForward")
     generator.generate(
-                        [[0,0,0],
-                        [-1.0,0,-0.15]],
-                        "OneMeterForward")
+                    [[0,2,0],
+                    [-1.0,0,-0.15]],
+                    "Test")
 
     # generator.generate(
     #                 [[-1.0,0,-0.15],

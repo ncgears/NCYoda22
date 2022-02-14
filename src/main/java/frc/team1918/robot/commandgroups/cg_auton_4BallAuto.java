@@ -42,7 +42,7 @@ public class cg_auton_4BallAuto extends SequentialCommandGroup {
         new collector_deployIntake(m_collector), //deploy collector
         new ParallelDeadlineGroup( //do until trajectory complete
           // new WaitCommand(3.0), //placeholder for trajectory follower
-          new drive_followTrajectory(m_drive, new OnePointEightMetersForward()),
+          new drive_followTrajectory(m_drive, new OneMeterForward()),
           new helpers_debugMessage("Auton: followTrajectory - OnePointEightMetersForward"), //move to ball1
           new collector_intakeForward(m_collector) //start collector
         ),
