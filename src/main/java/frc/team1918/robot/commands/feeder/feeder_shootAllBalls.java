@@ -42,6 +42,7 @@ public class feeder_shootAllBalls extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    Helpers.Debug.debug("Feeder: Auto-stopped, feeder empty");
     m_feeder.stopFeeder();
   }
 
