@@ -7,13 +7,14 @@ import cv2
 import imutils
 import time
 import threading
-import NetworkTables
+from networktables import NetworkTables
+import sys
 
 cond = threading.Condition()
 notified = [False]
-ip='000'
-tableName= "tablename"
-
+ip='127.0.0.1'
+tableName= "VisionInfo"
+print(sys.argv,'sys')
 def connectionListener(connected, info):
     print(info, '; Connected=%s' % connected)
     with cond:
@@ -29,11 +30,12 @@ with cond:
         cond.wait()
 
 table =NetworkTables.getTable(tableName)
+# table = table.getTable(tableName)
 
 print("Connected!")
 
 
-wanted_color = 'blue'
+wanted_color = 'red'
 cv2.namedWindow("window")
 cv2.namedWindow('real')
 vs = cv2.VideoCapture(0)
@@ -114,9 +116,11 @@ while True:
         #sortby
         # 0 = x , 1=y , 2 =area
         return e[0]
-    if ball != None:
+    if ball != []:
         ball.sort(reverse=True, key=sort)
-        table.putNumberArray('ballCoordinates',ball)
+        print(table.getKeys())
+        for i in range(len(ball)):
+            table.putNumberArray('ballCoordinates'+str(i+1),ball[i])
         try:
             for i in range(len(ball) or None):
                 cv2.putText(image, text=str(i+1), org=(ball[i][0], ball[i][1]+50),
@@ -124,6 +128,10 @@ while True:
                             thickness=2, lineType=cv2.LINE_AA)
         except:
             pass
+    else:
+        for key in table.getKeys():
+            table.putNumberArray(key,[])
+
 
     cv2.imshow('window',  masked)
     cv2.imshow('real', image)

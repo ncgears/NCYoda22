@@ -38,6 +38,8 @@
       "/LiveWindow/FeederSubsystem": "Subsystem",
       "/LiveWindow/MixerSubsystem": "Subsystem",
       "/LiveWindow/ShooterSubsystem": "Subsystem",
+      "/LiveWindow/Ungrouped/DigitalInput[0]": "Digital Input",
+      "/LiveWindow/Ungrouped/DigitalInput[1]": "Digital Input",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
       "/LiveWindow/Ungrouped/Talon FX [14]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon FX [16]": "Motor Controller",
@@ -53,20 +55,15 @@
       "/LiveWindow/Ungrouped/Talon SRX [4]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [7]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [8]": "Motor Controller",
-      "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro"
+      "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
+      "/LiveWindow/VisionSubsystem": "Subsystem"
     }
   },
   "NetworkTables": {
-    "FMSInfo": {
-      "open": true
-    },
     "LiveWindow": {
       "AutonSubsystem": {
         "open": true
       },
-      "open": true
-    },
-    "SmartDashboard": {
       "open": true
     },
     "Usage": {
@@ -80,7 +77,7 @@
     "Plot <0>": {
       "plots": [
         {
-          "height": 272,
+          "height": -9,
           "series": [
             {
               "color": [

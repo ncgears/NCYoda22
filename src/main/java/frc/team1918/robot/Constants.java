@@ -274,6 +274,9 @@ public class Constants {
         // public static final double DT_DRIVE_CONVERSION_FACTOR = (DT_DRIVE_FIRST_GEARONE / DT_DRIVE_FIRST_GEARTWO) * (DT_DRIVE_SECOND_GEARONE / DT_DRIVE_SECOND_GEARTWO); //Conversion factor to correct RPM from SparkMax getVelocity()
     }
     
+    public static final class Vision {
+        public static final boolean isDisabled = false;
+    }
     /**
      * Constants for the Operator Interface
      * The OI is based on 2 Logitech Controllers, a driver and an operator, setup for swerve drive.
