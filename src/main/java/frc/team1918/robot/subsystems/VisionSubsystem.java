@@ -7,39 +7,58 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.team1918.robot.Constants;
 import frc.team1918.robot.Helpers;
-import frc.team1918.robot.commands.drive.drive_defaultDrive;
-import frc.team1918.robot.commands.helpers.helpers_debugMessage;
 
 
 public class VisionSubsystem extends SubsystemBase {
+  NetworkTable table;
+  double t1x, t1y; //target 1
+  double t2x, t2y; //target 2
+  double t3x, t3y; //target 3
+  String t1color, t2color, t3color;
+  double defaultValue = 0.0;
+  String defaultColor = "none";
+
   public VisionSubsystem() {
-    
-    
+    table = NetworkTableInstance.getDefault().getTable("VisionInfo");
   }
   
-NetworkTable table;
-double[] areas;
-double[] defaultValue = new double[0];
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run and change the shooter speed if requested
+    double t1x = table.getEntry("target1x").getDouble(defaultValue);
+    double t1y = table.getEntry("target1y").getDouble(defaultValue);
+    String t1color = table.getEntry("target1color").getString(defaultColor);
+    double t2x = table.getEntry("target2x").getDouble(defaultValue);
+    double t2y = table.getEntry("target2y").getDouble(defaultValue);
+    String t2color = table.getEntry("target1color").getString(defaultColor);
+    double t3x = table.getEntry("target3x").getDouble(defaultValue);
+    double t3y = table.getEntry("target3y").getDouble(defaultValue);
+    String t3color = table.getEntry("target1color").getString(defaultColor);
 
+    Object[][] targets = { //create a multi-dimensional array
+      {t1x, t1y, t1color}, 
+      {t2x, t2y, t2color}, 
+      {t3x, t3y, t3color}
+    };
 
-public void getVisionInfo() {
- 
-  // NetworkTable table = NetworkTableInstance.getDefault().getTable("VisionInfo");
-  // NetworkTableEntry ballCoordinate = table.getEntry("ballCoordinates1");
-  // System.out.println(ballCoordinate);
-  // Helpers.Debug.debug("Vision output: "+ballCoordinate.toString());
-  Helpers.Debug.debug("Vision output: ");
+    for (int i=0; i<targets.length; i++) {
+      Object[] target = targets[i];
+      Helpers.Debug.debug("Vision: T"+(i+1)+"(x:"+target[0]+" y:"+target[1]+" color: "+target[2]+")");
+    }
+  }
 
-    // double[] areas = table.getEntry("area").getDoubleArray(defaultValue);
+  public void setDesiredColor(String color) {
+    String desired;
+    switch (color.toLowerCase()) {
+      case "blue":
+      case "red":
+      case "both":
+        desired = color.toLowerCase();
+        break;
+      default:
+        desired = "none";
+    }
+    table.getEntry("desiredColor").setString(desired);
+  }
 
-    // System.out.print("areas: " );
-
-    // for (double area : areas) {
-    //   System.out.print(area + " ");
-    // }
-
-    // System.out.println();
-}
-
- 
 }

@@ -12,7 +12,8 @@ import sys
 
 cond = threading.Condition()
 notified = [False]
-ip='127.0.0.1'
+#ip='127.0.0.1'
+ip='roborio-1918-frc.local'
 tableName= "VisionInfo"
 print(sys.argv,'sys')
 def connectionListener(connected, info):
@@ -29,13 +30,15 @@ with cond:
     if not notified[0]:
         cond.wait()
 
-table =NetworkTables.getTable(tableName)
+table = NetworkTables.getTable(tableName)
 # table = table.getTable(tableName)
 
 print("Connected!")
 
 
-wanted_color = 'red'
+#wanted_color = 'red'
+wanted_color = table.getString("desiredColor","none")
+
 cv2.namedWindow("window")
 cv2.namedWindow('real')
 vs = cv2.VideoCapture(0)
@@ -121,6 +124,7 @@ while True:
         print(table.getKeys())
         for i in range(len(ball)):
             table.putNumberArray('ballCoordinates'+str(i+1),ball[i])
+            #need to be entries called target[i]x, target[i]y, target[i]color
         try:
             for i in range(len(ball) or None):
                 cv2.putText(image, text=str(i+1), org=(ball[i][0], ball[i][1]+50),

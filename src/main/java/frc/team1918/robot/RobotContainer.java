@@ -85,11 +85,6 @@ public class RobotContainer {
         )
       );
     }
-    if(!Constants.Vision.isDisabled) {
-      m_vision.setDefaultCommand(
-        new vision_defaultVision(m_vision)
-      );
-    }
   }
 
   //commands definitions
