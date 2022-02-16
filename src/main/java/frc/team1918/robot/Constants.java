@@ -318,6 +318,7 @@ public class Constants {
             public final static int DPAD_COLLECTOR_UP = Logitech.DPAD_UP; //Move collector to up
             public final static int DPAD_COLLECTOR_MID = Logitech.DPAD_RIGHT; //Move collector to middle
             public final static int DPAD_COLLECTOR_DOWN = Logitech.DPAD_DN; //Move collector down
+            public final static int DPAD_MUSIC_PLAY = Logitech.DPAD_LEFT; //Play music
         }
 
         /**

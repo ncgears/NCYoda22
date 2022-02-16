@@ -36,7 +36,8 @@ import frc.team1918.robot.commands.collector.*;
 import frc.team1918.robot.commands.drive.*;
 import frc.team1918.robot.commands.feeder.*;
 import frc.team1918.robot.commands.shooter.*;
-import frc.team1918.robot.commands.vision.*;
+import frc.team1918.robot.commands.orchestra.*;
+// import frc.team1918.robot.commands.vision.*;
 //CommandGroup imports
 import frc.team1918.robot.commandgroups.*;
 // import frc.team1918.robot.commandgroups.cg_drive_initOdometry;
@@ -120,7 +121,7 @@ public class RobotContainer {
       // private POVButton btn_COLLECTOR_UP = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_UP);
       // private POVButton btn_COLLECTOR_DOWN = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_DOWN);
       // private JoystickButton btn_COLLECTOR_TOGGLE = new JoystickButton(oj, Constants.OI.Operator.BTN_TOG_MIDDOWN);
-
+      private POVButton btn_MUSIC_PLAY = new POVButton(oj, Constants.OI.Operator.DPAD_MUSIC_PLAY);
     //Special Bindings (AndButtons)
       // private JoystickButton btn_MECHZERO_KEY1 = new JoystickButton(dj, Constants.OI.Operator.BTN_MECHZERO);
       // private JoystickButton btn_MECHZERO_KEY2 = new JoystickButton(oj, Constants.OI.Operator.BTN_MECHZERO);
@@ -144,6 +145,7 @@ public class RobotContainer {
     // btn_COLLECTOR_TOGGLE.whenPressed(new collector_toggleIntake(m_collector));
     // btn_LOCKANGLE.whenPressed(new drive_lockAngle(m_drive));
     // btn_UNLOCKANGLE.whenPressed(new drive_unlockAngle(m_drive));
+    btn_MUSIC_PLAY.whenPressed(new orchestra_playMusic());
 
     //bind all 3 up and all 3 down for shooter throttle up/down
     // orbtn_THROTUP.whenPressed(new shooter_increaseThrottle(m_shooter));
