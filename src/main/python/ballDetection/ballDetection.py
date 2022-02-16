@@ -60,25 +60,18 @@ def findball(mask, color='both'):
     cnts = cv2.findContours(mask.copy(), cv2.RETR_LIST,
                             cv2.CHAIN_APPROX_SIMPLE)
     cnts = cnts[0] if len(cnts) == 2 else cnts[1]
-    count = 0
-    center = None
-
+    
     for contour in cnts:
         approx = cv2.approxPolyDP(
             contour, 0.005*cv2.arcLength(contour, True), True)
-        area = cv2.contourArea(contour)
 
         if (len(approx) > 10):
-
             a = contour_dict[color]
             a.append(contour)
-
             contour_dict[color] = a
 
-
 while True:
-    a, image = vs.read()
-
+    _, image = vs.read()
     image = imutils.resize(image, width=500)
     blurred = cv2.GaussianBlur(image, (11, 11), 0)
     hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
