@@ -11,9 +11,9 @@ import frc.team1918.robot.Helpers;
 
 public class VisionSubsystem extends SubsystemBase {
   NetworkTable table;
-  double t1x, t1y; //target 1
-  double t2x, t2y; //target 2
-  double t3x, t3y; //target 3
+  double t1x, t1y, t1s; //target 1
+  double t2x, t2y, t2s; //target 2
+  double t3x, t3y, t3s; //target 3
   String t1color, t2color, t3color;
   double defaultValue = 0.0;
   String defaultColor = "none";
