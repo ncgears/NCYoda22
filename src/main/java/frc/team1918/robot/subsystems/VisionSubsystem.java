@@ -36,12 +36,12 @@ public class VisionSubsystem extends SubsystemBase {
     double t3x = table.getEntry("target3x").getDouble(defaultValue);
     double t3y = table.getEntry("target3y").getDouble(defaultValue);
     String t3color = table.getEntry("target1color").getString(defaultColor);
-    double t2s = table.getEntry("target3size").getDouble(defaultValue);
+    double t3s = table.getEntry("target3size").getDouble(defaultValue);
 
     Object[][] targets = { //create a multi-dimensional array
-      {t1x, t1y, t1color, t1size}, 
-      {t2x, t2y, t2color, t2size}, 
-      {t3x, t3y, t3color, t3size}
+      {t1x, t1y, t1color, t1s}, 
+      {t2x, t2y, t2color, t2s}, 
+      {t3x, t3y, t3color, t3s}
     };
 
     for (int i=0; i<targets.length; i++) {
