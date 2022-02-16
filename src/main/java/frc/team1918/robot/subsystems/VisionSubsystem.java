@@ -28,22 +28,25 @@ public class VisionSubsystem extends SubsystemBase {
     double t1x = table.getEntry("target1x").getDouble(defaultValue);
     double t1y = table.getEntry("target1y").getDouble(defaultValue);
     String t1color = table.getEntry("target1color").getString(defaultColor);
+    double t1s = table.getEntry("target1size").getDouble(defaultValue);
     double t2x = table.getEntry("target2x").getDouble(defaultValue);
     double t2y = table.getEntry("target2y").getDouble(defaultValue);
     String t2color = table.getEntry("target1color").getString(defaultColor);
+    double t2s = table.getEntry("target2size").getDouble(defaultValue);
     double t3x = table.getEntry("target3x").getDouble(defaultValue);
     double t3y = table.getEntry("target3y").getDouble(defaultValue);
     String t3color = table.getEntry("target1color").getString(defaultColor);
+    double t2s = table.getEntry("target3size").getDouble(defaultValue);
 
     Object[][] targets = { //create a multi-dimensional array
-      {t1x, t1y, t1color}, 
-      {t2x, t2y, t2color}, 
-      {t3x, t3y, t3color}
+      {t1x, t1y, t1color, t1size}, 
+      {t2x, t2y, t2color, t2size}, 
+      {t3x, t3y, t3color, t3size}
     };
 
     for (int i=0; i<targets.length; i++) {
       Object[] target = targets[i];
-      Helpers.Debug.debug("Vision: T"+(i+1)+"(x:"+target[0]+" y:"+target[1]+" color: "+target[2]+")");
+      Helpers.Debug.debug("Vision: T"+(i+1)+"(x:"+target[0]+" y:"+target[1]+" color: "+target[2]+" size: "+target[3]+")");
     }
   }
 
