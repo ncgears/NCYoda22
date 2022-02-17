@@ -29,6 +29,7 @@ import frc.team1918.robot.subsystems.CollectorSubsystem;
 import frc.team1918.robot.subsystems.DriveSubsystem;
 import frc.team1918.robot.subsystems.FeederSubsystem;
 import frc.team1918.robot.subsystems.ShooterSubsystem;
+import frc.team1918.robot.subsystems.OrchestraSubsystem;
 //Commands imports
 import frc.team1918.robot.commands.helpers.helpers_debugMessage;
 import frc.team1918.robot.commands.climber.*;
@@ -58,6 +59,7 @@ public class RobotContainer {
     private final ShooterSubsystem m_shooter = new ShooterSubsystem();
     private final DriveSubsystem m_drive = new DriveSubsystem();
     private final VisionSubsystem m_vision = new VisionSubsystem();
+    private final OrchestraSubsystem m_orchestra = new OrchestraSubsystem();
 
       /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -145,7 +147,7 @@ public class RobotContainer {
     // btn_COLLECTOR_TOGGLE.whenPressed(new collector_toggleIntake(m_collector));
     // btn_LOCKANGLE.whenPressed(new drive_lockAngle(m_drive));
     // btn_UNLOCKANGLE.whenPressed(new drive_unlockAngle(m_drive));
-    btn_MUSIC_PLAY.whenPressed(new orchestra_playMusic());
+    btn_MUSIC_PLAY.whenPressed(new orchestra_playMusic(m_orchestra));
 
     //bind all 3 up and all 3 down for shooter throttle up/down
     // orbtn_THROTUP.whenPressed(new shooter_increaseThrottle(m_shooter));
