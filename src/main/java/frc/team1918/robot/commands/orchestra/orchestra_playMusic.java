@@ -15,9 +15,9 @@ public class orchestra_playMusic extends CommandBase {
 
      /* Talon FXs to play music through.  
      More complex music MIDIs will contain several tracks, requiring multiple instruments.  */
-     WPI_TalonFX [] _fxes =  { new WPI_TalonFX(1, "rio"), new WPI_TalonFX(2, "rio") };
+     WPI_TalonFX [] _fxes =  { new WPI_TalonFX(31, "rio"), new WPI_TalonFX(32, "rio"), new WPI_TalonFX(33, "rio"), new WPI_TalonFX(34, "rio") };
  
-     /* An array of songs that are available to be played, can you guess the song/artists? */
+     /* An array of songs that are available to be played*/
    String[] _songs = new String[] {
      "Imperial-March.chrp",
      
