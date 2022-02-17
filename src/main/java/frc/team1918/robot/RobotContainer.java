@@ -116,6 +116,7 @@ public class RobotContainer {
       //OrPOVButtons are a custom button type to bind 3 DPAD directions to a single command. See utils/OrPOVButton
       // private OrPOVButton orbtn_THROTUP = new OrPOVButton(btn_THROTUP_UP, btn_THROTUP_UL, btn_THROTUP_UR);
       // private OrPOVButton orbtn_THROTDN = new OrPOVButton(btn_THROTDN_DN, btn_THROTDN_DL, btn_THROTDN_DR);
+      private POVButton btn_MUSIC_PLAY = new POVButton(dj, Constants.OI.Operator.DPAD_MUSIC_PLAY);
 
     //Operator Controller
       private Joystick oj = new Joystick(Constants.OI.OI_JOY_OPER);
@@ -123,7 +124,7 @@ public class RobotContainer {
       // private POVButton btn_COLLECTOR_UP = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_UP);
       // private POVButton btn_COLLECTOR_DOWN = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_DOWN);
       // private JoystickButton btn_COLLECTOR_TOGGLE = new JoystickButton(oj, Constants.OI.Operator.BTN_TOG_MIDDOWN);
-      private POVButton btn_MUSIC_PLAY = new POVButton(oj, Constants.OI.Operator.DPAD_MUSIC_PLAY);
+
     //Special Bindings (AndButtons)
       // private JoystickButton btn_MECHZERO_KEY1 = new JoystickButton(dj, Constants.OI.Operator.BTN_MECHZERO);
       // private JoystickButton btn_MECHZERO_KEY2 = new JoystickButton(oj, Constants.OI.Operator.BTN_MECHZERO);
