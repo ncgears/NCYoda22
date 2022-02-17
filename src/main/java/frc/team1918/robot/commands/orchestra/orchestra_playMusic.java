@@ -26,6 +26,7 @@ public class orchestra_playMusic extends CommandBase {
  public void initialize() {
    Helpers.Debug.debug("Orchestra: Play");
    m_orchestra.LoadMusicSelection(0);
+  
  }
 
  // Called every time the scheduler runs while the command is scheduled.

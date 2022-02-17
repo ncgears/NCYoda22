@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.music.Orchestra;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.team1918.robot.Helpers;
 
 public class OrchestraSubsystem extends SubsystemBase{
      /* The orchestra object that holds all the instruments */
@@ -15,11 +16,11 @@ public class OrchestraSubsystem extends SubsystemBase{
 
      /* Talon FXs to play music through.  
      More complex music MIDIs will contain several tracks, requiring multiple instruments.  */
-     WPI_TalonFX [] _fxes =  { new WPI_TalonFX(31, "rio"), new WPI_TalonFX(32, "rio"), new WPI_TalonFX(33, "rio"), new WPI_TalonFX(34, "rio") };
+     WPI_TalonFX [] _fxes =  { new WPI_TalonFX(31, "rio"), new WPI_TalonFX(32, "rio"), new WPI_TalonFX(33, "rio"), new WPI_TalonFX(35, "rio") };
  
      /* An array of songs that are available to be played*/
    String[] _songs = new String[] {
-     "Imperial-March.chrp",
+     "Imperial-March.chrp"
      
    };
  
@@ -44,7 +45,7 @@ public class OrchestraSubsystem extends SubsystemBase{
          _orchestra.loadMusic(_songs[_songSelection]); 
  
          /* print to console */
-         System.out.println("Song selected is: " + _songs[_songSelection]);
+         Helpers.Debug.debug("Song selected is: " + _songs[_songSelection]);
          
          /* schedule a play request, after a delay.  
              This gives the Orchestra service time to parse chirp file.
