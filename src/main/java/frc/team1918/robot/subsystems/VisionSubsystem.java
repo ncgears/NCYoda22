@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Relay.Value;
 import frc.team1918.robot.Constants;
 import frc.team1918.robot.Helpers;
 
@@ -17,9 +19,11 @@ public class VisionSubsystem extends SubsystemBase {
   String t1color, t2color, t3color;
   double defaultValue = 0.0;
   String defaultColor = "none";
+  Relay m_ringlight;
 
   public VisionSubsystem() {
     table = NetworkTableInstance.getDefault().getTable("VisionInfo");
+    m_ringlight = new Relay(Constants.Vision.id_RingLight);
   }
   
   @Override
@@ -62,6 +66,10 @@ public class VisionSubsystem extends SubsystemBase {
         desired = "none";
     }
     table.getEntry("desiredColor").setString(desired);
+  }
+
+  public void setRinglight(boolean enabled) {
+    m_ringlight.set((enabled) ? Value.kForward : Value.kOff);
   }
 
 }

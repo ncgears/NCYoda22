@@ -62,7 +62,7 @@ public class Constants {
      */
     public static final class Collector {
         public static final boolean isDisabled = true; //Disable the collector subsystem
-        public static final int id_Motor1 = 15; 
+        public static final int id_Motor1 = 16; 
         public static final int id_ColorSensor1 = 4;
         public static final double kDefaultCollectorSpeed = 1.0;
     }
@@ -85,8 +85,8 @@ public class Constants {
      */
     public static final class Shooter {
         public static final boolean isDisabled = true; //Disable the shooter subsystem
-        public static final int id_Motor1 = 16; //ID of the Shooter Motor 1 Controller
-        public static final int id_Motor2 = 17; //ID of the Preshooter Motor Controller
+        public static final int id_Motor1 = 43; //ID of the Shooter Motor 1 Controller
+        public static final int id_Motor2 = 16; //ID of the Preshooter Motor Controller
         public static final int kEncoderFullRotation = 2048; //Falcon integrated encoder is 2048
         public static final boolean isInverted_Motor1 = false; //Invert motor direction
         public static final boolean isInverted_Motor2 = false; //Invert motor direction
@@ -276,6 +276,7 @@ public class Constants {
     
     public static final class Vision {
         public static final boolean isDisabled = false;
+        public static final int id_RingLight = 0; //Relay ID of Ringlight SS Relay
     }
     /**
      * Constants for the Operator Interface
