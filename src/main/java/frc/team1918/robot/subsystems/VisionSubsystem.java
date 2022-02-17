@@ -55,7 +55,8 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   public void setDesiredColor(String color) {
-    String desired;
+    String desired ;
+
     switch (color.toLowerCase()) {
       case "blue":
       case "red":
@@ -65,6 +66,7 @@ public class VisionSubsystem extends SubsystemBase {
       default:
         desired = "none";
     }
+    // desired = "blue";
     table.getEntry("desiredColor").setString(desired);
   }
 
