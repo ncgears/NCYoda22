@@ -3,6 +3,7 @@ package frc.team1918.robot.commands.orchestra;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.team1918.robot.Helpers;
 
 import com.ctre.phoenix.music.Orchestra;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
@@ -17,6 +18,10 @@ public class orchestra_loadAndPlay extends CommandBase {
     TalonFX[] motors = { new TalonFX(31), new TalonFX(32), new TalonFX(33), new TalonFX(35)}; 
     String[] songs = new String[] { "Imperial-March.chrp"};
 
+    private void loadSong(int selection) {
+      orchestra.loadMusic(songs[selection]);
+      Helpers.Debug.debug("Orchestra: Loaded Music");
+    }
 
   
   // Called when the command is initially scheduled.
@@ -33,24 +38,12 @@ public class orchestra_loadAndPlay extends CommandBase {
     loadSong(0);
 
   }
-
-  private void loadSong(int selection) {
-    orchestra.loadMusic(songs[selection]);
-    System.out.println("Song selected is: " + songs[selection]);
-  }
  
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    boolean play = true;
-
-    if (play) {
       orchestra.play();
-    } else {
-      orchestra.stop();
-    }
-
   }
 
   // Called once the command ends or is interrupted.
