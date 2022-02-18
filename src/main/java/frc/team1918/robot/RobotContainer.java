@@ -29,7 +29,6 @@ import frc.team1918.robot.subsystems.CollectorSubsystem;
 import frc.team1918.robot.subsystems.DriveSubsystem;
 import frc.team1918.robot.subsystems.FeederSubsystem;
 import frc.team1918.robot.subsystems.ShooterSubsystem;
-import frc.team1918.robot.subsystems.OrchestraSubsystem;
 //Commands imports
 import frc.team1918.robot.commands.helpers.helpers_debugMessage;
 import frc.team1918.robot.commands.climber.*;
@@ -59,8 +58,6 @@ public class RobotContainer {
     private final ShooterSubsystem m_shooter = new ShooterSubsystem();
     private final DriveSubsystem m_drive = new DriveSubsystem();
     private final VisionSubsystem m_vision = new VisionSubsystem();
-    private final OrchestraSubsystem m_orchestra = new OrchestraSubsystem();
-
       /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -116,7 +113,7 @@ public class RobotContainer {
       //OrPOVButtons are a custom button type to bind 3 DPAD directions to a single command. See utils/OrPOVButton
       // private OrPOVButton orbtn_THROTUP = new OrPOVButton(btn_THROTUP_UP, btn_THROTUP_UL, btn_THROTUP_UR);
       // private OrPOVButton orbtn_THROTDN = new OrPOVButton(btn_THROTDN_DN, btn_THROTDN_DL, btn_THROTDN_DR);
-      private POVButton btn_MUSIC_PLAY = new POVButton(dj, Constants.OI.Operator.DPAD_MUSIC_PLAY);
+      private JoystickButton btn_MUSIC_PLAY = new JoystickButton(dj, Constants.OI.Driver.BTN_MUSIC_PLAY);
 
     //Operator Controller
       private Joystick oj = new Joystick(Constants.OI.OI_JOY_OPER);
@@ -148,7 +145,7 @@ public class RobotContainer {
     // btn_COLLECTOR_TOGGLE.whenPressed(new collector_toggleIntake(m_collector));
     // btn_LOCKANGLE.whenPressed(new drive_lockAngle(m_drive));
     // btn_UNLOCKANGLE.whenPressed(new drive_unlockAngle(m_drive));
-    btn_MUSIC_PLAY.whenPressed(new orchestra_playMusic(m_orchestra));
+    btn_MUSIC_PLAY.whenPressed(new orchestra_loadAndPlay());
 
     //bind all 3 up and all 3 down for shooter throttle up/down
     // orbtn_THROTUP.whenPressed(new shooter_increaseThrottle(m_shooter));

@@ -300,6 +300,7 @@ public class Constants {
             public static final int BTN_WHIRLYREV = Logitech.BTN_LB; //Engage anti-backdrive for climber
             public static final int BTN_RELEASEHOOK1 = Logitech.BTN_A; //Run the mixer in the forward direction
             public static final int BTN_RELEASEHOOK2 = Logitech.BTN_B; //Home the swerve modules
+            public final static int BTN_MUSIC_PLAY = Logitech.BTN_RB; //Play music
         }
 
         /**
@@ -318,7 +319,7 @@ public class Constants {
             public final static int DPAD_COLLECTOR_UP = Logitech.DPAD_UP; //Move collector to up
             public final static int DPAD_COLLECTOR_MID = Logitech.DPAD_RIGHT; //Move collector to middle
             public final static int DPAD_COLLECTOR_DOWN = Logitech.DPAD_DN; //Move collector down
-            public final static int DPAD_MUSIC_PLAY = Logitech.DPAD_LEFT; //Play music
+            
         }
 
         /**
