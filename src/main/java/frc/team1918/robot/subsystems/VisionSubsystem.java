@@ -5,10 +5,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.Relay.Value;
 import frc.team1918.robot.Constants;
 import frc.team1918.robot.Helpers;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Relay.Value;
 
 
 public class VisionSubsystem extends SubsystemBase {
@@ -19,12 +21,21 @@ public class VisionSubsystem extends SubsystemBase {
   String t1color, t2color, t3color;
   double defaultValue = 0.0;
   String defaultColor = "none";
+  double desiredAngle;
+  boolean angleLocked = false;
+  double totalPixel =500;
+  double FOV = 60;
   Relay m_ringlight;
+
+  private static AHRS m_gyro = new AHRS(SPI.Port.kMXP);
+  
+  //horizontal field of view/ diagonal field of view 68.5 degrees
+
 
   public VisionSubsystem() {
     table = NetworkTableInstance.getDefault().getTable("VisionInfo");
-    m_ringlight = new Relay(Constants.Vision.id_RingLight);
   }
+
   
   @Override
   public void periodic() {
@@ -47,13 +58,42 @@ public class VisionSubsystem extends SubsystemBase {
       {t2x, t2y, t2color, t2s}, 
       {t3x, t3y, t3color, t3s}
     };
-
     for (int i=0; i<targets.length; i++) {
       Object[] target = targets[i];
       Helpers.Debug.debug("Vision: T"+(i+1)+"(x:"+target[0]+" y:"+target[1]+" color: "+target[2]+" size: "+target[3]+")");
+      Helpers.Debug.debug(Double.toString(calcAngleStraight()));
     }
   }
+  public void lockAngle() {
+		desiredAngle = Helpers.General.roundDouble(m_gyro.getAngle(), 3);
+		angleLocked = true;
+		Helpers.Debug.debug("Angle Locked to "+desiredAngle);
+	}
 
+	public void unlockAngle() {
+		if(angleLocked) Helpers.Debug.debug("Angle Unlocked");
+		angleLocked = false;
+	}
+  public double calcAngleStraight() {
+    double kP =Constants.DriveTrain.DT_DRIVESTRAIGHT_P;
+		double errorAngle = Math.toRadians((Math.abs(t1x-250)/250)*FOV);
+		double correction = errorAngle * kP;
+		return correction;
+  }
+  // public void drive(){
+    
+  // if(rot == 0) { //We are not applying rotation
+  //   if(!angleLocked) { //We havent locked an angle, so lets save the desiredAngle and lock it
+  //     lockAngle();
+  //   } else {
+  //     if (Math.abs(fwd) > 0 || Math.abs(str) > 0) { //Only do angle correction while moving, for safety reasons
+  //       rot += calcAngleStraight(); //Add some correction to the rotation to account for angle drive
+  //     }
+  //   }
+  // }
+  public void setRinglight(boolean enabled) {
+    m_ringlight.set((enabled) ? Value.kForward : Value.kOff);
+  }
   public void setDesiredColor(String color) {
     String desired ;
 
@@ -68,10 +108,6 @@ public class VisionSubsystem extends SubsystemBase {
     }
     // desired = "blue";
     table.getEntry("desiredColor").setString(desired);
-  }
-
-  public void setRinglight(boolean enabled) {
-    m_ringlight.set((enabled) ? Value.kForward : Value.kOff);
   }
 
 }
