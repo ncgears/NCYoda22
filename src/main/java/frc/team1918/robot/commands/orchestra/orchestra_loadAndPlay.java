@@ -16,7 +16,7 @@ public class orchestra_loadAndPlay extends CommandBase {
   
     Orchestra orchestra;
     TalonFX[] motors = { new TalonFX(31), new TalonFX(32), new TalonFX(33), new TalonFX(35)}; 
-    String[] songs = new String[] { "Imperial-March.chrp"};
+    String[] songs = new String[] { "Imperial-March.chrp", "Rickroll.chrp", "Rickroll2.chrp", "Rickroll3.chrp"};
 
     private void loadSong(int selection) {
       orchestra.loadMusic(songs[selection]);
