@@ -134,6 +134,8 @@ public class RobotContainer {
       private POVButton btn_WhirlyRev = new POVButton(oj, Constants.OI.Operator.DPAD_WHIRLYGIG_REV);
       private JoystickButton btn_MUSIC_PLAY = new JoystickButton (oj, Constants.OI.Operator.BTN_MUSIC_PLAY);
       private JoystickButton btn_MUSIC_STOP = new JoystickButton (oj, Constants.OI.Operator.BTN_MUSIC_STOP);
+      private JoystickButton btn_MUSIC_INCREASE = new JoystickButton (oj, Constants.OI.Operator.BTN_MUSIC_INCREASE);
+      private JoystickButton btn_MUSIC_DECREASE = new JoystickButton (oj, Constants.OI.Operator.BTN_MUSIC_DECREASE);
 
       // private POVButton btn_COLLECTOR_UP = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_UP);
       // private POVButton btn_COLLECTOR_DOWN = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_DOWN);
@@ -175,6 +177,8 @@ public class RobotContainer {
     // btn_UNLOCKANGLE.whenPressed(new drive_unlockAngle(m_drive));
     btn_MUSIC_PLAY.whenPressed(new orchestra_loadAndPlay(m_orchestra, 1));
     btn_MUSIC_STOP.whenPressed(new orchestra_stop(m_orchestra));
+    btn_MUSIC_INCREASE.whenPressed(new orchestra_increaseSong(m_orchestra));
+    btn_MUSIC_DECREASE.whenPressed(new orchestra_decreaseSong(m_orchestra));
 
     //bind all 3 up and all 3 down for shooter throttle up/down
     // orbtn_THROTUP.whenPressed(new shooter_increaseThrottle(m_shooter));
