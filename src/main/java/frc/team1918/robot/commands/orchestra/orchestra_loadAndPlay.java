@@ -12,16 +12,22 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import java.util.ArrayList;
 
-public class orchestra_loadAndPlay extends CommandBase {
-  
-    public Orchestra orchestra;
-    TalonFX[] motors = { new TalonFX(31), new TalonFX(32), new TalonFX(33), new TalonFX(35)}; 
-    String[] songs = new String[] { "Imperial-March.chrp", "Rickroll.chrp"};
-    /* When adding a new song, make sure the midi file has separate parts for each note.
-       If it doesn't, the song won't play correctly */
+import frc.team1918.robot.subsystems.OrchestraSubsystem;
 
-    private void loadSong(int selection) {
-      orchestra.loadMusic(songs[selection]);
+public class orchestra_loadAndPlay extends CommandBase {
+  private final OrchestraSubsystem m_orchestra;
+  private final int m_song;
+  
+
+  public orchestra_loadAndPlay(OrchestraSubsystem subsystem, int selection){
+    m_orchestra = subsystem;
+    m_song = selection;
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(subsystem);
+  }
+
+    private void loadSong(int selection) { //Selects which song to load
+      m_orchestra.orchestra.loadMusic(m_orchestra.songs[selection]);
       Helpers.Debug.debug("Orchestra: Loaded Song " +selection);
     }
 
@@ -31,13 +37,13 @@ public class orchestra_loadAndPlay extends CommandBase {
   public void initialize() {
     ArrayList<TalonFX> instruments = new ArrayList<TalonFX>();
 
-    for (int i = 0; i < motors.length; ++i) {
-      instruments.add(motors[i]);
+    for (int i = 0; i < m_orchestra.motors.length; ++i) {
+      instruments.add(m_orchestra.motors[i]);
     }
 
-    orchestra = new Orchestra(instruments);
+    m_orchestra.orchestra = new Orchestra(instruments);
 
-    loadSong(0);
+    loadSong(1); //Change to select song
 
   }
  
@@ -45,7 +51,8 @@ public class orchestra_loadAndPlay extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      orchestra.play();
+      m_orchestra.orchestra.play();
+      Helpers.Debug.debug("Orchestra: Playing");
   }
 
   // Called once the command ends or is interrupted.
