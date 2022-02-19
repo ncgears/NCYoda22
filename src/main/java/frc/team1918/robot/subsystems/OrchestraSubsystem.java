@@ -17,7 +17,7 @@ public class OrchestraSubsystem extends SubsystemBase {
     /* When adding a new song, make sure the midi file has separate parts for each note.
        If it doesn't, the song won't play correctly */
     private final DriveSubsystem m_drive = new DriveSubsystem();
-    private int songSelection = 0;
+    private int songSelection = 1;
 
     public void stopMusic(){
         orchestra.stop();
@@ -27,6 +27,8 @@ public class OrchestraSubsystem extends SubsystemBase {
 
     public void loadSong(int selection) { //Selects which song to load
         m_drive.orchestraPlaying = true;
+        if (selection < 0) {selection = 0;}
+        if (selection > songs.length) {selection = songs.length;}
         orchestra.loadMusic(songs[selection]);
         Helpers.Debug.debug("Orchestra: Loaded Song " +selection);
       }
@@ -55,4 +57,7 @@ public class OrchestraSubsystem extends SubsystemBase {
         songSelection--;
         Helpers.Debug.debug("Orchestra: Song "+songSelection+" Selected");
     }
+    public int getSong(){
+        return songSelection;
+    };
 }

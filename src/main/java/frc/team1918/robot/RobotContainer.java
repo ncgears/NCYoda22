@@ -175,7 +175,7 @@ public class RobotContainer {
     // btn_COLLECTOR_TOGGLE.whenPressed(new collector_toggleIntake(m_collector));
     // btn_LOCKANGLE.whenPressed(new drive_lockAngle(m_drive));
     // btn_UNLOCKANGLE.whenPressed(new drive_unlockAngle(m_drive));
-    btn_MUSIC_PLAY.whenPressed(new orchestra_loadAndPlay(m_orchestra, 1));
+    btn_MUSIC_PLAY.whenPressed(new orchestra_loadAndPlay(m_orchestra));
     btn_MUSIC_STOP.whenPressed(new orchestra_stop(m_orchestra));
     btn_MUSIC_INCREASE.whenPressed(new orchestra_increaseSong(m_orchestra));
     btn_MUSIC_DECREASE.whenPressed(new orchestra_decreaseSong(m_orchestra));
