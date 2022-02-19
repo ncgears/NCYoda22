@@ -58,11 +58,12 @@ public class VisionSubsystem extends SubsystemBase {
       {t2x, t2y, t2color, t2s}, 
       {t3x, t3y, t3color, t3s}
     };
-    for (int i=0; i<targets.length; i++) {
+    for (int i=0; i<1; i++) {
       Object[] target = targets[i];
       Helpers.Debug.debug("Vision: T"+(i+1)+"(x:"+target[0]+" y:"+target[1]+" color: "+target[2]+" size: "+target[3]+")");
-      Helpers.Debug.debug(Double.toString(calcAngleStraight()));
     }
+    Helpers.Debug.debug(Double.toString(((t1x-250)/250)*FOV));
+
   }
   public void lockAngle() {
 		desiredAngle = Helpers.General.roundDouble(m_gyro.getAngle(), 3);
@@ -76,7 +77,9 @@ public class VisionSubsystem extends SubsystemBase {
 	}
   public double calcAngleStraight() {
     double kP =Constants.DriveTrain.DT_DRIVESTRAIGHT_P;
-		double errorAngle = Math.toRadians((Math.abs(t1x-250)/250)*FOV);
+		double errorAngle = ((Math.abs(t1x-250)/250)*30);
+    // double errorAngle = Math.toRadians((Math.abs(t1x-250)/250)*FOV);
+// 
 		double correction = errorAngle * kP;
 		return correction;
   }

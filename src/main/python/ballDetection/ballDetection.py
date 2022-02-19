@@ -168,8 +168,11 @@ while True:
             table.putValue('target{}color'.format(i+1),"none")
 
     else:
-        for key in table.getKeys():
-            table.putNumberArray(key,[])
+        for i in range(3) :
+            table.putValue('target{}x'.format(i+1),-1)
+            table.putValue('target{}y'.format(i+1),-1)
+            table.putValue('target{}size'.format(i+1),-1)
+            table.putValue('target{}color'.format(i+1),"none")
 
 
     cv2.imshow('window',  masked)
