@@ -98,10 +98,19 @@ public class RobotContainer {
   //button definitions
     //Driver Controller
       private Joystick dj = new Joystick(Constants.OI.OI_JOY_DRIVER);
-      private JoystickButton btn_WhirlyForward = new JoystickButton(dj, Constants.OI.Driver.BTN_WHIRLYFWD);
-      private JoystickButton btn_WhirlyReverse = new JoystickButton(dj, Constants.OI.Driver.BTN_WHIRLYREV);
-      private JoystickButton btn_ReleaseHook1 = new JoystickButton(dj, Constants.OI.Driver.BTN_RELEASEHOOK1);
-      private JoystickButton btn_ReleaseHook2 = new JoystickButton(dj, Constants.OI.Driver.BTN_RELEASEHOOK2);
+      private JoystickButton btn_CollectorDeploy = new JoystickButton(dj, Constants.OI.Driver.BTN_COLLECTOR_DEPLOY);
+      private JoystickButton btn_CollectorRetract = new JoystickButton(dj, Constants.OI.Driver.BTN_COLLECTOR_RETRACT);
+      private JoystickButton btn_ShooterFwd = new JoystickButton(dj, Constants.OI.Driver.BTN_SHOOTER_FWD);
+      private JoystickButton btn_ShooterFwdHood = new JoystickButton(dj, Constants.OI.Driver.BTN_SHOOTER_FWD_HOOD);
+      private JoystickButton btn_FeederFwd = new JoystickButton(dj, Constants.OI.Driver.BTN_FEEDER_FWD);
+      private POVButton btn_ShooterIncrease = new POVButton(dj, Constants.OI.Driver.DPAD_SHOOTER_INCREASE);
+      private POVButton btn_ShooterDecrease = new POVButton(dj, Constants.OI.Driver.DPAD_SHOOTER_DECREASE);
+      private POVButton btn_IntakeForward = new POVButton(dj, Constants.OI.Driver.DPAD_INTAKE_IN);
+      private POVButton btn_IntakeReverse = new POVButton(dj, Constants.OI.Driver.DPAD_INTAKE_OUT);
+      // private JoystickButton btn_WhirlyForward = new JoystickButton(dj, Constants.OI.Driver.BTN_WHIRLYFWD);
+      // private JoystickButton btn_WhirlyReverse = new JoystickButton(dj, Constants.OI.Driver.BTN_WHIRLYREV);
+      // private JoystickButton btn_ReleaseHook1 = new JoystickButton(dj, Constants.OI.Driver.BTN_RELEASEHOOK1);
+      // private JoystickButton btn_ReleaseHook2 = new JoystickButton(dj, Constants.OI.Driver.BTN_RELEASEHOOK2);
       // private JoystickButton btn_TOGGLE_DEBUG = new JoystickButton(dj, Constants.OI.Driver.BTN_TOG_DEBUG);
       // private POVButton btn_GYRO_RESET = new POVButton(dj, Constants.OI.Driver.DPAD_GYRO_RESET);
       // private POVButton btn_THROTUP_UP = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UP);
@@ -116,7 +125,12 @@ public class RobotContainer {
 
     //Operator Controller
       private Joystick oj = new Joystick(Constants.OI.OI_JOY_OPER);
-      // private JoystickButton btn_COLLECTOR_IN = new JoystickButton(oj, Constants.OI.Operator.BTN_COLLECTOR_IN);
+      private JoystickButton btn_ReleaseHook1 = new JoystickButton(oj, Constants.OI.Operator.BTN_RELEASEHOOK1);
+      private JoystickButton btn_ReleaseHook2 = new JoystickButton(oj, Constants.OI.Operator.BTN_RELEASEHOOK2);
+      private POVButton btn_WhirlyUp = new POVButton(oj, Constants.OI.Operator.DPAD_WHIRLYGIG_UP);
+      private POVButton btn_WhirlyFwd = new POVButton(oj, Constants.OI.Operator.DPAD_WHIRLYGIG_FWD);
+      private POVButton btn_WhirlyRev = new POVButton(oj, Constants.OI.Operator.DPAD_WHIRLYGIG_REV);
+
       // private POVButton btn_COLLECTOR_UP = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_UP);
       // private POVButton btn_COLLECTOR_DOWN = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_DOWN);
       // private JoystickButton btn_COLLECTOR_TOGGLE = new JoystickButton(oj, Constants.OI.Operator.BTN_TOG_MIDDOWN);
@@ -128,10 +142,21 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     //The buttons here are named based on their functional purpose. This abstracts the purpose from which controller it is attached to.
-    btn_WhirlyForward.whileHeld(new climber_rotateFwd(m_climber));
-    btn_WhirlyReverse.whileHeld(new climber_rotateRev(m_climber));
+    btn_WhirlyUp.whenPressed(new climber_whirlygigUp(m_climber));
+    btn_WhirlyFwd.whileHeld(new climber_rotateFwd(m_climber));
+    btn_WhirlyRev.whileHeld(new climber_rotateRev(m_climber));
     btn_ReleaseHook1.whenPressed(new climber_lockHook(m_climber,1).beforeStarting(new climber_unlockHook(m_climber,1).andThen(new WaitCommand(Constants.Climber.kHookReleaseTime))));
     btn_ReleaseHook2.whenPressed(new climber_lockHook(m_climber,2).beforeStarting(new climber_unlockHook(m_climber,2).andThen(new WaitCommand(Constants.Climber.kHookReleaseTime))));
+
+    btn_CollectorDeploy.whenPressed(new collector_deployIntake(m_collector));
+    btn_CollectorRetract.whenPressed(new collector_retractIntake(m_collector));
+    btn_IntakeForward.whenPressed(new collector_intakeForward(m_collector)).whenReleased(new collector_intakeStop(m_collector));
+    btn_IntakeReverse.whenPressed(new collector_intakeReverse(m_collector)).whenReleased(new collector_intakeStop(m_collector));
+    btn_FeederFwd.whenPressed(new feeder_advance(m_feeder)).whenReleased(new feeder_stop(m_feeder));
+    btn_ShooterFwd.whileHeld(new shooter_startShooterDefault(m_shooter, false));
+    btn_ShooterFwdHood.whileHeld(new shooter_startShooterDefault(m_shooter, true));
+    btn_ShooterIncrease.whenPressed(new shooter_increaseThrottle(m_shooter));
+    btn_ShooterDecrease.whenPressed(new shooter_decreaseThrottle(m_shooter));
     // btn_GYRO_RESET.whenPressed(new drive_resetGyro(m_drive));
     // btn_TOGGLE_DEBUG.whenPressed(new helpers_toggleDebug());
     // btn_SHOOT_WALL.whenPressed(new shooter_shootWall(m_shooter)).whenReleased(new shooter_stopShooter(m_shooter));

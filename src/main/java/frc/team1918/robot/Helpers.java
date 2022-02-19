@@ -165,9 +165,9 @@ public class Helpers {
          * @param useDeadband Boolean value indicating whether to apply deadband to output
          * @return double precision -1 to 1 of the fwd axis
          */
-        public double getClimbAxisValue(boolean useDeadband) {
-            return (useDeadband) ? applyDeadband(oj.getRawAxis(Constants.OI.Operator.AXIS_CLIMB)) : oj.getRawAxis(Constants.OI.Operator.AXIS_CLIMB);
-        }
+        // public double getClimbAxisValue(boolean useDeadband) {
+        //     return (useDeadband) ? applyDeadband(oj.getRawAxis(Constants.OI.Operator.AXIS_CLIMB)) : oj.getRawAxis(Constants.OI.Operator.AXIS_CLIMB);
+        // }
 
         //HELPERS
         /**

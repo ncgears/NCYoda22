@@ -32,7 +32,7 @@ public class Constants {
      * Constants for the Autonomous subsystem
      */
     public static final class Auton {
-        public static final boolean isDisabled = true; //Disable autonomous
+        public static final boolean isDisabled = false; //Disable autonomous
         public static final double kMaxSpeedMetersPerSecond = 0.25;
         public static final double kMaxAccelMetersPerSecondSquared = 0.0;
         public static final double kMaxOmega = (kMaxSpeedMetersPerSecond / Math.hypot(0.5461 / 2.0, 0.6477 / 2.0));
@@ -61,7 +61,7 @@ public class Constants {
      * Constants for the Collector subsystem
      */
     public static final class Collector {
-        public static final boolean isDisabled = true; //Disable the collector subsystem
+        public static final boolean isDisabled = false; //Disable the collector subsystem
         public static final int id_Motor1 = 15; 
         public static final int id_ColorSensor1 = 4;
         public static final double kDefaultCollectorSpeed = 1.0;
@@ -71,7 +71,7 @@ public class Constants {
      * Constants for the Feeder subsystem
      */
     public static final class Feeder {
-        public static final boolean isDisabled = true; //Disable the feeder subsystem
+        public static final boolean isDisabled = false; //Disable the feeder subsystem
         public static final int id_BeamBreak1 = 0; //ID of the Beam Break 1 DIO (intake)
         public static final int id_BeamBreak2 = 1; //ID of the Beam Break 2 DIO (shooter)
         public static final int id_Motor1 = 14; //ID of the Feeder Motor 1 Controller
@@ -84,13 +84,14 @@ public class Constants {
      * Constants for the Shooter subsystem
      */
     public static final class Shooter {
-        public static final boolean isDisabled = true; //Disable the shooter subsystem
+        public static final boolean isDisabled = false; //Disable the shooter subsystem
         public static final int id_Motor1 = 16; //ID of the Shooter Motor 1 Controller
         public static final int id_Motor2 = 17; //ID of the Preshooter Motor Controller
         public static final int kEncoderFullRotation = 2048; //Falcon integrated encoder is 2048
         public static final boolean isInverted_Motor1 = false; //Invert motor direction
         public static final boolean isInverted_Motor2 = false; //Invert motor direction
         public static final int kMaxShooterSpeed = 5000; //Max RPM of the Shooter Motor
+        public static final double kDefaultShooterSpeed = 500; //Default RPM of the Shooter Motor
         public static final int kMinShooterSpeed = 100; //Min RPM of the Shooter Motor
         public static final double kSpeedIncrementSize = 25; //RPMs to change the shooter speed per increment
         public static final double kP = 0.001;
@@ -248,7 +249,7 @@ public class Constants {
      * Constants for the DriveTrain subsystem
      */
     public static final class DriveTrain {
-        public static final boolean isDisabled = true; 
+        public static final boolean isDisabled = false; 
         ////Global Tuning
         public static final boolean DT_USE_DRIVESTRAIGHT = true; //enable driveStraight functionality in drive() method
         public static final double DT_DRIVESTRAIGHT_P = 0.065; //kP for driveStraight correction
@@ -275,7 +276,7 @@ public class Constants {
     }
     
     public static final class Vision {
-        public static final boolean isDisabled = false;
+        public static final boolean isDisabled = true;
     }
     /**
      * Constants for the Operator Interface
@@ -296,28 +297,29 @@ public class Constants {
             public final static int AXIS_STRAFE = Logitech.AXIS_LH; //Axis that moves the robot side to side on the field
             public final static int AXIS_FWD = Logitech.AXIS_LV; //Axis that moves the robot up and down the field
             public final static int AXIS_TURN = Logitech.AXIS_RH; //Axis that controls the rotation of the robot
-            public static final int BTN_WHIRLYFWD = Logitech.BTN_RB; //Move collector to Up position
-            public static final int BTN_WHIRLYREV = Logitech.BTN_LB; //Engage anti-backdrive for climber
-            public static final int BTN_RELEASEHOOK1 = Logitech.BTN_A; //Run the mixer in the forward direction
-            public static final int BTN_RELEASEHOOK2 = Logitech.BTN_B; //Home the swerve modules
+
+            public final static int DPAD_INTAKE_IN = Logitech.DPAD_RIGHT; //intake forward
+            public final static int DPAD_INTAKE_OUT = Logitech.DPAD_LEFT; //intake reverse
+            public final static int BTN_COLLECTOR_DEPLOY = Logitech.BTN_Y; //deploy collector
+            public final static int BTN_COLLECTOR_RETRACT = Logitech.BTN_X; //retract collector
+
+            public final static int BTN_SHOOTER_FWD = Logitech.BTN_A; //run shooter
+            public final static int BTN_SHOOTER_FWD_HOOD = Logitech.BTN_B; //run shooter
+            public final static int BTN_FEEDER_FWD = Logitech.BTN_RB; //advance feeder
+            public static final int DPAD_SHOOTER_INCREASE = Logitech.DPAD_UP; //increase rpm
+            public static final int DPAD_SHOOTER_DECREASE = Logitech.DPAD_DN; //decrease rpm
         }
 
         /**
          * Constants for the Operator controller
          */
         public static final class Operator {
-            public final static int AXIS_CLIMB = Logitech.AXIS_LV; //Axis that controls the climber up and down
-            public final static int AXIS_COLLECTOR_OUT = Logitech.AXIS_RT; //Axis that runs the collector out (actually a trigger button)
-            public final static int BTN_SHOOT_WALL = Logitech.BTN_A; //Shoot from at the wall
-            public final static int BTN_SHOOT_SHORT = Logitech.BTN_B; //Shoot from close to the wall
-            public final static int BTN_SHOOT_LINE = Logitech.BTN_X; //Shoot from the initiation line
-            public final static int BTN_SHOOT_TRENCH = Logitech.BTN_Y; //Shoot from the trench
-            public final static int BTN_TOG_MIDDOWN = Logitech.BTN_LB; //Toggle collector arm between middle and down position
-            public final static int BTN_COLLECTOR_IN = Logitech.BTN_RB; //Run the collector in
-            public final static int BTN_MECHZERO = Logitech.BTN_BACK; //DRIVER MECHZERO and OPER MECHZERO are required for this
-            public final static int DPAD_COLLECTOR_UP = Logitech.DPAD_UP; //Move collector to up
-            public final static int DPAD_COLLECTOR_MID = Logitech.DPAD_RIGHT; //Move collector to middle
-            public final static int DPAD_COLLECTOR_DOWN = Logitech.DPAD_DN; //Move collector down
+
+            public final static int DPAD_WHIRLYGIG_UP = Logitech.DPAD_UP; //whirlygig up
+            public final static int DPAD_WHIRLYGIG_FWD = Logitech.DPAD_RIGHT; //climber forward
+            public final static int DPAD_WHIRLYGIG_REV = Logitech.DPAD_LEFT; //climber reverse
+            public static final int BTN_RELEASEHOOK1 = Logitech.BTN_LB; //release hook 1
+            public static final int BTN_RELEASEHOOK2 = Logitech.BTN_RB; //release hook 2
         }
 
         /**
