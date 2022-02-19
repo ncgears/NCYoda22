@@ -66,10 +66,16 @@
       },
       "open": true
     },
+    "SmartDashboard": {
+      "open": true
+    },
     "Usage": {
       "Client": {
         "open": true
       },
+      "open": true
+    },
+    "VisionInfo": {
       "open": true
     }
   },
@@ -77,7 +83,7 @@
     "Plot <0>": {
       "plots": [
         {
-          "height": 272,
+          "height": -9,
           "series": [
             {
               "color": [
