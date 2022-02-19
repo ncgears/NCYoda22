@@ -29,6 +29,7 @@ import frc.team1918.robot.subsystems.CollectorSubsystem;
 import frc.team1918.robot.subsystems.DriveSubsystem;
 import frc.team1918.robot.subsystems.FeederSubsystem;
 import frc.team1918.robot.subsystems.ShooterSubsystem;
+import frc.team1918.robot.subsystems.OrchestraSubsystem;
 //Commands imports
 import frc.team1918.robot.commands.helpers.helpers_debugMessage;
 import frc.team1918.robot.commands.climber.*;
@@ -36,6 +37,7 @@ import frc.team1918.robot.commands.collector.*;
 import frc.team1918.robot.commands.drive.*;
 import frc.team1918.robot.commands.feeder.*;
 import frc.team1918.robot.commands.shooter.*;
+import frc.team1918.robot.commands.orchestra.*;
 //CommandGroup imports
 import frc.team1918.robot.commandgroups.*;
 // import frc.team1918.robot.commandgroups.cg_drive_initOdometry;
@@ -56,6 +58,7 @@ public class RobotContainer {
     private final ShooterSubsystem m_shooter = new ShooterSubsystem();
     private final DriveSubsystem m_drive = new DriveSubsystem();
     private final VisionSubsystem m_vision = new VisionSubsystem();
+    private final OrchestraSubsystem m_orchestra = new OrchestraSubsystem();
 
       /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -129,6 +132,8 @@ public class RobotContainer {
       private POVButton btn_WhirlyUp = new POVButton(oj, Constants.OI.Operator.DPAD_WHIRLYGIG_UP);
       private POVButton btn_WhirlyFwd = new POVButton(oj, Constants.OI.Operator.DPAD_WHIRLYGIG_FWD);
       private POVButton btn_WhirlyRev = new POVButton(oj, Constants.OI.Operator.DPAD_WHIRLYGIG_REV);
+      private JoystickButton btn_MUSIC_PLAY = new JoystickButton (oj, Constants.OI.Operator.BTN_MUSIC_PLAY);
+      private JoystickButton btn_MUSIC_STOP = new JoystickButton (oj, Constants.OI.Operator.BTN_MUSIC_STOP);
 
       // private POVButton btn_COLLECTOR_UP = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_UP);
       // private POVButton btn_COLLECTOR_DOWN = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_DOWN);
@@ -168,6 +173,8 @@ public class RobotContainer {
     // btn_COLLECTOR_TOGGLE.whenPressed(new collector_toggleIntake(m_collector));
     // btn_LOCKANGLE.whenPressed(new drive_lockAngle(m_drive));
     // btn_UNLOCKANGLE.whenPressed(new drive_unlockAngle(m_drive));
+    btn_MUSIC_PLAY.whenPressed(new orchestra_loadAndPlay(m_orchestra, 1));
+    btn_MUSIC_STOP.whenPressed(new orchestra_stop(m_orchestra));
 
     //bind all 3 up and all 3 down for shooter throttle up/down
     // orbtn_THROTUP.whenPressed(new shooter_increaseThrottle(m_shooter));
