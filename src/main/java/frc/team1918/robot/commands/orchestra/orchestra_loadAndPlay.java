@@ -26,24 +26,14 @@ public class orchestra_loadAndPlay extends CommandBase {
     addRequirements(subsystem);
   }
 
-    private void loadSong(int selection) { //Selects which song to load
-      m_orchestra.orchestra.loadMusic(m_orchestra.songs[selection]);
-      Helpers.Debug.debug("Orchestra: Loaded Song " +selection);
-    }
+
 
   
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    ArrayList<TalonFX> instruments = new ArrayList<TalonFX>();
-
-    for (int i = 0; i < m_orchestra.motors.length; ++i) {
-      instruments.add(m_orchestra.motors[i]);
-    }
-
-    m_orchestra.orchestra = new Orchestra(instruments);
-
-    loadSong(m_song); //Change to select song
+    m_orchestra.createOrchestra();
+    m_orchestra.loadSong(m_song); //Change to select song
 
   }
  
@@ -51,8 +41,7 @@ public class orchestra_loadAndPlay extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      m_orchestra.orchestra.play();
-      Helpers.Debug.debug("Orchestra: Playing");
+      m_orchestra.playMusic();
   }
 
   // Called once the command ends or is interrupted.

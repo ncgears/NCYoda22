@@ -17,8 +17,7 @@ public class orchestra_stop extends CommandBase {
 
     @Override
     public void initialize() {
-        m_orchestra.orchestra.stop();
-        Helpers.Debug.debug("Orchestra: Stopped");
+      m_orchestra.stopMusic();
     }
    
   
