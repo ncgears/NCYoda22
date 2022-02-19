@@ -321,6 +321,8 @@ public class Constants {
             public final static int DPAD_WHIRLYGIG_REV = Logitech.DPAD_LEFT; //climber reverse
             public static final int BTN_RELEASEHOOK1 = Logitech.BTN_LB; //release hook 1
             public static final int BTN_RELEASEHOOK2 = Logitech.BTN_RB; //release hook 2
+
+            // these button bindings are very temporary, feel free to overwrite them
             public final static int BTN_MUSIC_PLAY = Logitech.BTN_B; //Play music
             public final static int BTN_MUSIC_STOP = Logitech.BTN_A; //Stop music
             public final static int BTN_MUSIC_INCREASE = Logitech.BTN_Y;
