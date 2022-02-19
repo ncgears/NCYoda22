@@ -16,7 +16,9 @@ public class orchestra_loadAndPlay extends CommandBase {
   
     Orchestra orchestra;
     TalonFX[] motors = { new TalonFX(31), new TalonFX(32), new TalonFX(33), new TalonFX(35)}; 
-    String[] songs = new String[] { "Imperial-March.chrp", "Rickroll.chrp", "Rickroll2.chrp", "Rickroll3.chrp"};
+    String[] songs = new String[] { "Imperial-March.chrp"};
+    /* When adding a new song, make sure the midi file has separate parts for each note.
+       If it doesn't, the song won't play correctly */
 
     private void loadSong(int selection) {
       orchestra.loadMusic(songs[selection]);
