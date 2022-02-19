@@ -53,7 +53,7 @@ public class cg_auton_4BallAuto extends SequentialCommandGroup {
         new feeder_shootAllBalls(m_feeder), //advance all balls to shooter - this has built in delay
         // new feeder_advance(m_feeder), //start advancing the feeder
         // new WaitCommand(1.25), //give time for shot
-        new shooter_stopShooter(m_shooter), //stop shooter
+        new shooter_startShooterDefault(m_shooter,true), //stop shooter
         new shooter_hoodDown(m_shooter), //lower the hood
         // new feeder_stop(m_feeder), //stop the feeder -- should be handled by shootAllBalls
         new collector_deployIntake(m_collector), //deploy collector
@@ -69,7 +69,7 @@ public class cg_auton_4BallAuto extends SequentialCommandGroup {
         new feeder_shootAllBalls(m_feeder), //advance all balls to shooter - this has built in delay
         // new feeder_advance(m_feeder), //start advancing the feeder
         // new WaitCommand(1.25), //give time for shot
-        new shooter_stopShooter(m_shooter), //stop shooter
+        new shooter_startShooterDefault(m_shooter,true), //stop shooter
         new shooter_hoodDown(m_shooter), //lower the hood
         // new feeder_stop(m_feeder), //stop the feeder -- should be handled by shootAllBalls
         new helpers_debugMessage("Auton: Done with auton")
