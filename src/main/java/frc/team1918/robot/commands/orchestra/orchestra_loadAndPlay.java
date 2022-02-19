@@ -43,7 +43,7 @@ public class orchestra_loadAndPlay extends CommandBase {
 
     m_orchestra.orchestra = new Orchestra(instruments);
 
-    loadSong(1); //Change to select song
+    loadSong(m_song); //Change to select song
 
   }
  
