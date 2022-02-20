@@ -118,7 +118,7 @@ public class Helpers {
          * @return
          */
         public final static double rpmToTicksPer100ms(double rpm, int fullRotationTicks) {
-            return ((rpm * fullRotationTicks) / 60 / 10);
+            return ((rpm * fullRotationTicks) / 600);
         }
 
         /**
@@ -128,7 +128,7 @@ public class Helpers {
          * @return
          */
         public final static double ticksPer100msToRPM(double ticks, int fullRotationTicks) {
-            return ((ticks / fullRotationTicks) * 10 * 60);
+            return ((ticks / fullRotationTicks) * 600);
         }
     }
     //Helpers for the Operator Interface

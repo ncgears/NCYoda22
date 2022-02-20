@@ -18,7 +18,6 @@ public class orchestra_loadAndPlay extends CommandBase {
   private final OrchestraSubsystem m_orchestra;
   private int m_song;
   
-
   public orchestra_loadAndPlay(OrchestraSubsystem subsystem){
     m_orchestra = subsystem;
     // m_song = selection;
@@ -26,30 +25,15 @@ public class orchestra_loadAndPlay extends CommandBase {
     addRequirements(subsystem);
   }
 
-
-
-  
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     m_song = m_orchestra.getSong();
     m_orchestra.createOrchestra();
     m_orchestra.loadSong(m_song); //Change to select song
-
+    m_orchestra.playMusic();
   }
  
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-      m_orchestra.playMusic();
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-  }
-
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {

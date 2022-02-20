@@ -24,7 +24,7 @@ public class shooter_increaseThrottle extends CommandBase {
   public shooter_increaseThrottle(ShooterSubsystem subsystem) {
     m_shooter = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    // addRequirements(subsystem);  //We don't require it
   }
 
   // Called when the command is initially scheduled.

@@ -74,7 +74,7 @@ public class Constants {
         public static final boolean isDisabled = false; //Disable the feeder subsystem
         public static final int id_BeamBreak1 = 0; //ID of the Beam Break 1 DIO (intake)
         public static final int id_BeamBreak2 = 1; //ID of the Beam Break 2 DIO (shooter)
-        public static final int id_Motor1 = 17; //ID of the Feeder Motor 1 Controller
+        public static final int id_Motor1 = 6; //ID of the Feeder Motor 1 Controller
         public static final boolean isInverted_Motor1 = false; //Invert motor direction
         public static final double speed_Motor1 = 0.50; //Feeder Motor 1 Speed
         public static final double debounce_delay = 3.0; //Seconds to wait for feeder beams
@@ -88,13 +88,14 @@ public class Constants {
         public static final int id_Motor1 = 43; //ID of the Shooter Motor 1 Controller
         public static final int id_Motor2 = 15; //ID of the Preshooter Motor Controller
         public static final int kEncoderFullRotation = 2048; //Falcon integrated encoder is 2048
+        public static final boolean isSensorInverted_Motor1 = true;
         public static final boolean isInverted_Motor1 = true; //Invert motor direction
         public static final boolean isInverted_Motor2 = false; //Invert motor direction
         public static final int kMaxShooterSpeed = 6000; //Max RPM of the Shooter Motor
         public static final double kDefaultShooterSpeed = 1500; //Default RPM of the Shooter Motor
         public static final int kMinShooterSpeed = 0; //Min RPM of the Shooter Motor
         public static final double kSpeedIncrementSize = 50; //RPMs to change the shooter speed per increment
-        public static final double kP = 0.15;
+        public static final double kP = 0.10;
         public static final double kI = 0.0;
         public static final double kD = 0.0;
         public static final double kIZone = 0.0;
