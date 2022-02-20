@@ -103,6 +103,7 @@ public class RobotContainer {
       private JoystickButton btn_CollectorDeploy = new JoystickButton(dj, Constants.OI.Driver.BTN_COLLECTOR_DEPLOY);
       private JoystickButton btn_CollectorRetract = new JoystickButton(dj, Constants.OI.Driver.BTN_COLLECTOR_RETRACT);
       private JoystickButton btn_ShooterFwd = new JoystickButton(dj, Constants.OI.Driver.BTN_SHOOTER_FWD);
+      private JoystickButton btn_ShooterStop = new JoystickButton(dj, Constants.OI.Driver.BTN_SHOOTER_STOP);
       private JoystickButton btn_ShooterFwdHood = new JoystickButton(dj, Constants.OI.Driver.BTN_SHOOTER_FWD_HOOD);
       private JoystickButton btn_FeederFwd = new JoystickButton(dj, Constants.OI.Driver.BTN_FEEDER_FWD);
       private POVButton btn_ShooterIncrease = new POVButton(dj, Constants.OI.Driver.DPAD_SHOOTER_INCREASE);
@@ -159,8 +160,9 @@ public class RobotContainer {
     btn_IntakeForward.whenPressed(new collector_intakeForward(m_collector)).whenReleased(new collector_intakeStop(m_collector));
     btn_IntakeReverse.whenPressed(new collector_intakeReverse(m_collector)).whenReleased(new collector_intakeStop(m_collector));
     btn_FeederFwd.whenPressed(new feeder_advance(m_feeder)).whenReleased(new feeder_stop(m_feeder));
-    btn_ShooterFwd.whileHeld(new shooter_startShooterDefault(m_shooter, false));
-    btn_ShooterFwdHood.whileHeld(new shooter_startShooterDefault(m_shooter, true));
+    btn_ShooterStop.whenPressed(new shooter_stopShooter(m_shooter));
+    btn_ShooterFwd.whenPressed(new shooter_startShooterDefault(m_shooter, false));
+    btn_ShooterFwdHood.whenPressed(new shooter_startShooterDefault(m_shooter, true));
     btn_ShooterIncrease.whenPressed(new shooter_increaseThrottle(m_shooter));
     btn_ShooterDecrease.whenPressed(new shooter_decreaseThrottle(m_shooter));
     // btn_GYRO_RESET.whenPressed(new drive_resetGyro(m_drive));

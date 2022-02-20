@@ -63,8 +63,9 @@ public class SwerveModule {
         turn.config_kI(0, TURN_I);
         turn.config_kD(0, TURN_D);
         turn.config_IntegralZone(0, TURN_IZONE);
+        turn.overrideLimitSwitchesEnable(false);
         turn.configAllowableClosedloopError(0, TURN_ALLOWED_ERROR); 
-        // turn.set(ControlMode.Position, 0); //TODO: Add constant for home_on_init
+        turn.set(ControlMode.Position, 0); //TODO: Add constant for home_on_init
 
         drive.configFactoryDefault();
         drive.set(ControlMode.PercentOutput, 0);

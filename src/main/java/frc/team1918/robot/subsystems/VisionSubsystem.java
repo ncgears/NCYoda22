@@ -60,9 +60,9 @@ public class VisionSubsystem extends SubsystemBase {
     };
     for (int i=0; i<1; i++) {
       Object[] target = targets[i];
-      Helpers.Debug.debug("Vision: T"+(i+1)+"(x:"+target[0]+" y:"+target[1]+" color: "+target[2]+" size: "+target[3]+")");
+      // Helpers.Debug.debug("Vision: T"+(i+1)+"(x:"+target[0]+" y:"+target[1]+" color: "+target[2]+" size: "+target[3]+")");
     }
-    Helpers.Debug.debug(Double.toString(((t1x-250)/250)*FOV));
+    // Helpers.Debug.debug(Double.toString(((t1x-250)/250)*FOV));
 
   }
   public void lockAngle() {

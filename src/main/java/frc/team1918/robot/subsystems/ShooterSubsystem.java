@@ -56,7 +56,10 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public double getShooterSpeedRPM() {
-    return Helpers.General.roundDouble(Helpers.General.ticksPer100msToRPM(shoot.getSelectedSensorVelocity(0), Constants.Shooter.kEncoderFullRotation),0);
+    double rawrpm = shoot.getSensorCollection().getIntegratedSensorVelocity();
+    double rpm = Helpers.General.roundDouble(Helpers.General.ticksPer100msToRPM(rawrpm, Constants.Shooter.kEncoderFullRotation),0);
+    //Helpers.Debug.debug("shooter_rpm="+rpm,1000);
+    return rpm;
   }
 
   public void setShooterSpeed(double RPM) {
