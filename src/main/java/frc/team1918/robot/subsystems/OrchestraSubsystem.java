@@ -12,7 +12,7 @@ import frc.team1918.robot.subsystems.DriveSubsystem;
 public class OrchestraSubsystem extends SubsystemBase {
     private Orchestra orchestra;
     private TalonFX[] motors = { new TalonFX(Constants.Swerve.FL.DRIVE_MC_ID), new TalonFX(Constants.Swerve.FR.DRIVE_MC_ID), new TalonFX(Constants.Swerve.RL.DRIVE_MC_ID), new TalonFX(Constants.Swerve.FR.DRIVE_MC_ID)}; //Instrument(motor) Array
-    private String[] songs = new String[] { "Imperial-March.chrp", "Rickroll.chrp"}; //Song Array
+    private String[] songs = new String[] {"Imperial-March.chrp", "Rickroll.chrp", "Megalovania.chrp", "Stay-Alive.chrp"}; //Song Array
     /* When adding a new song, make sure the midi file has separate parts for each note.
        If it doesn't, the song won't play correctly */
     private final DriveSubsystem m_drive = new DriveSubsystem();
