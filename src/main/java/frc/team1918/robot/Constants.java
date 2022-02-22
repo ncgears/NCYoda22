@@ -177,7 +177,7 @@ public class Constants {
          */
         public static final class FL {  //TODO: PID Tuning
             public static final boolean isDisabled = false;
-            public static final int DRIVE_MC_ID = 39; //Falcon500 Motor Controller ID
+            public static final int DRIVE_MC_ID = 33; //Falcon500 Motor Controller ID
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
             public static final boolean DRIVE_isInverted = false;
             public static final int TURN_MC_ID = 7; //TalonSRX Motor Controller ID
@@ -195,7 +195,7 @@ public class Constants {
          */
         public static final class FR {
             public static final boolean isDisabled = false;
-            public static final int DRIVE_MC_ID = 36; //Falcon500 Motor Controller ID
+            public static final int DRIVE_MC_ID = 31; //Falcon500 Motor Controller ID
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
             public static final boolean DRIVE_isInverted = false;
             public static final int TURN_MC_ID = 4; //TalonSRX Motor Controller ID
@@ -213,7 +213,7 @@ public class Constants {
          */
         public static final class RL {
             public static final boolean isDisabled = false;
-            public static final int DRIVE_MC_ID = 38; //Falcon500 Motor Controller ID
+            public static final int DRIVE_MC_ID = 35; //Falcon500 Motor Controller ID
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
             public static final boolean DRIVE_isInverted = false;
             public static final int TURN_MC_ID = 8; //TalonSRX Motor Controller ID
@@ -231,7 +231,7 @@ public class Constants {
          */
         public static final class RR { //Rear Right
             public static final boolean isDisabled = false;
-            public static final int DRIVE_MC_ID = 37; //Falcon500 Motor Controller ID
+            public static final int DRIVE_MC_ID = 32; //Falcon500 Motor Controller ID
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
             public static final boolean DRIVE_isInverted = false;
             public static final int TURN_MC_ID = 11; //TalonSRX Motor Controller ID
@@ -252,7 +252,7 @@ public class Constants {
     public static final class DriveTrain {
         public static final boolean isDisabled = false; 
         ////Global Tuning
-        public static final boolean DT_USE_DRIVESTRAIGHT = false; //enable driveStraight functionality in drive() method
+        public static final boolean DT_USE_DRIVESTRAIGHT = true; //enable driveStraight functionality in drive() method
         public static final double DT_DRIVESTRAIGHT_P = 0.065; //kP for driveStraight correction
         public static final double DT_kMaxMetersPerSecond = 3.677; //limit full stick speed meters to 12.0fps
         ////Turn Tuning
@@ -260,7 +260,7 @@ public class Constants {
         public static final double DT_TURN_MULT_MOVING = 1.0; //Turn speed multiplier while moving
         public static final boolean DT_TURN_MULT_BEFORE_DB = true; //Apply turn multiplier before deadband
         public static final int DT_TURN_ENCODER_FULL_ROTATION = 1024;
-        public static final boolean DT_USE_FIELD_CENTRIC = false; //Set to true to use field-centric drive
+        public static final boolean DT_USE_FIELD_CENTRIC = true; //Set to true to use field-centric drive
         ////Drive Tuning
         public static final double DT_FWD_MULT = 1.0; //Fwd throttle multiplier
         public static final double DT_STR_MULT = 1.0; //Str throttle multiplier
