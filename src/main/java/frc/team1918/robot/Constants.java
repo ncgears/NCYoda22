@@ -76,7 +76,7 @@ public class Constants {
         public static final int id_BeamBreak2 = 1; //ID of the Beam Break 2 DIO (shooter)
         public static final int id_Motor1 = 6; //ID of the Feeder Motor 1 Controller
         public static final boolean isInverted_Motor1 = false; //Invert motor direction
-        public static final double speed_Motor1 = 0.50; //Feeder Motor 1 Speed
+        public static final double speed_Motor1 = 1.0; //Feeder Motor 1 Speed
         public static final double debounce_delay = 3.0; //Seconds to wait for feeder beams
     }
 
@@ -300,7 +300,7 @@ public class Constants {
             public final static int AXIS_FWD = Logitech.AXIS_LV; //Axis that moves the robot up and down the field
             public final static int AXIS_TURN = Logitech.AXIS_RH; //Axis that controls the rotation of the robot
 
-            public final static int DPAD_INTAKE_IN = Logitech.DPAD_RIGHT; //intake forward
+            // public final static int DPAD_INTAKE_IN = Logitech.DPAD_RIGHT; //intake forward
             public final static int DPAD_INTAKE_OUT = Logitech.DPAD_LEFT; //intake reverse
             public final static int BTN_COLLECTOR_DEPLOY = Logitech.BTN_Y; //deploy collector
             public final static int BTN_COLLECTOR_RETRACT = Logitech.BTN_X; //retract collector
@@ -311,6 +311,7 @@ public class Constants {
             public final static int BTN_FEEDER_FWD = Logitech.BTN_RB; //advance feeder
             public static final int DPAD_SHOOTER_INCREASE = Logitech.DPAD_UP; //increase rpm
             public static final int DPAD_SHOOTER_DECREASE = Logitech.DPAD_DN; //decrease rpm
+            
         }
 
         /**
@@ -323,10 +324,12 @@ public class Constants {
             public final static int DPAD_WHIRLYGIG_REV = Logitech.DPAD_LEFT; //climber reverse
             public static final int BTN_RELEASEHOOK1 = Logitech.BTN_LB; //release hook 1
             public static final int BTN_RELEASEHOOK2 = Logitech.BTN_RB; //release hook 2
+            public static final int BTN_INTAKE_IN = Logitech.BTN_A;
+
 
             // these button bindings are very temporary, feel free to overwrite them
             public final static int BTN_MUSIC_PLAY = Logitech.BTN_B; //Play music
-            public final static int BTN_MUSIC_STOP = Logitech.BTN_A; //Stop music
+            public final static int BTN_MUSIC_STOP = Logitech.BTN_R; //Stop music
             public final static int BTN_MUSIC_INCREASE = Logitech.BTN_Y;
             public final static int BTN_MUSIC_DECREASE = Logitech.BTN_X;
         }

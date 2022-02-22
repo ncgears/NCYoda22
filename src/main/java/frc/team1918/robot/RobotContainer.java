@@ -108,7 +108,6 @@ public class RobotContainer {
       private JoystickButton btn_FeederFwd = new JoystickButton(dj, Constants.OI.Driver.BTN_FEEDER_FWD);
       private POVButton btn_ShooterIncrease = new POVButton(dj, Constants.OI.Driver.DPAD_SHOOTER_INCREASE);
       private POVButton btn_ShooterDecrease = new POVButton(dj, Constants.OI.Driver.DPAD_SHOOTER_DECREASE);
-      private POVButton btn_IntakeForward = new POVButton(dj, Constants.OI.Driver.DPAD_INTAKE_IN);
       private POVButton btn_IntakeReverse = new POVButton(dj, Constants.OI.Driver.DPAD_INTAKE_OUT);
       // private JoystickButton btn_WhirlyForward = new JoystickButton(dj, Constants.OI.Driver.BTN_WHIRLYFWD);
       // private JoystickButton btn_WhirlyReverse = new JoystickButton(dj, Constants.OI.Driver.BTN_WHIRLYREV);
@@ -133,6 +132,7 @@ public class RobotContainer {
       private POVButton btn_WhirlyUp = new POVButton(oj, Constants.OI.Operator.DPAD_WHIRLYGIG_UP);
       private POVButton btn_WhirlyFwd = new POVButton(oj, Constants.OI.Operator.DPAD_WHIRLYGIG_FWD);
       private POVButton btn_WhirlyRev = new POVButton(oj, Constants.OI.Operator.DPAD_WHIRLYGIG_REV);
+      private JoystickButton btn_IntakeForward = new JoystickButton(oj, Constants.OI.Operator.BTN_INTAKE_IN);
       private JoystickButton btn_MUSIC_PLAY = new JoystickButton (oj, Constants.OI.Operator.BTN_MUSIC_PLAY);
       private JoystickButton btn_MUSIC_STOP = new JoystickButton (oj, Constants.OI.Operator.BTN_MUSIC_STOP);
       private JoystickButton btn_MUSIC_INCREASE = new JoystickButton (oj, Constants.OI.Operator.BTN_MUSIC_INCREASE);
