@@ -29,12 +29,17 @@ public class ShooterSubsystem extends SubsystemBase {
     shoot.configFactoryDefault();
     shoot.set(ControlMode.PercentOutput, 0);
     shoot.setNeutralMode(NeutralMode.Coast);
+    //shoot.setSensorPhase(Constants.Shooter.isSensorInverted_Motor1);
     shoot.setInverted(Constants.Shooter.isInverted_Motor1);
     shoot.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
     shoot.config_kP(0, Constants.Shooter.kP);
     shoot.config_kI(0, Constants.Shooter.kI);
     shoot.config_kD(0, Constants.Shooter.kD);
     shoot.config_IntegralZone(0, Constants.Shooter.kIZone);
+    // shoot.configNominalOutputForward(0);
+    // shoot.configNominalOutputReverse(0);
+    shoot.configPeakOutputForward(1);
+    shoot.configPeakOutputReverse(0); //no reverse output
     //Setup the Preshooter
     preShooter = new WPI_TalonSRX(Constants.Shooter.id_Motor2);
     preShooter.configFactoryDefault();
@@ -56,7 +61,11 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public double getShooterSpeedRPM() {
-    return Helpers.General.roundDouble(Helpers.General.ticksPer100msToRPM(shoot.getSelectedSensorVelocity(0), Constants.Shooter.kEncoderFullRotation),0);
+    //double rawrpm = shoot.getSensorCollection().getIntegratedSensorVelocity(); //This works
+    double rawrpm = shoot.getSelectedSensorVelocity(0);
+    double rpm = Helpers.General.roundDouble(Helpers.General.ticksPer100msToRPM(rawrpm, Constants.Shooter.kEncoderFullRotation),0);
+    //Helpers.Debug.debug("shooter_rpm="+rpm,1000);
+    return rpm;
   }
 
   public void setShooterSpeed(double RPM) {
@@ -71,6 +80,12 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void stopPreShooter() {
     preShooter.set(ControlMode.PercentOutput,0);
+  }
+
+  public void stopShooter() {
+    shoot.set(ControlMode.PercentOutput,0); //just apply 0 power and let it coast.
+    m_shooter_oldrpm = 0;
+    m_shooter_rpm = 0;
   }
 
   public void increaseShooterSpeed() {

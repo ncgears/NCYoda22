@@ -6,10 +6,10 @@ import com.ctre.phoenix.music.Orchestra;
 import frc.team1918.robot.Helpers;
 import frc.team1918.robot.subsystems.OrchestraSubsystem;
 
-public class orchestra_stop extends CommandBase {
+public class orchestra_decreaseSong extends CommandBase {
     private final OrchestraSubsystem m_orchestra;
 
-    public orchestra_stop(OrchestraSubsystem subsystem){
+    public orchestra_decreaseSong(OrchestraSubsystem subsystem){
       m_orchestra = subsystem;
       // Use addRequirements() here to declare subsystem dependencies.
       addRequirements(subsystem);
@@ -17,12 +17,13 @@ public class orchestra_stop extends CommandBase {
 
     @Override
     public void initialize() {
-      m_orchestra.stopMusic();
+      m_orchestra.decreaseSong();
     }
-
+  
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
       return true;
     }    
 }
+

@@ -4,6 +4,7 @@ package frc.team1918.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team1918.robot.Constants;
 import frc.team1918.robot.Dashboard;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 
@@ -20,8 +21,12 @@ public class ClimberSubsystem extends SubsystemBase {
   private Solenoid hook_release_1;
   private Solenoid hook_release_2;
   private Solenoid whirlySolenoid; 
+  private DigitalInput m_limitSwitchLeft; //First Beam Break (at intake)
+  private DigitalInput m_limitSwitchRight;
 
   public ClimberSubsystem() {
+    m_limitSwitchLeft = new DigitalInput(Constants.Feeder.id_BeamBreak1);
+    m_limitSwitchRight = new DigitalInput(Constants.Feeder.id_BeamBreak2);
     climber_1 = new WPI_TalonSRX(Constants.Climber.id_Motor1);
     climber_2 = new WPI_TalonSRX(Constants.Climber.id_Motor2);
     hook_release_1 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_ClimbHook1Solonoid);
@@ -43,7 +48,7 @@ public class ClimberSubsystem extends SubsystemBase {
     climber_2.configFactoryDefault(); 
     climber_2.setNeutralMode(NeutralMode.Brake); 
     climber_2.setInverted((Constants.Climber.isInvertedFromMaster_Motor2) ? InvertType.OpposeMaster : InvertType.FollowMaster);
-    climber_2.follow(climber_1);
+    // climber_2.follow(climber_1); //Climber 2 Was Lagging Behind, as well as going the wrong direction
   }
 
   /**
@@ -73,6 +78,13 @@ public class ClimberSubsystem extends SubsystemBase {
    * This moves the climber to a specific position using the encoder
    * @param target - Encoder position to move to
    */
+  public boolean leftLimitSwitchTouch(){
+    return m_limitSwitchLeft.get();
+  }
+  
+  public boolean rightLimitSwitchTouch(){
+    return m_limitSwitchRight.get();
+  }
   public void moveClimberToTarget(int target) {
     climber_1.set(ControlMode.Position,target);
   }
@@ -82,6 +94,7 @@ public class ClimberSubsystem extends SubsystemBase {
    */
   public void climberForward() {
     climber_1.set(ControlMode.PercentOutput, Constants.Climber.kClimberSpeed);
+    climber_2.set(ControlMode.PercentOutput, Constants.Climber.kClimberSpeed * -1);
     Dashboard.Climber.setClimberDirection("Forward");
   }
 
@@ -90,6 +103,7 @@ public class ClimberSubsystem extends SubsystemBase {
    */
   public void climberReverse() {
     climber_1.set(ControlMode.PercentOutput, Constants.Climber.kClimberSpeed * -1);
+    climber_2.set(ControlMode.PercentOutput, Constants.Climber.kClimberSpeed);
     Dashboard.Climber.setClimberDirection("Reverse");
   }
 
@@ -113,5 +127,14 @@ public class ClimberSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run, usually used for updating dashboard data
     climber_2.follow(climber_1); //Make sure climber_2 is always following climber_1
     Dashboard.Climber.setClimberPosition(getClimberPosition());
+    
+    if (leftLimitSwitchTouch()){
+      // reverse left arm
+    }
+    if (rightLimitSwitchTouch()){
+      // reverse right arm
+    }
+
+
   }
 }

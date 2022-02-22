@@ -32,7 +32,7 @@ public class Constants {
      * Constants for the Autonomous subsystem
      */
     public static final class Auton {
-        public static final boolean isDisabled = true; //Disable autonomous
+        public static final boolean isDisabled = false; //Disable autonomous
         public static final double kMaxSpeedMetersPerSecond = 0.25;
         public static final double kMaxAccelMetersPerSecondSquared = 0.0;
         public static final double kMaxOmega = (kMaxSpeedMetersPerSecond / Math.hypot(0.5461 / 2.0, 0.6477 / 2.0));
@@ -45,7 +45,7 @@ public class Constants {
      * This is not a subsystem, the pneumatics are controlled directly in their respective subsystems
      */
     public static final class Air {
-        public static final boolean isDisabled = false; //Disable compressor
+        public static final boolean isDisabled = true; //Disable compressor
         public static final int id_CollectorSolonoid = 0; //ID of solonoid for collector
         public static final int id_HoodSolonoid = 4; //ID of solonoid for hood control
         public static final int id_ClimbHook1Solonoid = 1; //ID of solonoid for climber hook 1
@@ -61,22 +61,22 @@ public class Constants {
      * Constants for the Collector subsystem
      */
     public static final class Collector {
-        public static final boolean isDisabled = true; //Disable the collector subsystem
-        public static final int id_Motor1 = 15; 
+        public static final boolean isDisabled = false; //Disable the collector subsystem
+        public static final int id_Motor1 = 16; 
         public static final int id_ColorSensor1 = 4;
-        public static final double kDefaultCollectorSpeed = 1.0;
+        public static final double kDefaultCollectorSpeed = 0.5;
     }
    
     /**
      * Constants for the Feeder subsystem
      */
     public static final class Feeder {
-        public static final boolean isDisabled = true; //Disable the feeder subsystem
+        public static final boolean isDisabled = false; //Disable the feeder subsystem
         public static final int id_BeamBreak1 = 0; //ID of the Beam Break 1 DIO (intake)
         public static final int id_BeamBreak2 = 1; //ID of the Beam Break 2 DIO (shooter)
-        public static final int id_Motor1 = 14; //ID of the Feeder Motor 1 Controller
+        public static final int id_Motor1 = 6; //ID of the Feeder Motor 1 Controller
         public static final boolean isInverted_Motor1 = false; //Invert motor direction
-        public static final double speed_Motor1 = 0.75; //Feeder Motor 1 Speed
+        public static final double speed_Motor1 = 1.0; //Feeder Motor 1 Speed
         public static final double debounce_delay = 3.0; //Seconds to wait for feeder beams
     }
 
@@ -84,16 +84,18 @@ public class Constants {
      * Constants for the Shooter subsystem
      */
     public static final class Shooter {
-        public static final boolean isDisabled = true; //Disable the shooter subsystem
-        public static final int id_Motor1 = 16; //ID of the Shooter Motor 1 Controller
-        public static final int id_Motor2 = 17; //ID of the Preshooter Motor Controller
+        public static final boolean isDisabled = false; //Disable the shooter subsystem
+        public static final int id_Motor1 = 43; //ID of the Shooter Motor 1 Controller
+        public static final int id_Motor2 = 15; //ID of the Preshooter Motor Controller
         public static final int kEncoderFullRotation = 2048; //Falcon integrated encoder is 2048
-        public static final boolean isInverted_Motor1 = false; //Invert motor direction
+        public static final boolean isSensorInverted_Motor1 = true;
+        public static final boolean isInverted_Motor1 = true; //Invert motor direction
         public static final boolean isInverted_Motor2 = false; //Invert motor direction
-        public static final int kMaxShooterSpeed = 5000; //Max RPM of the Shooter Motor
-        public static final int kMinShooterSpeed = 100; //Min RPM of the Shooter Motor
-        public static final double kSpeedIncrementSize = 25; //RPMs to change the shooter speed per increment
-        public static final double kP = 0.001;
+        public static final int kMaxShooterSpeed = 6000; //Max RPM of the Shooter Motor
+        public static final double kDefaultShooterSpeed = 1500; //Default RPM of the Shooter Motor
+        public static final int kMinShooterSpeed = 0; //Min RPM of the Shooter Motor
+        public static final double kSpeedIncrementSize = 50; //RPMs to change the shooter speed per increment
+        public static final double kP = 0.10;
         public static final double kI = 0.0;
         public static final double kD = 0.0;
         public static final double kIZone = 0.0;
@@ -112,16 +114,16 @@ public class Constants {
      */
     public static final class Climber {
         public static final boolean isDisabled = false; //Disable the climber subsystem
-        public static final int id_Motor1 = 1;
-        public static final int id_Motor2 = 2; //follower of Motor1
-        public static final int id_LimitHook1 = 1;
-        public static final int id_LimitHook2 = 2;
+        public static final int id_Motor1 = 13;
+        public static final int id_Motor2 = 14; //follower of Motor1
+        public static final int id_LimitHook1 = 2;
+        public static final int id_LimitHook2 = 3;
         public static final int id_PressureSensor = 3;
         public static final boolean isInverted_Motor1 = false;
         public static final boolean isInvertedFromMaster_Motor2 = true; //false for same direction as master
         public static final boolean isSensorInverted_Motor1 = false;
         public static final boolean isSensorNotContinuous = false;
-        public static final double kClimberSpeed = 0.25; //Speed at which the climber controllers operate (in fixed speed mode)
+        public static final double kClimberSpeed = 1.0; //Speed at which the climber controllers operate (in fixed speed mode)
         public static final double kHookReleaseTime = 1.0; //Time in seconds to wait before re-locking hook after unlocking
         public static final double kP = 0.2;
         public static final double kI = 0.0;
@@ -175,11 +177,11 @@ public class Constants {
          */
         public static final class FL {  //TODO: PID Tuning
             public static final boolean isDisabled = false;
-            public static final int DRIVE_MC_ID = 33; //Falcon500 Motor Controller ID
+            public static final int DRIVE_MC_ID = 39; //Falcon500 Motor Controller ID
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
             public static final boolean DRIVE_isInverted = false;
             public static final int TURN_MC_ID = 7; //TalonSRX Motor Controller ID
-            public static final boolean TURN_sensorPhase = false; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
+            public static final boolean TURN_sensorPhase = true; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
             public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
             public static final double TURN_kP = Swerve.DEFAULT_TURN_P; //PID P (only change to override default)
             public static final double TURN_kI = Swerve.DEFAULT_TURN_I; //PID I (only change to override default)
@@ -193,11 +195,11 @@ public class Constants {
          */
         public static final class FR {
             public static final boolean isDisabled = false;
-            public static final int DRIVE_MC_ID = 31; //Falcon500 Motor Controller ID
+            public static final int DRIVE_MC_ID = 36; //Falcon500 Motor Controller ID
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
             public static final boolean DRIVE_isInverted = false;
             public static final int TURN_MC_ID = 4; //TalonSRX Motor Controller ID
-            public static final boolean TURN_sensorPhase = false; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
+            public static final boolean TURN_sensorPhase = true; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
             public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
             public static final double TURN_kP = Swerve.DEFAULT_TURN_P; //PID P (only change to override default)
             public static final double TURN_kI = Swerve.DEFAULT_TURN_I; //PID I (only change to override default)
@@ -211,11 +213,11 @@ public class Constants {
          */
         public static final class RL {
             public static final boolean isDisabled = false;
-            public static final int DRIVE_MC_ID = 35; //Falcon500 Motor Controller ID
+            public static final int DRIVE_MC_ID = 38; //Falcon500 Motor Controller ID
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
             public static final boolean DRIVE_isInverted = false;
             public static final int TURN_MC_ID = 8; //TalonSRX Motor Controller ID
-            public static final boolean TURN_sensorPhase = false; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
+            public static final boolean TURN_sensorPhase = true; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
             public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
             public static final double TURN_kP = Swerve.DEFAULT_TURN_P; //PID P (only change to override default)
             public static final double TURN_kI = Swerve.DEFAULT_TURN_I; //PID I (only change to override default)
@@ -229,11 +231,11 @@ public class Constants {
          */
         public static final class RR { //Rear Right
             public static final boolean isDisabled = false;
-            public static final int DRIVE_MC_ID = 32; //Falcon500 Motor Controller ID
+            public static final int DRIVE_MC_ID = 37; //Falcon500 Motor Controller ID
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
             public static final boolean DRIVE_isInverted = false;
             public static final int TURN_MC_ID = 11; //TalonSRX Motor Controller ID
-            public static final boolean TURN_sensorPhase = false; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
+            public static final boolean TURN_sensorPhase = true; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
             public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
             public static final double TURN_kP = Swerve.DEFAULT_TURN_P; //PID P (only change to override default)
             public static final double TURN_kI = Swerve.DEFAULT_TURN_I; //PID I (only change to override default)
@@ -248,9 +250,9 @@ public class Constants {
      * Constants for the DriveTrain subsystem
      */
     public static final class DriveTrain {
-        public static final boolean isDisabled = true; 
+        public static final boolean isDisabled = false; 
         ////Global Tuning
-        public static final boolean DT_USE_DRIVESTRAIGHT = true; //enable driveStraight functionality in drive() method
+        public static final boolean DT_USE_DRIVESTRAIGHT = false; //enable driveStraight functionality in drive() method
         public static final double DT_DRIVESTRAIGHT_P = 0.065; //kP for driveStraight correction
         public static final double DT_kMaxMetersPerSecond = 3.677; //limit full stick speed meters to 12.0fps
         ////Turn Tuning
@@ -258,7 +260,7 @@ public class Constants {
         public static final double DT_TURN_MULT_MOVING = 1.0; //Turn speed multiplier while moving
         public static final boolean DT_TURN_MULT_BEFORE_DB = true; //Apply turn multiplier before deadband
         public static final int DT_TURN_ENCODER_FULL_ROTATION = 1024;
-        public static final boolean DT_USE_FIELD_CENTRIC = true; //Set to true to use field-centric drive
+        public static final boolean DT_USE_FIELD_CENTRIC = false; //Set to true to use field-centric drive
         ////Drive Tuning
         public static final double DT_FWD_MULT = 1.0; //Fwd throttle multiplier
         public static final double DT_STR_MULT = 1.0; //Str throttle multiplier
@@ -276,6 +278,7 @@ public class Constants {
     
     public static final class Vision {
         public static final boolean isDisabled = false;
+        public static final int id_RingLight = 0; //Relay ID of Ringlight SS Relay
     }
     /**
      * Constants for the Operator Interface
@@ -296,31 +299,39 @@ public class Constants {
             public final static int AXIS_STRAFE = Logitech.AXIS_LH; //Axis that moves the robot side to side on the field
             public final static int AXIS_FWD = Logitech.AXIS_LV; //Axis that moves the robot up and down the field
             public final static int AXIS_TURN = Logitech.AXIS_RH; //Axis that controls the rotation of the robot
-            public static final int BTN_WHIRLYFWD = Logitech.BTN_RB; //Move collector to Up position
-            public static final int BTN_WHIRLYREV = Logitech.BTN_LB; //Engage anti-backdrive for climber
-            public static final int BTN_RELEASEHOOK1 = Logitech.BTN_A; //Run the mixer in the forward direction
-            public static final int BTN_RELEASEHOOK2 = Logitech.BTN_B; //Home the swerve modules
-            public final static int DPAD_MUSIC_PLAY = Logitech.DPAD_UP; //Play music
-            public final static int DPAD_MUSIC_STOP = Logitech.DPAD_DN; //Stop music
+
+            // public final static int DPAD_INTAKE_IN = Logitech.DPAD_RIGHT; //intake forward
+            public final static int DPAD_INTAKE_OUT = Logitech.DPAD_LEFT; //intake reverse
+            public final static int BTN_COLLECTOR_DEPLOY = Logitech.BTN_Y; //deploy collector
+            public final static int BTN_COLLECTOR_RETRACT = Logitech.BTN_X; //retract collector
+
+            public final static int BTN_SHOOTER_STOP = Logitech.BTN_LB; //stop shooter
+            public final static int BTN_SHOOTER_FWD = Logitech.BTN_A; //run shooter
+            public final static int BTN_SHOOTER_FWD_HOOD = Logitech.BTN_B; //run shooter
+            public final static int BTN_FEEDER_FWD = Logitech.BTN_RB; //advance feeder
+            public static final int DPAD_SHOOTER_INCREASE = Logitech.DPAD_UP; //increase rpm
+            public static final int DPAD_SHOOTER_DECREASE = Logitech.DPAD_DN; //decrease rpm
+            
         }
 
         /**
          * Constants for the Operator controller
          */
         public static final class Operator {
-            public final static int AXIS_CLIMB = Logitech.AXIS_LV; //Axis that controls the climber up and down
-            public final static int AXIS_COLLECTOR_OUT = Logitech.AXIS_RT; //Axis that runs the collector out (actually a trigger button)
-            public final static int BTN_SHOOT_WALL = Logitech.BTN_A; //Shoot from at the wall
-            public final static int BTN_SHOOT_SHORT = Logitech.BTN_B; //Shoot from close to the wall
-            public final static int BTN_SHOOT_LINE = Logitech.BTN_X; //Shoot from the initiation line
-            public final static int BTN_SHOOT_TRENCH = Logitech.BTN_Y; //Shoot from the trench
-            public final static int BTN_TOG_MIDDOWN = Logitech.BTN_LB; //Toggle collector arm between middle and down position
-            public final static int BTN_COLLECTOR_IN = Logitech.BTN_RB; //Run the collector in
-            public final static int BTN_MECHZERO = Logitech.BTN_BACK; //DRIVER MECHZERO and OPER MECHZERO are required for this
-            public final static int DPAD_COLLECTOR_UP = Logitech.DPAD_UP; //Move collector to up
-            public final static int DPAD_COLLECTOR_MID = Logitech.DPAD_RIGHT; //Move collector to middle
-            public final static int DPAD_COLLECTOR_DOWN = Logitech.DPAD_DN; //Move collector down
-            
+
+            public final static int DPAD_WHIRLYGIG_UP = Logitech.DPAD_UP; //whirlygig up
+            public final static int DPAD_WHIRLYGIG_FWD = Logitech.DPAD_RIGHT; //climber forward
+            public final static int DPAD_WHIRLYGIG_REV = Logitech.DPAD_LEFT; //climber reverse
+            public static final int BTN_RELEASEHOOK1 = Logitech.BTN_LB; //release hook 1
+            public static final int BTN_RELEASEHOOK2 = Logitech.BTN_RB; //release hook 2
+            public static final int BTN_INTAKE_IN = Logitech.BTN_A;
+
+
+            // these button bindings are very temporary, feel free to overwrite them
+            public final static int BTN_MUSIC_PLAY = Logitech.BTN_B; //Play music
+            public final static int BTN_MUSIC_STOP = Logitech.BTN_R; //Stop music
+            public final static int BTN_MUSIC_INCREASE = Logitech.BTN_Y;
+            public final static int BTN_MUSIC_DECREASE = Logitech.BTN_X;
         }
 
         /**

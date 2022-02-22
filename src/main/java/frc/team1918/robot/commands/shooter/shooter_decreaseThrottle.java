@@ -24,7 +24,7 @@ public class shooter_decreaseThrottle extends CommandBase {
   public shooter_decreaseThrottle(ShooterSubsystem subsystem) {
     m_shooter = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    // addRequirements(subsystem); //We dont require it
   }
 
   // Called when the command is initially scheduled.
