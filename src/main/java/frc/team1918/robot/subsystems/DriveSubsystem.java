@@ -25,7 +25,7 @@ public class DriveSubsystem extends SubsystemBase {
 	private int debug_ticks, dash_gyro_ticks, dash_dt_ticks;
 	private static double desiredAngle; //Used for driveStraight function
 	private static boolean angleLocked = false;
-	public boolean orchestraPlaying;
+	public boolean orchestraPlaying = false;
 
 	//initialize 4 swerve modules
 	private static SwerveModule m_dtFL = new SwerveModule("dtFL", Constants.Swerve.FL.constants); // Front Left
