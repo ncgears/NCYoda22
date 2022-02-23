@@ -48,8 +48,8 @@ public class Constants {
         public static final boolean isDisabled = false; //Disable compressor
         public static final int id_CollectorSolonoid = 0; //ID of solonoid for collector
         public static final int id_HoodSolonoid = 4; //ID of solonoid for hood control
-        public static final int id_ClimbHook1Solonoid = 1; //ID of solonoid for climber hook 1
-        public static final int id_ClimbHook2Solonoid = 2; //ID of solonoid for climber hook 2
+        public static final int id_ClimbHook1Solonoid = 5; //ID of solonoid for climber hook 1
+        public static final int id_ClimbHook2Solonoid = 6; //ID of solonoid for climber hook 2
         public static final int id_WhirlyGigSolonoid = 3; //ID of solonoid for whirlygig
         public static final boolean stateCollectorDeployed = true; //State of the solenoid when COLL1 is deployed
         public static final boolean stateHoodUp = true; //State of the solonoid when HOOD is up
