@@ -34,7 +34,7 @@ public class climber_unlockHook extends CommandBase {
   @Override
   public void initialize() {
     Helpers.Debug.debug("Climber: Unlock Hook "+m_hookNumber);
-    m_climber.setHookMode(m_hookNumber,false);
+    m_climber.setHookMode(m_hookNumber,true);
  }
 
   // Called every time the scheduler runs while the command is scheduled.
