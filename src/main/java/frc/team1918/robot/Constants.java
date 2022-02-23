@@ -45,7 +45,7 @@ public class Constants {
      * This is not a subsystem, the pneumatics are controlled directly in their respective subsystems
      */
     public static final class Air {
-        public static final boolean isDisabled = true; //Disable compressor
+        public static final boolean isDisabled = false; //Disable compressor
         public static final int id_CollectorSolonoid = 0; //ID of solonoid for collector
         public static final int id_HoodSolonoid = 4; //ID of solonoid for hood control
         public static final int id_ClimbHook1Solonoid = 1; //ID of solonoid for climber hook 1
@@ -92,7 +92,7 @@ public class Constants {
         public static final boolean isInverted_Motor1 = true; //Invert motor direction
         public static final boolean isInverted_Motor2 = false; //Invert motor direction
         public static final int kMaxShooterSpeed = 6000; //Max RPM of the Shooter Motor
-        public static final double kDefaultShooterSpeed = 1500; //Default RPM of the Shooter Motor
+        public static final double kDefaultShooterSpeed = 5000; //Default RPM of the Shooter Motor
         public static final int kMinShooterSpeed = 0; //Min RPM of the Shooter Motor
         public static final double kSpeedIncrementSize = 50; //RPMs to change the shooter speed per increment
         public static final double kP = 0.10;
@@ -194,7 +194,7 @@ public class Constants {
          * Constants for Front Right Swerve Module
          */
         public static final class FR {
-            public static final boolean isDisabled = false;
+            public static final boolean isDisabled = true;  //Changing this to false didn't affect turn speed
             public static final int DRIVE_MC_ID = 36; //Falcon500 Motor Controller ID
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
             public static final boolean DRIVE_isInverted = false;
@@ -252,7 +252,7 @@ public class Constants {
     public static final class DriveTrain {
         public static final boolean isDisabled = false; 
         ////Global Tuning
-        public static final boolean DT_USE_DRIVESTRAIGHT = true; //enable driveStraight functionality in drive() method
+        public static final boolean DT_USE_DRIVESTRAIGHT = false; //enable driveStraight functionality in drive() method
         public static final double DT_DRIVESTRAIGHT_P = 0.065; //kP for driveStraight correction
         public static final double DT_kMaxMetersPerSecond = 3.677; //limit full stick speed meters to 12.0fps
         ////Turn Tuning

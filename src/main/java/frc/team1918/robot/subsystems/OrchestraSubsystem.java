@@ -17,15 +17,16 @@ public class OrchestraSubsystem extends SubsystemBase {
        If it doesn't, the song won't play correctly */
     private final DriveSubsystem m_drive = new DriveSubsystem();
     private int songSelection = 1;
+    private boolean orchestraPlaying = false;
 
     public void stopMusic(){
         orchestra.stop();
-        m_drive.orchestraPlaying = false;
+        orchestraPlaying = false;
         Helpers.Debug.debug("Orchestra: Stopped Playing");
     }
 
     public void loadSong(int selection) { //Selects which song to load
-        m_drive.orchestraPlaying = true;
+        orchestraPlaying = true;
         if (selection < 0) {selection = 0;}
         if (selection > songs.length) {selection = songs.length;}
         orchestra.loadMusic(songs[selection]);
@@ -38,6 +39,8 @@ public class OrchestraSubsystem extends SubsystemBase {
     }
 
     public void createOrchestra(){
+        orchestraPlaying = true;
+        m_drive.stopAllDrive();
         ArrayList<TalonFX> instruments = new ArrayList<TalonFX>();
 
         for (int i = 0; i < motors.length; ++i) {
@@ -59,4 +62,7 @@ public class OrchestraSubsystem extends SubsystemBase {
     public int getSong(){
         return songSelection;
     };
+    public boolean getOrchestraPlaying(){
+        return orchestraPlaying;
+    }
 }
