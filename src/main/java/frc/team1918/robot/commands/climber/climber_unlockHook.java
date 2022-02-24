@@ -27,7 +27,7 @@ public class climber_unlockHook extends CommandBase {
     m_climber = subsystem;
     m_hookNumber = hooknumber;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    // addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.

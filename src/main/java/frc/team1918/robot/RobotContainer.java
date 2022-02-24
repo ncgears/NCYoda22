@@ -147,10 +147,12 @@ public class RobotContainer {
     btn_WhirlyUp.whenPressed(new climber_whirlygigUp(m_climber));
     btn_WhirlyFwd.whileHeld(new climber_rotateFwd(m_climber));
     btn_WhirlyRev.whileHeld(new climber_rotateRev(m_climber));
+    //I believe the following are not completing (unlocking only but not waiting and locking while holding the fwd/rev button because the command is interrupted)
+    //we should be able to remove the addRequirements() in the lockhook and unlockhook so that they can run even if rotate is going, because rotate wont interrupt it.
     btn_ReleaseHook1.whenPressed(new climber_lockHook(m_climber,1).beforeStarting(new climber_unlockHook(m_climber,1).andThen(new WaitCommand(Constants.Climber.kHookReleaseTime))));
     btn_ReleaseHook2.whenPressed(new climber_lockHook(m_climber,2).beforeStarting(new climber_unlockHook(m_climber,2).andThen(new WaitCommand(Constants.Climber.kHookReleaseTime))));
-    btn_LockHook1.whenPressed(new climber_lockHook(m_climber, 1));
-    btn_LockHook2.whenPressed(new climber_lockHook(m_climber, 2)); 
+    btn_LockHook1.whenPressed(new climber_lockHook(m_climber, 1)); //I would think we could just use 1 button to lock both, only unlocking is specific per side
+    btn_LockHook2.whenPressed(new climber_lockHook(m_climber, 2));
 
     btn_CollectorDeploy.whenPressed(new collector_deployIntake(m_collector));
     btn_CollectorRetract.whenPressed(new collector_retractIntake(m_collector));
