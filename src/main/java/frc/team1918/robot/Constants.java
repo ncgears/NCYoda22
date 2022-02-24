@@ -252,15 +252,16 @@ public class Constants {
     public static final class DriveTrain {
         public static final boolean isDisabled = false; 
         ////Global Tuning
-        public static final boolean DT_USE_DRIVESTRAIGHT = true; //enable driveStraight functionality in drive() method
-        public static final double DT_DRIVESTRAIGHT_P = 0.065; //kP for driveStraight correction
-        public static final double DT_kMaxMetersPerSecond = 3.677; //limit full stick speed meters to 12.0fps
+        public static final boolean useDriveStraight = true; //enable driveStraight functionality in drive() method
+        public static final boolean useFieldCentric = true; //use field-centric drive. This should always be true except for testing?
+        public static final double kDriveStraight_P = 0.065; //kP for driveStraight correction
+        public static final double kMaxMetersPerSecond = 3.677; //limit full stick speed meters to 12.0fps
+        public static final double kMaxRotationRadiansPerSecond = 3.0; //Multiplier for omega of turning the robot
         ////Turn Tuning
         public static final double DT_TURN_MULT_STATIONARY = 1.0; //Turn speed multiplier while not moving
         public static final double DT_TURN_MULT_MOVING = 1.0; //Turn speed multiplier while moving
         public static final boolean DT_TURN_MULT_BEFORE_DB = true; //Apply turn multiplier before deadband
         public static final int DT_TURN_ENCODER_FULL_ROTATION = 1024;
-        public static final boolean DT_USE_FIELD_CENTRIC = true; //Set to true to use field-centric drive
         ////Drive Tuning
         public static final double DT_FWD_MULT = 1.0; //Fwd throttle multiplier
         public static final double DT_STR_MULT = 1.0; //Str throttle multiplier
@@ -279,6 +280,7 @@ public class Constants {
     public static final class Vision {
         public static final boolean isDisabled = false;
         public static final int id_RingLight = 0; //Relay ID of Ringlight SS Relay
+        public static final double kErrorCorrection_P = 0.65; //Proportional value for multiplying vision angle correction
     }
     /**
      * Constants for the Operator Interface

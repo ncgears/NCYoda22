@@ -134,27 +134,28 @@ public class DriveSubsystem extends SubsystemBase {
 	@SuppressWarnings("ParameterName")
 	public void drive(double fwd, double str, double rot, boolean fieldRelative) {
 
-		if(Constants.DriveTrain.DT_USE_DRIVESTRAIGHT) {
+		if(Constants.DriveTrain.useDriveStraight) {
 			if(rot == 0) { //We are not applying rotation
 				if(!angleLocked) { //We havent locked an angle, so lets save the desiredAngle and lock it
 					lockAngle();
 				} else {
 					if (Math.abs(fwd) > 0 || Math.abs(str) > 0) { //Only do angle correction while moving, for safety reasons
-						rot += calcAngleStraight(desiredAngle,m_gyro.getAngle(),Constants.DriveTrain.DT_DRIVESTRAIGHT_P); //Add some correction to the rotation to account for angle drive
+						rot += calcAngleStraight(desiredAngle,m_gyro.getAngle(),Constants.DriveTrain.kDriveStraight_P); //Add some correction to the rotation to account for angle drive
 					}
 				}
 			}
 		}
-		double fwdMPS = fwd * Constants.DriveTrain.DT_kMaxMetersPerSecond;
-		double strMPS = str * Constants.DriveTrain.DT_kMaxMetersPerSecond;
+		double fwdMPS = fwd * Constants.DriveTrain.kMaxMetersPerSecond;
+		double strMPS = str * Constants.DriveTrain.kMaxMetersPerSecond;
+		double rotRPS = str * Constants.DriveTrain.kMaxRotationRadiansPerSecond;
 		var swerveModuleStates =
 		Constants.Swerve.kDriveKinematics.toSwerveModuleStates(fieldRelative
-					? ChassisSpeeds.fromFieldRelativeSpeeds(fwdMPS, strMPS, rot, getRot2d())
-					: new ChassisSpeeds(fwdMPS, strMPS, rot));
+					? ChassisSpeeds.fromFieldRelativeSpeeds(fwdMPS, strMPS, rotRPS, getRot2d())
+					: new ChassisSpeeds(fwdMPS, strMPS, rotRPS));
 		if (Helpers.Debug.debugThrottleMet(debug_ticks)) {
 			Helpers.Debug.debug((fieldRelative)
-			? ChassisSpeeds.fromFieldRelativeSpeeds(fwdMPS, strMPS, rot, getRot2d()).toString()+" fieldCentric"
-			: new ChassisSpeeds(fwdMPS, strMPS, rot).toString()+" robotCentric");
+			? ChassisSpeeds.fromFieldRelativeSpeeds(fwdMPS, strMPS, rotRPS, getRot2d()).toString()+" fieldCentric"
+			: new ChassisSpeeds(fwdMPS, strMPS, rotRPS).toString()+" robotCentric");
 		}
 		debug_ticks++;
 		SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.kMaxSpeedMetersPerSecond);
@@ -185,6 +186,13 @@ public class DriveSubsystem extends SubsystemBase {
 		m_dtRR.setDesiredState(new SwerveModuleState(0, m_dtRR.getState().angle));
 	}
 
+	/**
+	 * This returns and angle correction (in degrees)
+	 * @param targetAngle [double] target angle (heading) of the robot in degrees
+	 * @param currentAngle [double] current angle (heading) of the robot in degrees
+	 * @param kP [double] proportional multiplier for straight angle correction
+	 * @return [double] Degrees of correction using kP multiplier (to control how quickly we correct back to straight)
+	 */
 	public double calcAngleStraight(double targetAngle, double currentAngle, double kP) {
 		double errorAngle = (targetAngle - currentAngle) % 360.0;
 		double correction = errorAngle * kP;
