@@ -130,6 +130,8 @@ public class RobotContainer {
       private POVButton btn_WhirlyFwd = new POVButton(oj, Constants.OI.Operator.DPAD_WHIRLYGIG_FWD);
       private POVButton btn_WhirlyRev = new POVButton(oj, Constants.OI.Operator.DPAD_WHIRLYGIG_REV);
       private JoystickButton btn_IntakeForward = new JoystickButton(oj, Constants.OI.Operator.BTN_INTAKE_IN);
+      private JoystickButton btn_LockHook1 = new JoystickButton(oj, Constants.OI.Operator.BTN_LOCKHOOK1); //Hooks were not automatically locking while the whirlygig was moving
+      private JoystickButton btn_LockHook2 = new JoystickButton(oj, Constants.OI.Operator.BTN_LOCKHOOK2); 
 
       // private POVButton btn_COLLECTOR_UP = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_UP);
       // private POVButton btn_COLLECTOR_DOWN = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_DOWN);
@@ -147,6 +149,8 @@ public class RobotContainer {
     btn_WhirlyRev.whileHeld(new climber_rotateRev(m_climber));
     btn_ReleaseHook1.whenPressed(new climber_lockHook(m_climber,1).beforeStarting(new climber_unlockHook(m_climber,1).andThen(new WaitCommand(Constants.Climber.kHookReleaseTime))));
     btn_ReleaseHook2.whenPressed(new climber_lockHook(m_climber,2).beforeStarting(new climber_unlockHook(m_climber,2).andThen(new WaitCommand(Constants.Climber.kHookReleaseTime))));
+    btn_LockHook1.whenPressed(new climber_lockHook(m_climber, 1));
+    btn_LockHook2.whenPressed(new climber_lockHook(m_climber, 2)); 
 
     btn_CollectorDeploy.whenPressed(new collector_deployIntake(m_collector));
     btn_CollectorRetract.whenPressed(new collector_retractIntake(m_collector));
