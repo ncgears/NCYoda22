@@ -75,7 +75,7 @@ public class Constants {
         public static final int id_BeamBreak1 = 0; //ID of the Beam Break 1 DIO (intake)
         public static final int id_BeamBreak2 = 1; //ID of the Beam Break 2 DIO (shooter)
         public static final int id_Motor1 = 6; //ID of the Feeder Motor 1 Controller
-        public static final boolean isInverted_Motor1 = false; //Invert motor direction
+        public static final boolean isInverted_Motor1 = true; //Invert motor direction
         public static final double speed_Motor1 = 1.0; //Feeder Motor 1 Speed
         public static final double debounce_delay = 3.0; //Seconds to wait for feeder beams
     }

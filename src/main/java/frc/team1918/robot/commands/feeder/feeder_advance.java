@@ -31,7 +31,7 @@ public class feeder_advance extends CommandBase {
   @Override
   public void initialize() {
     Helpers.Debug.debug("Feeder: Advance");
-    m_feeder.runFeeder(false);
+    m_feeder.runFeeder(true);
     // m_feeder.setIntakeSpeed(Constants.Collector.kDefaultCollectorSpeed);
   }
 
