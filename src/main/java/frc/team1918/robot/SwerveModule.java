@@ -56,7 +56,7 @@ public class SwerveModule {
         turn.configFeedbackNotContinuous(Constants.Global.SWERVE_SENSOR_NONCONTINUOUS, 0); //Disable continuous feedback tracking (so 0 and 1024 are effectively one and the same)
        
         turn.setSelectedSensorPosition(0); //reset the talon encoder counter to 0 so we dont carry over a large error from a previous testing
-        //turn.set(ControlMode.Position, 1024); //set this to some fixed value for testing
+        // turn.set(ControlMode.Position, 1024); //set this to some fixed value for testing
         turn.setSensorPhase(moduleConstants.turnSensorPhase); //set the sensor phase based on the constants setting for this module
         turn.setInverted(moduleConstants.turnIsInverted); //set the motor direction based on the constants setting for this module
         turn.config_kP(0, TURN_P); //set the kP for PID Tuning
@@ -141,7 +141,7 @@ public class SwerveModule {
         int cur_ticks = getTurnPosition();
         int min_ticks = minTurnTicks(Helpers.General.radiansToTicks(state.angle.getRadians()), cur_ticks);
         int turn_ticks = min_ticks + cur_ticks;
-
+        Helpers.Debug.debug("Encoder Ticks: " +cur_ticks);
         if(Helpers.Debug.debugThrottleMet(debug_ticks1)) {
             Helpers.Debug.debug(moduleName+" Speed (metersPerSecond)="+Helpers.General.roundDouble(state.speedMetersPerSecond,3)+" Turn Setpoint="+turn_ticks);
         }
