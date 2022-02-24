@@ -6,7 +6,7 @@ import java.util.function.DoubleSupplier;
 //import constants and subsystem
 import frc.team1918.robot.Constants;
 import frc.team1918.robot.subsystems.DriveSubsystem;
-import frc.team1918.robot.subsystems.OrchestraSubsystem;
+
 
 /**
  * A command that runs the drive actions. This passes the OI inputs on to the appropriate drive system (fieldCentricDrive or humanDrive).
@@ -18,8 +18,8 @@ public class drive_defaultDrive extends CommandBase {
   private final DoubleSupplier m_strafe;
   private final DoubleSupplier m_rotation;
 
-  private final OrchestraSubsystem m_orchestra = new OrchestraSubsystem();
-  private boolean orchestraPlaying = m_orchestra.getOrchestraPlaying();
+
+
   /**
    * Creates a new drive_defaultDrive.
    *

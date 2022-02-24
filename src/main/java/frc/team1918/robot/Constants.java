@@ -327,11 +327,6 @@ public class Constants {
             public static final int BTN_INTAKE_IN = Logitech.BTN_A;
 
 
-            // these button bindings are very temporary, feel free to overwrite them
-            public final static int BTN_MUSIC_PLAY = Logitech.BTN_B; //Play music
-            public final static int BTN_MUSIC_STOP = Logitech.BTN_R; //Stop music
-            public final static int BTN_MUSIC_INCREASE = Logitech.BTN_Y;
-            public final static int BTN_MUSIC_DECREASE = Logitech.BTN_X;
         }
 
         /**
