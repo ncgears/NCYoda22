@@ -76,7 +76,7 @@ public class VisionSubsystem extends SubsystemBase {
 		angleLocked = false;
 	}
   public double calcAngleStraight() {
-    double kP =Constants.DriveTrain.DT_DRIVESTRAIGHT_P;
+    double kP = Constants.Vision.kErrorCorrection_P;
 		double errorAngle = ((Math.abs(t1x-250)/250)*30);
     // double errorAngle = Math.toRadians((Math.abs(t1x-250)/250)*FOV);
 // 
