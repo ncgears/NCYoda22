@@ -124,7 +124,7 @@ public class Constants {
         public static final boolean isSensorInverted_Motor1 = false;
         public static final boolean isSensorNotContinuous = false;
         public static final double kClimberSpeed = 1.0; //Speed at which the climber controllers operate (in fixed speed mode)
-        public static final double kHookReleaseTime = 1.0; //Time in seconds to wait before re-locking hook after unlocking
+        public static final double kHookReleaseTime = 2.0; //Time in seconds to wait before re-locking hook after unlocking
         public static final double kP = 0.2;
         public static final double kI = 0.0;
         public static final double kD = 0.0;
@@ -194,7 +194,7 @@ public class Constants {
          * Constants for Front Right Swerve Module
          */
         public static final class FR {
-            public static final boolean isDisabled = true;  //Changing this to false didn't affect turn speed
+            public static final boolean isDisabled = false; 
             public static final int DRIVE_MC_ID = 36; //Falcon500 Motor Controller ID
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
             public static final boolean DRIVE_isInverted = false;
@@ -252,7 +252,7 @@ public class Constants {
     public static final class DriveTrain {
         public static final boolean isDisabled = false; 
         ////Global Tuning
-        public static final boolean DT_USE_DRIVESTRAIGHT = false; //enable driveStraight functionality in drive() method
+        public static final boolean DT_USE_DRIVESTRAIGHT = true; //enable driveStraight functionality in drive() method
         public static final double DT_DRIVESTRAIGHT_P = 0.065; //kP for driveStraight correction
         public static final double DT_kMaxMetersPerSecond = 3.677; //limit full stick speed meters to 12.0fps
         ////Turn Tuning
@@ -325,8 +325,9 @@ public class Constants {
             public static final int BTN_RELEASEHOOK1 = Logitech.BTN_LB; //release hook 1
             public static final int BTN_RELEASEHOOK2 = Logitech.BTN_RB; //release hook 2
             public static final int BTN_INTAKE_IN = Logitech.BTN_A;
-
-
+            
+            public static final int BTN_LOCKHOOK1 = Logitech.BTN_X; //manual lock hook 1
+            public static final int BTN_LOCKHOOK2 = Logitech.BTN_Y; //manual lock hook 2
         }
 
         /**
