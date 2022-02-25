@@ -7,16 +7,17 @@ import com.ctre.phoenix.music.Orchestra;
 import frc.team1918.robot.Constants;
 import frc.team1918.robot.Helpers;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.team1918.robot.subsystems.DriveSubsystem;
 
 public class OrchestraSubsystem extends SubsystemBase {
     private Orchestra orchestra;
     private TalonFX[] motors = { new TalonFX(Constants.Swerve.FL.DRIVE_MC_ID), new TalonFX(Constants.Swerve.FR.DRIVE_MC_ID), new TalonFX(Constants.Swerve.RL.DRIVE_MC_ID), new TalonFX(Constants.Swerve.FR.DRIVE_MC_ID)}; //Instrument(motor) Array
-    private String[] songs = new String[] {"Imperial-March.chrp", "Rickroll.chrp", "Megalovania.chrp", "Stay-Alive.chrp"}; //Song Array
+    private String[] songs = new String[] {"Rickroll.chrp", "Megalovania.chrp", "Stay-Alive.chrp"}; //Song Array
     /* When adding a new song, make sure the midi file has separate parts for each note.
        If it doesn't, the song won't play correctly */
     private final DriveSubsystem m_drive = new DriveSubsystem();
-    private int songSelection = 1;
+    private int songSelection = 0;
     private boolean orchestraPlaying = false;
 
     public void stopMusic(){
@@ -31,6 +32,7 @@ public class OrchestraSubsystem extends SubsystemBase {
         if (selection > songs.length) {selection = songs.length;}
         orchestra.loadMusic(songs[selection]);
         Helpers.Debug.debug("Orchestra: Loaded Song " +selection);
+        new WaitCommand(1.0);
       }
 
     public void playMusic(){
@@ -46,7 +48,7 @@ public class OrchestraSubsystem extends SubsystemBase {
         for (int i = 0; i < motors.length; ++i) {
           instruments.add(motors[i]);
         }
-    
+        new WaitCommand(1.0);
         orchestra = new Orchestra(instruments);
     }
 
