@@ -3,6 +3,7 @@ package frc.team1918.robot.commands.orchestra;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.team1918.robot.Helpers;
 
 import com.ctre.phoenix.music.Orchestra;
