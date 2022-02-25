@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 public class OrchestraSubsystem extends SubsystemBase {
     private Orchestra orchestra;
     private TalonFX[] motors = { new TalonFX(Constants.Swerve.FL.DRIVE_MC_ID), new TalonFX(Constants.Swerve.FR.DRIVE_MC_ID), new TalonFX(Constants.Swerve.RL.DRIVE_MC_ID), new TalonFX(Constants.Swerve.FR.DRIVE_MC_ID)}; //Instrument(motor) Array
-    private String[] songs = new String[] {"Rickroll.chrp", "Megalovania.chrp", "Stay-Alive.chrp"}; //Song Array
+    private String[] songs = new String[] {"Rickroll.chrp", "Megalovania.chrp", "Still-Alive.chrp", "Brawl-Theme.chrp"}; //Song Array
     /* When adding a new song, make sure the midi file has separate parts for each note.
        If it doesn't, the song won't play correctly */
     private int songSelection = 0;
@@ -29,7 +29,7 @@ public class OrchestraSubsystem extends SubsystemBase {
         if (selection < 0) {selection = 0;}
         if (selection > songs.length) {selection = songs.length;}
         orchestra.loadMusic(songs[selection]);
-        Helpers.Debug.debug("Orchestra: Loaded Song " +selection);
+        Helpers.Debug.debug("Orchestra: Loaded Song: " +songs[selection]);
         new WaitCommand(1.0);
       }
 
