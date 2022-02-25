@@ -49,6 +49,8 @@ public class ClimberSubsystem extends SubsystemBase {
     climber_2.setNeutralMode(NeutralMode.Brake); 
     // climber_2.follow(climber_1); //Climber 2 Was Lagging Behind, as well as going the wrong direction
     climber_2.setInverted((Constants.Climber.isInvertedFromMaster_Motor2) ? InvertType.OpposeMaster : InvertType.FollowMaster);
+
+    whirlySolenoid.set(!Constants.Air.stateWhirlygigUp);
   }
 
   /**
