@@ -141,7 +141,7 @@ public class SwerveModule {
         int cur_ticks = getTurnPosition();
         int min_ticks = minTurnTicks(Helpers.General.radiansToTicks(state.angle.getRadians()), cur_ticks);
         int turn_ticks = min_ticks + cur_ticks;
-        Helpers.Debug.debug("Encoder Ticks: " +cur_ticks);
+        // Helpers.Debug.debug("Encoder Ticks: " +cur_ticks);
         if(Helpers.Debug.debugThrottleMet(debug_ticks1)) {
             Helpers.Debug.debug(moduleName+" Speed (metersPerSecond)="+Helpers.General.roundDouble(state.speedMetersPerSecond,3)+" Turn Setpoint="+turn_ticks);
         }

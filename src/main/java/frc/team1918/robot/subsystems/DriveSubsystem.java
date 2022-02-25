@@ -147,7 +147,7 @@ public class DriveSubsystem extends SubsystemBase {
 		}
 		double fwdMPS = fwd * Constants.DriveTrain.kMaxMetersPerSecond;
 		double strMPS = str * Constants.DriveTrain.kMaxMetersPerSecond;
-		double rotRPS = str * Constants.DriveTrain.kMaxRotationRadiansPerSecond;
+		double rotRPS = rot * Constants.DriveTrain.kMaxRotationRadiansPerSecond;
 		var swerveModuleStates =
 		Constants.Swerve.kDriveKinematics.toSwerveModuleStates(fieldRelative
 					? ChassisSpeeds.fromFieldRelativeSpeeds(fwdMPS, strMPS, rotRPS, getRot2d())
