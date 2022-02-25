@@ -47,7 +47,7 @@ public class ClimberSubsystem extends SubsystemBase {
 
     climber_2.configFactoryDefault(); 
     climber_2.setNeutralMode(NeutralMode.Brake); 
-    // climber_2.follow(climber_1); //Climber 2 Was Lagging Behind, as well as going the wrong direction
+    climber_2.follow(climber_1);
     climber_2.setInverted((Constants.Climber.isInvertedFromMaster_Motor2) ? InvertType.OpposeMaster : InvertType.FollowMaster);
 
     whirlySolenoid.set(!Constants.Air.stateWhirlygigUp);
@@ -96,7 +96,6 @@ public class ClimberSubsystem extends SubsystemBase {
    */
   public void climberForward() {
     climber_1.set(ControlMode.PercentOutput, Constants.Climber.kClimberSpeed);
-    climber_2.set(ControlMode.PercentOutput, Constants.Climber.kClimberSpeed * -1);
     Dashboard.Climber.setClimberDirection("Forward");
   }
 
@@ -105,7 +104,6 @@ public class ClimberSubsystem extends SubsystemBase {
    */
   public void climberReverse() {
     climber_1.set(ControlMode.PercentOutput, Constants.Climber.kClimberSpeed * -1);
-    climber_2.set(ControlMode.PercentOutput, Constants.Climber.kClimberSpeed);
     Dashboard.Climber.setClimberDirection("Reverse");
   }
 
