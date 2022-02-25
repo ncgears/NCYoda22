@@ -8,7 +8,6 @@ import frc.team1918.robot.Constants;
 import frc.team1918.robot.Helpers;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.team1918.robot.subsystems.DriveSubsystem;
 
 public class OrchestraSubsystem extends SubsystemBase {
     private Orchestra orchestra;
@@ -16,7 +15,6 @@ public class OrchestraSubsystem extends SubsystemBase {
     private String[] songs = new String[] {"Rickroll.chrp", "Megalovania.chrp", "Stay-Alive.chrp"}; //Song Array
     /* When adding a new song, make sure the midi file has separate parts for each note.
        If it doesn't, the song won't play correctly */
-    private final DriveSubsystem m_drive = new DriveSubsystem();
     private int songSelection = 0;
     private boolean orchestraPlaying = false;
 
@@ -42,7 +40,6 @@ public class OrchestraSubsystem extends SubsystemBase {
 
     public void createOrchestra(){
         orchestraPlaying = true;
-        m_drive.stopAllDrive();
         ArrayList<TalonFX> instruments = new ArrayList<TalonFX>();
 
         for (int i = 0; i < motors.length; ++i) {
