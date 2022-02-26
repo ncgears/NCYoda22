@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.team1918.robot.subsystems.ClimberSubsystem;
+import frc.team1918.robot.subsystems.CollectorSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -22,6 +24,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   public Alliance m_alliance;
+  private ClimberSubsystem m_climber;
+  private CollectorSubsystem m_collector;
   private Command m_autonomousCommand;
   // private Command m_initOdom;
   // private Command m_resetGyro;
@@ -60,6 +64,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    // Reset the whirlygig solenoid
+    m_climber.raiseWhirlygig(false);
+    // Reset the collector solenoid
+    m_collector.setCollectorPosition("stow");
   }
 
   @Override

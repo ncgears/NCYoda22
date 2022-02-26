@@ -56,7 +56,7 @@ public class ClimberSubsystem extends SubsystemBase {
    * This function raises the Whirlygig. This cannot be undone except for releasing air pressure to reset.
    */
   public void raiseWhirlygig(boolean up) {
-    whirlySolenoid.set((up)?Constants.Air.stateWhirlygigUp : !Constants.Air.stateWhirlygigUp);
+    whirlySolenoid.set( (up) ? Constants.Air.stateWhirlygigUp : !Constants.Air.stateWhirlygigUp);
   }
 
   /**

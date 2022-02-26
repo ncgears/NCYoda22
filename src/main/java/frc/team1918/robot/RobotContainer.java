@@ -57,9 +57,7 @@ public class RobotContainer {
     private final DriveSubsystem m_drive = new DriveSubsystem();
     private final VisionSubsystem m_vision = new VisionSubsystem();
 
-    private climber_whirlygigDown m_whirlygigDown = new climber_whirlygigDown(m_climber); 
-
-      /**
+   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
