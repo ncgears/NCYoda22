@@ -25,8 +25,8 @@ public class ClimberSubsystem extends SubsystemBase {
   private DigitalInput m_limitSwitchRight;
 
   public ClimberSubsystem() {
-    m_limitSwitchLeft = new DigitalInput(Constants.Feeder.id_BeamBreak1);
-    m_limitSwitchRight = new DigitalInput(Constants.Feeder.id_BeamBreak2);
+    m_limitSwitchLeft = new DigitalInput(Constants.Climber.id_LimitHook1);
+    m_limitSwitchRight = new DigitalInput(Constants.Climber.id_LimitHook2);
     climber_1 = new WPI_TalonSRX(Constants.Climber.id_Motor1);
     climber_2 = new WPI_TalonSRX(Constants.Climber.id_Motor2);
     hook_release_1 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_ClimbHook1Solonoid);
