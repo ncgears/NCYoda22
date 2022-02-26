@@ -115,8 +115,8 @@ public class Constants {
      */
     public static final class Climber {
         public static final boolean isDisabled = false; //Disable the climber subsystem
-        public static final int id_Motor1 = 13;
-        public static final int id_Motor2 = 14; //follower of Motor1
+        public static final int id_Motor1 = 14;
+        public static final int id_Motor2 = 13; //follower of Motor1
         public static final int id_LimitHook1 = 2;
         public static final int id_LimitHook2 = 3;
         public static final int id_PressureSensor = 3;
