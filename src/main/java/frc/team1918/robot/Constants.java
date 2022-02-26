@@ -72,8 +72,8 @@ public class Constants {
      */
     public static final class Feeder {
         public static final boolean isDisabled = false; //Disable the feeder subsystem
-        public static final int id_BeamBreak1 = 0; //ID of the Beam Break 1 DIO (intake)
-        public static final int id_BeamBreak2 = 1; //ID of the Beam Break 2 DIO (shooter)
+        public static final int id_BeamBreak1 = 1; //ID of the Beam Break 1 DIO (intake)
+        public static final int id_BeamBreak2 = 0; //ID of the Beam Break 2 DIO (shooter)
         public static final int id_Motor1 = 6; //ID of the Feeder Motor 1 Controller
         public static final boolean isInverted_Motor1 = true; //Invert motor direction
         public static final double speed_Motor1 = 1.0; //Feeder Motor 1 Speed
@@ -91,16 +91,17 @@ public class Constants {
         public static final boolean isSensorInverted_Motor1 = true;
         public static final boolean isInverted_Motor1 = true; //Invert motor direction
         public static final boolean isInverted_Motor2 = false; //Invert motor direction
-        public static final int kMaxShooterSpeed = 6000; //Max RPM of the Shooter Motor
-        public static final double kDefaultShooterSpeed = 5000; //Default RPM of the Shooter Motor
+        public static final int kMaxShooterSpeed = 100; //Max RPS of the Shooter Motor
+        public static final double kDefaultShooterSpeed = 61; //Default RPS of the Shooter Motor
         public static final int kMinShooterSpeed = 0; //Min RPM of the Shooter Motor
-        public static final double kSpeedIncrementSize = 50; //RPMs to change the shooter speed per increment
+        public static final double kSpeedIncrementSize = 1; //RPMs to change the shooter speed per increment
         public static final double kP = 0.10;
         public static final double kI = 0.0;
         public static final double kD = 0.0;
         public static final double kIZone = 0.0;
         public static final double kArbitraryFeedForward = 1/kMaxShooterSpeed;
         public static final double kPreShooterSpeed = 1.0; //speed of the preshooter
+        public static final double kShooterReductionFactor = 0.58;
 
         public static final class Positions {
             public static final int speed_Pos1 = 2400;
@@ -123,7 +124,7 @@ public class Constants {
         public static final boolean isInvertedFromMaster_Motor2 = true; //false for same direction as master
         public static final boolean isSensorInverted_Motor1 = false;
         public static final boolean isSensorNotContinuous = false;
-        public static final double kClimberSpeed = 1.0; //Speed at which the climber controllers operate (in fixed speed mode)
+        public static final double kClimberSpeed = 0.9; //Speed at which the climber controllers operate (in fixed speed mode)
         public static final double kHookReleaseTime = 2.0; //Time in seconds to wait before re-locking hook after unlocking
         public static final double kP = 0.2;
         public static final double kI = 0.0;
@@ -322,6 +323,7 @@ public class Constants {
         public static final class Operator {
 
             public final static int DPAD_WHIRLYGIG_UP = Logitech.DPAD_UP; //whirlygig up
+            public final static int BTN_WHIRLYGIG_DOWN = Logitech.BTN_START; //whirlygig down
             public final static int DPAD_WHIRLYGIG_FWD = Logitech.DPAD_RIGHT; //climber forward
             public final static int DPAD_WHIRLYGIG_REV = Logitech.DPAD_LEFT; //climber reverse
             public static final int BTN_RELEASEHOOK1 = Logitech.BTN_LB; //release hook 1

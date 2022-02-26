@@ -17,8 +17,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 public class ShooterSubsystem extends SubsystemBase {
   private WPI_TalonFX shoot; // shooter controller
   private WPI_TalonSRX preShooter;
-  private double m_shooter_rpm = 0.0; // Current shooter speed
-  private double m_shooter_oldrpm = 0.0; // Previous shooter speed
+  private double m_shooter_rps = 0.0; // Current shooter speed
+  private double m_shooter_oldrps = 0.0; // Previous shooter speed
+  private double m_shooter_rpm = 0.0; 
   private Solenoid m_hood;
   /**
    * Creates a new ExampleSubsystem.
@@ -53,25 +54,25 @@ public class ShooterSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run and change the shooter speed if requested
-    if (m_shooter_rpm != m_shooter_oldrpm) {
-      shoot.set(ControlMode.Velocity, Helpers.General.rpmToTicksPer100ms(m_shooter_rpm, Constants.Shooter.kEncoderFullRotation)); //Set the target
-      m_shooter_oldrpm=m_shooter_rpm;
+    if (m_shooter_rps != m_shooter_oldrps) {
+      shoot.set(ControlMode.Velocity, Helpers.General.rpsToTicksPer100ms(m_shooter_rps, Constants.Shooter.kEncoderFullRotation, Constants.Shooter.kShooterReductionFactor)); //Set the target
+      m_shooter_oldrps=m_shooter_rps;
     }
-    Dashboard.Shooter.setCurrentSpeed(getShooterSpeedRPM());
+    Dashboard.Shooter.setCurrentSpeed(getShooterSpeedRPS());
   }
 
-  public double getShooterSpeedRPM() {
+  public double getShooterSpeedRPS() {
     //double rawrpm = shoot.getSensorCollection().getIntegratedSensorVelocity(); //This works
-    double rawrpm = shoot.getSelectedSensorVelocity(0);
-    double rpm = Helpers.General.roundDouble(Helpers.General.ticksPer100msToRPM(rawrpm, Constants.Shooter.kEncoderFullRotation),0);
+    double rawrps = shoot.getSelectedSensorVelocity(0);
+    double rps = Helpers.General.roundDouble(Helpers.General.ticksPer100msToRPS(rawrps, Constants.Shooter.kEncoderFullRotation, Constants.Shooter.kShooterReductionFactor),0);
     //Helpers.Debug.debug("shooter_rpm="+rpm,1000);
-    return rpm;
+    return rps;
   }
 
-  public void setShooterSpeed(double RPM) {
-    RPM = Math.min(RPM, Constants.Shooter.kMaxShooterSpeed);
-    RPM = Math.max(RPM, Constants.Shooter.kMinShooterSpeed);
-    m_shooter_rpm = RPM;
+  public void setShooterSpeed(double RPS) {
+    RPS = Math.min(RPS, Constants.Shooter.kMaxShooterSpeed);
+    RPS = Math.max(RPS, Constants.Shooter.kMinShooterSpeed);
+    m_shooter_rps = RPS;
   }
 
   public void startPreShooter() {
@@ -84,18 +85,21 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void stopShooter() {
     shoot.set(ControlMode.PercentOutput,0); //just apply 0 power and let it coast.
-    m_shooter_oldrpm = 0;
+    m_shooter_oldrps = 0;
+    m_shooter_rps = 0;
     m_shooter_rpm = 0;
   }
 
   public void increaseShooterSpeed() {
-    m_shooter_rpm = Math.min(m_shooter_rpm + Constants.Shooter.kSpeedIncrementSize, Constants.Shooter.kMaxShooterSpeed);
-    Helpers.Debug.debug("New Shooter Speed:"+m_shooter_rpm);
+    m_shooter_rps = Math.min(m_shooter_rps + Constants.Shooter.kSpeedIncrementSize, Constants.Shooter.kMaxShooterSpeed);
+    m_shooter_rpm = m_shooter_rps * 60;
+    Helpers.Debug.debug("New Shooter Speed:"+m_shooter_rps+"/"+m_shooter_rpm);
   }
 
   public void decreaseShooterSpeed() {
-    m_shooter_rpm = Math.max(m_shooter_rpm - Constants.Shooter.kSpeedIncrementSize, Constants.Shooter.kMinShooterSpeed);
-    Helpers.Debug.debug("New Shooter Speed:"+m_shooter_rpm);
+    m_shooter_rps = Math.max(m_shooter_rps - Constants.Shooter.kSpeedIncrementSize, Constants.Shooter.kMinShooterSpeed);
+    m_shooter_rpm = m_shooter_rps * 60;
+    Helpers.Debug.debug("New Shooter Speed:"+m_shooter_rps+"/"+m_shooter_rpm);
   }
 
   public void setShooterSpeedFromDashboard() {

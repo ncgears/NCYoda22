@@ -14,14 +14,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * A command that ...
  */
-public class climber_whirlygigUp extends CommandBase {
+public class climber_whirlygigDown extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"}) //Dont add "unused" under normal operation
   private final ClimberSubsystem m_climber;
 
   /**
    * @param subsystem The subsystem used by this command.
    */
-  public climber_whirlygigUp(ClimberSubsystem subsystem) {
+  public climber_whirlygigDown(ClimberSubsystem subsystem) {
     m_climber = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -30,8 +30,8 @@ public class climber_whirlygigUp extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Helpers.Debug.debug("Climber: Raise Whirlygig");
-    m_climber.raiseWhirlygig(true);
+    Helpers.Debug.debug("Climber: Lower Whirlygig");
+    m_climber.raiseWhirlygig(false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

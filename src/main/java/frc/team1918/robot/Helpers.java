@@ -112,23 +112,23 @@ public class Helpers {
         }
 
         /**
-         * Converts RPM to Ticks per 100ms
-         * @param rpm - RPM to convert
+         * Converts RPS to Ticks per 100ms
+         * @param rps - RPS to convert
          * @param fullRotationTicks - Number of ticks in a full rotation (encoder dependent)
          * @return
          */
-        public final static double rpmToTicksPer100ms(double rpm, int fullRotationTicks) {
-            return ((rpm * fullRotationTicks) / 600);
+        public final static double rpsToTicksPer100ms(double rps, int fullRotationTicks, double factor) {
+            return ((rps * fullRotationTicks) / 10 / factor);
         }
 
         /**
-         * Converts Ticks per 100ms to RPM
+         * Converts Ticks per 100ms to RPS
          * @param ticks - Ticks per 100ms to convert
          * @param fullRotationTicks - Number of ticks in a full rotation (encoder dependent)
          * @return
          */
-        public final static double ticksPer100msToRPM(double ticks, int fullRotationTicks) {
-            return ((ticks / fullRotationTicks) * 600);
+        public final static double ticksPer100msToRPS(double ticks, int fullRotationTicks, double factor) {
+            return ((ticks / fullRotationTicks) * 10 * factor);
         }
     }
     //Helpers for the Operator Interface

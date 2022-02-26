@@ -22,8 +22,8 @@ public class FeederSubsystem extends SubsystemBase {
    */
   public FeederSubsystem() {
     // Setup the beam breaks
-    //m_beam_intake = new DigitalInput(Constants.Feeder.id_BeamBreak1);
-    //m_beam_shooter = new DigitalInput(Constants.Feeder.id_BeamBreak2);
+    m_beam_intake = new DigitalInput(Constants.Feeder.id_BeamBreak1);
+    m_beam_shooter = new DigitalInput(Constants.Feeder.id_BeamBreak2);
     // Setup the feeder
     m_feeder = new WPI_TalonFX(Constants.Feeder.id_Motor1);
     m_feeder.configFactoryDefault();
@@ -53,14 +53,14 @@ public class FeederSubsystem extends SubsystemBase {
 
   public boolean hasFirstBall() {
     //We have a ball by the intake
-    // return !m_beam_intake.get();
-    return false;
+    return !m_beam_intake.get();
+    // return false;
   }
 
   public boolean hasSecondBall() {
     //We have a ball up by the shooter
-    // return !m_beam_shooter.get();
-    return false;
+    return !m_beam_shooter.get();
+    // return false;
   }
 
   public boolean ballsCleared() {

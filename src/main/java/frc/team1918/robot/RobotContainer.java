@@ -57,6 +57,8 @@ public class RobotContainer {
     private final DriveSubsystem m_drive = new DriveSubsystem();
     private final VisionSubsystem m_vision = new VisionSubsystem();
 
+    private climber_whirlygigDown m_whirlygigDown = new climber_whirlygigDown(m_climber); 
+
       /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -127,6 +129,7 @@ public class RobotContainer {
       private JoystickButton btn_ReleaseHook1 = new JoystickButton(oj, Constants.OI.Operator.BTN_RELEASEHOOK1);
       private JoystickButton btn_ReleaseHook2 = new JoystickButton(oj, Constants.OI.Operator.BTN_RELEASEHOOK2);
       private POVButton btn_WhirlyUp = new POVButton(oj, Constants.OI.Operator.DPAD_WHIRLYGIG_UP);
+      private JoystickButton btn_WhirlyDown = new JoystickButton(oj, Constants.OI.Operator.BTN_WHIRLYGIG_DOWN);
       private POVButton btn_WhirlyFwd = new POVButton(oj, Constants.OI.Operator.DPAD_WHIRLYGIG_FWD);
       private POVButton btn_WhirlyRev = new POVButton(oj, Constants.OI.Operator.DPAD_WHIRLYGIG_REV);
       private JoystickButton btn_IntakeForward = new JoystickButton(oj, Constants.OI.Operator.BTN_INTAKE_IN);
@@ -145,6 +148,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     //The buttons here are named based on their functional purpose. This abstracts the purpose from which controller it is attached to.
     btn_WhirlyUp.whenPressed(new climber_whirlygigUp(m_climber));
+    btn_WhirlyDown.whenPressed(new climber_whirlygigDown(m_climber));
     btn_WhirlyFwd.whileHeld(new climber_rotateFwd(m_climber));
     btn_WhirlyRev.whileHeld(new climber_rotateRev(m_climber));
     //I believe the following are not completing (unlocking only but not waiting and locking while holding the fwd/rev button because the command is interrupted)

@@ -50,14 +50,13 @@ public class ClimberSubsystem extends SubsystemBase {
     climber_2.follow(climber_1);
     climber_2.setInverted((Constants.Climber.isInvertedFromMaster_Motor2) ? InvertType.OpposeMaster : InvertType.FollowMaster);
 
-    whirlySolenoid.set(!Constants.Air.stateWhirlygigUp);
   }
 
   /**
    * This function raises the Whirlygig. This cannot be undone except for releasing air pressure to reset.
    */
-  public void raiseWhirlygig() {
-    whirlySolenoid.set(Constants.Air.stateWhirlygigUp);
+  public void raiseWhirlygig(boolean up) {
+    whirlySolenoid.set((up)?Constants.Air.stateWhirlygigUp : !Constants.Air.stateWhirlygigUp);
   }
 
   /**
