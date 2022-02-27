@@ -207,8 +207,10 @@ public class RobotContainer {
     switch (name) {
       case "resetRobot":
         return new cg_resetRobot(m_collector, m_climber);
-      case "auton_4BallAuto":
+        case "auton_4BallAuto":
         return new cg_auton_4BallAuto(m_drive, m_collector, m_feeder, m_shooter);
+        case "auton_BasicAuto":
+        return new cg_auton_BasicAuto(m_drive, m_collector, m_feeder, m_shooter);
       default:
         return null;
     }

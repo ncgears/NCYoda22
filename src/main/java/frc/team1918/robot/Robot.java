@@ -88,6 +88,7 @@ public class Robot extends TimedRobot {
     // m_initOdom = m_robotContainer.getInitOdomCommand(); 
     // if (m_initOdom != null) m_initOdom.schedule();
 
+    Helpers.Debug.debug("Getting Auton Command for "+Constants.Auton.autonToRun);
     m_autonomousCommand = m_robotContainer.getRobotCommand(Constants.Auton.autonToRun);
     if (m_autonomousCommand != null && !Constants.Auton.isDisabled) m_autonomousCommand.schedule();
   }
