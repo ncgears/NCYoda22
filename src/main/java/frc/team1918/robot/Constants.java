@@ -358,7 +358,7 @@ public class Constants {
      * The driver left stick controls the forward rate (up/down), and strafe rate (left/right).
      * The driver right stick controls the rotation rate (left/right).
      */
-    public static final class OI {
+    public static final class OI { //we define the axis' here because they are not bound in robotContainer.
         public static final int OI_JOY_DRIVER = 0; //ID of Driver Joystick
         public static final int OI_JOY_OPER = 1; //ID of Operator Joystick
         public static final double OI_JOY_MIN_DEADBAND = 0.1; //Deadband for analog joystick axis minimum
@@ -371,69 +371,39 @@ public class Constants {
             public final static int AXIS_STRAFE = Logitech.AXIS_LH; //Axis that moves the robot side to side on the field
             public final static int AXIS_FWD = Logitech.AXIS_LV; //Axis that moves the robot up and down the field
             public final static int AXIS_TURN = Logitech.AXIS_RH; //Axis that controls the rotation of the robot
-
-            // public final static int DPAD_INTAKE_IN = Logitech.DPAD_RIGHT; //intake forward
-            public final static int DPAD_INTAKE_OUT = Logitech.DPAD_LEFT; //intake reverse
-            public final static int BTN_COLLECTOR_DEPLOY = Logitech.BTN_Y; //deploy collector
-            public final static int BTN_COLLECTOR_RETRACT = Logitech.BTN_X; //retract collector
-
-            public final static int BTN_SHOOTER_STOP = Logitech.BTN_LB; //stop shooter
-            public final static int BTN_SHOOTER_FWD = Logitech.BTN_A; //run shooter
-            public final static int BTN_SHOOTER_FWD_HOOD = Logitech.BTN_B; //run shooter
-            public final static int BTN_FEEDER_FWD = Logitech.BTN_RB; //advance feeder
-            public static final int DPAD_SHOOTER_INCREASE = Logitech.DPAD_UP; //increase rpm
-            public static final int DPAD_SHOOTER_DECREASE = Logitech.DPAD_DN; //decrease rpm
-            
         }
 
         /**
-         * Constants for the Operator controller
-         */
-        public static final class Operator {
-
-            public final static int DPAD_WHIRLYGIG_UP = Logitech.DPAD_UP; //whirlygig up
-            public final static int BTN_WHIRLYGIG_DOWN = Logitech.BTN_START; //whirlygig down
-            public final static int DPAD_WHIRLYGIG_FWD = Logitech.DPAD_RIGHT; //climber forward
-            public final static int DPAD_WHIRLYGIG_REV = Logitech.DPAD_LEFT; //climber reverse
-            public static final int BTN_RELEASEHOOK1 = Logitech.BTN_LB; //release hook 1
-            public static final int BTN_RELEASEHOOK2 = Logitech.BTN_RB; //release hook 2
-            public static final int BTN_INTAKE_IN = Logitech.BTN_A;
-            
-            public static final int BTN_LOCKHOOK1 = Logitech.BTN_X; //manual lock hook 1
-            public static final int BTN_LOCKHOOK2 = Logitech.BTN_Y; //manual lock hook 2
-        }
-
-        /**
-         * This class defines the hardware button and axis IDs for a Logitech Controller.
+         * This class defines the hardware button and axis IDs for a Logitech F310 Controller.
          * The buttons array is 1-based, but the axis array is 0-based
          */
         public static final class Logitech {
             //DO NOT EDIT THESE
-            private static final int BTN_A = 1; //A Button
-            private static final int BTN_B = 2; //B Button
-            private static final int BTN_X = 3; //X Button
-            private static final int BTN_Y = 4; //Y Button
-            private static final int BTN_LB = 5; //Left Bumper (L1)
-            private static final int BTN_RB = 6; //Right Bumper (R1)
-            private static final int BTN_BACK = 7; //Back Button (Select)
-            private static final int BTN_START = 8; //Start Button
-            private static final int BTN_L = 9; //Left Stick Press (L3)
-            private static final int BTN_R = 10; //Right Stick Press (R3)
-            private static final int AXIS_LH = 0; //Left Analog Stick horizontal
-            private static final int AXIS_LV = 1; //Left Analog Stick vertical
-            private static final int AXIS_LT = 2; //Analog Left Trigger
-            private static final int AXIS_RT = 3; //Analog Right Trigger
-            private static final int AXIS_RH = 4; //Right Analog Stick horizontal
-            private static final int AXIS_RV = 5; //Right Analog Stick vertical
-            private static final int DPAD_UP = 0;
-            private static final int DPAD_UPRIGHT = 45;
-            private static final int DPAD_RIGHT = 90;
-            private static final int DPAD_DNRIGHT = 135;
-            private static final int DPAD_DN = 180;
-            private static final int DPAD_DNLEFT = 225;
-            private static final int DPAD_LEFT = 270;
-            private static final int DPAD_UPLEFT = 315;
-            private static final int DPAD_IDLE = -1; 
+            static final int BTN_A = 1; //A Button
+            static final int BTN_B = 2; //B Button
+            static final int BTN_X = 3; //X Button
+            static final int BTN_Y = 4; //Y Button
+            static final int BTN_LB = 5; //Left Bumper (L1)
+            static final int BTN_RB = 6; //Right Bumper (R1)
+            static final int BTN_BACK = 7; //Back Button (Select)
+            static final int BTN_START = 8; //Start Button
+            static final int BTN_L = 9; //Left Stick Press (L3)
+            static final int BTN_R = 10; //Right Stick Press (R3)
+            static final int AXIS_LH = 0; //Left Analog Stick horizontal
+            static final int AXIS_LV = 1; //Left Analog Stick vertical
+            static final int AXIS_LT = 2; //Analog Left Trigger
+            static final int AXIS_RT = 3; //Analog Right Trigger
+            static final int AXIS_RH = 4; //Right Analog Stick horizontal
+            static final int AXIS_RV = 5; //Right Analog Stick vertical
+            static final int DPAD_UP = 0;
+            static final int DPAD_UPRIGHT = 45;
+            static final int DPAD_RIGHT = 90;
+            static final int DPAD_DNRIGHT = 135;
+            static final int DPAD_DN = 180;
+            static final int DPAD_DNLEFT = 225;
+            static final int DPAD_LEFT = 270;
+            static final int DPAD_UPLEFT = 315;
+            static final int DPAD_IDLE = -1; 
         }
     }
 }
