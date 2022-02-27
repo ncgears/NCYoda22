@@ -198,7 +198,7 @@ public class RobotContainer {
   // }
 
   /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
+   * Use this to pass the autonomous command to the main Robot class.
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
@@ -206,5 +206,14 @@ public class RobotContainer {
     //return m_autonCommand;
     // return null;
     return new cg_auton_4BallAuto(m_drive, m_collector, m_feeder, m_shooter);
+  }
+
+  /**
+   * Use this to pass the disable command to the main Robot class.
+   * @return the command to run in disabledInit
+   */
+  public Command getDisableCommand() {
+    //This needs to be passed all subsystems that include things to reset
+    return new cg_resetRobot(m_collector,m_climber);
   }
 }

@@ -24,9 +24,8 @@ import frc.team1918.robot.subsystems.CollectorSubsystem;
  */
 public class Robot extends TimedRobot {
   public Alliance m_alliance;
-  private ClimberSubsystem m_climber;
-  private CollectorSubsystem m_collector;
   private Command m_autonomousCommand;
+  private Command m_disableCommand;
   // private Command m_initOdom;
   // private Command m_resetGyro;
 
@@ -64,15 +63,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    // Reset the whirlygig solenoid
-    m_climber.raiseWhirlygig(false);
-    // Reset the collector solenoid
-    m_collector.setCollectorPosition("stow");
+    m_disableCommand = m_robotContainer.getDisableCommand();
+    // if (m_disableCommand != null) m_disableCommand.schedule();
+    m_disableCommand.schedule();
   }
 
   @Override
   public void disabledPeriodic() {
-    // private void disabledWhirlygigDown(new InstantCommand(ClimberSubsystem::raiseWhirlygig))
   }
 
   /**
