@@ -92,7 +92,7 @@ public class Constants {
         public static final boolean isInverted_Motor1 = true; //Invert motor direction
         public static final boolean isInverted_Motor2 = false; //Invert motor direction
         public static final int kMaxShooterSpeed = 100; //Max RPS of the Shooter Motor
-        public static final double kDefaultShooterSpeed = 61; //Default RPS of the Shooter Motor
+        public static final double kDefaultShooterSpeed = 73; //Default RPS of the Shooter Motor
         public static final int kMinShooterSpeed = 0; //Min RPM of the Shooter Motor
         public static final double kSpeedIncrementSize = 1; //RPMs to change the shooter speed per increment
         public static final double kP = 0.10;
@@ -120,7 +120,7 @@ public class Constants {
         public static final int id_LimitHook1 = 2;
         public static final int id_LimitHook2 = 3;
         public static final int id_PressureSensor = 3;
-        public static final boolean isInverted_Motor1 = false;
+        public static final boolean isInverted_Motor1 = true;
         public static final boolean isInvertedFromMaster_Motor2 = true; //false for same direction as master
         public static final boolean isSensorInverted_Motor1 = false;
         public static final boolean isSensorNotContinuous = false;
