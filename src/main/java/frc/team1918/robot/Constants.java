@@ -329,7 +329,9 @@ public class Constants {
         public static final double DT_TURN_MULT_STATIONARY = 1.0; //Turn speed multiplier while not moving
         public static final double DT_TURN_MULT_MOVING = 1.0; //Turn speed multiplier while moving
         public static final boolean DT_TURN_MULT_BEFORE_DB = true; //Apply turn multiplier before deadband
-        public static final int DT_TURN_ENCODER_FULL_ROTATION = 1024;
+        public static final int DT_TURN_ENCODER_FULL_ROTATION = 1024; //This is for the lamprey, not the integrated SRX mag encoder
+        public static final int kTurnEncoderFullRotation = 4096; //This is for the integrated SRX mag encoder in the gearboxes, not the lamprey
+        public static final double kTurnGearRatio = 10.3846154; //The output of the turn gearbox turns 10 times for one module rotation
         ////Drive Tuning
         public static final double DT_FWD_MULT = 1.0; //Fwd throttle multiplier
         public static final double DT_STR_MULT = 1.0; //Str throttle multiplier
