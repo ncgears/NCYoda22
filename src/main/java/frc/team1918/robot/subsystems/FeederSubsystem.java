@@ -9,6 +9,7 @@ import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team1918.robot.Constants;
+import frc.team1918.robot.Helpers;
 
 public class FeederSubsystem extends SubsystemBase {
   private WPI_TalonFX m_feeder; // feeder controller
@@ -59,6 +60,7 @@ public class FeederSubsystem extends SubsystemBase {
 
   public boolean hasSecondBall() {
     //We have a ball up by the shooter
+    // Helpers.Debug.debug("Sensor="+m_beam_shooter.get());
     return !m_beam_shooter.get();
     // return false;
   }

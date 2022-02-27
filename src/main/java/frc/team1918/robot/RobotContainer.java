@@ -159,7 +159,8 @@ public class RobotContainer {
     btn_CollectorDeploy.whenPressed(new collector_deployIntake(m_collector));
     btn_CollectorRetract.whenPressed(new collector_retractIntake(m_collector));
     // btn_IntakeForward.whenPressed(new collector_intakeForward(m_collector)).whenReleased(new collector_intakeStop(m_collector));
-    btn_IntakeForward.whenPressed(new cg_collector_intakeAndFeed(m_collector, m_feeder)).whenReleased(new collector_intakeStop(m_collector).andThen(new collector_retractIntake(m_collector)));
+    // btn_IntakeForward.whenPressed(new cg_collector_intakeAndFeed(m_collector, m_feeder)).whenReleased(new collector_intakeStop(m_collector).andThen(new collector_retractIntake(m_collector)));
+    btn_IntakeForward.whenPressed(new feeder_advanceToShooter(m_feeder));
     btn_IntakeReverse.whenPressed(new collector_intakeReverse(m_collector)).whenReleased(new collector_intakeStop(m_collector));
     btn_FeederFwd.whenPressed(new feeder_advance(m_feeder)).whenReleased(new feeder_stop(m_feeder));
     btn_ShooterStop.whenPressed(new shooter_stopShooter(m_shooter));

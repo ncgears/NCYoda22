@@ -32,9 +32,10 @@ public class cg_collector_intakeAndFeed extends SequentialCommandGroup {
         new collector_deployIntake(m_collector), //deploy collector
         new WaitCommand(0.5), //wait for collector
         new collector_intakeForward(m_collector), //start collector
-        new ParallelCommandGroup( //do until trajectory complete
-          new feeder_advanceToShooter(m_feeder)
-        )
+        new feeder_advanceToShooter(m_feeder)
+        // new ParallelCommandGroup( //do until trajectory complete
+          // new feeder_advanceToShooter(m_feeder)
+        // )
         // new collector_intakeStop(m_collector), //stop collector
         // new collector_retractIntake(m_collector),  //retract collector
         // new WaitCommand(1.0), //wait for shooter to be at speed
