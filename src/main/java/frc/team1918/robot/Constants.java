@@ -11,6 +11,71 @@ import edu.wpi.first.math.util.Units;
  * Constants let us quickly define the characteristics of our robot without having to search through code
  */
 public class Constants {
+
+    /**
+     * ID abstracts the IDs from the rest of the constants to make it easier to detect conflicts
+     */
+    public static final class ID {
+        /**
+         * IDs of RoboRio Digital IO
+         */
+        public static final class DIO {
+            public static int beambreak_top = 0;
+            public static int beambreak_bottom = 1;
+            public static int whirly_limit_left = 2;
+            public static int whirly_limit_right = 3;
+            public static int whirly_hook1_capture = 4;
+            public static int whirly_hook2_capture = 5;
+        }
+        /**
+         * IDs of RoboRio Analog IO
+         */
+        public static final class Analog {
+        }
+        /**
+         * IDs of RoboRio Relays
+         */
+        public static final class Relay {
+            public static int ringlight = 0;
+        }
+        /**
+         * IDs of Talons
+         */
+        public static final class Talon {
+            public static int swerve_fr_turn = 4;
+            public static int feeder = 6;
+            public static int swerve_fl_turn = 7;
+            public static int swerve_rl_turn = 8;
+            public static int swerve_rr_turn = 11;
+            public static int climber_follower = 13;
+            public static int climber_master = 14;
+            public static int preshooter = 15;
+            public static int intake = 16;
+        }
+        /**
+         * IDs of Falcons
+         */
+        public static final class Falcon {
+            public static int swerve_fr_drive = 36;
+            public static int swerve_rr_drive = 37;
+            public static int swerve_rl_drive = 38;
+            public static int swerve_fl_drive = 39;
+            public static int shooter = 43;
+        }
+        /**
+         * IDs of Solenoids
+         */
+        public static final class Solenoid {
+            public static int collector = 0;
+            //public static int unused1 = 1;
+            //public static int unused2 = 2;
+            public static int whirlygig = 3;
+            public static int hood = 4;
+            public static int climbhook1 = 5;
+            public static int climbhook2 = 6;
+        }
+    }
+
     /**
      * Constants that are Global for the robot
      */
@@ -47,11 +112,11 @@ public class Constants {
      */
     public static final class Air {
         public static final boolean isDisabled = false; //Disable compressor
-        public static final int id_CollectorSolonoid = 0; //ID of solonoid for collector
-        public static final int id_HoodSolonoid = 4; //ID of solonoid for hood control
-        public static final int id_ClimbHook1Solonoid = 5; //ID of solonoid for climber hook 1
-        public static final int id_ClimbHook2Solonoid = 6; //ID of solonoid for climber hook 2
-        public static final int id_WhirlyGigSolonoid = 3; //ID of solonoid for whirlygig
+        public static final int id_CollectorSolonoid = ID.Solenoid.collector; //ID of solonoid for collector
+        public static final int id_HoodSolonoid = ID.Solenoid.hood; //ID of solonoid for hood control
+        public static final int id_ClimbHook1Solonoid = ID.Solenoid.climbhook1; //ID of solonoid for climber hook 1
+        public static final int id_ClimbHook2Solonoid = ID.Solenoid.climbhook2; //ID of solonoid for climber hook 2
+        public static final int id_WhirlyGigSolonoid = ID.Solenoid.whirlygig; //ID of solonoid for whirlygig
         public static final boolean stateCollectorDeployed = false; //State of the solenoid when COLL1 is deployed
         public static final boolean stateHoodUp = true; //State of the solonoid when HOOD is up
         public static final boolean stateClimbHookLocked = false; //State of the solonoid when the hook is locked
@@ -63,7 +128,7 @@ public class Constants {
      */
     public static final class Collector {
         public static final boolean isDisabled = false; //Disable the collector subsystem
-        public static final int id_Motor1 = 16; 
+        public static final int id_Motor1 = ID.Talon.intake; 
         public static final int id_ColorSensor1 = 4;
         public static final double kDefaultCollectorSpeed = 0.5;
     }
@@ -73,9 +138,9 @@ public class Constants {
      */
     public static final class Feeder {
         public static final boolean isDisabled = false; //Disable the feeder subsystem
-        public static final int id_BeamBreak1 = 1; //ID of the Beam Break 1 DIO (intake)
-        public static final int id_BeamBreak2 = 0; //ID of the Beam Break 2 DIO (shooter)
-        public static final int id_Motor1 = 6; //ID of the Feeder Motor 1 Controller
+        public static final int id_BeamBreak1 = ID.DIO.beambreak_bottom; //ID of the Beam Break 1 DIO (intake)
+        public static final int id_BeamBreak2 = ID.DIO.beambreak_top; //ID of the Beam Break 2 DIO (shooter)
+        public static final int id_Motor1 = ID.Talon.feeder; //ID of the Feeder Motor 1 Controller
         public static final boolean isInverted_Motor1 = true; //Invert motor direction
         public static final double speed_Motor1 = 1.0; //Feeder Motor 1 Speed
         public static final double debounce_delay = 3.0; //Seconds to wait for feeder beams
@@ -86,8 +151,8 @@ public class Constants {
      */
     public static final class Shooter {
         public static final boolean isDisabled = false; //Disable the shooter subsystem
-        public static final int id_Motor1 = 43; //ID of the Shooter Motor 1 Controller
-        public static final int id_Motor2 = 15; //ID of the Preshooter Motor Controller
+        public static final int id_Motor1 = ID.Falcon.shooter; //ID of the Shooter Motor 1 Controller
+        public static final int id_Motor2 = ID.Talon.preshooter; //ID of the Preshooter Motor Controller
         public static final int kEncoderFullRotation = 2048; //Falcon integrated encoder is 2048
         public static final boolean isSensorInverted_Motor1 = true;
         public static final boolean isInverted_Motor1 = true; //Invert motor direction
@@ -116,11 +181,12 @@ public class Constants {
      */
     public static final class Climber {
         public static final boolean isDisabled = false; //Disable the climber subsystem
-        public static final int id_Motor1 = 14;
-        public static final int id_Motor2 = 13; //follower of Motor1
-        public static final int id_LimitHook1 = 2;
-        public static final int id_LimitHook2 = 3;
-        public static final int id_PressureSensor = 3;
+        public static final int id_Motor1 = ID.Talon.climber_master;
+        public static final int id_Motor2 = ID.Talon.climber_follower; //follower of Motor1
+        public static final int id_LimitWhirlyLeft = ID.DIO.whirly_limit_left; //DIO for left limit
+        public static final int id_LimitWhirlyRight = ID.DIO.whirly_limit_right; //DIO for right limit
+        public static final int id_CaptureHook1 = ID.DIO.whirly_hook1_capture; //DIO for hook1 capture
+        public static final int id_CaptureHook2 = ID.DIO.whirly_hook2_capture; //DIO for hook2 capture
         public static final boolean isInverted_Motor1 = true;
         public static final boolean isInvertedFromMaster_Motor2 = true; //false for same direction as master
         public static final boolean isSensorInverted_Motor1 = false;
@@ -179,10 +245,10 @@ public class Constants {
          */
         public static final class FL {  //TODO: PID Tuning
             public static final boolean isDisabled = false;
-            public static final int DRIVE_MC_ID = 39; //Falcon500 Motor Controller ID
+            public static final int DRIVE_MC_ID = ID.Falcon.swerve_fl_drive; //Falcon500 Motor Controller ID
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
             public static final boolean DRIVE_isInverted = false;
-            public static final int TURN_MC_ID = 7; //TalonSRX Motor Controller ID
+            public static final int TURN_MC_ID = ID.Talon.swerve_fl_turn; //TalonSRX Motor Controller ID
             public static final boolean TURN_sensorPhase = true; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
             public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
             public static final double TURN_kP = Swerve.DEFAULT_TURN_P; //PID P (only change to override default)
@@ -197,10 +263,10 @@ public class Constants {
          */
         public static final class FR {
             public static final boolean isDisabled = false; 
-            public static final int DRIVE_MC_ID = 36; //Falcon500 Motor Controller ID
+            public static final int DRIVE_MC_ID = ID.Falcon.swerve_fr_drive; //Falcon500 Motor Controller ID
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
             public static final boolean DRIVE_isInverted = false;
-            public static final int TURN_MC_ID = 4; //TalonSRX Motor Controller ID
+            public static final int TURN_MC_ID = ID.Talon.swerve_fr_turn; //TalonSRX Motor Controller ID
             public static final boolean TURN_sensorPhase = true; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
             public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
             public static final double TURN_kP = Swerve.DEFAULT_TURN_P; //PID P (only change to override default)
@@ -215,10 +281,10 @@ public class Constants {
          */
         public static final class RL {
             public static final boolean isDisabled = false;
-            public static final int DRIVE_MC_ID = 38; //Falcon500 Motor Controller ID
+            public static final int DRIVE_MC_ID = ID.Falcon.swerve_rl_drive; //Falcon500 Motor Controller ID
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
             public static final boolean DRIVE_isInverted = false;
-            public static final int TURN_MC_ID = 8; //TalonSRX Motor Controller ID
+            public static final int TURN_MC_ID = ID.Talon.swerve_rl_turn; //TalonSRX Motor Controller ID
             public static final boolean TURN_sensorPhase = true; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
             public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
             public static final double TURN_kP = Swerve.DEFAULT_TURN_P; //PID P (only change to override default)
@@ -233,10 +299,10 @@ public class Constants {
          */
         public static final class RR { //Rear Right
             public static final boolean isDisabled = false;
-            public static final int DRIVE_MC_ID = 37; //Falcon500 Motor Controller ID
+            public static final int DRIVE_MC_ID = ID.Falcon.swerve_rr_drive; //Falcon500 Motor Controller ID
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
             public static final boolean DRIVE_isInverted = false;
-            public static final int TURN_MC_ID = 11; //TalonSRX Motor Controller ID
+            public static final int TURN_MC_ID = ID.Talon.swerve_rr_turn; //TalonSRX Motor Controller ID
             public static final boolean TURN_sensorPhase = true; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
             public static final boolean TURN_isInverted = true; //Once sensor phase is correct, we can invert these so fwd always is green, reverse is always is red
             public static final double TURN_kP = Swerve.DEFAULT_TURN_P; //PID P (only change to override default)
@@ -281,7 +347,7 @@ public class Constants {
     
     public static final class Vision {
         public static final boolean isDisabled = false;
-        public static final int id_RingLight = 0; //Relay ID of Ringlight SS Relay
+        public static final int id_RingLight = ID.Relay.ringlight; //Relay ID of Ringlight SS Relay
         public static final double kErrorCorrection_P = 0.65; //Proportional value for multiplying vision angle correction
     }
     /**

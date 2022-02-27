@@ -21,12 +21,14 @@ public class ClimberSubsystem extends SubsystemBase {
   private Solenoid hook_release_1;
   private Solenoid hook_release_2;
   private Solenoid whirlySolenoid; 
-  private DigitalInput m_limitSwitchLeft; //First Beam Break (at intake)
-  private DigitalInput m_limitSwitchRight;
+  private DigitalInput m_limitSwitchLeft, m_limitSwitchRight;
+  private DigitalInput m_hook1CaptureSwitch, m_hook2CaptureSwitch;
 
   public ClimberSubsystem() {
-    m_limitSwitchLeft = new DigitalInput(Constants.Climber.id_LimitHook1);
-    m_limitSwitchRight = new DigitalInput(Constants.Climber.id_LimitHook2);
+    m_limitSwitchLeft = new DigitalInput(Constants.Climber.id_LimitWhirlyLeft);
+    m_limitSwitchRight = new DigitalInput(Constants.Climber.id_LimitWhirlyRight);
+    m_hook1CaptureSwitch = new DigitalInput(Constants.Climber.id_CaptureHook1);
+    m_hook2CaptureSwitch = new DigitalInput(Constants.Climber.id_CaptureHook2);
     climber_1 = new WPI_TalonSRX(Constants.Climber.id_Motor1);
     climber_2 = new WPI_TalonSRX(Constants.Climber.id_Motor2);
     hook_release_1 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_ClimbHook1Solonoid);
@@ -79,15 +81,24 @@ public class ClimberSubsystem extends SubsystemBase {
    * This moves the climber to a specific position using the encoder
    * @param target - Encoder position to move to
    */
+  public void moveClimberToTarget(int target) {
+    climber_1.set(ControlMode.Position,target);
+  }
+
+  /**
+   * This checks the left limit switch
+   * @return limit switch state
+   */
   public boolean leftLimitSwitchTouch(){
     return m_limitSwitchLeft.get();
   }
   
+  /**
+   * This checks the right limit switch
+   * @return limit switch state
+   */
   public boolean rightLimitSwitchTouch(){
     return m_limitSwitchRight.get();
-  }
-  public void moveClimberToTarget(int target) {
-    climber_1.set(ControlMode.Position,target);
   }
 
   /**
