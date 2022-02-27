@@ -60,7 +60,7 @@ public class FeederSubsystem extends SubsystemBase {
 
   public boolean hasSecondBall() {
     //We have a ball up by the shooter
-    // Helpers.Debug.debug("Sensor="+m_beam_shooter.get());
+    // Helpers.Debug.debug("Sensor="+m_beam_shooter.get(),1000);
     return !m_beam_shooter.get();
     // return false;
   }

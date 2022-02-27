@@ -1,5 +1,10 @@
 {
   "HALProvider": {
+    "DIO": {
+      "window": {
+        "visible": true
+      }
+    },
     "Other Devices": {
       "navX-Sensor[0]": {
         "header": {
@@ -12,9 +17,6 @@
         "PowerDistribution[0]": {
           "open": true
         }
-      },
-      "window": {
-        "visible": true
       }
     },
     "Solenoids": {
@@ -65,11 +67,6 @@
       "/LiveWindow/VisionSubsystem": "Subsystem"
     },
     "windows": {
-      "/LiveWindow/CollectorSubsystem": {
-        "window": {
-          "visible": true
-        }
-      },
       "/LiveWindow/Ungrouped/Scheduler": {
         "window": {
           "visible": true
@@ -81,10 +78,17 @@
     "LiveWindow": {
       "AutonSubsystem": {
         "open": true
-      }
+      },
+      "open": true
+    },
+    "SmartDashboard": {
+      "open": true
     },
     "Usage": {
       "Client": {
+        "Dashboard": {
+          "open": true
+        },
         "open": true
       },
       "open": true
