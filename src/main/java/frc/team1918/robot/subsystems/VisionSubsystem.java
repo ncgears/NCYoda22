@@ -25,7 +25,7 @@ public class VisionSubsystem extends SubsystemBase {
   boolean angleLocked = false;
   double totalPixel =500;
   double FOV = 60;
-  Relay m_ringlight;
+  Relay m_ringlight = new Relay(Constants.Vision.id_RingLight);
 
   private static AHRS m_gyro = new AHRS(SPI.Port.kMXP);
   
@@ -94,9 +94,19 @@ public class VisionSubsystem extends SubsystemBase {
   //     }
   //   }
   // }
+  
+  /**
+   * This enables or disables the ring light
+   * @param enabled - true to turn on light, false to turn it off
+   */
   public void setRinglight(boolean enabled) {
     m_ringlight.set((enabled) ? Value.kForward : Value.kOff);
   }
+
+  /**
+   * This sets the desired color for vision tracking
+   * @param color - color of balls to track: "blue", "red", "both", or "none"
+   */
   public void setDesiredColor(String color) {
     String desired ;
 
