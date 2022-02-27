@@ -199,22 +199,20 @@ public class RobotContainer {
   // }
 
   /**
-   * Use this to pass the autonomous command to the main Robot class.
-   * @return the command to run in autonomous
+   * Use this to pass the named command to the main Robot class.
+   * @return command
    */
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    //return m_autonCommand;
-    // return null;
-    return new cg_auton_4BallAuto(m_drive, m_collector, m_feeder, m_shooter);
-  }
-
-  /**
-   * Use this to pass the disable command to the main Robot class.
-   * @return the command to run in disabledInit
-   */
-  public Command getDisableCommand() {
-    //This needs to be passed all subsystems that include things to reset
-    return new cg_resetRobot(m_collector,m_climber);
+  public Command getRobotCommand(String name) {
+    //This selects a command (or command group) to return
+    switch (name) {
+      case "resetRobot":
+        return new cg_resetRobot(m_collector, m_climber);
+      case "auton_4BallAuto":
+        return new cg_auton_4BallAuto(m_drive, m_collector, m_feeder, m_shooter);
+      default:
+        return null;
+    }
+    
+    //cg_resetRobot(m_collector,m_climber);
   }
 }

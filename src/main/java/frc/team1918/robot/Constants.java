@@ -33,8 +33,9 @@ public class Constants {
      */
     public static final class Auton {
         public static final boolean isDisabled = false; //Disable autonomous
+        public static final String autonToRun = "auton_4BallAuto"; //Name of the auton to run (these are in the bottom of RobotContainer)
         public static final double kMaxSpeedMetersPerSecond = 0.25;
-        public static final double kMaxAccelMetersPerSecondSquared = 0.0;
+        public static final double kMaxAccelMetersPerSecondSquared = 0.1;
         public static final double kMaxOmega = (kMaxSpeedMetersPerSecond / Math.hypot(0.5461 / 2.0, 0.6477 / 2.0));
         public static final double kPTranslationController = 0.0;
         public static final double kPThetaController = 0.0;

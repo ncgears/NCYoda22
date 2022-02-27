@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   public Alliance m_alliance;
   private Command m_autonomousCommand;
+  private Command m_dc1, m_dc2;
   private Command m_disableCommand;
   // private Command m_initOdom;
   // private Command m_resetGyro;
@@ -63,8 +64,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    m_disableCommand = m_robotContainer.getDisableCommand();
+    m_disableCommand = m_robotContainer.getRobotCommand("resetRobot");
     if (m_disableCommand != null) m_disableCommand.schedule();
+    // m_dc1 = m_robotContainer.getDisableCommand(1);
+    // if (m_dc1 != null) m_dc1.schedule();
+    // m_dc2 = m_robotContainer.getDisableCommand(2);
+    // if (m_dc2 != null) m_dc2.schedule();
   }
 
   @Override
@@ -83,8 +88,8 @@ public class Robot extends TimedRobot {
     // m_initOdom = m_robotContainer.getInitOdomCommand(); 
     // if (m_initOdom != null) m_initOdom.schedule();
 
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    if (m_autonomousCommand != null) m_autonomousCommand.schedule();
+    m_autonomousCommand = m_robotContainer.getRobotCommand(Constants.Auton.autonToRun);
+    if (m_autonomousCommand != null && !Constants.Auton.isDisabled) m_autonomousCommand.schedule();
   }
 
   /**
