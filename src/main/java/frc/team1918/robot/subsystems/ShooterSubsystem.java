@@ -48,7 +48,7 @@ public class ShooterSubsystem extends SubsystemBase {
     preShooter.setNeutralMode(NeutralMode.Coast);
     preShooter.setInverted(Constants.Shooter.isInverted_Motor1);
     //Setup the solenoid
-    m_hood = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_HoodSolonoid);
+    m_hood = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_HoodSolenoid);
   }
 
   @Override

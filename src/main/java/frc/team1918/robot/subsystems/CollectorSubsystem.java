@@ -16,7 +16,7 @@ public class CollectorSubsystem extends SubsystemBase {
 
   public CollectorSubsystem() {
     coll = new WPI_TalonSRX(Constants.Collector.id_Motor1);
-    m_coll1 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_CollectorSolonoid);
+    m_coll1 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_CollectorSolenoid);
   }
 
   @Override

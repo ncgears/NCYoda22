@@ -112,14 +112,14 @@ public class Constants {
      */
     public static final class Air {
         public static final boolean isDisabled = false; //Disable compressor
-        public static final int id_CollectorSolonoid = ID.Solenoid.collector; //ID of solonoid for collector
-        public static final int id_HoodSolonoid = ID.Solenoid.hood; //ID of solonoid for hood control
-        public static final int id_ClimbHook1Solonoid = ID.Solenoid.climbhook1; //ID of solonoid for climber hook 1
-        public static final int id_ClimbHook2Solonoid = ID.Solenoid.climbhook2; //ID of solonoid for climber hook 2
-        public static final int id_WhirlyGigSolonoid = ID.Solenoid.whirlygig; //ID of solonoid for whirlygig
+        public static final int id_CollectorSolenoid = ID.Solenoid.collector; //ID of solenoid for collector
+        public static final int id_HoodSolenoid = ID.Solenoid.hood; //ID of solenoid for hood control
+        public static final int id_ClimbHook1Solenoid = ID.Solenoid.climbhook1; //ID of solenoid for climber hook 1
+        public static final int id_ClimbHook2Solenoid = ID.Solenoid.climbhook2; //ID of solenoid for climber hook 2
+        public static final int id_WhirlyGigSolenoid = ID.Solenoid.whirlygig; //ID of solenoid for whirlygig
         public static final boolean stateCollectorDeployed = false; //State of the solenoid when COLL1 is deployed
-        public static final boolean stateHoodUp = true; //State of the solonoid when HOOD is up
-        public static final boolean stateClimbHookLocked = false; //State of the solonoid when the hook is locked
+        public static final boolean stateHoodUp = true; //State of the solenoid when HOOD is up
+        public static final boolean stateClimbHookLocked = false; //State of the solenoid when the hook is locked
         public static final boolean stateWhirlygigUp = true; //State of the solenoid when CLIMBER is up
     }
  

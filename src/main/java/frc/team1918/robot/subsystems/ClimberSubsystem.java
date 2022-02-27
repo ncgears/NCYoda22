@@ -31,9 +31,9 @@ public class ClimberSubsystem extends SubsystemBase {
     m_hook2CaptureSwitch = new DigitalInput(Constants.Climber.id_CaptureHook2);
     climber_1 = new WPI_TalonSRX(Constants.Climber.id_Motor1);
     climber_2 = new WPI_TalonSRX(Constants.Climber.id_Motor2);
-    hook_release_1 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_ClimbHook1Solonoid);
-    hook_release_2 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_ClimbHook2Solonoid);
-    whirlySolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_WhirlyGigSolonoid);
+    hook_release_1 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_ClimbHook1Solenoid);
+    hook_release_2 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_ClimbHook2Solenoid);
+    whirlySolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_WhirlyGigSolenoid);
 
     climber_1.configFactoryDefault(); 
     climber_1.set(ControlMode.PercentOutput, 0);
