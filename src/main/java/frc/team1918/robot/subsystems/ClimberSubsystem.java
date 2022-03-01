@@ -21,8 +21,7 @@ public class ClimberSubsystem extends SubsystemBase {
   private Solenoid hook_release_1;
   private Solenoid hook_release_2;
   private Solenoid whirlySolenoid; 
-  private DigitalInput m_limitSwitchLeft, m_limitSwitchRight;
-  private DigitalInput m_hook1CaptureSwitch, m_hook2CaptureSwitch;
+  private DigitalInput m_hook1CaptureSwitchLeft, m_hook1CaptureSwitchRight, m_hook2CaptureSwitch;
   public enum whirlyState {DOWN, UP;}
   public whirlyState currentWhirlyState = whirlyState.DOWN;
   public enum latchState {NONE, BAR2LATCH, BAR2RELEASE, BAR3LATCH, BAR3RELEASE, BAR4LATCH, COMPLETE, ABORTED;}
@@ -41,15 +40,15 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public boolean getHookLatch(int hook) {
-    if (hook==1) return m_hook1CaptureSwitch.get();
+    if (hook==1) return m_hook1CaptureSwitchLeft.get();
     if (hook==2) return m_hook2CaptureSwitch.get();
+    if (hook==3) return m_hook1CaptureSwitchRight.get();
     return false;
   }
 
   public ClimberSubsystem() {
-    m_limitSwitchLeft = new DigitalInput(Constants.Climber.id_LimitWhirlyLeft);
-    m_limitSwitchRight = new DigitalInput(Constants.Climber.id_LimitWhirlyRight);
-    m_hook1CaptureSwitch = new DigitalInput(Constants.Climber.id_CaptureHook1);
+    m_hook1CaptureSwitchLeft = new DigitalInput(Constants.Climber.id_CaptureHook1Left);
+    m_hook1CaptureSwitchRight = new DigitalInput(Constants.Climber.id_CaptureHook1Right);
     m_hook2CaptureSwitch = new DigitalInput(Constants.Climber.id_CaptureHook2);
     climber_1 = new WPI_TalonSRX(Constants.Climber.id_Motor1);
     climber_2 = new WPI_TalonSRX(Constants.Climber.id_Motor2);
@@ -108,19 +107,19 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   /**
-   * This checks the left limit switch
+   * This checks the left capture hook1 switch
    * @return limit switch state
    */
-  public boolean leftLimitSwitchTouch(){
-    return m_limitSwitchLeft.get();
+  public boolean isCapturedHook1Left(){
+    return m_hook1CaptureSwitchLeft.get();
   }
   
   /**
-   * This checks the right limit switch
+   * This checks the right capture hook1 switch
    * @return limit switch state
    */
-  public boolean rightLimitSwitchTouch(){
-    return m_limitSwitchRight.get();
+  public boolean isCapturedHook1Right(){
+    return m_hook1CaptureSwitchRight.get();
   }
 
   /**

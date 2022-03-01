@@ -66,13 +66,18 @@ public class climber_autoClimb extends CommandBase {
   public void execute() {
     switch (m_climber.getLatchState()) { //Normal start of climb
       case NONE:
-        if(m_climber.getHookLatch(1)) {
-          Helpers.Debug.debug("Auto-climb: Bar2 Latched");
-          m_climber.setLatchState(latchState.BAR2LATCH);
-        }
         if(m_climber.getHookLatch(2)) { //This shouldn't happen unless the robot is already latched or setup wrong
           Helpers.Debug.debug("Auto-climb: Unexpected trigger of Hook 2. Aborting.");
           m_climber.setLatchState(latchState.ABORTED);
+          break;
+        }
+        if((m_climber.getHookLatch(1) && m_climber.getHookLatch(3)) || (m_climber.getHookLatch(1) && !Constants.Climber.requireCaptureBothSides)) { //both sides of climber hooked, or only left required
+          Helpers.Debug.debug("Auto-climb: Bar2 Latched");
+          m_climber.setLatchState(latchState.BAR2LATCH);
+        } else if (m_climber.getHookLatch(1) && !m_climber.getHookLatch(3)) { //left side hooked only
+          Helpers.Debug.debug("Auto-climb: Bar2 Latched LEFT SIDE ONLY");
+        } else if (!m_climber.getHookLatch(1) && m_climber.getHookLatch(3)) { //right side hooked only
+          Helpers.Debug.debug("Auto-climb: Bar2 Latched RIGHT SIDE ONLY");
         }
         break;
       case BAR2LATCH:
@@ -94,7 +99,7 @@ public class climber_autoClimb extends CommandBase {
       case BAR3LATCH:
         if(m_climber.getHookLatch(1)) {
           Helpers.Debug.debug("Auto-climb: Bar4 Latch");
-          Helpers.Debug.debug("Auto-climb: Bar3 Release");
+          Helpers.Debug.debug("Auto-climb: Bar3 Do Release");
           // new climber_lockHook(m_climber,2).beforeStarting(new climber_unlockHook(m_climber,2).andThen(new WaitCommand(Constants.Climber.kHookReleaseTime)));
           m_climber.setHookMode(2, true);
           m_climber.setLatchState(latchState.BAR3RELEASE);
