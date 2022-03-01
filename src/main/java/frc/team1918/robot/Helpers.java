@@ -125,6 +125,7 @@ public class Helpers {
          * Converts Ticks per 100ms to RPS
          * @param ticks - Ticks per 100ms to convert
          * @param fullRotationTicks - Number of ticks in a full rotation (encoder dependent)
+         * @param factor - Factor to multiple by (for getting rpm at wheel)
          * @return
          */
         public final static double ticksPer100msToRPS(double ticks, int fullRotationTicks, double factor) {
