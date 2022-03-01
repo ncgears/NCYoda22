@@ -7,8 +7,11 @@
 
 package frc.team1918.robot.commands.shooter;
 
+import frc.team1918.robot.Constants;
 import frc.team1918.robot.Helpers;
+import frc.team1918.robot.Constants.Shooter;
 import frc.team1918.robot.subsystems.ShooterSubsystem;
+import frc.team1918.robot.subsystems.ShooterSubsystem.namedShots;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -17,12 +20,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class shooter_shootNamed extends CommandBase {
   @SuppressWarnings({"unused","PMD.UnusedPrivateField", "PMD.SingularField"}) //Dont add "unused" under normal operation
   private final ShooterSubsystem m_shooter;
-  private final String m_name;
+  private final namedShots m_name;
 
   /**
    * @param subsystem The subsystem used by this command.
    */
-  public shooter_shootNamed(ShooterSubsystem subsystem, String name) {
+  public shooter_shootNamed(ShooterSubsystem subsystem, namedShots name) {
     m_shooter = subsystem;
     m_name = name;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -32,7 +35,30 @@ public class shooter_shootNamed extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Helpers.Debug.debug("Shooter: Shoot from "+m_name);
+    Helpers.Debug.debug("Shooter: Named Shot - "+m_name);
+    switch (m_name) {
+      case LOW:
+        m_shooter.setShooterSpeed(Constants.Shooter.Shots.LOW.kSpeed);
+        m_shooter.raiseHood(Constants.Shooter.Shots.LOW.kHood);
+        m_shooter.startPreShooter();
+        break;
+      case BUMPER:
+        m_shooter.setShooterSpeed(Constants.Shooter.Shots.BUMPER.kSpeed);
+        m_shooter.raiseHood(Constants.Shooter.Shots.BUMPER.kHood);
+        m_shooter.startPreShooter();
+        break;
+      case LINE:
+        m_shooter.setShooterSpeed(Constants.Shooter.Shots.LINE.kSpeed);
+        m_shooter.raiseHood(Constants.Shooter.Shots.LINE.kHood);
+        m_shooter.startPreShooter();
+        break;
+      case DEFAULT:
+      default:
+        m_shooter.setShooterSpeed(Constants.Shooter.Shots.DEFAULT.kSpeed);
+        m_shooter.raiseHood(Constants.Shooter.Shots.DEFAULT.kHood);
+        m_shooter.startPreShooter();
+        break;
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.

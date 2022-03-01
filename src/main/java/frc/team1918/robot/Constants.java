@@ -169,10 +169,23 @@ public class Constants {
         public static final double kPreShooterSpeed = 1.0; //speed of the preshooter
         public static final double kShooterReductionFactor = 0.58;
 
-        public static final class Positions {
-            public static final int speed_Pos1 = 2400;
-            public static final boolean hood_Pos1 = !Air.stateHoodUp;
-            public static final String name_Pos1 = "Over The Rainbow";
+        public static final class Shots {
+            public static final class DEFAULT {
+                public static final int kSpeed = 73;
+                public static final boolean kHood = Air.stateHoodUp;
+            }
+            public static final class LOW {
+                public static final int kSpeed = 60;
+                public static final boolean kHood = Air.stateHoodUp;
+            }
+            public static final class BUMPER {
+                public static final int kSpeed = 77;
+                public static final boolean kHood = !Air.stateHoodUp;
+            }
+            public static final class LINE {
+                public static final int kSpeed = 89;
+                public static final boolean kHood = Air.stateHoodUp;
+            }
         }
     }
 
@@ -181,6 +194,7 @@ public class Constants {
      */
     public static final class Climber {
         public static final boolean isDisabled = false; //Disable the climber subsystem
+        public static final boolean useAutoClimb = true; //Enable autoclimb function
         public static final int id_Motor1 = ID.Talon.climber_master;
         public static final int id_Motor2 = ID.Talon.climber_follower; //follower of Motor1
         public static final int id_LimitWhirlyLeft = ID.DIO.whirly_limit_left; //DIO for left limit

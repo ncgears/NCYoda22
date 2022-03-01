@@ -23,6 +23,26 @@ public class ClimberSubsystem extends SubsystemBase {
   private Solenoid whirlySolenoid; 
   private DigitalInput m_limitSwitchLeft, m_limitSwitchRight;
   private DigitalInput m_hook1CaptureSwitch, m_hook2CaptureSwitch;
+  public enum latchState {NONE, BAR2LATCH, BAR2RELEASE, BAR3LATCH, BAR3RELEASE, BAR4LATCH, COMPLETE, ABORTED;}
+  public latchState currentLatchState = latchState.NONE;
+  
+  public void setLatchState(latchState current) {
+    currentLatchState = current;
+  }
+
+  public void resetLatchState() {
+    currentLatchState = latchState.NONE;
+  }
+
+  public latchState getLatchState() {
+    return currentLatchState;
+  }
+
+  public boolean getHookLatch(int hook) {
+    if (hook==1) return m_hook1CaptureSwitch.get();
+    if (hook==2) return m_hook2CaptureSwitch.get();
+    return false;
+  }
 
   public ClimberSubsystem() {
     m_limitSwitchLeft = new DigitalInput(Constants.Climber.id_LimitWhirlyLeft);
