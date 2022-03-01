@@ -21,6 +21,7 @@ public class ShooterSubsystem extends SubsystemBase {
   private double m_shooter_oldrps = 0.0; // Previous shooter speed
   private double m_shooter_rpm = 0.0; 
   private Solenoid m_hood;
+  public enum namedShots {DEFAULT, LOW, BUMPER, LINE;}
   /**
    * Creates a new ExampleSubsystem.
    */

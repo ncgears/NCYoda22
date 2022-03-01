@@ -158,7 +158,7 @@ public class Constants {
         public static final boolean isInverted_Motor1 = true; //Invert motor direction
         public static final boolean isInverted_Motor2 = false; //Invert motor direction
         public static final int kMaxShooterSpeed = 100; //Max RPS of the Shooter Motor
-        public static final double kDefaultShooterSpeed = 73; //Default RPS of the Shooter Motor
+        public static final double kDefaultShooterSpeed = 76; //Default RPS of the Shooter Motor
         public static final int kMinShooterSpeed = 0; //Min RPM of the Shooter Motor
         public static final double kSpeedIncrementSize = 1; //RPMs to change the shooter speed per increment
         public static final double kP = 0.10;
