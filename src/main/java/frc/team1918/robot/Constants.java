@@ -22,9 +22,9 @@ public class Constants {
         public static final class DIO {
             public static int beambreak_top = 0;
             public static int beambreak_bottom = 1;
-            public static int whirly_limit_left = 2;
-            public static int whirly_limit_right = 3;
-            public static int whirly_hook1_capture = 4;
+            public static int feeder_switch = 2;
+            public static int whirly_hook1_capture_left = 3;
+            public static int whirly_hook1_capture_right = 4;
             public static int whirly_hook2_capture = 5;
         }
         /**
@@ -194,12 +194,12 @@ public class Constants {
      */
     public static final class Climber {
         public static final boolean isDisabled = false; //Disable the climber subsystem
-        public static final boolean useAutoClimb = false; //Enable autoclimb function
+        public static final boolean useAutoClimb = true; //Enable autoclimb function
+        public static final boolean requireCaptureBothSides = false; //Require left+right capture to start autoclimb
         public static final int id_Motor1 = ID.Talon.climber_master;
         public static final int id_Motor2 = ID.Talon.climber_follower; //follower of Motor1
-        public static final int id_LimitWhirlyLeft = ID.DIO.whirly_limit_left; //DIO for left limit
-        public static final int id_LimitWhirlyRight = ID.DIO.whirly_limit_right; //DIO for right limit
-        public static final int id_CaptureHook1 = ID.DIO.whirly_hook1_capture; //DIO for hook1 capture
+        public static final int id_CaptureHook1Left = ID.DIO.whirly_hook1_capture_left; //DIO for hook1 capture left
+        public static final int id_CaptureHook1Right = ID.DIO.whirly_hook1_capture_right; //DIO for hook1 capture right
         public static final int id_CaptureHook2 = ID.DIO.whirly_hook2_capture; //DIO for hook2 capture
         public static final boolean isInverted_Motor1 = true;
         public static final boolean isInvertedFromMaster_Motor2 = true; //false for same direction as master
