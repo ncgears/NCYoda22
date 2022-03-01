@@ -158,7 +158,7 @@ public class Constants {
         public static final boolean isInverted_Motor1 = true; //Invert motor direction
         public static final boolean isInverted_Motor2 = false; //Invert motor direction
         public static final int kMaxShooterSpeed = 100; //Max RPS of the Shooter Motor
-        public static final double kDefaultShooterSpeed = 73; //Default RPS of the Shooter Motor
+        public static final double kDefaultShooterSpeed = 76; //Default RPS of the Shooter Motor
         public static final int kMinShooterSpeed = 0; //Min RPM of the Shooter Motor
         public static final double kSpeedIncrementSize = 1; //RPMs to change the shooter speed per increment
         public static final double kP = 0.10;
@@ -383,6 +383,7 @@ public class Constants {
             public final static int BTN_FEEDER_FWD = Logitech.BTN_RB; //advance feeder
             public static final int DPAD_SHOOTER_INCREASE = Logitech.DPAD_UP; //increase rpm
             public static final int DPAD_SHOOTER_DECREASE = Logitech.DPAD_DN; //decrease rpm
+            public static final int BTN_GYRORESET = Logitech.BTN_BACK; //manual lock hooks
             
         }
 
@@ -398,9 +399,11 @@ public class Constants {
             public static final int BTN_RELEASEHOOK1 = Logitech.BTN_LB; //release hook 1
             public static final int BTN_RELEASEHOOK2 = Logitech.BTN_RB; //release hook 2
             public static final int BTN_INTAKE_IN = Logitech.BTN_A;
+            public static final int BTN_FEEDER_STOP = Logitech.BTN_B;
+            public final static int BTN_SHOOTER_FWD = Logitech.BTN_X; //run shooter
+            public final static int BTN_SHOOTER_FWD_HOOD = Logitech.BTN_Y; //run shooter
             
-            public static final int BTN_LOCKHOOK1 = Logitech.BTN_X; //manual lock hook 1
-            public static final int BTN_LOCKHOOK2 = Logitech.BTN_Y; //manual lock hook 2
+            public static final int BTN_LOCKHOOK = Logitech.BTN_BACK; //manual lock hooks
         }
 
         /**
