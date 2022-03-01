@@ -54,7 +54,16 @@ public class SwerveModule {
                                             Constants.Global.PID_PRIMARY,				// PID Slot for Source [0, 1]
                                             Constants.Global.kTimeoutMs);				// Configuration Timeout
         turn.configFeedbackNotContinuous(Constants.Global.SWERVE_SENSOR_NONCONTINUOUS, 0); //Disable continuous feedback tracking (so 0 and 1024 are effectively one and the same)
-       
+
+/*  CTRE SRX Mag Encoder Setup
+        turn.configSelectedFeedbackSensor ( FeedbackDevice.CTRE_MagEncoder_Relative,
+                                            Constants.Global.PID_PRIMARY,
+                                            Constants.Global.kTimeoutMs);
+        turn.configSelectedFeedbackSensor ( FeedbackDevice.CTRE_MagEncoder_Absolute,
+                                            Constants.Global.PID_AUXILLARY,
+                                            Constants.Global.kTimeoutMs);
+*/  
+
         // turn.setSelectedSensorPosition(0); //reset the talon encoder counter to 0 so we dont carry over a large error from a previous testing
         // turn.set(ControlMode.Position, 1024); //set this to some fixed value for testing
         turn.setSensorPhase(moduleConstants.turnSensorPhase); //set the sensor phase based on the constants setting for this module
@@ -109,12 +118,21 @@ public class SwerveModule {
      */
     public SwerveModuleState optimize(SwerveModuleState desiredState) { 
         Rotation2d currentAngle = getTurnPositionAsRotation2d();
-        Rotation2d delta = desiredState.angle.minus(currentAngle);
-        if (Math.abs(delta.getDegrees()) > 90.0 && Math.abs(delta.getDegrees()) < 270) { //new requested delta is between 90 and -90 (270) degrees, invert drive speed and rotate 180 degrees from desired
-            return new SwerveModuleState(-desiredState.speedMetersPerSecond, desiredState.angle.rotateBy(Rotation2d.fromDegrees(180.0)));
-        } else { //no optimization necessary
-            return new SwerveModuleState(desiredState.speedMetersPerSecond, desiredState.angle);
+        double delta = deltaAdjustedAngle(desiredState.angle.getDegrees(), currentAngle.getDegrees());
+        double driveOutput = desiredState.speedMetersPerSecond;
+        if (Math.abs(delta) > 90) { //if the requested delta is greater than 90 degrees, invert drive speed and use 180 degrees from desired angle
+            driveOutput *= -1;
+            delta -= Math.signum(delta) * 180;
         }
+        Rotation2d adjustedAngle = Rotation2d.fromDegrees(delta + currentAngle.getDegrees());
+        return new SwerveModuleState(driveOutput, adjustedAngle);
+        
+        // Rotation2d delta = desiredState.angle.minus(currentAngle);
+        // if (Math.abs(delta.getDegrees()) > 90.0 && Math.abs(delta.getDegrees()) < 270) { //new requested delta is between 90 and -90 (270) degrees, invert drive speed and rotate 180 degrees from desired
+        //     return new SwerveModuleState(-desiredState.speedMetersPerSecond, desiredState.angle.rotateBy(Rotation2d.fromDegrees(180.0)));
+        // } else { //no optimization necessary
+        //     return new SwerveModuleState(desiredState.speedMetersPerSecond, desiredState.angle);
+        // }
     }
 
     /**
@@ -313,5 +331,27 @@ public class SwerveModule {
         Dashboard.DriveTrain.setTurnPositionErrorChange(moduleName, turn.getErrorDerivative(0));
         Dashboard.DriveTrain.setDriveVelocity(moduleName, drive.getSelectedSensorVelocity(0));
         // Dashboard.DriveTrain.setDriveDistance(moduleName, drive.getDistance(0));
+    }
+
+    /**
+     * calculate the turning motor setpoint based on the desired angle and the current angle measurement
+     * @param targetAngle desired target in radians
+     * @param currentAngle current angle in radians
+     * @return Delta angle in radians
+     */
+    public double deltaAdjustedAngle(double targetAngle, double currentAngle) {
+        return ((targetAngle - currentAngle + 180) % 360 + 360) % 360 - 180;
+    }
+
+    public double getDriveDistanceMeters() {
+        return drive.getSelectedSensorPosition();
+    }
+
+    public void resetDistance() {
+        drive.setSelectedSensorPosition(0.0);
+    }
+
+    public void syncTurningEncoders() {
+        // turn.setSelectedSensorPosition(turn.getSelectedSensorPosition(0),1,0);
     }
 }
