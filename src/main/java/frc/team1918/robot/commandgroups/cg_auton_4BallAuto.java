@@ -23,6 +23,7 @@ import frc.team1918.robot.subsystems.CollectorSubsystem;
 import frc.team1918.robot.subsystems.DriveSubsystem;
 import frc.team1918.robot.subsystems.FeederSubsystem;
 import frc.team1918.robot.subsystems.ShooterSubsystem;
+import frc.team1918.robot.subsystems.ShooterSubsystem.namedShots;
 
 public class cg_auton_4BallAuto extends SequentialCommandGroup {
   private final CollectorSubsystem m_collector;
@@ -48,7 +49,7 @@ public class cg_auton_4BallAuto extends SequentialCommandGroup {
         ),
         new collector_intakeStop(m_collector), //stop collector
         new collector_retractIntake(m_collector),  //retract collector
-        new shooter_shootNamed(m_shooter, "AutonFromBall2"), //shoot from the ball 2 position
+        new shooter_shootNamed(m_shooter, namedShots.LINE), //shoot from the ball 2 position
         new WaitCommand(1.0), //wait for shooter to be at speed
         new feeder_shootAllBalls(m_feeder), //advance all balls to shooter - this has built in delay
         // new feeder_advance(m_feeder), //start advancing the feeder
@@ -65,7 +66,7 @@ public class cg_auton_4BallAuto extends SequentialCommandGroup {
         ),
         new drive_followTrajectory(m_drive, new GoHome()), //go to home shooting position from ball 4
         new helpers_debugMessage("Auton: followTrajectory - GoHome"),
-        new shooter_shootNamed(m_shooter, "AutonFromHome"), //shoot from the home position
+        new shooter_shootNamed(m_shooter, namedShots.DEFAULT), //shoot from the home position
         new feeder_shootAllBalls(m_feeder), //advance all balls to shooter - this has built in delay
         // new feeder_advance(m_feeder), //start advancing the feeder
         // new WaitCommand(1.25), //give time for shot

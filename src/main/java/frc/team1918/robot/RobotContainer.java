@@ -135,6 +135,7 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     //The buttons here are named based on their functional purpose. This abstracts the purpose from which controller it is attached to.
+    //These are the operator buttons
     btn_WhirlyUp.whenPressed(new climber_whirlygigUp(m_climber));
     if(Constants.Climber.useAutoClimb) {
       btn_WhirlyFwd.whileHeld(new climber_autoClimb(m_climber));
@@ -155,28 +156,25 @@ public class RobotContainer {
     btn_ShootDefault.whenPressed(new shooter_shootNamed(m_shooter, namedShots.DEFAULT));
     btn_ShootStop.whenPressed(new shooter_stopShooter(m_shooter));
     
-
-
+    //These are the driver buttons
     btn_CollectorToggle.whenPressed(new collector_toggleIntake(m_collector));
     btn_FeederFwd.whenPressed(new feeder_advance(m_feeder)).whenReleased(new feeder_stop(m_feeder));
     btn_ShooterStop.whenPressed(new shooter_stopShooter(m_shooter));
     btn_ShooterIncrease.whenPressed(new shooter_increaseThrottle(m_shooter));
     btn_ShooterDecrease.whenPressed(new shooter_decreaseThrottle(m_shooter));
     btn_GyroReset.whenPressed(new drive_resetGyro(m_drive));
+
     // btn_TOGGLE_DEBUG.whenPressed(new helpers_toggleDebug());
     // btn_LOCKANGLE.whenPressed(new drive_lockAngle(m_drive));
     // btn_UNLOCKANGLE.whenPressed(new drive_unlockAngle(m_drive));
-
     //bind all 3 up and all 3 down for shooter throttle up/down
     // orbtn_THROTUP.whenPressed(new shooter_increaseThrottle(m_shooter));
     // orbtn_THROTDN.whenPressed(new shooter_decreaseThrottle(m_shooter));
-
     //bind both buttons requirement
     // andbtn_MECHZERO.whenPressed(new drive_moveAllToMechZero(m_drive));
   }
 
   // These functions return the commands, this is only needed for things that happen during robot init in Robot.java
-  
   // public drive_resetGyro getResetGyroCommand() {
   //   return m_resetGyro;
   // }

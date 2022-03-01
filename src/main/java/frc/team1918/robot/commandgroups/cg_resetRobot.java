@@ -14,6 +14,7 @@ import frc.team1918.robot.subsystems.CollectorSubsystem;
 
 import frc.team1918.robot.commands.collector.collector_retractIntake;
 import frc.team1918.robot.commands.climber.climber_whirlygigDown;
+import frc.team1918.robot.commands.climber.climber_resetClimb;
 
 public class cg_resetRobot extends SequentialCommandGroup {
   private final CollectorSubsystem m_collector;
@@ -41,7 +42,8 @@ public class cg_resetRobot extends SequentialCommandGroup {
     addCommands(
         //this is a comma separated list of commands, thus, the last one should not have a comma
         new climber_whirlygigDown(m_climber),
-        new collector_retractIntake(m_collector)
+        new collector_retractIntake(m_collector),
+        new climber_resetClimb(m_climber)
     );
   }
 }
