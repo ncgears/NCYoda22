@@ -149,23 +149,43 @@ public class SwerveModule {
             // TODO: Send speed to closed loop control rather than percent output. Enable USE_DRIVE_PID and test.
             double motorRpm = (Helpers.General.metersPerSecondToRPM(state.speedMetersPerSecond, wheelDiam) / Constants.DriveTrain.DT_DRIVE_CONVERSION_FACTOR);
             // Helpers.Debug.debug(moduleName+" desired mps: "+state.speedMetersPerSecond+" motorRpm: "+motorRpm);
-            drive.set(ControlMode.Velocity, motorRpm, DemandType.ArbitraryFeedForward, feedforward.calculate(state.speedMetersPerSecond));
+            drive.set(ControlMode.Velocity, Helpers.General.rpsToTicksPer100ms(motorRpm/60, Constants.DriveTrain.DT_DRIVE_ENCODER_FULL_ROTATION, 1), DemandType.ArbitraryFeedForward, feedforward.calculate(state.speedMetersPerSecond));
         } else {
             double percentOutput = state.speedMetersPerSecond / Constants.Swerve.kMaxSpeedMetersPerSecond;
             drive.set(ControlMode.PercentOutput, percentOutput);
         }
-        
-        //Determine which direction we should turn to get to the desired setpoint
-        int cur_ticks = getTurnPosition();
-        int min_ticks = minTurnTicks(Helpers.General.radiansToTicks(state.angle.getRadians()), cur_ticks);
-        int turn_ticks = min_ticks + cur_ticks;
-        // Helpers.Debug.debug("Encoder Ticks: " +cur_ticks);
+
+        int turn_ticks = Helpers.General.radiansToTicks(state.angle.getRadians());
+        turn.set(ControlMode.Position, turn_ticks);
+
+        //Display output for debugging
         if(Helpers.Debug.debugThrottleMet(debug_ticks1)) {
             Helpers.Debug.debug(moduleName+" Speed (metersPerSecond)="+Helpers.General.roundDouble(state.speedMetersPerSecond,3)+" Turn Setpoint="+turn_ticks);
         }
         debug_ticks1++;
 
-        turn.set(ControlMode.Position, turn_ticks); //Set the turn setpoint
+        // double wheelDiam = Constants.DriveTrain.DT_WHEEL_DIAM_MM - this.wheelOffsetMM;
+        // SwerveModuleState state = (Constants.Swerve.USE_OPTIMIZATION) ? optimize(desiredState) : desiredState;
+        // if (Constants.Swerve.USE_DRIVE_PID) {
+        //     // TODO: Send speed to closed loop control rather than percent output. Enable USE_DRIVE_PID and test.
+        //     double motorRpm = (Helpers.General.metersPerSecondToRPM(state.speedMetersPerSecond, wheelDiam) / Constants.DriveTrain.DT_DRIVE_CONVERSION_FACTOR);
+        //     // Helpers.Debug.debug(moduleName+" desired mps: "+state.speedMetersPerSecond+" motorRpm: "+motorRpm);
+        //     drive.set(ControlMode.Velocity, motorRpm, DemandType.ArbitraryFeedForward, feedforward.calculate(state.speedMetersPerSecond));
+        // } else {
+        //     double percentOutput = state.speedMetersPerSecond / Constants.Swerve.kMaxSpeedMetersPerSecond;
+        //     drive.set(ControlMode.PercentOutput, percentOutput);
+        // }
+        
+        // //Determine which direction we should turn to get to the desired setpoint
+        // int cur_ticks = getTurnPosition();
+        // int min_ticks = minTurnTicks(Helpers.General.radiansToTicks(state.angle.getRadians()), cur_ticks);
+        // int turn_ticks = min_ticks + cur_ticks;
+        // if(Helpers.Debug.debugThrottleMet(debug_ticks1)) {
+        //     Helpers.Debug.debug(moduleName+" Speed (metersPerSecond)="+Helpers.General.roundDouble(state.speedMetersPerSecond,3)+" Turn Setpoint="+turn_ticks);
+        // }
+        // debug_ticks1++;
+
+        // turn.set(ControlMode.Position, turn_ticks); //Set the turn setpoint
     }
 
     /**

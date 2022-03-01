@@ -17,6 +17,9 @@
         "PowerDistribution[0]": {
           "open": true
         }
+      },
+      "window": {
+        "visible": true
       }
     },
     "Solenoids": {
@@ -92,8 +95,7 @@
           "open": true
         },
         "open": true
-      },
-      "open": true
+      }
     },
     "VisionInfo": {
       "open": true
