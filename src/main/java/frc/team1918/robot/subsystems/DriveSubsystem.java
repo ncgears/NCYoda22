@@ -60,6 +60,9 @@ public class DriveSubsystem extends SubsystemBase {
 		);
 
 		updateDashboard();
+		for (SwerveModule module: modules) {
+			module.updateDashboard();
+		}
 	}
 
 	/**
