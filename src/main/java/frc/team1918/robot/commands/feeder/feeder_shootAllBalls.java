@@ -49,6 +49,7 @@ public class feeder_shootAllBalls extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_feeder.ballsCleared();
+    return true; //until limit switches are working
+    // return m_feeder.ballsCleared();
   }
 }
