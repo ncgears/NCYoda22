@@ -100,7 +100,9 @@ public class SwerveModule {
      * @return The current state of the module.
      */
     public SwerveModuleState getState() {
-        double rawRpm = drive.getSelectedSensorVelocity();  //getEncoder().getVelocity();
+        //sensor velocity is NOT RPM, but in ticks per 100ms!
+        //double rawRpm = drive.getSelectedSensorVelocity();  //getEncoder().getVelocity();
+        double rawRpm = Helpers.General.ticksPer100msToRPS(drive.getSelectedSensorVelocity(), Constants.DriveTrain.DT_DRIVE_ENCODER_FULL_ROTATION, 1);
         double wheelRpm = Helpers.General.gearCalcDouble(rawRpm,Constants.DriveTrain.DT_DRIVE_FIRST_GEARONE,
             Constants.DriveTrain.DT_DRIVE_FIRST_GEARTWO,
             Constants.DriveTrain.DT_DRIVE_SECOND_GEARONE,
