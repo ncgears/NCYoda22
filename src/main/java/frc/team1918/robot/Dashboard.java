@@ -9,6 +9,7 @@ public class Dashboard {
     public static final class Climber {
         public static final void setClimberDirection(String direction) { SmartDashboard.putString("ClimberDirection", direction); }
         public static final void setClimberPosition(double position) { SmartDashboard.putNumber("ClimberPosition", position); }
+        public static final void setWhirlyPosition(String position) { SmartDashboard.putString("WhirlygigPosition", position); }
     }
     public static final class Shooter {
         public static final void setCurrentSpeed(double speed) { SmartDashboard.putNumber("ShootSpeed",speed); }

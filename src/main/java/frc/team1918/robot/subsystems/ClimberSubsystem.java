@@ -23,6 +23,8 @@ public class ClimberSubsystem extends SubsystemBase {
   private Solenoid whirlySolenoid; 
   private DigitalInput m_limitSwitchLeft, m_limitSwitchRight;
   private DigitalInput m_hook1CaptureSwitch, m_hook2CaptureSwitch;
+  public enum whirlyState {DOWN, UP;}
+  public whirlyState currentWhirlyState = whirlyState.DOWN;
   public enum latchState {NONE, BAR2LATCH, BAR2RELEASE, BAR3LATCH, BAR3RELEASE, BAR4LATCH, COMPLETE, ABORTED;}
   public latchState currentLatchState = latchState.NONE;
   
@@ -71,14 +73,14 @@ public class ClimberSubsystem extends SubsystemBase {
     climber_2.setNeutralMode(NeutralMode.Brake); 
     climber_2.follow(climber_1);
     climber_2.setInverted((Constants.Climber.isInvertedFromMaster_Motor2) ? InvertType.OpposeMaster : InvertType.FollowMaster);
-
   }
 
   /**
    * This function raises the Whirlygig. This cannot be undone except for releasing air pressure to reset.
    */
   public void raiseWhirlygig(boolean up) {
-    whirlySolenoid.set( (up) ? Constants.Air.stateWhirlygigUp : !Constants.Air.stateWhirlygigUp);
+    currentWhirlyState = (up) ? whirlyState.UP : whirlyState.DOWN;
+    whirlySolenoid.set((up) ? Constants.Air.stateWhirlygigUp : !Constants.Air.stateWhirlygigUp);
   }
 
   /**
@@ -156,15 +158,12 @@ public class ClimberSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run, usually used for updating dashboard data
     climber_2.follow(climber_1); //Make sure climber_2 is always following climber_1
-    Dashboard.Climber.setClimberPosition(getClimberPosition());
-    
-    if (leftLimitSwitchTouch()){
-      // reverse left arm
-    }
-    if (rightLimitSwitchTouch()){
-      // reverse right arm
-    }
-
-
+    updateDashboard();
   }
+
+  public void updateDashboard() {
+    Dashboard.Climber.setClimberPosition(getClimberPosition());
+    Dashboard.Climber.setWhirlyPosition(currentWhirlyState.toString());
+  }
+
 }
