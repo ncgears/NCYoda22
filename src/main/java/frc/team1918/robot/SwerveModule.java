@@ -131,8 +131,6 @@ public class SwerveModule {
             // Helpers.Debug.debug(moduleName+" desired mps: "+state.speedMetersPerSecond+" motorRpm: "+motorRpm);
             drive.set(ControlMode.Velocity, motorRpm, DemandType.ArbitraryFeedForward, feedforward.calculate(state.speedMetersPerSecond));
         } else {
-            // old way, which was not correct
-            // drive.set(state.speedMetersPerSecond);
             double percentOutput = state.speedMetersPerSecond / Constants.Swerve.kMaxSpeedMetersPerSecond;
             drive.set(ControlMode.PercentOutput, percentOutput);
         }
@@ -300,6 +298,10 @@ public class SwerveModule {
         turn.set(ControlMode.Position, et);
     }
 
+    public String getModuleName() {
+        return moduleName;
+    }
+
     /**
      * This function is used to output data to the dashboard for debugging the module, typically done in the {@link DriveSubsystem} periodic.
      */
@@ -310,5 +312,6 @@ public class SwerveModule {
         Dashboard.DriveTrain.setTurnVelocity(moduleName, turn.getSelectedSensorVelocity(0));
         Dashboard.DriveTrain.setTurnPositionErrorChange(moduleName, turn.getErrorDerivative(0));
         Dashboard.DriveTrain.setDriveVelocity(moduleName, drive.getSelectedSensorVelocity(0));
+        // Dashboard.DriveTrain.setDriveDistance(moduleName, drive.getDistance(0));
     }
 }

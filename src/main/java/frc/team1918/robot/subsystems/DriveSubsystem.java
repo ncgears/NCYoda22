@@ -31,6 +31,8 @@ public class DriveSubsystem extends SubsystemBase {
 	private static SwerveModule m_dtFR = new SwerveModule("dtFR", Constants.Swerve.FR.constants); // Front Right
 	private static SwerveModule m_dtRL = new SwerveModule("dtRL", Constants.Swerve.RL.constants); // Rear Left
 	private static SwerveModule m_dtRR = new SwerveModule("dtRR", Constants.Swerve.RR.constants); // Rear Right
+	private SwerveModule[] modules = {m_dtFL, m_dtFR, m_dtRL, m_dtRR};
+
 	//initialize gyro object
 	private static AHRS m_gyro = new AHRS(SPI.Port.kMXP);
 	//intialize odometry class for tracking robot pose
@@ -57,14 +59,7 @@ public class DriveSubsystem extends SubsystemBase {
 			m_dtRR.getState()
 		);
 
-		if(dash_gyro_ticks % 5 == 0) {
-			Dashboard.Gyro.setGyroAngle(Helpers.General.roundDouble(m_gyro.getAngle(),3)); 
-		} 
-		dash_gyro_ticks++;
-		if(dash_dt_ticks % 5 == 0) {
-			m_dtFL.updateDashboard();
-		}
-		dash_dt_ticks++;
+		updateDashboard();
 	}
 
 	/**
@@ -324,4 +319,13 @@ public class DriveSubsystem extends SubsystemBase {
 		m_dtRR.setBrakeMode("turn", b);
 	}
 	//#endregion MOTOR CONTROLLER STUFF
+
+	public static void updateDashboard() {
+		// Dashboard.DriveTrain.setHeading(getHeading().getDegrees());
+		// Dashboard.DriveTrain.setX(getPose().getX());
+		// Dashboard.DriveTrain.setY(getPose().getY());
+		// Dashboard.DriveTrain.setCurrentAngle(getPose().getRotation().getRadians());
+		// Dashboard.DriveTrain.setTargetAngle(m_targetPose.getRotation().getRadians());
+	}
+
 }

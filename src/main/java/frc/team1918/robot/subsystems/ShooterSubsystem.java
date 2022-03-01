@@ -59,7 +59,13 @@ public class ShooterSubsystem extends SubsystemBase {
       shoot.set(ControlMode.Velocity, Helpers.General.rpsToTicksPer100ms(m_shooter_rps, Constants.Shooter.kEncoderFullRotation, Constants.Shooter.kShooterReductionFactor)); //Set the target
       m_shooter_oldrps=m_shooter_rps;
     }
+    updateDashboard();
+  }
+
+  public void updateDashboard() {
     Dashboard.Shooter.setCurrentSpeed(getShooterSpeedRPS());
+    Dashboard.Shooter.setTargetSpeed(m_shooter_rps);
+    Dashboard.Shooter.setHoodPosition(m_hood.get());
   }
 
   public double getShooterSpeedRPS() {

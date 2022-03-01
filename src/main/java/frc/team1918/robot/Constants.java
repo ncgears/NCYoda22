@@ -194,7 +194,7 @@ public class Constants {
      */
     public static final class Climber {
         public static final boolean isDisabled = false; //Disable the climber subsystem
-        public static final boolean useAutoClimb = true; //Enable autoclimb function
+        public static final boolean useAutoClimb = false; //Enable autoclimb function
         public static final int id_Motor1 = ID.Talon.climber_master;
         public static final int id_Motor2 = ID.Talon.climber_follower; //follower of Motor1
         public static final int id_LimitWhirlyLeft = ID.DIO.whirly_limit_left; //DIO for left limit

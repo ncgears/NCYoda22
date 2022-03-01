@@ -21,11 +21,17 @@ public class Dashboard {
         public static final void setGyroAngle(double angle) { SmartDashboard.putNumber("GyroAngle",angle); }
     }
     public static final class DriveTrain {
-        public static final void setTurnPosition(String module, double value) { SmartDashboard.putNumber(module+" Position", value); }
-        public static final void setTurnSetpoint(String module, double value) { SmartDashboard.putNumber(module+" Setpoint", value); }
-        public static final void setTurnPositionError(String module, double value) { SmartDashboard.putNumber(module+" Position Error", value); }
-        public static final void setTurnVelocity(String module, double value) { SmartDashboard.putNumber(module+" Velocity", value); }
-        public static final void setTurnPositionErrorChange(String module, double value) { SmartDashboard.putNumber(module+" Position Error Change", value); }
-        public static final void setDriveVelocity(String module, double value) { SmartDashboard.putNumber(module+" Drive Velocity", value); }
+        public static final void setTurnPosition(String module, double value) { SmartDashboard.putNumber("Swerve/"+module+"/Position", value); }
+        public static final void setTurnSetpoint(String module, double value) { SmartDashboard.putNumber("Swerve/"+module+"/Setpoint", value); }
+        public static final void setTurnPositionError(String module, double value) { SmartDashboard.putNumber("Swerve/"+module+"/Position Error", value); }
+        public static final void setTurnVelocity(String module, double value) { SmartDashboard.putNumber("Swerve/"+module+"/Velocity", value); }
+        public static final void setTurnPositionErrorChange(String module, double value) { SmartDashboard.putNumber("Swerve/"+module+"/Position Error Change", value); }
+        public static final void setDriveVelocity(String module, double value) { SmartDashboard.putNumber("Swerve/"+module+"/Drive Velocity", value); }
+        public static final void setHeading(double value) { SmartDashboard.putNumber("Heading", value); }
+        public static final void setX(double value) { SmartDashboard.putNumber("Current X", value); }
+        public static final void setY(double value) { SmartDashboard.putNumber("Current Y", value); }
+        public static final void setCurrentAngle(double value) { SmartDashboard.putNumber("Current Angle", value); }
+        public static final void setTargetAngle(double value) { SmartDashboard.putNumber("Target Angle", value); }
+        public static final void setRotationPidOut(double value) { SmartDashboard.putNumber("Rotation PID Out", value); }
     }
 }
