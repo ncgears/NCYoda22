@@ -291,13 +291,6 @@ public class SwerveModule {
     }
 
     /**
-     * Stops the drive by setting the motor power to 0.
-     */
-    public void stopDrive() {
-        setDrivePower(0);
-    }
-
-    /**
      * Sets the brake mode for the motor controller
      * @param device String of either "turn" or "drive" indicating which device to set
      * @param brake Boolean indicating if the brake mode should be set to brake (true) or coast (false)
@@ -319,23 +312,6 @@ public class SwerveModule {
                 }
                 break;
         }
-    }
-
-    /**
-     * Sets the turn power to a specific PercentOutput
-     * @param p Double from -1 to 1 indicating the turn power, where 0.0 is stopped
-     */
-    public void setTurnPowerPercent(double p) {
-           turn.set(ControlMode.PercentOutput, p);
-    }
-
-    /**
-     * Sets the turn position to a specific setpoint using the current encoder (absolute or relative)
-     * @param et Encoder Ticks to turn module to.  This depends on which encoder is active.
-     */
-    public void setTurnLocationInEncoderTicks(double et) {
-        // System.out.print(moduleName + " setTurnLocationInEncoderTicks = "+et+"\n");
-        turn.set(ControlMode.Position, et);
     }
 
     public String getModuleName() {

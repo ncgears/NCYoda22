@@ -8,7 +8,7 @@ import frc.team1918.robot.Constants;
 import frc.team1918.robot.Dashboard;
 import frc.team1918.robot.Helpers;
 import frc.team1918.robot.SwerveModule;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 //kinematics and odometry
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -22,7 +22,7 @@ public class DriveSubsystem extends SubsystemBase {
 
 	private static DriveSubsystem instance;
 	private static double l = Constants.Global.ROBOT_LENGTH, w = Constants.Global.ROBOT_WIDTH, r = Math.sqrt((l * l) + (w * w));
-	private int debug_ticks, dash_gyro_ticks, dash_dt_ticks;
+	private int debug_ticks;
 	private static double desiredAngle; //Used for driveStraight function
 	private static boolean angleLocked = false;
 
@@ -45,14 +45,13 @@ public class DriveSubsystem extends SubsystemBase {
 	}
 
 	public DriveSubsystem() { //initialize the class
-		
 	}
 
 	@Override
 	public void periodic() {
 		// Update the odometry in the periodic block
 		m_odometry.update(
-			new Rotation2d(getHeading()),
+			getHeading(),
 			m_dtFL.getState(),
 			m_dtFR.getState(),
 			m_dtRL.getState(),
@@ -65,6 +64,14 @@ public class DriveSubsystem extends SubsystemBase {
 		}
 	}
 
+	public static void updateDashboard() {
+		// Dashboard.DriveTrain.setHeading(getHeading().getDegrees());
+		// Dashboard.DriveTrain.setX(getPose().getX());
+		// Dashboard.DriveTrain.setY(getPose().getY());
+		// Dashboard.DriveTrain.setCurrentAngle(getPose().getRotation().getRadians());
+		// Dashboard.DriveTrain.setTargetAngle(m_targetPose.getRotation().getRadians());
+	}
+
 	/**
 	 * Returns the currently-estimated pose of the robot.
 	 * @return The pose.
@@ -75,23 +82,16 @@ public class DriveSubsystem extends SubsystemBase {
 
 	/**
      * Returns the heading of the robot.
-     * @return the robot's heading in degrees, from -180 to 180
-     */
-	public double getHeading() {
-		return m_gyro.getRotation2d().getDegrees() * (Constants.Swerve.kGyroReversed ? -1.0 : 1.0);
-	}
-
-	/**
-     * Returns the heading of the robot.
      * @return the robot's heading as a Rotation2d
      */
-	public Rotation2d getHeadingAsRotation2d() {
+	public Rotation2d getHeading() {
 		double raw_yaw = m_gyro.getYaw();
 		double calc_yaw = raw_yaw;
 		if (0.0 > raw_yaw) { //yaw is negative
 			calc_yaw += 360.0;
 		}
-		return Rotation2d.fromDegrees(-calc_yaw); //TODO: Tie this to kGyroReversed, but move it out of swerve (why is it there?)
+		calc_yaw *= (Constants.Swerve.kGyroReversed ? -1.0 : 1.0);
+		return Rotation2d.fromDegrees(-calc_yaw);
 	}
 
 	/**
@@ -131,7 +131,6 @@ public class DriveSubsystem extends SubsystemBase {
 	 */
 	@SuppressWarnings("ParameterName")
 	public void drive(double fwd, double str, double rot, boolean fieldRelative) {
-
 		if(Constants.DriveTrain.useDriveStraight) {
 			if(rot == 0) { //We are not applying rotation
 				if(!angleLocked) { //We havent locked an angle, so lets save the desiredAngle and lock it
@@ -146,18 +145,17 @@ public class DriveSubsystem extends SubsystemBase {
 		double fwdMPS = fwd * Constants.DriveTrain.kMaxMetersPerSecond;
 		double strMPS = str * Constants.DriveTrain.kMaxMetersPerSecond;
 		double rotRPS = rot * Constants.DriveTrain.kMaxRotationRadiansPerSecond;
-		var swerveModuleStates =
-		Constants.Swerve.kDriveKinematics.toSwerveModuleStates(fieldRelative
-					? ChassisSpeeds.fromFieldRelativeSpeeds(fwdMPS, strMPS, rotRPS, getRot2d())
-					: new ChassisSpeeds(fwdMPS, strMPS, rotRPS));
+		ChassisSpeeds speeds = (fieldRelative) ? ChassisSpeeds.fromFieldRelativeSpeeds(fwdMPS, strMPS, rotRPS, getRot2d()) : new ChassisSpeeds(fwdMPS, strMPS, rotRPS);
+		if (speeds.vxMetersPerSecond == 0 && speeds.vyMetersPerSecond == 0 && speeds.omegaRadiansPerSecond == 0) {
+			brake();
+			return;
+		}
 		if (Helpers.Debug.debugThrottleMet(debug_ticks)) {
-			Helpers.Debug.debug((fieldRelative)
-			? ChassisSpeeds.fromFieldRelativeSpeeds(fwdMPS, strMPS, rotRPS, getRot2d()).toString()+" fieldCentric"
-			: new ChassisSpeeds(fwdMPS, strMPS, rotRPS).toString()+" robotCentric");
+			Helpers.Debug.debug( (fieldRelative) ? speeds.toString()+" fieldCentric" : speeds.toString()+" robotCentric");
 		}
 		debug_ticks++;
+		var swerveModuleStates = Constants.Swerve.kDriveKinematics.toSwerveModuleStates(speeds);
 		SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.kMaxSpeedMetersPerSecond);
-		// SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, Constants.Swerve.kMaxSpeedMetersPerSecond);
 		if(!Constants.Swerve.FL.isDisabled) m_dtFL.setDesiredState(swerveModuleStates[0]);
 		if(!Constants.Swerve.FR.isDisabled) m_dtFR.setDesiredState(swerveModuleStates[1]);
 		if(!Constants.Swerve.RL.isDisabled) m_dtRL.setDesiredState(swerveModuleStates[2]);
@@ -177,24 +175,11 @@ public class DriveSubsystem extends SubsystemBase {
 		if(!Constants.Swerve.RR.isDisabled) m_dtRR.setDesiredState(swerveModuleStates[3]);
 	}
 
+	//Stops all modules
 	public void brake() {
-		m_dtFL.setDesiredState(new SwerveModuleState(0, m_dtFL.getState().angle));
-		m_dtFR.setDesiredState(new SwerveModuleState(0, m_dtFR.getState().angle));
-		m_dtRL.setDesiredState(new SwerveModuleState(0, m_dtRL.getState().angle));
-		m_dtRR.setDesiredState(new SwerveModuleState(0, m_dtRR.getState().angle));
-	}
-
-	/**
-	 * This returns and angle correction (in degrees)
-	 * @param targetAngle [double] target angle (heading) of the robot in degrees
-	 * @param currentAngle [double] current angle (heading) of the robot in degrees
-	 * @param kP [double] proportional multiplier for straight angle correction
-	 * @return [double] Degrees of correction using kP multiplier (to control how quickly we correct back to straight)
-	 */
-	public double calcAngleStraight(double targetAngle, double currentAngle, double kP) {
-		double errorAngle = (targetAngle - currentAngle) % 360.0;
-		double correction = errorAngle * kP;
-		return correction;
+		for (SwerveModule module: modules) {
+			module.setDesiredState(new SwerveModuleState(0, module.getState().angle));
+		}
 	}
 
 	/**
@@ -210,84 +195,24 @@ public class DriveSubsystem extends SubsystemBase {
 		m_dtRR.setDesiredState(desiredStates[3]);
 	}
 
+	/**
+	 * This returns and angle correction (in degrees)
+	 * @param targetAngle [double] target angle (heading) of the robot in degrees
+	 * @param currentAngle [double] current angle (heading) of the robot in degrees
+	 * @param kP [double] proportional multiplier for straight angle correction
+	 * @return [double] Degrees of correction using kP multiplier (to control how quickly we correct back to straight)
+	 */
+	public double calcAngleStraight(double targetAngle, double currentAngle, double kP) {
+		double errorAngle = (targetAngle - currentAngle) % 360.0;
+		double correction = errorAngle * kP;
+		return correction;
+	}
+
+	//#region GYRO STUFF
 	public static AHRS getm_gyro() {
         return m_gyro;
 	}
 
-	public static void setDrivePower(double flPower, double frPower, double rlPower, double rrPower) {
-		if (!Constants.DriveTrain.DT_DRIVE_DISABLED) {
-			m_dtFL.setDrivePower(flPower);
-			m_dtFR.setDrivePower(frPower);
-			m_dtRL.setDrivePower(rlPower);
-			m_dtRR.setDrivePower(rrPower);
-		}
-	}
-
-	public static void setTurnPower(double flPower, double frPower, double rlPower, double rrPower) {
-	    m_dtFL.setTurnPower(flPower);
-		m_dtFR.setTurnPower(frPower);
-		m_dtRL.setTurnPower(rlPower);
-		m_dtRR.setTurnPower(rrPower);
-	}
-
-	public static void setLocation(double flLoc, double frLoc, double rlLoc, double rrLoc) {
-	    m_dtFL.setTurnLocation(flLoc);
-		m_dtFR.setTurnLocation(frLoc);
-		m_dtRL.setTurnLocation(rlLoc);
-		m_dtRR.setTurnLocation(rrLoc);
-	}
-
-	public void stopAllDrive() {
-	    m_dtFL.stopDrive();
-		m_dtFR.stopDrive();
-		m_dtRL.stopDrive();
-		m_dtRR.stopDrive();
-	}
-
-	/*
-	 * Drive methods
-	 */
-	public static void swerveDrive(double fwd, double str, double rot) {
-		double a = str - (rot * (l / r));
-		double b = str + (rot * (l / r));
-		double c = fwd - (rot * (w / r));
-		double d = fwd + (rot * (w / r));
-
-		//Wheel Speed
-		double ws1 = Math.sqrt((b * b) + (c * c)); //FR
-		double ws2 = Math.sqrt((a * a) + (c * c)); //RR
-		double ws3 = Math.sqrt((a * a) + (d * d)); //RL
-		double ws4 = Math.sqrt((b * b) + (d * d)); //FL
-
-		//Wheel Angle
-		double wa1 = Math.atan2(b, c); //FR
-		double wa2 = Math.atan2(a, c); //RR
-		double wa3 = Math.atan2(a, d); //RL
-		double wa4 = Math.atan2(b, d); //FL
-
-		double max = ws1;
-		max = Math.max(max, ws2);
-		max = Math.max(max, ws3);
-		max = Math.max(max, ws4);
-		if (max > 1) {
-			ws1 /= max;
-			ws2 /= max;
-			ws3 /= max;
-			ws4 /= max;
-		}
-		SmartDashboard.putNumber("ws1", ws1);
-		SmartDashboard.putNumber("ws2", ws2);
-		SmartDashboard.putNumber("ws3", ws3);
-		SmartDashboard.putNumber("ws4", ws4);
-		SmartDashboard.putNumber("wa1", wa1);
-		SmartDashboard.putNumber("wa2", wa2);
-		SmartDashboard.putNumber("wa3", wa3);
-		SmartDashboard.putNumber("wa4", wa4);
-
-		DriveSubsystem.setDrivePower(ws4, ws1, ws3, ws2);
-		DriveSubsystem.setLocation(wa4, wa1, wa3, wa2);
-	}
-	//#region GYRO STUFF
 	public void resetGyro() {
 		Helpers.Debug.debug("Gyro Reset");
 		m_gyro.reset();
@@ -308,27 +233,16 @@ public class DriveSubsystem extends SubsystemBase {
 	//#endregion GYRO STUFF
 
 	//#region MOTOR CONTROLLER STUFF
-	public static void setAllDriveBrakeMode(boolean b) {
-		m_dtFL.setBrakeMode("drive", b);
-		m_dtFR.setBrakeMode("drive", b);
-		m_dtRL.setBrakeMode("drive", b);
-		m_dtRR.setBrakeMode("drive", b);
+	public void setAllDriveBrakeMode(boolean b) {
+		for (SwerveModule module: modules) {
+			module.setBrakeMode("drive",b);
+		}
 	}
 
-	public static void setAllTurnBrakeMode(boolean b) {
-		m_dtFL.setBrakeMode("turn", b);
-		m_dtFR.setBrakeMode("turn", b);
-		m_dtRL.setBrakeMode("turn", b);
-		m_dtRR.setBrakeMode("turn", b);
+	public void setAllTurnBrakeMode(boolean b) {
+		for (SwerveModule module: modules) {
+			module.setBrakeMode("turn", b);
+		}
 	}
 	//#endregion MOTOR CONTROLLER STUFF
-
-	public static void updateDashboard() {
-		// Dashboard.DriveTrain.setHeading(getHeading().getDegrees());
-		// Dashboard.DriveTrain.setX(getPose().getX());
-		// Dashboard.DriveTrain.setY(getPose().getY());
-		// Dashboard.DriveTrain.setCurrentAngle(getPose().getRotation().getRadians());
-		// Dashboard.DriveTrain.setTargetAngle(m_targetPose.getRotation().getRadians());
-	}
-
 }

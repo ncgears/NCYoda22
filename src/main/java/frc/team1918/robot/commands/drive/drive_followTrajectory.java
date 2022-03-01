@@ -41,7 +41,7 @@ public class drive_followTrajectory extends CommandBase {
     m_timer.reset();
     m_timer.start();
     m_drive.resetOdometry(m_trajectory.getInitialPose());
-    m_offset = (m_drive.getHeadingAsRotation2d()).minus(m_trajectory.getInitialPose().getRotation()); //may also add vision offset?
+    m_offset = (m_drive.getHeading()).minus(m_trajectory.getInitialPose().getRotation()); //may also add vision offset?
 
     m_xController = new PIDController(Constants.Auton.kPTranslationController, 0, 0);
     m_yController = new PIDController(Constants.Auton.kPTranslationController, 0, 0);
@@ -67,7 +67,7 @@ public class drive_followTrajectory extends CommandBase {
     double vy = m_yController.calculate(currentPose.getY(), dt) + refState.velocity.y;
     double omega = -m_thetaController.calculate(currentPose.getRotation().getRadians(), dt) - refState.velocity.z;
 
-    m_drive.drive(ChassisSpeeds.fromFieldRelativeSpeeds(vx, vy, omega, m_drive.getHeadingAsRotation2d().minus(m_offset)), true);
+    m_drive.drive(ChassisSpeeds.fromFieldRelativeSpeeds(vx, vy, omega, m_drive.getHeading().minus(m_offset)), true);
     m_lastTime = time;
   }
 
