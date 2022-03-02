@@ -28,7 +28,7 @@ public class climber_autoClimb extends CommandBase {
    */
   public climber_autoClimb(ClimberSubsystem climb) {
     m_climber = climb;
-    m_debounce = new Debouncer(1.0, DebounceType.kFalling);
+    m_debounce = new Debouncer(1.0, DebounceType.kRising);
     // Use addRequirements() here to declare subsystem dependencies.
     // addRequirements(subsystem);
   }
@@ -88,7 +88,6 @@ public class climber_autoClimb extends CommandBase {
         if(m_climber.getHookLatch(2)) {
           Helpers.Debug.debug("Auto-climb: Bar3 Latched");
           Helpers.Debug.debug("Auto-climb: Bar2 Do Release");
-          // new climber_lockHook(m_climber,1).beforeStarting(new climber_unlockHook(m_climber,1).andThen(new WaitCommand(Constants.Climber.kHookReleaseTime)));
           m_climber.setHookMode(1, true);
           m_climber.setLatchState(latchState.BAR2RELEASE);
         }
@@ -104,13 +103,12 @@ public class climber_autoClimb extends CommandBase {
         if(m_climber.getHookLatch(1)) {
           Helpers.Debug.debug("Auto-climb: Bar4 Latch");
           Helpers.Debug.debug("Auto-climb: Bar3 Do Release");
-          // new climber_lockHook(m_climber,2).beforeStarting(new climber_unlockHook(m_climber,2).andThen(new WaitCommand(Constants.Climber.kHookReleaseTime)));
           m_climber.setHookMode(2, true);
           m_climber.setLatchState(latchState.BAR3RELEASE);
         }
         break;
       case BAR3RELEASE: //We have to wait here to make sure we let go of Bar 3
-        if(!m_climber.getHookLatch(2)) {
+        if(m_debounce.calculate(!m_climber.getHookLatch(2))) {
           Helpers.Debug.debug("Auto-climb: Bar3 Released");
           m_climber.setHookMode(2, false);
           m_climber.setLatchState(latchState.BAR4LATCH);
