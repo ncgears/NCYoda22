@@ -40,9 +40,9 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public boolean getHookLatch(int hook) {
-    if (hook==1) return m_hook1CaptureSwitchLeft.get();
-    if (hook==2) return m_hook2CaptureSwitch.get();
-    if (hook==3) return m_hook1CaptureSwitchRight.get();
+    if (hook==1) return !m_hook1CaptureSwitchLeft.get();
+    if (hook==2) return !m_hook2CaptureSwitch.get();
+    if (hook==3) return !m_hook1CaptureSwitchRight.get();
     return false;
   }
 

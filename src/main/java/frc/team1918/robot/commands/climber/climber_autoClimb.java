@@ -11,6 +11,8 @@ import frc.team1918.robot.Constants;
 import frc.team1918.robot.Helpers;
 import frc.team1918.robot.subsystems.ClimberSubsystem;
 import frc.team1918.robot.subsystems.ClimberSubsystem.latchState;
+import edu.wpi.first.math.filter.Debouncer;
+import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -19,12 +21,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class climber_autoClimb extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"}) //Dont add "unused" under normal operation
   private final ClimberSubsystem m_climber;
+  private final Debouncer m_debounce;
 
   /**
    * @param subsystem The subsystem used by this command.
    */
   public climber_autoClimb(ClimberSubsystem climb) {
     m_climber = climb;
+    m_debounce = new Debouncer(1.0, DebounceType.kFalling);
     // Use addRequirements() here to declare subsystem dependencies.
     // addRequirements(subsystem);
   }
@@ -90,7 +94,7 @@ public class climber_autoClimb extends CommandBase {
         }
         break;
       case BAR2RELEASE: //We have to wait here to make sure we let go of Bar 2
-        if(!m_climber.getHookLatch(1)) {
+        if(m_debounce.calculate(!m_climber.getHookLatch(1))) {
           Helpers.Debug.debug("Auto-climb: Bar2 Released");
           m_climber.setHookMode(1, false);
           m_climber.setLatchState(latchState.BAR3LATCH);

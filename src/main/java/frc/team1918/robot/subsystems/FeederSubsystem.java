@@ -15,6 +15,7 @@ public class FeederSubsystem extends SubsystemBase {
   private WPI_TalonFX m_feeder; // feeder controller
   private DigitalInput m_beam_intake; //First Beam Break (at intake)
   private DigitalInput m_beam_shooter; //Second Beam Break (before shooter)
+  private DigitalInput m_feeder_switch; //Shoe switch
 
 //TODO: See https://www.chiefdelphi.com/t/code-for-ir-break-beam/396373/4 for beam break examples and triggers
 
@@ -25,6 +26,7 @@ public class FeederSubsystem extends SubsystemBase {
     // Setup the beam breaks
     m_beam_intake = new DigitalInput(Constants.Feeder.id_BeamBreak1);
     m_beam_shooter = new DigitalInput(Constants.Feeder.id_BeamBreak2);
+    m_feeder_switch = new DigitalInput(Constants.Feeder.id_FeederSwitch);
     // Setup the feeder
     m_feeder = new WPI_TalonFX(Constants.Feeder.id_Motor1);
     m_feeder.configFactoryDefault();
@@ -63,6 +65,11 @@ public class FeederSubsystem extends SubsystemBase {
     // Helpers.Debug.debug("Sensor="+m_beam_shooter.get(),1000);
     return !m_beam_shooter.get();
     // return false;
+  }
+
+  public boolean hasBall() {
+    Helpers.Debug.debug("hasBall="+m_feeder_switch.get());
+    return m_feeder_switch.get();
   }
 
   public boolean ballsCleared() {

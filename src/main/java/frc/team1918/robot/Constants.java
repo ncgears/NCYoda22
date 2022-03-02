@@ -23,8 +23,8 @@ public class Constants {
             public static int beambreak_top = 0;
             public static int beambreak_bottom = 1;
             public static int feeder_switch = 2;
-            public static int whirly_hook1_capture_left = 3;
-            public static int whirly_hook1_capture_right = 4;
+            public static int whirly_hook1_capture_left = 4;
+            public static int whirly_hook1_capture_right = 3;
             public static int whirly_hook2_capture = 5;
         }
         /**
@@ -140,6 +140,7 @@ public class Constants {
         public static final boolean isDisabled = false; //Disable the feeder subsystem
         public static final int id_BeamBreak1 = ID.DIO.beambreak_bottom; //ID of the Beam Break 1 DIO (intake)
         public static final int id_BeamBreak2 = ID.DIO.beambreak_top; //ID of the Beam Break 2 DIO (shooter)
+        public static final int id_FeederSwitch = ID.DIO.feeder_switch; //ID of the Shoe Switch
         public static final int id_Motor1 = ID.Talon.feeder; //ID of the Feeder Motor 1 Controller
         public static final boolean isInverted_Motor1 = true; //Invert motor direction
         public static final double speed_Motor1 = 1.0; //Feeder Motor 1 Speed
@@ -205,7 +206,7 @@ public class Constants {
         public static final boolean isInvertedFromMaster_Motor2 = true; //false for same direction as master
         public static final boolean isSensorInverted_Motor1 = false;
         public static final boolean isSensorNotContinuous = false;
-        public static final double kClimberSpeed = 0.9; //Speed at which the climber controllers operate (in fixed speed mode)
+        public static final double kClimberSpeed = 0.1; //Speed at which the climber controllers operate (in fixed speed mode)
         public static final double kHookReleaseTime = 2.0; //Time in seconds to wait before re-locking hook after unlocking
         public static final double kP = 0.2;
         public static final double kI = 0.0;

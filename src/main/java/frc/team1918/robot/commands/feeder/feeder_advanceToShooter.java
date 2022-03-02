@@ -48,7 +48,7 @@ public class feeder_advanceToShooter extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_feeder.hasSecondBall();
+    return m_feeder.hasBall();
     // return true;
   }
 }
