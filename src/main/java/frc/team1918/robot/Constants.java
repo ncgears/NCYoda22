@@ -98,7 +98,7 @@ public class Constants {
      */
     public static final class Auton {
         public static final boolean isDisabled = false; //Disable autonomous
-        public static final String autonToRun = "auton_4BallAuto"; //Name of the auton to run (these are in the bottom of RobotContainer)
+        public static final String autonToRun = "auton_BasicAuto"; //4BallAuto, BasicAuto, None //Name of the auton to run (these are in the bottom of RobotContainer)
         public static final double kMaxSpeedMetersPerSecond = 0.5;
         public static final double kMaxAccelMetersPerSecondSquared = 0.1;
         public static final double kMaxOmega = (kMaxSpeedMetersPerSecond / Math.hypot(0.5461 / 2.0, 0.6477 / 2.0));
@@ -172,7 +172,7 @@ public class Constants {
 
         public static final class Shots {
             public static final class DEFAULT {
-                public static final int kSpeed = 73;
+                public static final int kSpeed = 77;
                 public static final boolean kHood = !Air.stateHoodUp;
             }
             public static final class LOW {

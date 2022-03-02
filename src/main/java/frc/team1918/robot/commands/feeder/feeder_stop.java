@@ -34,6 +34,12 @@ public class feeder_stop extends CommandBase {
     m_feeder.stopFeeder();
   }
 
+  // Allow the command to run while disabled
+  @Override
+  public boolean runsWhenDisabled() {
+    return true;
+  }
+
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
