@@ -15,7 +15,7 @@ public class OrchestraSubsystem extends SubsystemBase {
     private String[] songs = new String[] {"Rickroll.chrp", "Megalovania.chrp", "Still-Alive.chrp", "Brawl-Theme.chrp"}; //Song Array
     /* When adding a new song, make sure the midi file has separate parts for each note.
        If it doesn't, the song won't play correctly */
-    private int songSelection = 0;
+    private int songSelection = 0; //Defaults to rickrolling everyone, as it should.
     private boolean orchestraPlaying = false;
 
     public void stopMusic(){
@@ -35,7 +35,7 @@ public class OrchestraSubsystem extends SubsystemBase {
 
     public void playMusic(){
         orchestra.play();
-        Helpers.Debug.debug("Orchestra: Playing Song");
+        Helpers.Debug.debug("Orchestra: Playing " +songs[songSelection]);
     }
 
     public void createOrchestra(){
@@ -51,12 +51,12 @@ public class OrchestraSubsystem extends SubsystemBase {
 
     public void increaseSong(){
         songSelection++;
-        Helpers.Debug.debug("Orchestra: Song "+songSelection+" Selected");
+        Helpers.Debug.debug("Orchestra: Song "+songs[songSelection]+" Selected");
     }
 
     public void decreaseSong(){
         songSelection--;
-        Helpers.Debug.debug("Orchestra: Song "+songSelection+" Selected");
+        Helpers.Debug.debug("Orchestra: Song "+songs[songSelection]+" Selected");
     }
     public int getSong(){
         return songSelection;
