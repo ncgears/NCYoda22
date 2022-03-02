@@ -173,7 +173,7 @@ public class Constants {
         public static final class Shots {
             public static final class DEFAULT {
                 public static final int kSpeed = 73;
-                public static final boolean kHood = Air.stateHoodUp;
+                public static final boolean kHood = !Air.stateHoodUp;
             }
             public static final class LOW {
                 public static final int kSpeed = 60;
