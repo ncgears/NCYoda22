@@ -159,7 +159,7 @@ public class SwerveModule {
         turn.set(ControlMode.Position, turn_ticks);
 
         //Display output for debugging
-        if(Helpers.Debug.debugThrottleMet(debug_ticks1)) {
+        if(Helpers.Debug.debugThrottleMet(debug_ticks1) && state.speedMetersPerSecond != 0.0) {
             Helpers.Debug.debug(moduleName+" Speed (metersPerSecond)="+Helpers.General.roundDouble(state.speedMetersPerSecond,3)+" Turn Setpoint="+turn_ticks);
         }
         debug_ticks1++;
