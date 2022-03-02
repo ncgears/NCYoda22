@@ -147,8 +147,8 @@ public class RobotContainer {
       btn_ReleaseHook2.whenPressed(new climber_lockHook(m_climber,2).beforeStarting(new climber_unlockHook(m_climber,2).andThen(new WaitCommand(Constants.Climber.kHookReleaseTime))));
       btn_LockHooks.whenPressed(new climber_lockHook(m_climber, 1).alongWith(new climber_lockHook(m_climber, 2)));
     }
-    btn_IntakeForward.whenPressed(new feeder_advanceToShooter(m_feeder));
-    // btn_IntakeForward.whenPressed(new cg_collector_intakeAndFeed(m_collector, m_feeder)).whenReleased(new collector_intakeStop(m_collector).andThen(new collector_retractIntake(m_collector)));
+    // btn_IntakeForward.whenPressed(new feeder_advanceToShooter(m_feeder));
+    btn_IntakeForward.whenPressed(new cg_collector_intakeAndFeed(m_collector, m_feeder)).whenReleased(new collector_intakeStop(m_collector).andThen(new collector_retractIntake(m_collector)));
     btn_IntakeReverse.whenPressed(new collector_intakeReverse(m_collector)).whenReleased(new collector_intakeStop(m_collector));
     btn_ShootLow.whenPressed(new shooter_shootNamed(m_shooter, namedShots.LOW));
     btn_ShootBumper.whenPressed(new shooter_shootNamed(m_shooter, namedShots.BUMPER));

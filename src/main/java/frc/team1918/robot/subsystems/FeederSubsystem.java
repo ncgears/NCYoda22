@@ -68,12 +68,7 @@ public class FeederSubsystem extends SubsystemBase {
   }
 
   public boolean hasBall() {
-    if(!m_feeder_switch.get()) Helpers.Debug.debug("Feeder: has a ball");
+    // if(!m_feeder_switch.get()) Helpers.Debug.debug("Feeder: has a ball");
     return !m_feeder_switch.get();
-  }
-
-  public boolean ballsCleared() {
-    Debouncer m_debouncer = new Debouncer(Constants.Feeder.debounce_delay, Debouncer.DebounceType.kFalling);
-    return m_debouncer.calculate(hasFirstBall() || hasSecondBall());
   }
 }
