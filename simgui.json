@@ -6,6 +6,11 @@
       }
     },
     "Other Devices": {
+      "Talon SRX[16]": {
+        "header": {
+          "open": true
+        }
+      },
       "navX-Sensor[0]": {
         "header": {
           "open": true

@@ -9,6 +9,7 @@ package frc.team1918.robot.commands.collector;
 
 import frc.team1918.robot.Helpers;
 import frc.team1918.robot.subsystems.CollectorSubsystem;
+import frc.team1918.robot.subsystems.CollectorSubsystem.intakeDirection;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -24,7 +25,7 @@ public class collector_intakeReverse extends CommandBase {
   public collector_intakeReverse(CollectorSubsystem subsystem) {
     m_collector = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    // addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -42,11 +43,18 @@ public class collector_intakeReverse extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    if(m_collector.currentIntakeDirection == intakeDirection.FORWARD) {
+      Helpers.Debug.debug("Collector: Intake Forward");
+      m_collector.startIntake(false);
+    } else {
+      Helpers.Debug.debug("Collector: Intake Stop");
+      m_collector.stopIntake();
+    }
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }
