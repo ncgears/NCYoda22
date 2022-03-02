@@ -30,7 +30,7 @@ public class OrchestraSubsystem extends SubsystemBase {
         if (selection > songs.length) {selection = songs.length;}
         orchestra.loadMusic(songs[selection]);
         Helpers.Debug.debug("Orchestra: Loaded Song: " +songs[selection]);
-        new WaitCommand(1.0);
+        new WaitCommand(0.5);
       }
 
     public void playMusic(){
