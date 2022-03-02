@@ -51,6 +51,7 @@ public class shooter_stopShooter extends CommandBase {
     Helpers.Debug.debug("Shooter: Stop Shooter");
     m_shooter.raiseHood(!Constants.Air.stateHoodUp);
     m_shooter.stopShooter();
+    m_shooter.stopPreShooter();
   }
 
   // Returns true when the command should end.
