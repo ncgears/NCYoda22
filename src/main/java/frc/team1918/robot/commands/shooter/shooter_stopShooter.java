@@ -36,7 +36,13 @@ public class shooter_stopShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-}
+  }
+
+  // Allow the command to run while disabled
+  @Override
+  public boolean runsWhenDisabled() {
+    return true;
+  }
 
   // Called once the command ends or is interrupted.
   @Override
