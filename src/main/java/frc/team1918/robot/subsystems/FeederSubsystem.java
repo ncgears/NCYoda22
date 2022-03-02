@@ -68,8 +68,8 @@ public class FeederSubsystem extends SubsystemBase {
   }
 
   public boolean hasBall() {
-    Helpers.Debug.debug("hasBall="+m_feeder_switch.get());
-    return m_feeder_switch.get();
+    if(!m_feeder_switch.get()) Helpers.Debug.debug("Feeder: has a ball");
+    return !m_feeder_switch.get();
   }
 
   public boolean ballsCleared() {
