@@ -35,6 +35,12 @@ public class collector_intakeStop extends CommandBase {
     m_collector.setIntakeDirection(intakeDirection.STOP);
     m_collector.stopIntake();
   }
+  
+  // Allow the command to run while disabled
+  @Override
+  public boolean runsWhenDisabled() {
+    return true;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
