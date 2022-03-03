@@ -42,7 +42,7 @@ public class Constants {
          * IDs of Talons
          */
         public static final class Talon {
-            public static int swerve_fr_turn = 4;
+            public static int swerve_fr_turn = 1;
             public static int feeder = 6;
             public static int swerve_fl_turn = 7;
             public static int swerve_rl_turn = 8;
@@ -195,8 +195,8 @@ public class Constants {
      */
     public static final class Climber {
         public static final boolean isDisabled = false; //Disable the climber subsystem
-        public static final boolean useAutoClimb = false; //Enable autoclimb function
-        public static final boolean requireCaptureBothSides = false; //Require left+right capture to start autoclimb
+        public static final boolean useAutoClimb = true; //Enable autoclimb function
+        public static final boolean requireCaptureBothSides = true; //Require left+right capture to start autoclimb
         public static final int id_Motor1 = ID.Talon.climber_master;
         public static final int id_Motor2 = ID.Talon.climber_follower; //follower of Motor1
         public static final int id_CaptureHook1Left = ID.DIO.whirly_hook1_capture_left; //DIO for hook1 capture left
