@@ -172,15 +172,15 @@ public class Constants {
 
         public static final class Shots {
             public static final class DEFAULT {
-                public static final int kSpeed = 77;
+                public static final int kSpeed = 69;
                 public static final boolean kHood = !Air.stateHoodUp;
             }
             public static final class LOW {
-                public static final int kSpeed = 60;
+                public static final int kSpeed = 33;
                 public static final boolean kHood = Air.stateHoodUp;
             }
             public static final class BUMPER {
-                public static final int kSpeed = 77;
+                public static final int kSpeed = 68;
                 public static final boolean kHood = !Air.stateHoodUp;
             }
             public static final class LINE {
@@ -195,7 +195,7 @@ public class Constants {
      */
     public static final class Climber {
         public static final boolean isDisabled = false; //Disable the climber subsystem
-        public static final boolean useAutoClimb = true; //Enable autoclimb function
+        public static final boolean useAutoClimb = false; //Enable autoclimb function
         public static final boolean requireCaptureBothSides = false; //Require left+right capture to start autoclimb
         public static final int id_Motor1 = ID.Talon.climber_master;
         public static final int id_Motor2 = ID.Talon.climber_follower; //follower of Motor1
@@ -206,7 +206,7 @@ public class Constants {
         public static final boolean isInvertedFromMaster_Motor2 = true; //false for same direction as master
         public static final boolean isSensorInverted_Motor1 = false;
         public static final boolean isSensorNotContinuous = false;
-        public static final double kClimberSpeed = 0.1; //Speed at which the climber controllers operate (in fixed speed mode)
+        public static final double kClimberSpeed = 0.9; //Speed at which the climber controllers operate (in fixed speed mode)
         public static final double kHookReleaseTime = 2.0; //Time in seconds to wait before re-locking hook after unlocking
         public static final double kP = 0.2;
         public static final double kI = 0.0;
