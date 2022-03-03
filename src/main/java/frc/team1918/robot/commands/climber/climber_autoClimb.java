@@ -21,14 +21,16 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class climber_autoClimb extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"}) //Dont add "unused" under normal operation
   private final ClimberSubsystem m_climber;
-  private final Debouncer m_debounce;
+  private final Debouncer m_releaseDebounce;
+  private final Debouncer m_captureDebounce;
 
   /**
    * @param subsystem The subsystem used by this command.
    */
   public climber_autoClimb(ClimberSubsystem climb) {
     m_climber = climb;
-    m_debounce = new Debouncer(1.0, DebounceType.kRising);
+    m_releaseDebounce = new Debouncer(Constants.Climber.kHookReleaseTime, DebounceType.kRising);
+    m_captureDebounce = new Debouncer(Constants.Climber.kHookCaptureTime, DebounceType.kFalling);
     // Use addRequirements() here to declare subsystem dependencies.
     // addRequirements(subsystem);
   }
@@ -85,7 +87,7 @@ public class climber_autoClimb extends CommandBase {
         }
         break;
       case BAR2LATCH:
-        if(m_climber.getHookLatch(2)) {
+        if(m_captureDebounce.calculate(m_climber.getHookLatch(2))) {
           Helpers.Debug.debug("Auto-climb: Bar3 Latched");
           Helpers.Debug.debug("Auto-climb: Bar2 Do Release");
           m_climber.setHookMode(1, true);
@@ -93,14 +95,14 @@ public class climber_autoClimb extends CommandBase {
         }
         break;
       case BAR2RELEASE: //We have to wait here to make sure we let go of Bar 2
-        if(m_debounce.calculate(!m_climber.getHookLatch(1))) {
+        if(m_releaseDebounce.calculate(!m_climber.getHookLatch(1))) {
           Helpers.Debug.debug("Auto-climb: Bar2 Released");
           m_climber.setHookMode(1, false);
           m_climber.setLatchState(latchState.BAR3LATCH);
         }
         break;
       case BAR3LATCH:
-        if(m_climber.getHookLatch(1)) {
+        if(m_captureDebounce.calculate(m_climber.getHookLatch(1))) {
           Helpers.Debug.debug("Auto-climb: Bar4 Latch");
           Helpers.Debug.debug("Auto-climb: Bar3 Do Release");
           m_climber.setHookMode(2, true);
@@ -108,7 +110,7 @@ public class climber_autoClimb extends CommandBase {
         }
         break;
       case BAR3RELEASE: //We have to wait here to make sure we let go of Bar 3
-        if(m_debounce.calculate(!m_climber.getHookLatch(2))) {
+        if(m_releaseDebounce.calculate(!m_climber.getHookLatch(2))) {
           Helpers.Debug.debug("Auto-climb: Bar3 Released");
           m_climber.setHookMode(2, false);
           m_climber.setLatchState(latchState.BAR4LATCH);
