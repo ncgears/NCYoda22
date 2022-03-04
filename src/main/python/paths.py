@@ -31,27 +31,27 @@ def main():
     #     "Test"
     # )
 
-    generator.generate(
-        [[0,0,0],
-        [1.0,0,0]],
-        "OneMeterForward"
-    )
+    # generator.generate(
+    #     [[0,0,0],
+    #     [1.0,0,0]],
+    #     "OneMeterForward"
+    # )
+
+    # generator.generate(
+    #     [[0,0,0],
+    #     [-1.0,0,0]],
+    #     "OneMeterBackward"
+    # )
+
+    # generator.generate(
+    #     [[0,0,0],
+    #     [2.0,0,0]],
+    #     "TwoMetersForward"
+    # )
 
     generator.generate(
         [[0,0,0],
-        [-1.0,0,0]],
-        "OneMeterBackward"
-    )
-
-    generator.generate(
-        [[0,0,0],
-        [2.0,0,0]],
-        "TwoMetersForward"
-    )
-
-    generator.generate(
-        [[0,0,0],
-        [-2.0,0,0]],
+        [-3.1,0,0]],
         "TwoMetersBackward"
     )
 
