@@ -44,8 +44,8 @@ public class cg_auton_BasicDriveAuto extends SequentialCommandGroup {
         new collector_deployIntake(m_collector), //deploy collector
         new ParallelDeadlineGroup( //do until trajectory complete
           // new WaitCommand(3.0), //placeholder for trajectory follower
-          new drive_followTrajectory(m_drive, new TwoMetersForward()),
-          new helpers_debugMessage("Auton: followTrajectory - TwoMetersForward"), //move to ball1
+          new drive_followTrajectory(m_drive, new TwoMetersBackward()),
+          new helpers_debugMessage("Auton: followTrajectory - TwoMetersBackward"), //move to ball1
           new collector_intakeForward(m_collector) //start collector
         ),
         new helpers_debugMessage("Auton: Stop and Retract Intake"),
