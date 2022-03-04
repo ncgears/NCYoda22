@@ -193,8 +193,10 @@ public class RobotContainer {
         return new cg_resetRobot(m_collector, m_climber, m_feeder, m_shooter);
         case "auton_4BallAuto":
         return new cg_auton_4BallAuto(m_drive, m_collector, m_feeder, m_shooter);
-        case "auton_BasicAuto":
-        return new cg_auton_BasicAuto(m_drive, m_collector, m_feeder, m_shooter);
+        case "auton_BasicShootingAuto":
+        return new cg_auton_BasicShootingAuto(m_drive, m_collector, m_feeder, m_shooter);
+        case "auton_BasicDriveAuto":
+        return new cg_auton_BasicDriveAuto(m_drive, m_collector, m_feeder, m_shooter);
       default:
         return null;
     }

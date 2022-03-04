@@ -34,16 +34,28 @@ def main():
     )
 
     generator.generate(
-        [[-1.0,0,-0.15],
-        [0,2,-math.pi/2],
-        [-0.42,6.121,-1]],
-        "CollectBall3AndBall4"
+        [[0,0,0],
+        [-2.0,0,-0.15]],
+        "TwoMetersForward"
     )
 
     generator.generate(
-        [[-0.42,6.121,-1],
-        [-0.2,0.5,-0.575]],
-        "GoHome"
+        [[0,0,0],
+        [2.0,0,-0.15]],
+        "TwoMetersBackward"
     )
+
+    # generator.generate(
+    #     [[-1.0,0,-0.15],
+    #     [0,2,-math.pi/2],
+    #     [-0.42,6.121,-1]],
+    #     "CollectBall3AndBall4"
+    # )
+
+    # generator.generate(
+    #     [[-0.42,6.121,-1],
+    #     [-0.2,0.5,-0.575]],
+    #     "GoHome"
+    # )
 
 main()
