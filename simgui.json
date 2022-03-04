@@ -89,7 +89,9 @@
       "AutonSubsystem": {
         "open": true
       },
-      "open": true
+      "Ungrouped": {
+        "open": true
+      }
     },
     "SmartDashboard": {
       "open": true

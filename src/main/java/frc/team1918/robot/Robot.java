@@ -10,6 +10,8 @@ package frc.team1918.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -25,10 +27,10 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   public Alliance m_alliance;
   private Command m_autonomousCommand;
-  private Command m_dc1, m_dc2;
   private Command m_disableCommand;
   // private Command m_initOdom;
   // private Command m_resetGyro;
+  private SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   private RobotContainer m_robotContainer;
 
@@ -41,6 +43,10 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    m_chooser.setDefaultOption("Basic Shooting", m_robotContainer.getRobotCommand(Constants.Auton.autonToRun));
+    m_chooser.addOption("Basic Drive", m_robotContainer.getRobotCommand("auton_BasicDriveAuto"));
+    // m_chooser.addOption("4 Ball Auto", m_robotContainer.getRobotCommand("auton_4BallAuto"));
+    // SmartDashboard.
   }
 
   /**
@@ -88,8 +94,9 @@ public class Robot extends TimedRobot {
     // m_initOdom = m_robotContainer.getInitOdomCommand(); 
     // if (m_initOdom != null) m_initOdom.schedule();
 
-    Helpers.Debug.debug("Getting Auton Command for "+Constants.Auton.autonToRun);
-    m_autonomousCommand = m_robotContainer.getRobotCommand(Constants.Auton.autonToRun);
+    // Helpers.Debug.debug("Getting Auton Command for "+Constants.Auton.autonToRun);
+    // m_autonomousCommand = m_robotContainer.getRobotCommand(Constants.Auton.autonToRun);
+    m_autonomousCommand = m_chooser.getSelected();
     if (m_autonomousCommand != null && !Constants.Auton.isDisabled) m_autonomousCommand.schedule();
   }
 
