@@ -44,18 +44,19 @@ public class cg_auton_BasicShootingAuto extends SequentialCommandGroup {
         new helpers_debugMessage("Auton: Start shooter, tarmac"),
         new ParallelDeadlineGroup( //do until trajectory complete
           new SequentialCommandGroup(
-            new WaitCommand(1.0), //wait for shooter to be at speed
-            new helpers_debugMessage("Auton: Advance feeder for 2 seconds"),
+            new WaitCommand(0.5), //wait for shooter to be at speed
+            new helpers_debugMessage("Auton: Advance feeder for 1.5 seconds"),
             new feeder_advance(m_feeder),
-            new WaitCommand(2.0)
+            new WaitCommand(1.5)
           ),
           new shooter_shootNamed(m_shooter, namedShots.DEFAULT) //start the shooter with no hood
-        ),
+          ),
         new helpers_debugMessage("Auton: Stop shooter and feeder"),
+        new collector_deployIntake(m_collector), //deploy collector
+        new WaitCommand(0.25),
         new shooter_stopShooter(m_shooter), //stop shooter
         new feeder_stop(m_feeder), //stop the feeder -- should be handled by shootAllBalls
         new helpers_debugMessage("Auton: Deploy Intake"),
-        new collector_deployIntake(m_collector), //deploy collector
         new ParallelDeadlineGroup( //do until trajectory complete
           // new WaitCommand(3.0), //placeholder for trajectory follower
           new drive_followTrajectory(m_drive, new TwoMetersForward()),
