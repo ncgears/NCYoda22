@@ -23,6 +23,7 @@ import frc.team1918.robot.subsystems.CollectorSubsystem;
 import frc.team1918.robot.subsystems.DriveSubsystem;
 import frc.team1918.robot.subsystems.FeederSubsystem;
 import frc.team1918.robot.subsystems.ShooterSubsystem;
+import frc.team1918.robot.subsystems.ShooterSubsystem.namedShots;
 
 public class cg_auton_BasicShootingAuto extends SequentialCommandGroup {
   private final CollectorSubsystem m_collector;
@@ -40,6 +41,19 @@ public class cg_auton_BasicShootingAuto extends SequentialCommandGroup {
     addCommands(
         new helpers_debugMessage("Auton: Executing Auton BasicShootingAuto"),
         //this is a comma separated list of commands, thus, the last one should not have a comma
+        new helpers_debugMessage("Auton: Start shooter, tarmac"),
+        new ParallelDeadlineGroup( //do until trajectory complete
+          new SequentialCommandGroup(
+            new WaitCommand(1.0), //wait for shooter to be at speed
+            new helpers_debugMessage("Auton: Advance feeder for 2 seconds"),
+            new feeder_advance(m_feeder),
+            new WaitCommand(2.0)
+          ),
+          new shooter_shootNamed(m_shooter, namedShots.DEFAULT) //start the shooter with no hood
+        ),
+        new helpers_debugMessage("Auton: Stop shooter and feeder"),
+        new shooter_stopShooter(m_shooter), //stop shooter
+        new feeder_stop(m_feeder), //stop the feeder -- should be handled by shootAllBalls
         new helpers_debugMessage("Auton: Deploy Intake"),
         new collector_deployIntake(m_collector), //deploy collector
         new ParallelDeadlineGroup( //do until trajectory complete
@@ -51,19 +65,6 @@ public class cg_auton_BasicShootingAuto extends SequentialCommandGroup {
         new helpers_debugMessage("Auton: Stop and Retract Intake"),
         new collector_intakeStop(m_collector), //stop collector
         new collector_retractIntake(m_collector),  //retract collector
-        new helpers_debugMessage("Auton: Start shooter, no hood"),
-        new ParallelDeadlineGroup( //do until trajectory complete
-          new SequentialCommandGroup(
-            new WaitCommand(1.0), //wait for shooter to be at speed
-            new helpers_debugMessage("Auton: Advance feeder for 2 seconds"),
-            new feeder_advance(m_feeder),
-            new WaitCommand(2.0)
-          ),
-          new shooter_startShooterDefault(m_shooter, false) //start the shooter with no hood
-        ),
-        new helpers_debugMessage("Auton: Stop shooter and feeder"),
-        new shooter_stopShooter(m_shooter), //stop shooter
-        new feeder_stop(m_feeder), //stop the feeder -- should be handled by shootAllBalls
         new helpers_debugMessage("Auton: Finished executing Auton")
     );
   }
