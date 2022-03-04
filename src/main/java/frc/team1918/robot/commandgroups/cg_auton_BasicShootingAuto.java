@@ -55,11 +55,11 @@ public class cg_auton_BasicShootingAuto extends SequentialCommandGroup {
         new helpers_debugMessage("Auton: Stop shooter and feeder"),
         new shooter_stopShooter(m_shooter), //stop shooter
         new feeder_stop(m_feeder), //stop the feeder -- should be handled by shootAllBalls
-        new collector_intakeForward(m_collector) //start collector
+        new collector_intakeForward(m_collector), //start collector
         new ParallelDeadlineGroup( //do until trajectory complete
           // new WaitCommand(3.0), //placeholder for trajectory follower
           new drive_followTrajectory(m_drive, new TwoMetersForward()),
-          new helpers_debugMessage("Auton: followTrajectory - TwoMetersForward"), //move to ball1
+          new helpers_debugMessage("Auton: followTrajectory - TwoMetersForward") //move to ball1
         ),
         new helpers_debugMessage("Auton: Stop and Retract Intake"),
         new collector_retractIntake(m_collector),  //retract collector
