@@ -64,11 +64,11 @@ public class cg_auton_BasicShootingAuto extends SequentialCommandGroup {
         new helpers_debugMessage("Auton: Stop and Retract Intake"),
         new collector_retractIntake(m_collector),  //retract collector
         new collector_intakeStop(m_collector), //stop collector
-        new ParallelDeadlineGroup( //do until trajectory complete
-          // new WaitCommand(3.0), //placeholder for trajectory follower
-          new drive_followTrajectory(m_drive, new TwoMetersBackward()),
-          new helpers_debugMessage("Auton: followTrajectory - TwoMetersBackward") //move to ball1
-        ),
+        // new ParallelDeadlineGroup( //do until trajectory complete
+        //   // new WaitCommand(3.0), //placeholder for trajectory follower
+        //   new drive_followTrajectory(m_drive, new TwoMetersBackward()),
+        //   new helpers_debugMessage("Auton: followTrajectory - TwoMetersBackward") //move to ball1
+        // ),
         // new ParallelDeadlineGroup( //do until trajectory complete
         //   new SequentialCommandGroup(
         //     new WaitCommand(0.5), //wait for shooter to be at speed
