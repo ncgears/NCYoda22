@@ -11,7 +11,12 @@ public class orchestra_stop extends CommandBase {
       // Use addRequirements() here to declare subsystem dependencies.
       addRequirements(subsystem);
     }
-
+   // Allow the command to run while disabled
+    @Override
+    public boolean runsWhenDisabled() {
+      return true;
+    }
+      
     @Override
     public void initialize() {
       m_orchestra.stopMusic();

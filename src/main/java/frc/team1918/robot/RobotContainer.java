@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 //Util imports
 import frc.team1918.robot.utils.AndButton;
 import frc.team1918.robot.utils.OrPOVButton;
@@ -100,11 +101,12 @@ public class RobotContainer {
       private JoystickButton btn_ShooterStop = new JoystickButton(dj, Constants.OI.Logitech.BTN_LB);
       private JoystickButton btn_FeederFwd = new JoystickButton(dj, Constants.OI.Logitech.BTN_RB);
       //Music Control
-      private JoystickButton btn_MusicPlay = new JoystickButton(dj, Constants.OI.Logitech.BTN_Y);
-      private JoystickButton btn_MusicStop = new JoystickButton(dj, Constants.OI.Logitech.BTN_R);
+      // private JoystickButton btn_MusicPlay = new JoystickButton(dj, Constants.OI.Logitech.BTN_Y);
+      // private JoystickButton btn_MusicStop = new JoystickButton(dj, Constants.OI.Logitech.BTN_R);
       private JoystickButton btn_MusicFwd = new JoystickButton(dj, Constants.OI.Logitech.BTN_B);
       private JoystickButton btn_MusicBack = new JoystickButton(dj, Constants.OI.Logitech.BTN_X);
-      private JoystickButton btn_MusicReady = new JoystickButton (dj, Constants.OI.Logitech.BTN_A);
+      // private JoystickButton btn_MusicReady = new JoystickButton (dj, Constants.OI.Logitech.BTN_A);
+      private Trigger t_PlayMusic = new Trigger(() -> dj.getRawAxis(Constants.OI.Logitech.AXIS_LT)>0.3);
       // private POVButton btn_THROTUP_UP = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UP);
       //   private POVButton btn_THROTUP_UL = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UL);
       //   private POVButton btn_THROTUP_UR = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UR);
@@ -114,6 +116,7 @@ public class RobotContainer {
       //OrPOVButtons are a custom button type to bind 3 DPAD directions to a single command. See utils/OrPOVButton
       // private OrPOVButton orbtn_THROTUP = new OrPOVButton(btn_THROTUP_UP, btn_THROTUP_UL, btn_THROTUP_UR);
       // private OrPOVButton orbtn_THROTDN = new OrPOVButton(btn_THROTDN_DN, btn_THROTDN_DL, btn_THROTDN_DR);
+
 
     //Operator Controller
       private Joystick oj = new Joystick(Constants.OI.OI_JOY_OPER);
@@ -173,11 +176,14 @@ public class RobotContainer {
     btn_ShooterDecrease.whenPressed(new shooter_decreaseThrottle(m_shooter));
     btn_GyroReset.whenPressed(new drive_resetGyro(m_drive));
     //Music Control Buttons
-    btn_MusicPlay.whenPressed(new orchestra_loadAndPlay(m_orchestra));
-    btn_MusicStop.whenPressed(new orchestra_stop(m_orchestra));
+    // btn_MusicPlay.whenPressed(new orchestra_loadAndPlay(m_orchestra));
+    // btn_MusicStop.whenPressed(new orchestra_stop(m_orchestra));
     btn_MusicFwd.whenPressed(new orchestra_increaseSong(m_orchestra));
     btn_MusicBack.whenPressed(new orchestra_decreaseSong(m_orchestra));
-    btn_MusicReady.whenPressed(new orchestra_primeToPlay(m_orchestra));
+    // btn_MusicReady.whenPressed(new orchestra_primeToPlay(m_orchestra));
+
+    t_PlayMusic.whenActive(new orchestra_loadAndPlay(m_orchestra));
+    t_PlayMusic.whenInactive(new orchestra_stop(m_orchestra));
     // btn_TOGGLE_DEBUG.whenPressed(new helpers_toggleDebug());
     // btn_LOCKANGLE.whenPressed(new drive_lockAngle(m_drive));
     // btn_UNLOCKANGLE.whenPressed(new drive_unlockAngle(m_drive));

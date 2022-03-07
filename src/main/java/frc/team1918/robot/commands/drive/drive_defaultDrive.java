@@ -48,12 +48,7 @@ public class drive_defaultDrive extends CommandBase {
       double m_strafe_adjusted = (m_strafe.getAsDouble() * Constants.DriveTrain.DT_STR_MULT);
       m_drive.drive(m_forward_adjusted, m_strafe_adjusted, m_rotation_adjusted, Constants.DriveTrain.useFieldCentric);
     } else {
-        if (m_orchestra.getOrchestraPlaying()){
-
-        }
-        else{
          m_drive.brake();
-        }
     }
   }
 }

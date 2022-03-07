@@ -12,6 +12,12 @@ public class orchestra_increaseSong extends CommandBase {
       addRequirements(subsystem);
     }
 
+      // Allow the command to run while disabled
+    @Override
+    public boolean runsWhenDisabled() {
+      return true;
+    }
+    
     @Override
     public void initialize() {
       m_orchestra.increaseSong();
