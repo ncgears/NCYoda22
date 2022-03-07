@@ -6,6 +6,7 @@ import java.util.function.DoubleSupplier;
 //import constants and subsystem
 import frc.team1918.robot.Constants;
 import frc.team1918.robot.subsystems.DriveSubsystem;
+import frc.team1918.robot.subsystems.OrchestraSubsystem;
 
 
 /**
@@ -17,6 +18,7 @@ public class drive_defaultDrive extends CommandBase {
   private final DoubleSupplier m_forward;
   private final DoubleSupplier m_strafe;
   private final DoubleSupplier m_rotation;
+  private final OrchestraSubsystem m_orchestra = new OrchestraSubsystem();
 
 
 
@@ -46,7 +48,12 @@ public class drive_defaultDrive extends CommandBase {
       double m_strafe_adjusted = (m_strafe.getAsDouble() * Constants.DriveTrain.DT_STR_MULT);
       m_drive.drive(m_forward_adjusted, m_strafe_adjusted, m_rotation_adjusted, Constants.DriveTrain.useFieldCentric);
     } else {
+        if (m_orchestra.getOrchestraPlaying()){
+
+        }
+        else{
          m_drive.brake();
+        }
     }
   }
 }

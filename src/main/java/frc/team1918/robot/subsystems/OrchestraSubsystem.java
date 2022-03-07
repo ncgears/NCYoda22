@@ -24,8 +24,12 @@ public class OrchestraSubsystem extends SubsystemBase {
         Helpers.Debug.debug("Orchestra: Stopped Playing");
     }
 
-    public void loadSong(int selection) { //Selects which song to load
+    public void nukeSwitch(){
         orchestraPlaying = true;
+        Helpers.Debug.debug("Orchestra: Prepared to Play");
+    }
+    
+    public void loadSong(int selection) { //Selects which song to load
         if (selection < 0) {selection = 0;}
         if (selection > songs.length) {selection = songs.length;}
         orchestra.loadMusic(songs[selection]);
@@ -39,7 +43,6 @@ public class OrchestraSubsystem extends SubsystemBase {
     }
 
     public void createOrchestra(){
-        orchestraPlaying = true;
         ArrayList<TalonFX> instruments = new ArrayList<TalonFX>();
 
         for (int i = 0; i < motors.length; ++i) {
