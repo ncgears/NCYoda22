@@ -24,7 +24,7 @@ public class OrchestraSubsystem extends SubsystemBase {
         Helpers.Debug.debug("Orchestra: Stopped Playing");
     }
 
-    public void nukeSwitch(){
+    public void enableOrchestra(){
         orchestraPlaying = true;
         Helpers.Debug.debug("Orchestra: Prepared to Play");
     }

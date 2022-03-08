@@ -20,7 +20,7 @@ public class orchestra_primeToPlay extends CommandBase {
       
       @Override
       public void initialize() {
-        m_orchestra.nukeSwitch();
+        m_orchestra.enableOrchestra();
       }
     
       // Returns true when the command should end.
