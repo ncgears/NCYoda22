@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team1918.robot.Constants;
+import frc.team1918.robot.Dashboard;
 import frc.team1918.robot.Helpers;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -25,6 +26,13 @@ public class CollectorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    updateDashboard();
+  }
+
+  public void updateDashboard() {
+    Dashboard.Collector.setIntakeDirection(currentIntakeDirection.toString());
+    // Dashboard.Feeder.setFeederSpeed();
+    Dashboard.Collector.setIntakeDeployed(isCollectorDeployed());
   }
 
   public void setIntakeDirection(intakeDirection direction) {

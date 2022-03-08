@@ -27,6 +27,10 @@ public class Dashboard {
         public static final void setFeederSpeed(double speed) { SmartDashboard.putNumber("Feeder/Speed", speed); }
         public static final void setFeederBall(boolean value) { SmartDashboard.putBoolean("Feeder/Ball Detected", value); }
     }
+    public static final class Collector {
+        public static final void setIntakeDeployed(Boolean value) { SmartDashboard.putBoolean("Collector/Intake Deployed", value); }
+        public static final void setIntakeDirection(String value) { SmartDashboard.putString("Collector/Intake Direction", value); }
+    }
     public static final class Gyro {
         public static final void setGyroAngle(double angle) { SmartDashboard.putNumber("GyroAngle",angle); }
     }

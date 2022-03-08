@@ -445,6 +445,30 @@
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
+          },
+          "7,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Collector/Intake Direction",
+              "_title": "Collector/Intake Direction"
+            }
+          },
+          "10,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Collector/Intake Deployed",
+              "_title": "Collector/Intake Deployed",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
           }
         }
       }
@@ -1120,17 +1144,6 @@
               "imageHeight": 480
             }
           },
-          "13,0": {
-            "size": [
-              5,
-              11
-            ],
-            "content": {
-              "_type": "Network Table Tree",
-              "_source0": "network_table:///SmartDashboard/Swerve",
-              "_title": "SmartDashboard/Swerve"
-            }
-          },
           "9,0": {
             "size": [
               4,
@@ -1240,7 +1253,7 @@
               ]
             }
           },
-          "9,7": {
+          "9,6": {
             "size": [
               4,
               4
@@ -1339,30 +1352,16 @@
           "0,5": {
             "size": [
               9,
-              6
+              5
             ],
             "content": {
               "_type": "Grid Layout",
               "_title": "Power Usage",
               "Layout/Number of columns": 1,
-              "Layout/Number of rows": 2,
+              "Layout/Number of rows": 1,
               "Layout/Label position": "TOP",
               "_children": {
                 "0,0": {
-                  "_type": "Grid Layout",
-                  "_title": "Current (A)",
-                  "Layout/Number of columns": 1,
-                  "Layout/Number of rows": 1,
-                  "Layout/Label position": "HIDDEN",
-                  "_children": {
-                    "0,0": {
-                      "_type": "Text View",
-                      "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[0]/TotalCurrent",
-                      "_title": "LiveWindow/Ungrouped/PowerDistribution[0]/TotalCurrent"
-                    }
-                  }
-                },
-                "0,1": {
                   "_type": "Grid Layout",
                   "_title": "Voltage (V)",
                   "Layout/Number of columns": 1,
@@ -1386,38 +1385,89 @@
               }
             }
           },
+          "13,0": {
+            "size": [
+              5,
+              10
+            ],
+            "content": {
+              "_type": "Network Table Tree",
+              "_source0": "network_table:///SmartDashboard/Swerve",
+              "_title": "SmartDashboard/Swerve"
+            }
+          },
+          "9,5": {
+            "size": [
+              4,
+              1
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "Feeder Direction / Ball In",
+              "Layout/Number of columns": 2,
+              "Layout/Number of rows": 1,
+              "Layout/Label position": "HIDDEN",
+              "_children": {
+                "0,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Feeder/Direction",
+                  "_title": "SmartDashboard/Feeder/Direction"
+                },
+                "1,0": {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///SmartDashboard/Feeder/Ball Detected",
+                  "_title": "SmartDashboard/Feeder/Ball Detected",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                }
+              }
+            }
+          },
           "9,4": {
             "size": [
               4,
-              3
+              1
             ],
             "content": {
-              "_type": "List Layout",
-              "_title": "Feeder",
-              "Layout/Label position": "TOP",
-              "_children": [
-                {
-                  "_type": "Grid Layout",
-                  "_title": "Direction / Ball In",
-                  "Layout/Number of columns": 2,
-                  "Layout/Number of rows": 1,
-                  "Layout/Label position": "HIDDEN",
-                  "_children": {
-                    "0,0": {
-                      "_type": "Text View",
-                      "_source0": "network_table:///SmartDashboard/Feeder/Direction",
-                      "_title": "SmartDashboard/Feeder/Direction"
-                    },
-                    "1,0": {
-                      "_type": "Boolean Box",
-                      "_source0": "network_table:///SmartDashboard/Feeder/Ball Detected",
-                      "_title": "SmartDashboard/Feeder/Ball Detected",
-                      "Colors/Color when true": "#7CFC00FF",
-                      "Colors/Color when false": "#8B0000FF"
-                    }
-                  }
+              "_type": "Grid Layout",
+              "_title": "Intake Direction / Deployed",
+              "Layout/Number of columns": 2,
+              "Layout/Number of rows": 1,
+              "Layout/Label position": "HIDDEN",
+              "_children": {
+                "0,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Collector/Intake Direction",
+                  "_title": "SmartDashboard/Collector/Intake Direction"
+                },
+                "1,0": {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///SmartDashboard/Collector/Intake Deployed",
+                  "_title": "SmartDashboard/Collector/Intake Deployed",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
                 }
-              ]
+              }
+            }
+          },
+          "6,4": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "Current (A)",
+              "Layout/Number of columns": 1,
+              "Layout/Number of rows": 1,
+              "Layout/Label position": "HIDDEN",
+              "_children": {
+                "0,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistribution[0]/TotalCurrent",
+                  "_title": "LiveWindow/Ungrouped/PowerDistribution[0]/TotalCurrent"
+                }
+              }
             }
           }
         }
@@ -1425,9 +1475,9 @@
     }
   ],
   "windowGeometry": {
-    "x": 838.0,
-    "y": 895.0,
-    "width": 1480.0,
-    "height": 1023.0
+    "x": 366.0,
+    "y": 27.0,
+    "width": 1476.0,
+    "height": 933.0
   }
 }
