@@ -113,7 +113,7 @@ public class ClimberSubsystem extends SubsystemBase {
    * @return limit switch state
    */
   public boolean isCapturedHook1Left(){
-    return m_hook1CaptureSwitchLeft.get();
+    return !m_hook1CaptureSwitchLeft.get();
   }
   
   /**
@@ -121,7 +121,11 @@ public class ClimberSubsystem extends SubsystemBase {
    * @return limit switch state
    */
   public boolean isCapturedHook1Right(){
-    return m_hook1CaptureSwitchRight.get();
+    return !m_hook1CaptureSwitchRight.get();
+  }
+
+  public boolean isCapturedHook2(){
+    return !m_hook2CaptureSwitch.get();
   }
 
   /**
@@ -166,9 +170,9 @@ public class ClimberSubsystem extends SubsystemBase {
     Dashboard.Climber.setClimberPosition(getClimberPosition());
     Dashboard.Climber.setClimberDirection(currentWhirlyDirection.toString());
     Dashboard.Climber.setWhirlyPosition(currentWhirlyState.toString());
-    Dashboard.Climber.setHook1Left(m_hook1CaptureSwitchLeft.get());
-    Dashboard.Climber.setHook1Right(m_hook1CaptureSwitchRight.get());
-    Dashboard.Climber.setHook2(m_hook2CaptureSwitch.get());
+    Dashboard.Climber.setHook1Left(isCapturedHook1Left());
+    Dashboard.Climber.setHook1Right(isCapturedHook1Right());
+    Dashboard.Climber.setHook2(isCapturedHook2());
   }
 
 }
