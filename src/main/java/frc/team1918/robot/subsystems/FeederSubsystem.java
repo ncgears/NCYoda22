@@ -9,6 +9,7 @@ import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team1918.robot.Constants;
+import frc.team1918.robot.Dashboard;
 import frc.team1918.robot.Helpers;
 
 public class FeederSubsystem extends SubsystemBase {
@@ -16,6 +17,8 @@ public class FeederSubsystem extends SubsystemBase {
   private DigitalInput m_beam_intake; //First Beam Break (at intake)
   private DigitalInput m_beam_shooter; //Second Beam Break (before shooter)
   private DigitalInput m_feeder_switch; //Shoe switch
+  public enum feederDirection {STOPPED, FORWARD, REVERSE; }
+  public feederDirection currentFeederDirection = feederDirection.STOPPED;
 
 //TODO: See https://www.chiefdelphi.com/t/code-for-ir-break-beam/396373/4 for beam break examples and triggers
 
@@ -38,6 +41,13 @@ public class FeederSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    updateDashboard();
+  }
+
+  public void updateDashboard() {
+    Dashboard.Feeder.setFeederDirection(currentFeederDirection.toString());
+    // Dashboard.Feeder.setFeederSpeed();
+    Dashboard.Feeder.setFeederBall(hasBall());
   }
 
   /**
@@ -46,12 +56,18 @@ public class FeederSubsystem extends SubsystemBase {
    */
   public void runFeeder(boolean fwd) {
     //send command to run Feeder
-    m_feeder.set(ControlMode.PercentOutput, (fwd) ? Constants.Feeder.speed_Motor1 : -Constants.Feeder.speed_Motor1);
-    //Dashboard.Feeder.setHoodPosition(up);
+    if(fwd) {
+      m_feeder.set(Constants.Feeder.speed_Motor1);
+      currentFeederDirection = feederDirection.FORWARD;
+    } else {
+      m_feeder.set(-Constants.Feeder.speed_Motor1);
+      currentFeederDirection = feederDirection.REVERSE;
+    }
   }
 
   public void stopFeeder() {
     m_feeder.set(ControlMode.PercentOutput,0);
+    currentFeederDirection = feederDirection.STOPPED;
   }
 
   public boolean hasFirstBall() {

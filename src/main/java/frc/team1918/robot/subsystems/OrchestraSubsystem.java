@@ -30,8 +30,9 @@ public class OrchestraSubsystem extends SubsystemBase {
     }
     
     public void loadSong(int selection) { //Selects which song to load
-        if (selection < 0) {selection = 0;}
-        if (selection > songs.length) {selection = songs.length;}
+        // if (selection < 0) {selection = 0;}
+        // if (selection >= songs.length) {selection = songs.length;}
+        selection = selection % songs.length; //make sure it always is within the bounds of the length
         orchestra.loadMusic(songs[selection]);
         Helpers.Debug.debug("Orchestra: Loaded Song: " +songs[selection]);
         new WaitCommand(0.5);
@@ -54,11 +55,13 @@ public class OrchestraSubsystem extends SubsystemBase {
 
     public void increaseSong(){
         songSelection++;
+        songSelection = songSelection % songs.length;
         Helpers.Debug.debug("Orchestra: Song "+songs[songSelection]+" Selected");
     }
 
     public void decreaseSong(){
         songSelection--;
+        songSelection = songSelection % songs.length;
         Helpers.Debug.debug("Orchestra: Song "+songs[songSelection]+" Selected");
     }
     public int getSong(){

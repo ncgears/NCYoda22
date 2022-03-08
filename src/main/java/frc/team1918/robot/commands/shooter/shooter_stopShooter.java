@@ -10,6 +10,7 @@ package frc.team1918.robot.commands.shooter;
 import frc.team1918.robot.Constants;
 import frc.team1918.robot.Helpers;
 import frc.team1918.robot.subsystems.ShooterSubsystem;
+import frc.team1918.robot.subsystems.ShooterSubsystem.namedShots;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -49,6 +50,7 @@ public class shooter_stopShooter extends CommandBase {
   public void end(boolean interrupted) {
     //stop the shooter
     Helpers.Debug.debug("Shooter: Stop Shooter");
+    m_shooter.setShotName(namedShots.NONE);
     m_shooter.raiseHood(!Constants.Air.stateHoodUp);
     m_shooter.stopShooter();
     m_shooter.stopPreShooter();

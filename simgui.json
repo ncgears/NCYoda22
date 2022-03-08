@@ -6,12 +6,12 @@
       }
     },
     "Other Devices": {
-      "Talon SRX[16]": {
+      "Talon FX[43]": {
         "header": {
           "open": true
         }
       },
-      "navX-Sensor[0]": {
+      "Talon FX[43]/Integrated Sensor": {
         "header": {
           "open": true
         }
@@ -42,6 +42,7 @@
       "/LiveWindow/DriveSubsystem": "Subsystem",
       "/LiveWindow/FeederSubsystem": "Subsystem",
       "/LiveWindow/MixerSubsystem": "Subsystem",
+      "/LiveWindow/OrchestraSubsystem": "Subsystem",
       "/LiveWindow/ShooterSubsystem": "Subsystem",
       "/LiveWindow/Ungrouped/DigitalInput[0]": "Digital Input",
       "/LiveWindow/Ungrouped/DigitalInput[1]": "Digital Input",
@@ -74,7 +75,8 @@
       "/LiveWindow/Ungrouped/Talon SRX [7]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [8]": "Motor Controller",
       "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
-      "/LiveWindow/VisionSubsystem": "Subsystem"
+      "/LiveWindow/VisionSubsystem": "Subsystem",
+      "/SmartDashboard/SendableChooser[0]": "String Chooser"
     },
     "windows": {
       "/LiveWindow/Ungrouped/Scheduler": {

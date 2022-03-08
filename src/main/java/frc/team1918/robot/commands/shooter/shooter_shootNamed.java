@@ -36,6 +36,7 @@ public class shooter_shootNamed extends CommandBase {
   @Override
   public void initialize() {
     Helpers.Debug.debug("Shooter: Named Shot - "+m_name);
+    m_shooter.setShotName(m_name);
     switch (m_name) {
       case LOW:
         m_shooter.setShooterSpeed(Constants.Shooter.Shots.LOW.kSpeed);
@@ -51,6 +52,11 @@ public class shooter_shootNamed extends CommandBase {
         m_shooter.setShooterSpeed(Constants.Shooter.Shots.LINE.kSpeed);
         m_shooter.raiseHood(Constants.Shooter.Shots.LINE.kHood);
         m_shooter.startPreShooter();
+        break;
+      case NONE:
+        m_shooter.stopShooter();
+        m_shooter.raiseHood(false);
+        m_shooter.stopPreShooter();
         break;
       case DEFAULT:
       default:

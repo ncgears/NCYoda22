@@ -21,7 +21,8 @@ public class ShooterSubsystem extends SubsystemBase {
   private double m_shooter_oldrps = 0.0; // Previous shooter speed
   private double m_shooter_rpm = 0.0; 
   private Solenoid m_hood;
-  public enum namedShots {DEFAULT, LOW, BUMPER, LINE;}
+  public enum namedShots {DEFAULT, LOW, BUMPER, LINE, NONE;}
+  public namedShots currentShotName = namedShots.NONE;
   /**
    * Creates a new ExampleSubsystem.
    */
@@ -63,13 +64,18 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void updateDashboard() {
-    Dashboard.Shooter.setCurrentSpeed(getShooterSpeedRPS());
+    // Dashboard.Shooter.setCurrentSpeed(getShooterSpeedRPS());
     Dashboard.Shooter.setTargetSpeed(m_shooter_rps);
     Dashboard.Shooter.setHoodPosition(m_hood.get());
+    Dashboard.Shooter.setShotName(currentShotName.toString());
+  }
+
+  public void setShotName(namedShots shotName) {
+    currentShotName = shotName;
   }
 
   public double getShooterSpeedRPS() {
-    //double rawrpm = shoot.getSensorCollection().getIntegratedSensorVelocity(); //This works
+    // double rawrps = shoot.getSensorCollection().getIntegratedSensorVelocity(); //This works
     double rawrps = shoot.getSelectedSensorVelocity(0);
     double rps = Helpers.General.roundDouble(Helpers.General.ticksPer100msToRPS(rawrps, Constants.Shooter.kEncoderFullRotation, Constants.Shooter.kShooterReductionFactor),0);
     //Helpers.Debug.debug("shooter_rpm="+rpm,1000);

@@ -9,13 +9,23 @@ public class Dashboard {
     public static final class Climber {
         public static final void setClimberDirection(String direction) { SmartDashboard.putString("Climber/Direction", direction); }
         public static final void setClimberPosition(double position) { SmartDashboard.putNumber("Climber/Position", position); }
-        public static final void setWhirlyPosition(String position) { SmartDashboard.putString("Climber/Whirlygig Position", position); }
+        // public static final void setWhirlyPosition(String position) { SmartDashboard.putString("Climber/Whirlygig Position", position); }
+        public static final void setWhirlyPosition(String position) { SmartDashboard.putBoolean("Climber/Whirlygig Deployed", (position=="UP")?true:false); }
+        public static final void setHook1Left(Boolean value) { SmartDashboard.putBoolean("Climber/Hook1Left", value); }
+        public static final void setHook1Right(Boolean value) { SmartDashboard.putBoolean("Climber/Hook1Right", value); }
+        public static final void setHook2(Boolean value) { SmartDashboard.putBoolean("Climber/Hook2", value); }
     }
     public static final class Shooter {
         public static final void setCurrentSpeed(double speed) { SmartDashboard.putNumber("Shooter/Shooter Speed",speed); }
-        public static final void setHoodPosition(boolean up) { SmartDashboard.putString("Shooter/Hood Position",(up)?"up":"down"); }
+        public static final void setHoodPosition(boolean up) { SmartDashboard.putString("Shooter/Hood Position",(up)?"UP":"DOWN"); }
         public static final void setTargetSpeed(double speed) { SmartDashboard.putNumber("Shooter/Target Speed",speed); }
+        public static final void setShotName(String value) { SmartDashboard.putString("Shooter/Shot Name",value); }
         public static final double getTargetSpeed(double default_val) { return (double) SmartDashboard.getNumber("Shooter/Target Speed",default_val); }
+    }
+    public static final class Feeder {
+        public static final void setFeederDirection(String value) { SmartDashboard.putString("Feeder/Direction", value); }
+        public static final void setFeederSpeed(double speed) { SmartDashboard.putNumber("Feeder/Speed", speed); }
+        public static final void setFeederBall(boolean value) { SmartDashboard.putBoolean("Feeder/Ball Detected", value); }
     }
     public static final class Gyro {
         public static final void setGyroAngle(double angle) { SmartDashboard.putNumber("GyroAngle",angle); }

@@ -326,7 +326,7 @@ public class SwerveModule {
         Dashboard.DriveTrain.setTurnSetpoint(moduleName, turn.getClosedLoopTarget(0));
         Dashboard.DriveTrain.setTurnPositionError(moduleName, turn.getClosedLoopError(0));
         Dashboard.DriveTrain.setTurnVelocity(moduleName, turn.getSelectedSensorVelocity(0));
-        Dashboard.DriveTrain.setTurnPositionErrorChange(moduleName, turn.getErrorDerivative(0));
+        // Dashboard.DriveTrain.setTurnPositionErrorChange(moduleName, turn.getErrorDerivative(0));
         Dashboard.DriveTrain.setDriveVelocity(moduleName, drive.getSelectedSensorVelocity(0));
         // Dashboard.DriveTrain.setDriveDistance(moduleName, drive.getDistance(0));
     }

@@ -26,6 +26,8 @@ public class ClimberSubsystem extends SubsystemBase {
   public whirlyState currentWhirlyState = whirlyState.DOWN;
   public enum latchState {NONE, BAR2LATCH, BAR2RELEASE, BAR3LATCH, BAR3RELEASE, BAR4LATCH, COMPLETE, ABORTED;}
   public latchState currentLatchState = latchState.NONE;
+  public enum whirlyDirection { STOPPED, FORWARD, REVERSE; }
+  public whirlyDirection currentWhirlyDirection = whirlyDirection.STOPPED;
   
   public void setLatchState(latchState current) {
     currentLatchState = current;
@@ -127,7 +129,7 @@ public class ClimberSubsystem extends SubsystemBase {
    */
   public void climberForward() {
     climber_1.set(ControlMode.PercentOutput, Constants.Climber.kClimberSpeed);
-    Dashboard.Climber.setClimberDirection("Forward");
+    currentWhirlyDirection = whirlyDirection.FORWARD;
   }
 
   /**
@@ -135,7 +137,7 @@ public class ClimberSubsystem extends SubsystemBase {
    */
   public void climberReverse() {
     climber_1.set(ControlMode.PercentOutput, Constants.Climber.kClimberSpeed * -1);
-    Dashboard.Climber.setClimberDirection("Reverse");
+    currentWhirlyDirection = whirlyDirection.REVERSE;
   }
 
   /**
@@ -143,7 +145,7 @@ public class ClimberSubsystem extends SubsystemBase {
    */
   public void climberStop() {
     climber_1.set(ControlMode.PercentOutput, 0);
-    Dashboard.Climber.setClimberDirection("Stopped");
+    currentWhirlyDirection = whirlyDirection.STOPPED;
   }
 
   /**
@@ -162,7 +164,11 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public void updateDashboard() {
     Dashboard.Climber.setClimberPosition(getClimberPosition());
+    Dashboard.Climber.setClimberDirection(currentWhirlyDirection.toString());
     Dashboard.Climber.setWhirlyPosition(currentWhirlyState.toString());
+    Dashboard.Climber.setHook1Left(m_hook1CaptureSwitchLeft.get());
+    Dashboard.Climber.setHook1Right(m_hook1CaptureSwitchRight.get());
+    Dashboard.Climber.setHook2(m_hook2CaptureSwitch.get());
   }
 
 }
