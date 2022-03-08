@@ -130,7 +130,7 @@ public class Constants {
         public static final boolean isDisabled = false; //Disable the collector subsystem
         public static final int id_Motor1 = ID.Talon.intake; 
         public static final int id_ColorSensor1 = 4;
-        public static final double kDefaultCollectorSpeed = 0.5;
+        public static final double kDefaultCollectorSpeed = 0.8;
     }
    
     /**
@@ -340,7 +340,7 @@ public class Constants {
         public static final boolean useFieldCentric = true; //use field-centric drive. This should always be true except for testing?
         public static final double kDriveStraight_P = 0.065; //kP for driveStraight correction
         public static final double kMaxMetersPerSecond = 3.677; //limit full stick speed meters to 12.0fps
-        public static final double kMaxRotationRadiansPerSecond = 3.0; //Multiplier for omega of turning the robot
+        public static final double kMaxRotationRadiansPerSecond = 3.4; //Multiplier for omega of turning the robot
         ////Turn Tuning
         public static final double DT_TURN_MULT_STATIONARY = 1.0; //Turn speed multiplier while not moving
         public static final double DT_TURN_MULT_MOVING = 1.0; //Turn speed multiplier while moving
