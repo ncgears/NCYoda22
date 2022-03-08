@@ -11,9 +11,9 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 public class OrchestraSubsystem extends SubsystemBase {
     private Orchestra orchestra;
-    private TalonFX[] motors = { new TalonFX(Constants.Swerve.FL.DRIVE_MC_ID), new TalonFX(Constants.Swerve.FR.DRIVE_MC_ID), new TalonFX(Constants.Swerve.RL.DRIVE_MC_ID), new TalonFX(Constants.Swerve.FR.DRIVE_MC_ID), new TalonFX(Constants.Shooter.id_Motor1)}; //Instrument(motor) Array
+    private TalonFX[] motors = { new TalonFX(Constants.Swerve.FL.DRIVE_MC_ID), new TalonFX(Constants.Swerve.FR.DRIVE_MC_ID), new TalonFX(Constants.Swerve.RL.DRIVE_MC_ID), new TalonFX(Constants.Swerve.FR.DRIVE_MC_ID), new TalonFX(Constants.Shooter.id_Motor2)}; //Instrument(motor) Array
     private String[] songs = new String[] {"Rickroll.chrp", "Megalovania.chrp", "Still-Alive.chrp", "Brawl-Theme.chrp"}; //Song Array
-    /* When adding a new song, make sure the midi file has separate parts for each note.
+    /* When adding a new song, make sure the midi file has separate parts/instruments for each note.
        If it doesn't, the song won't play correctly */
     private int songSelection = 0; //Defaults to rickrolling everyone, as it should.
     private boolean orchestraPlaying = false;
