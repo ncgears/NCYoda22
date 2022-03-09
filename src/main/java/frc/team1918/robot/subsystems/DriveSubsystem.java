@@ -31,7 +31,7 @@ public class DriveSubsystem extends SubsystemBase {
 	private double[] lastDistances;
 	private double lastTime;
 	private final Timer timer;
-	private double yawOffset = 0.0; //offset to account for different starting positions
+	private static double yawOffset = 0.0; //offset to account for different starting positions
 
 	//initialize 4 swerve modules
 	private static SwerveModule m_dtFL = new SwerveModule("dtFL", Constants.Swerve.FL.constants); // Front Left
@@ -142,7 +142,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @return the robot's heading as a Rotation2d
      */
 	public static Rotation2d getHeading() {
-		double raw_yaw = m_gyro.getYaw();
+		double raw_yaw = m_gyro.getYaw() - (double)yawOffset;  //always subtract the offset
 		double calc_yaw = raw_yaw;
 		if (0.0 > raw_yaw) { //yaw is negative
 			calc_yaw += 360.0;
@@ -211,7 +211,7 @@ public class DriveSubsystem extends SubsystemBase {
 		double fwdMPS = fwd * Constants.DriveTrain.kMaxMetersPerSecond;
 		double strMPS = str * Constants.DriveTrain.kMaxMetersPerSecond;
 		double rotRPS = rot * Constants.DriveTrain.kMaxRotationRadiansPerSecond;
-		ChassisSpeeds speeds = (fieldRelative) ? ChassisSpeeds.fromFieldRelativeSpeeds(fwdMPS, strMPS, rotRPS, getRot2d()) : new ChassisSpeeds(fwdMPS, strMPS, rotRPS);
+		ChassisSpeeds speeds = (fieldRelative) ? ChassisSpeeds.fromFieldRelativeSpeeds(fwdMPS, strMPS, rotRPS, getHeading()) : new ChassisSpeeds(fwdMPS, strMPS, rotRPS);
 		if (speeds.vxMetersPerSecond == 0 && speeds.vyMetersPerSecond == 0 && speeds.omegaRadiansPerSecond == 0) {
 			brake();
 			return;
@@ -305,10 +305,6 @@ public class DriveSubsystem extends SubsystemBase {
 		double output = m_thetaController.calculate(measurement, setpoint);
 		// Dashboard.DriveTrain.setRotationPidOut(output);
 		return output;
-	}
-
-	public static Rotation2d getRot2d() {
-		return Rotation2d.fromDegrees(m_gyro.getAngle());
 	}
 
 	/*

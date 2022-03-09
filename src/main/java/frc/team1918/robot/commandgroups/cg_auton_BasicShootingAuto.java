@@ -7,6 +7,9 @@
 
 package frc.team1918.robot.commandgroups;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 // import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
@@ -16,6 +19,7 @@ import frc.team1918.paths.*;
 import frc.team1918.robot.commands.auton.*;
 import frc.team1918.robot.commands.collector.*;
 import frc.team1918.robot.commands.drive.drive_followTrajectory;
+import frc.team1918.robot.commands.drive.drive_resetOdometry;
 import frc.team1918.robot.commands.shooter.*;
 import frc.team1918.robot.commands.feeder.*;
 import frc.team1918.robot.commands.helpers.helpers_debugMessage;
@@ -41,6 +45,8 @@ public class cg_auton_BasicShootingAuto extends SequentialCommandGroup {
     addCommands(
         new helpers_debugMessage("Auton: Executing Auton BasicShootingAuto"),
         //this is a comma separated list of commands, thus, the last one should not have a comma
+        //this resets the odometry for a new starting position to correct gyro offset
+        // new drive_resetOdometry(drive, new Pose2d(new Translation2d(0, 0), Rotation2d.fromDegrees(-90.0))),
         new helpers_debugMessage("Auton: Start shooter, tarmac"),
         new ParallelDeadlineGroup( //do until trajectory complete
           new SequentialCommandGroup(
