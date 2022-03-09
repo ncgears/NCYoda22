@@ -3,15 +3,17 @@ package frc.team1918.robot.subsystems;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team1918.robot.Constants;
-import frc.team1918.robot.Dashboard;
 import frc.team1918.robot.Helpers;
 import frc.team1918.robot.SwerveModule;
-
+import edu.wpi.first.math.controller.PIDController;
 //kinematics and odometry
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
@@ -25,6 +27,10 @@ public class DriveSubsystem extends SubsystemBase {
 	private int debug_ticks;
 	private static double desiredAngle; //Used for driveStraight function
 	private static boolean angleLocked = false;
+	private double[] lastDistances;
+	private double lastTime;
+	private final Timer timer;
+	private double yawOffset = 0.0; //offset to account for different starting positions
 
 	//initialize 4 swerve modules
 	private static SwerveModule m_dtFL = new SwerveModule("dtFL", Constants.Swerve.FL.constants); // Front Left
@@ -35,8 +41,14 @@ public class DriveSubsystem extends SubsystemBase {
 
 	//initialize gyro object
 	private static AHRS m_gyro = new AHRS(SPI.Port.kMXP);
+
 	//intialize odometry class for tracking robot pose
-	SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(Constants.Swerve.kDriveKinematics, m_gyro.getRotation2d());
+	// SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(Constants.Swerve.kDriveKinematics, m_gyro.getRotation2d());
+	SwerveDriveOdometry m_odometry;
+
+	//Target pose and pose controller
+	Pose2d m_targetPose;
+	PIDController m_thetaController = new PIDController(1.0, 0.0, 0.05);
 
 	public static DriveSubsystem getInstance() {
 		if (instance == null)
@@ -45,19 +57,31 @@ public class DriveSubsystem extends SubsystemBase {
 	}
 
 	public DriveSubsystem() { //initialize the class
+		m_gyro.calibrate();
+		m_odometry = new SwerveDriveOdometry(Constants.Swerve.kDriveKinematics, getHeading());
+		for (SwerveModule module: modules) {
+			module.resetDistance();
+			module.syncTurningEncoders();
+		}
+
+		m_targetPose = m_odometry.getPoseMeters();
+		m_thetaController.reset();
+		m_thetaController.enableContinuousInput(-Math.PI, Math.PI);
+		lastDistances = new double[]{
+			m_dtFL.getDriveDistanceMeters(),
+			m_dtFR.getDriveDistanceMeters(),
+			m_dtRL.getDriveDistanceMeters(),
+			m_dtRR.getDriveDistanceMeters()
+		};
+		timer = new Timer();
+		timer.reset();
+		timer.start();
+		lastTime = 0;
 	}
 
 	@Override
 	public void periodic() {
-		// Update the odometry in the periodic block
-		m_odometry.update(
-			getHeading(),
-			m_dtFL.getState(),
-			m_dtFR.getState(),
-			m_dtRL.getState(),
-			m_dtRR.getState()
-		);
-
+		updateOdometry();
 		updateDashboard();
 		for (SwerveModule module: modules) {
 			module.updateDashboard();
@@ -72,12 +96,44 @@ public class DriveSubsystem extends SubsystemBase {
 		// Dashboard.DriveTrain.setTargetAngle(m_targetPose.getRotation().getRadians());
 	}
 
+	public void updateOdometry() {
+		//this is the old way
+		/*
+		m_odometry.update(
+			getHeading(),
+			m_dtFL.getState(),
+			m_dtFR.getState(),
+			m_dtRL.getState(),
+			m_dtRR.getState()
+		);
+		*/
+		//this is the new way
+		double[] distances = new double[] {
+			m_dtFL.getDriveDistanceMeters(),
+			m_dtFR.getDriveDistanceMeters(),
+			m_dtRL.getDriveDistanceMeters(),
+			m_dtRR.getDriveDistanceMeters()
+		};
+		double time = timer.get();
+		double dt = time - lastTime;
+		lastTime = time;
+		if (dt == 0) return;
+		m_odometry.updateWithTime(time,
+			getHeading(),
+			new SwerveModuleState((distances[0] - lastDistances[0]) / dt, m_dtFL.getState().angle),
+			new SwerveModuleState((distances[1] - lastDistances[1]) / dt, m_dtFR.getState().angle),
+			new SwerveModuleState((distances[2] - lastDistances[2]) / dt, m_dtRL.getState().angle),
+			new SwerveModuleState((distances[3] - lastDistances[3]) / dt, m_dtRR.getState().angle)
+		);
+		lastDistances = distances;
+	}
+
 	/**
 	 * Returns the currently-estimated pose of the robot.
 	 * @return The pose.
 	 */
 	public Pose2d getPose() {
-	  return m_odometry.getPoseMeters();
+		return m_odometry.getPoseMeters();
 	}
 
 	/**
@@ -102,13 +158,22 @@ public class DriveSubsystem extends SubsystemBase {
 		return m_gyro.getRate() * (Constants.Swerve.kGyroReversed ? -1.0 : 1.0);
 	}
 
+	public void zeroHeading() {
+		m_gyro.zeroYaw();
+		yawOffset = 0;
+		m_targetPose = new Pose2d(new Translation2d(), new Rotation2d());
+	}
+
 	/**
-	 * Resets the odometry to the specified pose.
-	 *
+	 * Resets the odometry to the specified pose. Requires the current heading to account for starting position other than 0.
+	 * 
+	 * @param heading The current heading of the robot to offset the zero position
 	 * @param pose The pose to which to set the odometry.
 	 */
-	public void resetOdometry(Pose2d pose) {
-	  m_odometry.resetPosition(pose, m_gyro.getRotation2d());
+	public void resetOdometry(double heading, Pose2d pose) {
+	  zeroHeading();
+	  yawOffset = heading;
+	  m_odometry.resetPosition(pose, Rotation2d.fromDegrees(heading));
 	}
 
 	public void lockAngle() {
@@ -213,32 +278,61 @@ public class DriveSubsystem extends SubsystemBase {
         return m_gyro;
 	}
 
+	/**
+	 * Rotate the relative orientation of the target pose at a given rate
+	 * @param deltaTheta How much to rotate the target orientation per loop
+	 */
+	public void rotateRelative(Rotation2d deltaTheta) {
+		Transform2d transform = new Transform2d(new Translation2d(), deltaTheta);
+		m_targetPose = m_targetPose.transformBy(transform);
+	}
+
+	/**
+	 * Set the absolute orientation of the target pose
+	 * @param theta The target orientation
+	 */
+	public void rotateAbsolute(Rotation2d theta) {
+		m_targetPose = new Pose2d(new Translation2d(), theta);
+	}
+
+	/**
+	 * Get the output of the chassis orientation PID controller
+	 */
+	public double getThetaDot() {
+		double setpoint = m_targetPose.getRotation().getRadians();
+		double measurement = getPose().getRotation().getRadians();
+		double output = m_thetaController.calculate(measurement, setpoint);
+		// Dashboard.DriveTrain.setRotationPidOut(output);
+		return output;
+	}
+
+	/*
 	public void resetGyro() {
 		Helpers.Debug.debug("Gyro Reset");
 		m_gyro.reset();
-		resetOdometry(getPose());
+		// resetOdometry(getPose());
+		m_gyro.zeroYaw();
+		resetOdometry(getHeading().getDegrees(), getPose());
 	}
-
-	public static Rotation2d getRot2d() {
-		return Rotation2d.fromDegrees(getGyroAngle());
-	}
-
-	public static double getGyroAngle() {
-		return m_gyro.getAngle();
-	}
-
-	public static double getGyroAngleInRad() {
-		return m_gyro.getAngle() * (Math.PI / 180d);
-	}
+	*/
 	//#endregion GYRO STUFF
 
 	//#region MOTOR CONTROLLER STUFF
+	/** Resets the drive encoders to read a position of 0. */
+	public void resetEncoders() {
+		for (SwerveModule module: modules) {
+			module.resetEncoders();
+		}
+	}
+
+	/** Changes the drive brake mode to either brake (true) or coast (false) */
 	public void setAllDriveBrakeMode(boolean b) {
 		for (SwerveModule module: modules) {
 			module.setBrakeMode("drive",b);
 		}
 	}
 
+	/** Changes the turn brake mode to either brake (true) or coast (false) */
 	public void setAllTurnBrakeMode(boolean b) {
 		for (SwerveModule module: modules) {
 			module.setBrakeMode("turn", b);
