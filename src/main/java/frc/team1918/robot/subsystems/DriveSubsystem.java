@@ -178,7 +178,7 @@ public class DriveSubsystem extends SubsystemBase {
 	}
 
 	public void lockAngle() {
-		desiredAngle = Helpers.General.roundDouble(m_gyro.getAngle(), 3);
+		desiredAngle = Helpers.General.roundDouble(getHeading().getDegrees(), 3);
 		angleLocked = true;
 		Helpers.Debug.debug("Angle Locked to "+desiredAngle);
 	}
@@ -203,7 +203,7 @@ public class DriveSubsystem extends SubsystemBase {
 					lockAngle();
 				} else {
 					if (Math.abs(fwd) > 0 || Math.abs(str) > 0) { //Only do angle correction while moving, for safety reasons
-						rot += calcAngleStraight(desiredAngle,m_gyro.getAngle(),Constants.DriveTrain.kDriveStraight_P); //Add some correction to the rotation to account for angle drive
+						rot += calcAngleStraight(desiredAngle,getHeading().getDegrees(),Constants.DriveTrain.kDriveStraight_P); //Add some correction to the rotation to account for angle drive
 					}
 				}
 			}
