@@ -23,7 +23,8 @@ public class drive_resetGyro extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    m_drive.resetGyro();
+    m_drive.zeroHeading();
+    // resetGyro();
   }
 
   @Override
