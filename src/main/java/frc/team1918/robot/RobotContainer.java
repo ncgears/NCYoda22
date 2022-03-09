@@ -101,11 +101,11 @@ public class RobotContainer {
       private JoystickButton btn_ShooterStop = new JoystickButton(dj, Constants.OI.Logitech.BTN_LB);
       private JoystickButton btn_FeederFwd = new JoystickButton(dj, Constants.OI.Logitech.BTN_RB);
       //Music Control
-      // private JoystickButton btn_MusicPlay = new JoystickButton(dj, Constants.OI.Logitech.BTN_Y);
-      // private JoystickButton btn_MusicStop = new JoystickButton(dj, Constants.OI.Logitech.BTN_R);
+      private JoystickButton btn_MusicPlay = new JoystickButton(dj, Constants.OI.Logitech.BTN_Y);
+      private JoystickButton btn_MusicStop = new JoystickButton(dj, Constants.OI.Logitech.BTN_R);
       private JoystickButton btn_MusicFwd = new JoystickButton(dj, Constants.OI.Logitech.BTN_B);
       private JoystickButton btn_MusicBack = new JoystickButton(dj, Constants.OI.Logitech.BTN_X);
-      // private JoystickButton btn_MusicReady = new JoystickButton (dj, Constants.OI.Logitech.BTN_A);
+      private JoystickButton btn_MusicReady = new JoystickButton (dj, Constants.OI.Logitech.BTN_A);
       private Trigger t_PlayMusic = new Trigger(() -> dj.getRawAxis(Constants.OI.Logitech.AXIS_LT)>0.3);
       // private POVButton btn_THROTUP_UP = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UP);
       //   private POVButton btn_THROTUP_UL = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UL);
@@ -176,14 +176,14 @@ public class RobotContainer {
     btn_ShooterDecrease.whenPressed(new shooter_decreaseThrottle(m_shooter));
     btn_GyroReset.whenPressed(new drive_resetGyro(m_drive));
     //Music Control Buttons
-    // btn_MusicPlay.whenPressed(new orchestra_loadAndPlay(m_orchestra));
-    // btn_MusicStop.whenPressed(new orchestra_stop(m_orchestra));
+    btn_MusicPlay.whenPressed(new orchestra_loadAndPlay(m_orchestra));
+    btn_MusicStop.whenPressed(new orchestra_stop(m_orchestra));
     btn_MusicFwd.whenPressed(new orchestra_increaseSong(m_orchestra));
     btn_MusicBack.whenPressed(new orchestra_decreaseSong(m_orchestra));
-    // btn_MusicReady.whenPressed(new orchestra_primeToPlay(m_orchestra));
+    btn_MusicReady.whenPressed(new orchestra_primeToPlay(m_orchestra));
 
-    t_PlayMusic.whenActive(new orchestra_loadAndPlay(m_orchestra));
-    t_PlayMusic.whenInactive(new orchestra_stop(m_orchestra));
+    // t_PlayMusic.whenActive(new orchestra_loadAndPlay(m_orchestra));
+    t_PlayMusic.whenActive(new orchestra_stop(m_orchestra));
     // btn_TOGGLE_DEBUG.whenPressed(new helpers_toggleDebug());
     // btn_LOCKANGLE.whenPressed(new drive_lockAngle(m_drive));
     // btn_UNLOCKANGLE.whenPressed(new drive_unlockAngle(m_drive));
@@ -213,10 +213,10 @@ public class RobotContainer {
         return new cg_resetRobot(m_collector, m_climber, m_feeder, m_shooter);
         case "auton_4BallAuto":
         return new cg_auton_4BallAuto(m_drive, m_collector, m_feeder, m_shooter);
-        case "auton_BasicShootingAuto":
-        return new cg_auton_BasicShootingAuto(m_drive, m_collector, m_feeder, m_shooter);
-        case "auton_BasicDriveAuto":
-        return new cg_auton_BasicDriveAuto(m_drive, m_collector, m_feeder, m_shooter);
+        // case "auton_BasicShootingAuto":
+        // return new cg_auton_BasicShootingAuto(m_drive, m_collector, m_feeder, m_shooter);
+        // case "auton_BasicDriveAuto":
+        // return new cg_auton_BasicDriveAuto(m_drive, m_collector, m_feeder, m_shooter);
       default:
         return null;
     }

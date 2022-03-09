@@ -157,7 +157,7 @@ public class Constants {
         public static final int kEncoderFullRotation = 2048; //Falcon integrated encoder is 2048
         public static final boolean isSensorInverted_Motor1 = true;
         public static final boolean isInverted_Motor1 = true; //Invert motor direction
-        public static final boolean isInverted_Motor2 = false; //Invert motor direction
+        public static final boolean isInverted_Motor2 = true; //Invert motor direction
         public static final int kMaxShooterSpeed = 100; //Max RPS of the Shooter Motor
         public static final double kDefaultShooterSpeed = 76; //Default RPS of the Shooter Motor
         public static final int kMinShooterSpeed = 0; //Min RPM of the Shooter Motor
