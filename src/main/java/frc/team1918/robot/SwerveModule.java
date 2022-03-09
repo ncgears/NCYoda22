@@ -349,6 +349,11 @@ public class SwerveModule {
         drive.setSelectedSensorPosition(0.0);
     }
 
+    public void resetEncoders() {
+        // this resets cumulative rotation counts to zero, resets the position of the turn encoders
+        // primarily used with an external encoder such as cancoder, does nothing with our lampreys
+    }
+
     public void syncTurningEncoders() {
         // turn.setSelectedSensorPosition(turn.getSelectedSensorPosition(0),1,0);
     }
