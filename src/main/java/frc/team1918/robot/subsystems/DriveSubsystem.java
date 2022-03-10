@@ -94,7 +94,7 @@ public class DriveSubsystem extends SubsystemBase {
 		Dashboard.DriveTrain.setX(getPose().getX());
 		Dashboard.DriveTrain.setY(getPose().getY());
 		Dashboard.DriveTrain.setCurrentAngle(getPose().getRotation().getRadians());
-		Dashboard.DriveTrain.setTargetAngle(m_targetPose.getRotation().getRadians());
+		// Dashboard.DriveTrain.setTargetAngle(m_targetPose.getRotation().getRadians());
 	}
 
 	public void updateOdometry() {

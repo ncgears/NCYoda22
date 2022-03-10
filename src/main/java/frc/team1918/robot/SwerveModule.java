@@ -328,7 +328,7 @@ public class SwerveModule {
         Dashboard.DriveTrain.setTurnVelocity(moduleName, turn.getSelectedSensorVelocity(0));
         // Dashboard.DriveTrain.setTurnPositionErrorChange(moduleName, turn.getErrorDerivative(0));
         Dashboard.DriveTrain.setDriveVelocity(moduleName, drive.getSelectedSensorVelocity(0));
-        // Dashboard.DriveTrain.setDriveDistance(moduleName, drive.getDistance(0));
+        Dashboard.DriveTrain.setDriveDistance(moduleName, getDriveDistanceMeters());
     }
 
     /**
@@ -342,7 +342,7 @@ public class SwerveModule {
     }
 
     public double getDriveDistanceMeters() {
-        return drive.getSelectedSensorPosition();
+        return Helpers.General.encoderToMeters(drive.getSelectedSensorPosition());
     }
 
     public void resetDistance() {
