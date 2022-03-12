@@ -24,22 +24,23 @@ import frc.team1918.robot.utils.AndButton;
 import frc.team1918.robot.utils.OrPOVButton;
 
 //Subsystems imports
-import frc.team1918.robot.subsystems.VisionSubsystem;
-import frc.team1918.robot.subsystems.ShooterSubsystem.namedShots;
 import frc.team1918.robot.subsystems.ClimberSubsystem;
 import frc.team1918.robot.subsystems.CollectorSubsystem;
 import frc.team1918.robot.subsystems.DriveSubsystem;
 import frc.team1918.robot.subsystems.FeederSubsystem;
 import frc.team1918.robot.subsystems.ShooterSubsystem;
+import frc.team1918.robot.subsystems.ShooterSubsystem.namedShots;
 import frc.team1918.robot.subsystems.OrchestraSubsystem;
+import frc.team1918.robot.subsystems.VisionSubsystem;
 //Commands imports
 import frc.team1918.robot.commands.helpers.helpers_debugMessage;
-import frc.team1918.robot.commands.orchestra.*;
 import frc.team1918.robot.commands.climber.*;
 import frc.team1918.robot.commands.collector.*;
 import frc.team1918.robot.commands.drive.*;
 import frc.team1918.robot.commands.feeder.*;
 import frc.team1918.robot.commands.shooter.*;
+import frc.team1918.robot.commands.orchestra.*;
+import frc.team1918.robot.commands.vision.*;
 //CommandGroup imports
 import frc.team1918.robot.commandgroups.*;
 // import frc.team1918.robot.commandgroups.cg_drive_initOdometry;
@@ -107,6 +108,7 @@ public class RobotContainer {
       private JoystickButton btn_MusicBack = new JoystickButton(dj, Constants.OI.Logitech.BTN_X);
       private JoystickButton btn_MusicReady = new JoystickButton (dj, Constants.OI.Logitech.BTN_A);
       private Trigger t_PlayMusic = new Trigger(() -> dj.getRawAxis(Constants.OI.Logitech.AXIS_LT)>0.3);
+      private Trigger t_VisionShoot = new Trigger(() -> dj.getRawAxis(Constants.OI.Logitech.AXIS_RT)>0.3);
       // private POVButton btn_THROTUP_UP = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UP);
       //   private POVButton btn_THROTUP_UL = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UL);
       //   private POVButton btn_THROTUP_UR = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UR);
@@ -175,6 +177,7 @@ public class RobotContainer {
     btn_ShooterIncrease.whenPressed(new shooter_increaseThrottle(m_shooter));
     btn_ShooterDecrease.whenPressed(new shooter_decreaseThrottle(m_shooter));
     btn_GyroReset.whenPressed(new drive_resetGyro(m_drive));
+    t_VisionShoot.whenActive(new vision_setRinglight(m_vision,true));
     //Music Control Buttons
     btn_MusicPlay.whenPressed(new orchestra_loadAndPlay(m_orchestra));
     btn_MusicStop.whenPressed(new orchestra_stop(m_orchestra));
