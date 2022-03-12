@@ -130,7 +130,7 @@ public class Constants {
         public static final boolean isDisabled = false; //Disable the collector subsystem
         public static final int id_Motor1 = ID.Talon.intake; 
         public static final int id_ColorSensor1 = 4;
-        public static final double kDefaultCollectorSpeed = 0.8;
+        public static final double kDefaultCollectorSpeed = 0.6;
     }
    
     /**
