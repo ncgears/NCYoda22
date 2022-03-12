@@ -49,7 +49,14 @@ public class Helpers {
         public final static int minChange(int a, int b, int wrap) {
             return (int) Math.IEEEremainder(a - b, wrap);
         }
-
+        
+        public static double encoderToMeters(double encoder) {
+            return (double) encoder * 0.113 / 1000.0; //This is for 2022 Rapid React bot and should be cleaned up for constants
+        }
+        public static double metersToEncoder(double meters) {
+            return (double) meters * 1000.0 / 0.113; //This is for 2022 Rapid React bot and should be cleaned up for constants
+        }
+        
         public final static double roundDouble(double val, int decimals) {
             return Math.round(val * Math.pow(10,decimals)) / Math.pow(10,decimals);
             // final DecimalFormat df = new DecimalFormat(format);
