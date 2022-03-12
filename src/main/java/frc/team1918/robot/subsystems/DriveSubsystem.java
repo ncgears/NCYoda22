@@ -36,7 +36,7 @@ public class DriveSubsystem extends SubsystemBase {
 	//initialize gyro object
 	private static AHRS m_gyro = new AHRS(SPI.Port.kMXP);
 	//intialize odometry class for tracking robot pose
-	SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(Constants.Swerve.kDriveKinematics, m_gyro.getRotation2d());
+	static SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(Constants.Swerve.kDriveKinematics, m_gyro.getRotation2d());
 
 	public static DriveSubsystem getInstance() {
 		if (instance == null)
@@ -65,10 +65,10 @@ public class DriveSubsystem extends SubsystemBase {
 	}
 
 	public static void updateDashboard() {
-		// Dashboard.DriveTrain.setHeading(getHeading().getDegrees());
-		// Dashboard.DriveTrain.setX(getPose().getX());
-		// Dashboard.DriveTrain.setY(getPose().getY());
-		// Dashboard.DriveTrain.setCurrentAngle(getPose().getRotation().getRadians());
+		Dashboard.DriveTrain.setHeading(getHeading().getDegrees());
+		Dashboard.DriveTrain.setX(getPose().getX());
+		Dashboard.DriveTrain.setY(getPose().getY());
+		Dashboard.DriveTrain.setCurrentAngle(getPose().getRotation().getRadians());
 		// Dashboard.DriveTrain.setTargetAngle(m_targetPose.getRotation().getRadians());
 	}
 
@@ -76,7 +76,7 @@ public class DriveSubsystem extends SubsystemBase {
 	 * Returns the currently-estimated pose of the robot.
 	 * @return The pose.
 	 */
-	public Pose2d getPose() {
+	public static Pose2d getPose() {
 	  return m_odometry.getPoseMeters();
 	}
 
@@ -84,7 +84,7 @@ public class DriveSubsystem extends SubsystemBase {
      * Returns the heading of the robot.
      * @return the robot's heading as a Rotation2d
      */
-	public Rotation2d getHeading() {
+	public static Rotation2d getHeading() {
 		double raw_yaw = m_gyro.getYaw();
 		double calc_yaw = raw_yaw;
 		if (0.0 > raw_yaw) { //yaw is negative
