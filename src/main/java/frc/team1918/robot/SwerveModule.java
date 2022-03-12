@@ -342,9 +342,9 @@ public class SwerveModule {
     }
 
     public double getDriveDistanceMeters() {
-        return drive.getSelectedSensorPosition();
+        return Helpers.General.encoderToMeters(drive.getSelectedSensorPosition());
     }
-
+    
     public void resetDistance() {
         drive.setSelectedSensorPosition(0.0);
     }
