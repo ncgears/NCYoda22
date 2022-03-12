@@ -6,6 +6,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.team1918.robot.Constants;
+import frc.team1918.robot.Dashboard;
 import frc.team1918.robot.Helpers;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
@@ -39,6 +40,9 @@ public class VisionSubsystem extends SubsystemBase {
   
   @Override
   public void periodic() {
+
+    updateDashboard();
+
     // This method will be called once per scheduler run and change the shooter speed if requested
     double t1x = table.getEntry("target1x").getDouble(defaultValue);
     double t1y = table.getEntry("target1y").getDouble(defaultValue);
@@ -65,6 +69,11 @@ public class VisionSubsystem extends SubsystemBase {
     // Helpers.Debug.debug(Double.toString(((t1x-250)/250)*FOV));
 
   }
+
+  public void updateDashboard() {
+    Dashboard.Vision.setVisionRinglight(m_ringlight.get()==Value.kForward);
+  }
+
   public void lockAngle() {
 		desiredAngle = Helpers.General.roundDouble(m_gyro.getAngle(), 3);
 		angleLocked = true;

@@ -1,13 +1,49 @@
 {
   "NetworkTables": {
+    "CameraPublisher": {
+      "open": true
+    },
+    "LiveWindow": {
+      "Ungrouped": {
+        "Relay[0]": {
+          "open": true
+        },
+        "open": true
+      },
+      "open": true
+    },
     "SmartDashboard": {
+      "Vision": {
+        "open": true
+      },
       "open": true
     },
     "types": {
       "/FMSInfo": "FMSInfo",
       "/LiveWindow/MixerSubsystem": "Subsystem",
+      "/LiveWindow/Ungrouped/DigitalInput[0]": "Digital Input",
+      "/LiveWindow/Ungrouped/DigitalInput[1]": "Digital Input",
+      "/LiveWindow/Ungrouped/DigitalInput[2]": "Digital Input",
+      "/LiveWindow/Ungrouped/DigitalInput[3]": "Digital Input",
+      "/LiveWindow/Ungrouped/DigitalInput[4]": "Digital Input",
+      "/LiveWindow/Ungrouped/DigitalInput[5]": "Digital Input",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
-      "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro"
+      "/LiveWindow/Ungrouped/Talon FX [36]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [37]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [38]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [39]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [43]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [6]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon SRX [11]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon SRX [13]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon SRX [14]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon SRX [15]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon SRX [16]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon SRX [1]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon SRX [7]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon SRX [8]": "Motor Controller",
+      "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
+      "/SmartDashboard/SendableChooser[0]": "String Chooser"
     }
   },
   "NetworkTables Settings": {
@@ -49,7 +85,10 @@
             }
           ]
         }
-      ]
+      ],
+      "window": {
+        "visible": false
+      }
     }
   }
 }
