@@ -25,6 +25,7 @@ public class DriveSubsystem extends SubsystemBase {
 	private int debug_ticks;
 	private static double desiredAngle; //Used for driveStraight function
 	private static boolean angleLocked = false;
+	private static double yawOffset = 0.0;
 
 	//initialize 4 swerve modules
 	private static SwerveModule m_dtFL = new SwerveModule("dtFL", Constants.Swerve.FL.constants); // Front Left
@@ -72,20 +73,12 @@ public class DriveSubsystem extends SubsystemBase {
 		// Dashboard.DriveTrain.setTargetAngle(m_targetPose.getRotation().getRadians());
 	}
 
-	/**
-	 * Returns the currently-estimated pose of the robot.
-	 * @return The pose.
-	 */
-	public static Pose2d getPose() {
-	  return m_odometry.getPoseMeters();
-	}
-
-	/**
+		/**
      * Returns the heading of the robot.
      * @return the robot's heading as a Rotation2d
      */
 	public static Rotation2d getHeading() {
-		double raw_yaw = m_gyro.getYaw();
+		double raw_yaw = m_gyro.getYaw() - (double)yawOffset;  //always subtract the offset
 		double calc_yaw = raw_yaw;
 		if (0.0 > raw_yaw) { //yaw is negative
 			calc_yaw += 360.0;
@@ -102,13 +95,21 @@ public class DriveSubsystem extends SubsystemBase {
 		return m_gyro.getRate() * (Constants.Swerve.kGyroReversed ? -1.0 : 1.0);
 	}
 
+	public void zeroHeading() {
+		m_gyro.zeroYaw();
+		yawOffset = 0;
+	}
+
 	/**
-	 * Resets the odometry to the specified pose.
-	 *
+	 * Resets the odometry to the specified pose. Requires the current heading to account for starting position other than 0.
+	 * 
+	 * @param heading The current heading of the robot to offset the zero position
 	 * @param pose The pose to which to set the odometry.
 	 */
-	public void resetOdometry(Pose2d pose) {
-	  m_odometry.resetPosition(pose, m_gyro.getRotation2d());
+	public void resetOdometry(double heading, Pose2d pose) {
+	  zeroHeading();
+	  yawOffset = heading;
+	  m_odometry.resetPosition(pose, Rotation2d.fromDegrees(heading));
 	}
 
 	public void lockAngle() {
