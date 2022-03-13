@@ -40,7 +40,7 @@ public class drive_followTrajectory extends CommandBase {
   public void initialize() {
     m_timer.reset();
     m_timer.start();
-    m_drive.resetOdometry(m_trajectory.getInitialPose());
+    // m_drive.resetOdometry(m_trajectory.getInitialPose());
     m_offset = (m_drive.getHeading()).minus(m_trajectory.getInitialPose().getRotation()); //may also add vision offset?
 
     m_xController = new PIDController(Constants.Auton.kPTranslationController, 0, 0);

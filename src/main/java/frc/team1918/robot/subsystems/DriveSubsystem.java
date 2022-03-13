@@ -121,7 +121,7 @@ public class DriveSubsystem extends SubsystemBase {
 	}
 
 	public void lockAngle() {
-		desiredAngle = Helpers.General.roundDouble(m_gyro.getAngle(), 3);
+		desiredAngle = getHeading().getDegrees(); //Helpers.General.roundDouble(m_gyro.getAngle(), 3);
 		angleLocked = true;
 		Helpers.Debug.debug("Angle Locked to "+desiredAngle);
 	}
@@ -154,7 +154,8 @@ public class DriveSubsystem extends SubsystemBase {
 		double fwdMPS = fwd * Constants.DriveTrain.kMaxMetersPerSecond;
 		double strMPS = str * Constants.DriveTrain.kMaxMetersPerSecond;
 		double rotRPS = rot * Constants.DriveTrain.kMaxRotationRadiansPerSecond;
-		ChassisSpeeds speeds = (fieldRelative) ? ChassisSpeeds.fromFieldRelativeSpeeds(fwdMPS, strMPS, rotRPS, getRot2d()) : new ChassisSpeeds(fwdMPS, strMPS, rotRPS);
+		//getHeading was getRot2d which used m_gyro.getAngle()
+		ChassisSpeeds speeds = (fieldRelative) ? ChassisSpeeds.fromFieldRelativeSpeeds(fwdMPS, strMPS, rotRPS, getHeading()) : new ChassisSpeeds(fwdMPS, strMPS, rotRPS);
 		if (speeds.vxMetersPerSecond == 0 && speeds.vyMetersPerSecond == 0 && speeds.omegaRadiansPerSecond == 0) {
 			brake();
 			return;
@@ -227,18 +228,6 @@ public class DriveSubsystem extends SubsystemBase {
 	//#region GYRO STUFF
 	public static AHRS getm_gyro() {
         return m_gyro;
-	}
-
-	public static Rotation2d getRot2d() {
-		return Rotation2d.fromDegrees(getGyroAngle());
-	}
-
-	public static double getGyroAngle() {
-		return m_gyro.getAngle();
-	}
-
-	public static double getGyroAngleInRad() {
-		return m_gyro.getAngle() * (Math.PI / 180d);
 	}
 	//#endregion GYRO STUFF
 
