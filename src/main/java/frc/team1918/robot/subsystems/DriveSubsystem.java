@@ -100,6 +100,14 @@ public class DriveSubsystem extends SubsystemBase {
 		yawOffset = 0;
 	}
 
+		/**
+	 * Returns the currently-estimated pose of the robot.
+	 * @return The pose.
+	 */
+	public static Pose2d getPose() {
+		return m_odometry.getPoseMeters();
+	}
+
 	/**
 	 * Resets the odometry to the specified pose. Requires the current heading to account for starting position other than 0.
 	 * 
@@ -196,6 +204,13 @@ public class DriveSubsystem extends SubsystemBase {
 		m_dtRR.setDesiredState(desiredStates[3]);
 	}
 
+	/** Resets the drive encoders to read a position of 0. */
+	public void resetEncoders() {
+		for (SwerveModule module: modules) {
+			module.resetEncoders();
+		}
+	}
+	
 	/**
 	 * This returns and angle correction (in degrees)
 	 * @param targetAngle [double] target angle (heading) of the robot in degrees
