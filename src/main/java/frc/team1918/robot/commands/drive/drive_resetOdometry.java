@@ -1,6 +1,7 @@
 
 package frc.team1918.robot.commands.drive;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 //import subsystem
 import frc.team1918.robot.subsystems.DriveSubsystem;
@@ -12,18 +13,20 @@ import frc.team1918.robot.subsystems.DriveSubsystem;
  */
 public class drive_resetOdometry extends CommandBase {
   private final DriveSubsystem m_drive;
+  private Pose2d m_pose;
 
   /**
    * @param subsystem The drive subsystem this command will run on.
    */
-  public drive_resetOdometry(DriveSubsystem subsystem) {
+  public drive_resetOdometry(DriveSubsystem subsystem, Pose2d pose) {
     m_drive = subsystem;
-    addRequirements(m_drive);
+    m_pose = pose;
+    // addRequirements(m_drive);
   }
 
   @Override
   public void end(boolean interrupted) {
-    m_drive.resetOdometry(m_drive.getPose());
+    m_drive.resetOdometry(m_pose.getRotation().getDegrees(), m_pose);
   }
 
   @Override
