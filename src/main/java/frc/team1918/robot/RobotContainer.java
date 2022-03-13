@@ -20,8 +20,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 //Util imports
-import frc.team1918.robot.utils.AndButton;
-import frc.team1918.robot.utils.OrPOVButton;
+// import frc.team1918.robot.utils.AndButton;
+// import frc.team1918.robot.utils.OrPOVButton;
 
 //Subsystems imports
 import frc.team1918.robot.subsystems.ClimberSubsystem;
@@ -33,7 +33,7 @@ import frc.team1918.robot.subsystems.ShooterSubsystem.namedShots;
 // import frc.team1918.robot.subsystems.OrchestraSubsystem;
 import frc.team1918.robot.subsystems.VisionSubsystem;
 //Commands imports
-import frc.team1918.robot.commands.helpers.helpers_debugMessage;
+// import frc.team1918.robot.commands.helpers.helpers_debugMessage;
 import frc.team1918.robot.commands.climber.*;
 import frc.team1918.robot.commands.collector.*;
 import frc.team1918.robot.commands.drive.*;
@@ -197,14 +197,6 @@ public class RobotContainer {
     // andbtn_MECHZERO.whenPressed(new drive_moveAllToMechZero(m_drive));
   }
 
-  // These functions return the commands, this is only needed for things that happen during robot init in Robot.java
-  // public drive_resetGyro getResetGyroCommand() {
-  //   return m_resetGyro;
-  // }
-  // public cg_drive_initOdometry getInitOdomCommand() {
-  //   return m_initOdom;
-  // }
-
   /**
    * Use this to pass the named command to the main Robot class.
    * @return command
@@ -214,16 +206,14 @@ public class RobotContainer {
     switch (name) {
       case "resetRobot":
         return new cg_resetRobot(m_collector, m_climber, m_feeder, m_shooter);
-        case "auton_4BallAuto":
+      case "auton_4BallAuto":
         return new cg_auton_4BallAuto(m_drive, m_collector, m_feeder, m_shooter);
-        // case "auton_BasicShootingAuto":
-        // return new cg_auton_BasicShootingAuto(m_drive, m_collector, m_feeder, m_shooter);
-        // case "auton_BasicDriveAuto":
-        // return new cg_auton_BasicDriveAuto(m_drive, m_collector, m_feeder, m_shooter);
+      case "auton_BasicShootingAuto":
+        return new cg_auton_BasicShootingAuto(m_drive, m_collector, m_feeder, m_shooter);
+      case "auton_BasicDriveAuto":
+        return new cg_auton_BasicDriveAuto(m_drive, m_collector, m_feeder, m_shooter);
       default:
         return null;
     }
-    
-    //cg_resetRobot(m_collector,m_climber);
   }
 }

@@ -98,7 +98,8 @@ public class Constants {
      */
     public static final class Auton {
         public static final boolean isDisabled = false; //Disable autonomous
-        public static final String autonToRun = "auton_BasicShootingAuto"; //4BallAuto, BasicDriveAuto, BasicShootingAuto, None //Name of the auton to run (these are in the bottom of RobotContainer)
+        // Auton is defined in robot.java
+        // public static final String autonToRun = "auton_BasicShootingAuto"; //4BallAuto, BasicDriveAuto, BasicShootingAuto, None //Name of the auton to run (these are in the bottom of RobotContainer)
         public static final double kMaxSpeedMetersPerSecond = 0.5;
         public static final double kMaxAccelMetersPerSecondSquared = 0.1;
         public static final double kMaxOmega = (kMaxSpeedMetersPerSecond / Math.hypot(0.584 / 2.0, 0.66 / 2.0));
