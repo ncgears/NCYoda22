@@ -229,12 +229,6 @@ public class DriveSubsystem extends SubsystemBase {
         return m_gyro;
 	}
 
-	public void resetGyro() {
-		Helpers.Debug.debug("Gyro Reset");
-		m_gyro.reset();
-		resetOdometry(getPose());
-	}
-
 	public static Rotation2d getRot2d() {
 		return Rotation2d.fromDegrees(getGyroAngle());
 	}
