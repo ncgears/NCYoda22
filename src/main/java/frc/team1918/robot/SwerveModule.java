@@ -342,11 +342,16 @@ public class SwerveModule {
     }
 
     public double getDriveDistanceMeters() {
-        return Helpers.General.encoderToMeters(drive.getSelectedSensorPosition());
+        return drive.getSelectedSensorPosition();
     }
-    
+
     public void resetDistance() {
         drive.setSelectedSensorPosition(0.0);
+    }
+
+    public void resetEncoders() {
+        // this resets cumulative rotation counts to zero, resets the position of the turn encoders
+        // primarily used with an external encoder such as cancoder, does nothing with our lampreys
     }
 
     public void syncTurningEncoders() {
