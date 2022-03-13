@@ -43,6 +43,7 @@ public class VisionSubsystem extends SubsystemBase {
 
     updateDashboard();
 
+    /* //Disabled all telemetry for ball detection/intake vision
     // This method will be called once per scheduler run and change the shooter speed if requested
     double t1x = table.getEntry("target1x").getDouble(defaultValue);
     double t1y = table.getEntry("target1y").getDouble(defaultValue);
@@ -67,7 +68,7 @@ public class VisionSubsystem extends SubsystemBase {
       // Helpers.Debug.debug("Vision: T"+(i+1)+"(x:"+target[0]+" y:"+target[1]+" color: "+target[2]+" size: "+target[3]+")");
     }
     // Helpers.Debug.debug(Double.toString(((t1x-250)/250)*FOV));
-
+    */
   }
 
   public void updateDashboard() {
