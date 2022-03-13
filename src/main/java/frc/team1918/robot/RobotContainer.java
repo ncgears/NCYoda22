@@ -154,6 +154,9 @@ public class RobotContainer {
     if(Constants.Climber.useAutoClimb) {
       btn_WhirlyFwd.whileHeld(new climber_autoClimb(m_climber));
       btn_WhirlyRev.whileHeld(new climber_rotateRev(m_climber));
+      //the following release buttons are for testing only. Remove for competition
+      btn_ReleaseHook1.whenPressed(new climber_lockHook(m_climber,1).beforeStarting(new climber_unlockHook(m_climber,1).andThen(new WaitCommand(Constants.Climber.kHookReleaseTime))));
+      btn_ReleaseHook2.whenPressed(new climber_lockHook(m_climber,2).beforeStarting(new climber_unlockHook(m_climber,2).andThen(new WaitCommand(Constants.Climber.kHookReleaseTime))));
     } else {
       btn_WhirlyFwd.whileHeld(new climber_rotateFwd(m_climber));
       btn_WhirlyRev.whileHeld(new climber_rotateRev(m_climber));
