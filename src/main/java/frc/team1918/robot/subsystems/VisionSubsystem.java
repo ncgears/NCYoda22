@@ -109,7 +109,7 @@ public class VisionSubsystem extends SubsystemBase {
    * @param enabled - true to turn on light, false to turn it off
    */
   public void setRinglight(boolean enabled) {
-    m_ringlight.set((enabled) ? Value.kForward : Value.kOff);
+    m_ringlight.set((enabled) ? Value.kReverse : Value.kOff);
   }
 
   /**
