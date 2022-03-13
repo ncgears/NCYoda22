@@ -71,7 +71,7 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   public void updateDashboard() {
-    Dashboard.Vision.setVisionRinglight(m_ringlight.get()==Value.kForward);
+    Dashboard.Vision.setVisionRinglight(m_ringlight.get()==Value.kReverse);
   }
 
   public void lockAngle() {

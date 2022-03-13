@@ -30,8 +30,6 @@ public class vision_setRinglight extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Helpers.Debug.debug("Vision: Ringlight Off");
-    m_vision.setRinglight(false);
   }
 
   // Returns true when the command should end.

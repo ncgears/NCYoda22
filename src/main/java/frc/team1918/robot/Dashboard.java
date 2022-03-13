@@ -51,5 +51,6 @@ public class Dashboard {
         public static final void setCurrentAngle(double value) { SmartDashboard.putNumber("Current Angle", value); }
         public static final void setTargetAngle(double value) { SmartDashboard.putNumber("Target Angle", value); }
         public static final void setRotationPidOut(double value) { SmartDashboard.putNumber("Rotation PID Out", value); }
+        public static final void setDesiredAngle(double value) { SmartDashboard.putNumber("Desired Angle", value); }
     }
 }

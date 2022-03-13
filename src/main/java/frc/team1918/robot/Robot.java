@@ -10,6 +10,7 @@ package frc.team1918.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -40,6 +41,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    //Disable LiveWindow
+    LiveWindow.disableAllTelemetry();
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();

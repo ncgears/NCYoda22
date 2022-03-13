@@ -6,12 +6,7 @@
       }
     },
     "Other Devices": {
-      "Talon FX[43]": {
-        "header": {
-          "open": true
-        }
-      },
-      "Talon FX[43]/Integrated Sensor": {
+      "Talon FX[39]/Integrated Sensor": {
         "header": {
           "open": true
         }
@@ -96,6 +91,9 @@
       }
     },
     "SmartDashboard": {
+      "Vision": {
+        "open": true
+      },
       "open": true
     },
     "Usage": {
