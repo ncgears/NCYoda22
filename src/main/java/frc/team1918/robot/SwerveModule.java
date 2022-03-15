@@ -74,7 +74,7 @@ public class SwerveModule {
         turn.config_IntegralZone(0, TURN_IZONE);
         turn.overrideLimitSwitchesEnable(false);
         turn.configAllowableClosedloopError(0, TURN_ALLOWED_ERROR); 
-        turn.set(ControlMode.Position, 0); //TODO: Add constant for home_on_init
+        if(Constants.Swerve.homeOnInit) turn.set(ControlMode.Position, 0);
 
         drive.configFactoryDefault();
         drive.set(ControlMode.PercentOutput, 0);
@@ -155,8 +155,8 @@ public class SwerveModule {
             drive.set(ControlMode.PercentOutput, percentOutput);
         }
 
-        int turn_ticks = Helpers.General.radiansToTicks(state.angle.getRadians());
-        turn.set(ControlMode.Position, turn_ticks); //TODO use offset ticks stored in constants
+        int turn_ticks = Helpers.General.radiansToTicks(state.angle.getRadians() + Constants.Swerve.kHomeOffsetRadians);
+        turn.set(ControlMode.Position, turn_ticks); //TODO: Double-check this and test
 
         //Display output for debugging
         if(Helpers.Debug.debugThrottleMet(debug_ticks1) && state.speedMetersPerSecond != 0.0) {
@@ -224,58 +224,35 @@ public class SwerveModule {
         }
     }
 
-    /**
-     * Returns the raw units of the current location of the turn sensor
-     * @return (integer) Raw units (typically encoder ticks) of turn location
-     */
-    public int getTurnPosition(){
-        return ((int) turn.getSelectedSensorPosition(0) & 0x3FF);
-        //return (turn.getSensorCollection().getAnalogIn()); //This gets an ADC value for the analog sensor
-        //We may want to use a bitwise "AND" with 0x3FF (1023), 0x7FF (2047), 0xFFF (4095) to get just the most significant bits that we are interested in.
-        //Explanation: & is a bitwise "AND" operator, and 0xFFF is 4095 in Hex, consider "0101010101 AND 1111 = 0101"
-    }
+    // /**
+    //  * Returns the raw units of the current location of the turn sensor
+    //  * @return (integer) Raw units (typically encoder ticks) of turn location
+    //  */
+    // public int getTurnPosition(){
+    //     //TODO: Change to non-normalized?
+    //     // return ((int) turn.getSelectedSensorPosition(0) & 0x3FF); //normalize to a single rotation
+    //     return ((int) turn.getSelectedSensorPosition(0)); //do not normalize
+    //     //return (turn.getSensorCollection().getAnalogIn()); //This gets an ADC value for the analog sensor
+    //     //We may want to use a bitwise "AND" with 0x3FF (1023), 0x7FF (2047), 0xFFF (4095) to get just the most significant bits that we are interested in.
+    //     //Explanation: & is a bitwise "AND" operator, and 0xFFF is 4095 in Hex, consider "0101010101 AND 1111 = 0101"
+    // }
 
     /**
      * Returns a rotation2d object representing the current location of the turn sensor
      * @return Rotation2d object of the current position
      */
     public Rotation2d getTurnPositionAsRotation2d(){
-        return new Rotation2d(Helpers.General.ticksToRadians(getTurnPosition()));
+        int pos = (int) turn.getSelectedSensorPosition(0); //not normalized
+        // int pos = getTurnPosition();
+        return new Rotation2d(Helpers.General.ticksToRadians(pos));
     }
 
     /**
-	 * Set turn to pos from 0 to 1 using PID using shortest turn to get the wheels aimed the right way
-	 * @param wa wheel angle location to set to in radians
-	 */
-	public void setTurnLocation(double waRads) {
-        double currentAngleRads = Helpers.General.ticksToRadians(getTurnPosition());
-        double targetAngleRads = waRads;
-        int currentNumRotations = (int) (currentAngleRads / FULL_ROTATION);
-        targetAngleRads += (currentNumRotations >= 0) ? currentNumRotations * FULL_ROTATION : (currentNumRotations + 1) * FULL_ROTATION;
-
-        if ((targetAngleRads > currentAngleRads + FULL_ROTATION * 0.25) || (targetAngleRads < currentAngleRads - FULL_ROTATION * 0.25)) { //if target is more than 25% of a rotation either way
-            if (currentAngleRads < targetAngleRads) { //left strafe
-                if (targetAngleRads - currentAngleRads > FULL_ROTATION * 0.75) { //if target would require moving less than 75% of a rotation, just go there
-                    targetAngleRads -= FULL_ROTATION;
-                } else { //otherwise, turn half a rotation from the target and reverse the drive power
-                    targetAngleRads -= FULL_ROTATION * 0.5;
-                    this.isDrivePowerInverted = true;
-                }
-            } else { //right strafe
-                if ( currentAngleRads - targetAngleRads > FULL_ROTATION * 0.75) { //if target would require moving less than 75% of a rotation, just go there
-                    targetAngleRads += FULL_ROTATION;
-                } else { //otherwise, turn half a rotation from the target and reverse the drive power
-                    targetAngleRads += FULL_ROTATION * 0.5;
-                    this.isDrivePowerInverted = true;
-                }
-            }
-        }
-        turn.set(ControlMode.Position,targetAngleRads);
-        // System.out.println(moduleName + " setTurnLocation="+targetAngle+"; isDrivePowerInverted="+this.isDrivePowerInverted);
-    }
-
-    /**
-     * Gets the closed-loop error. The units depend on which control mode is in use. If closed-loop is seeking a target sensor position, closed-loop error is the difference between target and current sensor value (in sensor units. Example 4096 units per rotation for CTRE Mag Encoder). If closed-loop is seeking a target sensor velocity, closed-loop error is the difference between target and current sensor value (in sensor units per 100ms). If using motion profiling or Motion Magic, closed loop error is calculated against the current target, and not the "final" target at the end of the profile/movement. See Phoenix-Documentation information on units.
+     * Gets the closed-loop error. The units depend on which control mode is in use. If closed-loop is seeking a target sensor position, closed-loop error
+     * is the difference between target and current sensor value (in sensor units. Example 4096 units per rotation for CTRE Mag Encoder). 
+     * If closed-loop is seeking a target sensor velocity, closed-loop error is the difference between target and current sensor value 
+     * (in sensor units per 100ms). If using motion profiling or Motion Magic, closed loop error is calculated against the current target, 
+     * and not the "final" target at the end of the profile/movement. See Phoenix-Documentation information on units.
      * @return Double precision units of error
      */
     public double getTurnError() {

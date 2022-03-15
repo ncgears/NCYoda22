@@ -219,6 +219,7 @@ public class Constants {
      * Constants for the Swerve Modules
      */
     public static final class Swerve {
+        public static final boolean homeOnInit = true; //true to go to zero position on init
         public static final boolean USE_OPTIMIZATION = true; //false to disable shortest path optimization
         public static final boolean USE_DRIVE_PID = false; //true to enable PID based drive control
         // turn pid defaults (used in module definitions)
@@ -228,6 +229,7 @@ public class Constants {
         public static final int DEFAULT_TURN_IZONE = 0; //PID IZone
         public static final int DEFAULT_TURN_ALLOWED_ERROR = 3; //PID Allowed Error
         // swerve control definitions
+        public static final double kHomeOffsetRadians = 0.0; //3 * (Math.PI/4); //135 - radians to offset the zero point of the wheels
         public static final double kMaxModuleAngularSpeedRadiansPerSecond = 2 * Math.PI;
         public static final double kMaxModuleAngularAccelerationRadiansPerSecondSquared = 2 * Math.PI;
         public static final double kMaxSpeedMetersPerSecond = 3.770; //12.0fps calculated; 13.7fps per Mike
@@ -260,7 +262,7 @@ public class Constants {
         /**
          * Constants for Front Left Swerve Module
          */
-        public static final class FL {  //TODO: PID Tuning
+        public static final class FL {
             public static final boolean isDisabled = false;
             public static final int DRIVE_MC_ID = ID.Falcon.swerve_fl_drive; //Falcon500 Motor Controller ID
             public static final double DRIVE_wheelDiamOffsetMM = 0.0; //offset to wheel diam to account for wear, in mm from nominal (negative for worn wheels)
