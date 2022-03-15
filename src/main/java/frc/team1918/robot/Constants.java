@@ -222,11 +222,11 @@ public class Constants {
         public static final boolean USE_OPTIMIZATION = true; //false to disable shortest path optimization
         public static final boolean USE_DRIVE_PID = false; //true to enable PID based drive control
         // turn pid defaults (used in module definitions)
-        public static final double DEFAULT_TURN_P = 2.8; //PID P
+        public static final double DEFAULT_TURN_P = 2.6; //PID P
         public static final double DEFAULT_TURN_I = 0.0; //PID I
         public static final double DEFAULT_TURN_D = 0.0; //PID D
         public static final int DEFAULT_TURN_IZONE = 0; //PID IZone
-        public static final int DEFAULT_TURN_ALLOWED_ERROR = 2; //PID Allowed Error
+        public static final int DEFAULT_TURN_ALLOWED_ERROR = 3; //PID Allowed Error
         // swerve control definitions
         public static final double kMaxModuleAngularSpeedRadiansPerSecond = 2 * Math.PI;
         public static final double kMaxModuleAngularAccelerationRadiansPerSecondSquared = 2 * Math.PI;
@@ -346,7 +346,7 @@ public class Constants {
         public static final double DT_TURN_MULT_STATIONARY = 1.0; //Turn speed multiplier while not moving
         public static final double DT_TURN_MULT_MOVING = 1.0; //Turn speed multiplier while moving
         public static final boolean DT_TURN_MULT_BEFORE_DB = true; //Apply turn multiplier before deadband
-        public static final int DT_TURN_ENCODER_FULL_ROTATION = 1024; //This is for the lamprey, not the integrated SRX mag encoder
+        public static final int DT_TURN_ENCODER_FULL_ROTATION = 1023; //This is for the lamprey, not the integrated SRX mag encoder
         public static final int kTurnEncoderFullRotation = 4096; //This is for the integrated SRX mag encoder in the gearboxes, not the lamprey
         public static final double kTurnGearRatio = 10.3846154; //The output of the turn gearbox turns 10 times for one module rotation
         ////Drive Tuning

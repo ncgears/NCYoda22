@@ -69,7 +69,7 @@ public class DriveSubsystem extends SubsystemBase {
 		Dashboard.DriveTrain.setHeading(getHeading().getDegrees());
 		Dashboard.DriveTrain.setX(getPose().getX());
 		Dashboard.DriveTrain.setY(getPose().getY());
-		Dashboard.DriveTrain.setCurrentAngle(getPose().getRotation().getRadians());
+		Dashboard.DriveTrain.setCurrentAngle(getPose().getRotation().getDegrees());
 		Dashboard.DriveTrain.setDesiredAngle(desiredAngle);
 		// Dashboard.DriveTrain.setTargetAngle(m_targetPose.getRotation().getRadians());
 	}
@@ -85,15 +85,7 @@ public class DriveSubsystem extends SubsystemBase {
 			calc_yaw += 360.0;
 		}
 		calc_yaw *= (Constants.Swerve.kGyroReversed ? -1.0 : 1.0);
-		return Rotation2d.fromDegrees(-calc_yaw);
-	}
-
-	/**
-	 * Returns the turn rate of the robot.
-	 * @return The turn rate of the robot, in degrees per second
-	 */
-	public double getTurnRate() {
-		return m_gyro.getRate() * (Constants.Swerve.kGyroReversed ? -1.0 : 1.0);
+		return Rotation2d.fromDegrees(calc_yaw);
 	}
 
 	public void zeroHeading() {
@@ -147,7 +139,8 @@ public class DriveSubsystem extends SubsystemBase {
 					lockAngle();
 				} else {
 					if (Math.abs(fwd) > 0 || Math.abs(str) > 0) { //Only do angle correction while moving, for safety reasons
-						rot += calcAngleStraight(desiredAngle,m_gyro.getAngle(),Constants.DriveTrain.kDriveStraight_P); //Add some correction to the rotation to account for angle drive
+						Dashboard.DriveTrain.setCorrectionAngle(calcAngleStraight(desiredAngle,getHeading().getDegrees(),Constants.DriveTrain.kDriveStraight_P));
+						rot += calcAngleStraight(desiredAngle,getHeading().getDegrees(),Constants.DriveTrain.kDriveStraight_P); //Add some correction to the rotation to account for angle drive
 					}
 				}
 			}
@@ -223,6 +216,7 @@ public class DriveSubsystem extends SubsystemBase {
 	public double calcAngleStraight(double targetAngle, double currentAngle, double kP) {
 		double errorAngle = (targetAngle - currentAngle) % 360.0;
 		double correction = errorAngle * kP;
+		if (Math.abs(correction) > .5) return 0.01;
 		return correction;
 	}
 

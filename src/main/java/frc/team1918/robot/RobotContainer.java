@@ -11,6 +11,7 @@ package frc.team1918.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Joystick;
@@ -179,7 +180,7 @@ public class RobotContainer {
     btn_ShooterStop.whenPressed(new shooter_stopShooter(m_shooter));
     btn_ShooterIncrease.whenPressed(new shooter_increaseThrottle(m_shooter));
     btn_ShooterDecrease.whenPressed(new shooter_decreaseThrottle(m_shooter));
-    btn_GyroReset.whenPressed(new drive_resetGyro(m_drive));
+    btn_GyroReset.whenPressed(new drive_resetGyro(m_drive).andThen(new drive_resetOdometry(m_drive, new Pose2d())));
     t_VisionShoot.whenActive(new vision_setRinglight(m_vision,true)).whenInactive(new vision_setRinglight(m_vision,false));
     //Music Control Buttons
     // btn_MusicPlay.whenPressed(new orchestra_loadAndPlay(m_orchestra));

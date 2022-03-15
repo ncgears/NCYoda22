@@ -156,7 +156,7 @@ public class SwerveModule {
         }
 
         int turn_ticks = Helpers.General.radiansToTicks(state.angle.getRadians());
-        turn.set(ControlMode.Position, turn_ticks);
+        turn.set(ControlMode.Position, turn_ticks); //TODO use offset ticks stored in constants
 
         //Display output for debugging
         if(Helpers.Debug.debugThrottleMet(debug_ticks1) && state.speedMetersPerSecond != 0.0) {
