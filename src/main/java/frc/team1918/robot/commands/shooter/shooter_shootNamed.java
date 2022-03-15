@@ -9,7 +9,6 @@ package frc.team1918.robot.commands.shooter;
 
 import frc.team1918.robot.Constants;
 import frc.team1918.robot.Helpers;
-import frc.team1918.robot.Constants.Shooter;
 import frc.team1918.robot.subsystems.ShooterSubsystem;
 import frc.team1918.robot.subsystems.ShooterSubsystem.namedShots;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -18,7 +17,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * A command that ...
  */
 public class shooter_shootNamed extends CommandBase {
-  @SuppressWarnings({"unused","PMD.UnusedPrivateField", "PMD.SingularField"}) //Dont add "unused" under normal operation
+  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"}) //Dont add "unused" under normal operation
   private final ShooterSubsystem m_shooter;
   private final namedShots m_name;
 

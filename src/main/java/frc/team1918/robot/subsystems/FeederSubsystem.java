@@ -20,7 +20,7 @@ public class FeederSubsystem extends SubsystemBase {
   public enum feederDirection {STOPPED, FORWARD, REVERSE; }
   public feederDirection currentFeederDirection = feederDirection.STOPPED;
 
-//TODO: See https://www.chiefdelphi.com/t/code-for-ir-break-beam/396373/4 for beam break examples and triggers
+//See https://www.chiefdelphi.com/t/code-for-ir-break-beam/396373/4 for beam break examples and triggers
 
   /**
    * Creates a new ExampleSubsystem.
