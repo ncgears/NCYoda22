@@ -3,6 +3,7 @@ package frc.team1918.robot.subsystems;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team1918.robot.Constants;
 import frc.team1918.robot.Dashboard;
@@ -25,7 +26,10 @@ public class DriveSubsystem extends SubsystemBase {
 	private int debug_ticks;
 	private static double desiredAngle; //Used for driveStraight function
 	private static boolean angleLocked = false;
-	private static double yawOffset = 0.0;
+	private double[] lastDistances;
+	private double lastTime;
+	private final Timer timer;
+	private static double yawOffset = 0.0; //offset to account for different starting positions
 
 	//initialize 4 swerve modules
 	private static SwerveModule m_dtFL = new SwerveModule("dtFL", Constants.Swerve.FL.constants); // Front Left
