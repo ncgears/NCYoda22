@@ -25,7 +25,7 @@ public class SwerveModule {
     private final int TURN_ALLOWED_ERROR;
     private boolean isDrivePowerInverted = false;
     private String moduleName;
-    private double wheelOffsetMM = 0;
+    private double driveWheelDiam = Constants.Swerve.DEFAULT_WHEEL_DIAM_MM;
     private int debug_ticks1;
 
     SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.Swerve.driveKS, Constants.Swerve.driveKV, Constants.Swerve.driveKA);
@@ -46,6 +46,7 @@ public class SwerveModule {
         TURN_D = moduleConstants.turnD;
         TURN_IZONE = moduleConstants.turnIZone;
         TURN_ALLOWED_ERROR = moduleConstants.turnMaxAllowedError;
+        driveWheelDiam = moduleConstants.driveWheelDiam;
 
         turn.configFactoryDefault(); //Reset controller to factory defaults to avoid wierd stuff from carrying over
         turn.set(ControlMode.PercentOutput, 0); //Set controller to disabled
@@ -107,8 +108,7 @@ public class SwerveModule {
             Constants.DriveTrain.DT_DRIVE_FIRST_GEARTWO,
             Constants.DriveTrain.DT_DRIVE_SECOND_GEARONE,
             Constants.DriveTrain.DT_DRIVE_SECOND_GEARTWO);
-        double wheelDiam = Constants.DriveTrain.DT_WHEEL_DIAM_MM - this.wheelOffsetMM;
-        return new SwerveModuleState(Helpers.General.rpmToMetersPerSecond(wheelRpm, wheelDiam), getTurnPositionAsRotation2d());
+            return new SwerveModuleState(Helpers.General.rpmToMetersPerSecond(wheelRpm, this.driveWheelDiam), getTurnPositionAsRotation2d());
     }
 
     /**
@@ -143,11 +143,10 @@ public class SwerveModule {
      * FL = 5570, FR = 5200, RL = 5200, RR = 4740
      */
     public void setDesiredState(SwerveModuleState desiredState) {
-        double wheelDiam = Constants.DriveTrain.DT_WHEEL_DIAM_MM - this.wheelOffsetMM;
         SwerveModuleState state = (Constants.Swerve.USE_OPTIMIZATION) ? optimize(desiredState) : desiredState;
         if (Constants.Swerve.USE_DRIVE_PID) {
             // TODO: Send speed to closed loop control rather than percent output. Enable USE_DRIVE_PID and test.
-            double motorRpm = (Helpers.General.metersPerSecondToRPM(state.speedMetersPerSecond, wheelDiam) / Constants.DriveTrain.DT_DRIVE_CONVERSION_FACTOR);
+            double motorRpm = (Helpers.General.metersPerSecondToRPM(state.speedMetersPerSecond, this.driveWheelDiam) / Constants.DriveTrain.DT_DRIVE_CONVERSION_FACTOR);
             // Helpers.Debug.debug(moduleName+" desired mps: "+state.speedMetersPerSecond+" motorRpm: "+motorRpm);
             drive.set(ControlMode.Velocity, Helpers.General.rpsToTicksPer100ms(motorRpm/60, Constants.DriveTrain.DT_DRIVE_ENCODER_FULL_ROTATION, 1), DemandType.ArbitraryFeedForward, feedforward.calculate(state.speedMetersPerSecond));
         } else {
@@ -237,6 +236,12 @@ public class SwerveModule {
     //     //Explanation: & is a bitwise "AND" operator, and 0xFFF is 4095 in Hex, consider "0101010101 AND 1111 = 0101"
     // }
 
+    public int getZeroPositionTicks() {
+        int total = (int) turn.getSelectedSensorPosition(0);
+        int curr = (int) total & Constants.DriveTrain.DT_TURN_ENCODER_FULL_ROTATION;//0x3ff; //ticks in current rotation
+        return total - curr;
+    }
+
     /**
      * Returns a rotation2d object representing the current location of the turn sensor
      * @return Rotation2d object of the current position
@@ -299,13 +304,14 @@ public class SwerveModule {
      * This function is used to output data to the dashboard for debugging the module, typically done in the {@link DriveSubsystem} periodic.
      */
     public void updateDashboard() {
-        Dashboard.DriveTrain.setTurnPosition(moduleName, turn.getSelectedSensorPosition(0));
-        Dashboard.DriveTrain.setTurnSetpoint(moduleName, turn.getClosedLoopTarget(0));
+        Dashboard.DriveTrain.setTurnPosition(moduleName, (int) turn.getSelectedSensorPosition(0) & 0x3FF);
+        Dashboard.DriveTrain.setTurnSetpoint(moduleName, (int) turn.getClosedLoopTarget(0) & 0x3FF);
         Dashboard.DriveTrain.setTurnPositionError(moduleName, turn.getClosedLoopError(0));
         Dashboard.DriveTrain.setTurnVelocity(moduleName, turn.getSelectedSensorVelocity(0));
+        Dashboard.DriveTrain.setTurnZeroPosition(moduleName, getZeroPositionTicks()); 
         // Dashboard.DriveTrain.setTurnPositionErrorChange(moduleName, turn.getErrorDerivative(0));
         Dashboard.DriveTrain.setDriveVelocity(moduleName, drive.getSelectedSensorVelocity(0));
-        // Dashboard.DriveTrain.setDriveDistance(moduleName, drive.getDistance(0));
+        Dashboard.DriveTrain.setDriveDistance(moduleName, getDriveDistanceMeters());
     }
 
     /**
@@ -319,7 +325,7 @@ public class SwerveModule {
     }
 
     public double getDriveDistanceMeters() {
-        return drive.getSelectedSensorPosition();
+        return Helpers.General.encoderToMeters(drive.getSelectedSensorPosition(), this.driveWheelDiam);
     }
 
     public void resetDistance() {

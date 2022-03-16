@@ -205,6 +205,13 @@ public class DriveSubsystem extends SubsystemBase {
 			module.resetEncoders();
 		}
 	}
+
+	/** Resets the drive encoders to read a position of 0. */
+	public void resetDistances() {
+		for (SwerveModule module: modules) {
+			module.resetDistance();
+		}
+	}
 	
 	/**
 	 * This returns and angle correction (in degrees)
@@ -216,7 +223,7 @@ public class DriveSubsystem extends SubsystemBase {
 	public double calcAngleStraight(double targetAngle, double currentAngle, double kP) {
 		double errorAngle = (targetAngle - currentAngle) % 360.0;
 		double correction = errorAngle * kP;
-		if (Math.abs(correction) > .5) return 0.01;
+		if (Math.abs(correction) > .5) return Math.signum(correction) * 0.01;
 		return correction;
 	}
 
