@@ -50,11 +50,11 @@ public class Helpers {
             return (int) Math.IEEEremainder(a - b, wrap);
         }
         
-        public static double encoderToMeters(double encoder) {
-            return (double) encoder * 0.113 / 1000.0; //This is for 2022 Rapid React bot and should be cleaned up for constants
+        public static double encoderToMeters(double encoder, double wheelDiam) {
+            return (double) encoder * (Constants.DriveTrain.DT_DRIVE_CONVERSION_FACTOR * wheelDiam * Math.PI) / Constants.DriveTrain.DT_DRIVE_ENCODER_FULL_ROTATION / 1000.0; //This is for 2022 Rapid React bot and should be cleaned up for constants
         }
-        public static double metersToEncoder(double meters) {
-            return (double) meters * 1000.0 / 0.113; //This is for 2022 Rapid React bot and should be cleaned up for constants
+        public static double metersToEncoder(double meters, double wheelDiam) {
+            return (double) meters * 1000.0 * Constants.DriveTrain.DT_DRIVE_ENCODER_FULL_ROTATION / (Constants.DriveTrain.DT_DRIVE_CONVERSION_FACTOR * wheelDiam * Math.PI); //This is for 2022 Rapid React bot and should be cleaned up for constants
         }
         
         public final static double roundDouble(double val, int decimals) {

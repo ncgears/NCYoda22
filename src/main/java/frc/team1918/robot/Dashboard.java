@@ -43,6 +43,7 @@ public class Dashboard {
         public static final void setTurnPositionError(String module, double value) { SmartDashboard.putNumber("Swerve/"+module+"/Position Error", value); }
         public static final void setTurnVelocity(String module, double value) { SmartDashboard.putNumber("Swerve/"+module+"/Turn Velocity", value); }
         public static final void setTurnPositionErrorChange(String module, double value) { SmartDashboard.putNumber("Swerve/"+module+"/Position Error Change", value); }
+        public static final void setTurnZeroPosition(String module, double value) { SmartDashboard.putNumber("Swerve/"+module+"/Zero Position", value); }
         public static final void setDriveVelocity(String module, double value) { SmartDashboard.putNumber("Swerve/"+module+"/Drive Velocity", value); }
         public static final void setDriveDistance(String module, double value) { SmartDashboard.putNumber("Swerve/"+module+"/Drive Distance", value); }
         public static final void setHeading(double value) { SmartDashboard.putNumber("Heading", value); }

@@ -13,6 +13,7 @@ public class SwerveModuleConstants {
     //drive
     public final int idDriveMotor;
     public final boolean driveIsInverted;
+    public final double driveWheelDiam;
 
     /**
      * Creates a new constants object for initializing a 1918 swerve module v3.0
@@ -26,8 +27,9 @@ public class SwerveModuleConstants {
      * @param turnI - Integral constant for the turn controller
      * @param turnD - Derivative constant for the turn controller
      * @param turnIZone - Integral Zone constant for the turn controller
+     * @param driveWheelDiam - Size of this wheel in mm
      */
-    public SwerveModuleConstants(int idDriveMotor, boolean driveIsInverted, int idTurnMotor, boolean turnSensorPhase, boolean turnIsInverted, int turnMaxAllowedError, double turnP, double turnI, double turnD, int turnIZone) {
+    public SwerveModuleConstants(int idDriveMotor, boolean driveIsInverted, int idTurnMotor, boolean turnSensorPhase, boolean turnIsInverted, int turnMaxAllowedError, double turnP, double turnI, double turnD, int turnIZone, double driveWheelDiam) {
         //turn
         this.idTurnMotor = idTurnMotor;
         this.turnSensorPhase = turnSensorPhase;
@@ -40,5 +42,6 @@ public class SwerveModuleConstants {
         //drive
         this.idDriveMotor = idDriveMotor;
         this.driveIsInverted = driveIsInverted;
+        this.driveWheelDiam = driveWheelDiam;
     }
 }

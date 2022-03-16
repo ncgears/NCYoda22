@@ -3,6 +3,7 @@ package frc.team1918.robot.subsystems;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team1918.robot.Constants;
 import frc.team1918.robot.Dashboard;
@@ -25,7 +26,10 @@ public class DriveSubsystem extends SubsystemBase {
 	private int debug_ticks;
 	private static double desiredAngle; //Used for driveStraight function
 	private static boolean angleLocked = false;
-	private static double yawOffset = 0.0;
+	private double[] lastDistances;
+	private double lastTime;
+	private final Timer timer;
+	private static double yawOffset = 0.0; //offset to account for different starting positions
 
 	//initialize 4 swerve modules
 	private static SwerveModule m_dtFL = new SwerveModule("dtFL", Constants.Swerve.FL.constants); // Front Left
@@ -46,19 +50,31 @@ public class DriveSubsystem extends SubsystemBase {
 	}
 
 	public DriveSubsystem() { //initialize the class
+		m_gyro.calibrate();
+		m_odometry = new SwerveDriveOdometry(Constants.Swerve.kDriveKinematics, getHeading());
+		for (SwerveModule module: modules) {
+			module.resetDistance();
+			module.syncTurningEncoders();
+		}
+
+		// m_targetPose = m_odometry.getPoseMeters();
+		// m_thetaController.reset();
+		// m_thetaController.enableContinuousInput(-Math.PI, Math.PI);
+		lastDistances = new double[]{
+			m_dtFL.getDriveDistanceMeters(),
+			m_dtFR.getDriveDistanceMeters(),
+			m_dtRL.getDriveDistanceMeters(),
+			m_dtRR.getDriveDistanceMeters()
+		};
+		timer = new Timer();
+		timer.reset();
+		timer.start();
+		lastTime = 0;
 	}
 
 	@Override
 	public void periodic() {
-		// Update the odometry in the periodic block
-		m_odometry.update(
-			getHeading(),
-			m_dtFL.getState(),
-			m_dtFR.getState(),
-			m_dtRL.getState(),
-			m_dtRR.getState()
-		);
-
+		updateOdometry();
 		updateDashboard();
 		for (SwerveModule module: modules) {
 			module.updateDashboard();
@@ -111,6 +127,38 @@ public class DriveSubsystem extends SubsystemBase {
 	  zeroHeading();
 	  yawOffset = heading;
 	  m_odometry.resetPosition(pose, Rotation2d.fromDegrees(heading));
+	}
+
+	public void updateOdometry() {
+		//this is the old way
+		/*
+		m_odometry.update(
+			getHeading(),
+			m_dtFL.getState(),
+			m_dtFR.getState(),
+			m_dtRL.getState(),
+			m_dtRR.getState()
+		);
+		*/
+		//this is the new way
+		double[] distances = new double[] {
+			m_dtFL.getDriveDistanceMeters(),
+			m_dtFR.getDriveDistanceMeters(),
+			m_dtRL.getDriveDistanceMeters(),
+			m_dtRR.getDriveDistanceMeters()
+		};
+		double time = timer.get();
+		double dt = time - lastTime;
+		lastTime = time;
+		if (dt == 0) return;
+		m_odometry.updateWithTime(time,
+			getHeading(),
+			new SwerveModuleState((distances[0] - lastDistances[0]) / dt, m_dtFL.getState().angle),
+			new SwerveModuleState((distances[1] - lastDistances[1]) / dt, m_dtFR.getState().angle),
+			new SwerveModuleState((distances[2] - lastDistances[2]) / dt, m_dtRL.getState().angle),
+			new SwerveModuleState((distances[3] - lastDistances[3]) / dt, m_dtRR.getState().angle)
+		);
+		lastDistances = distances;
 	}
 
 	public void lockAngle() {
@@ -205,6 +253,13 @@ public class DriveSubsystem extends SubsystemBase {
 			module.resetEncoders();
 		}
 	}
+
+	/** Resets the drive encoders to read a position of 0. */
+	public void resetDistances() {
+		for (SwerveModule module: modules) {
+			module.resetDistance();
+		}
+	}
 	
 	/**
 	 * This returns and angle correction (in degrees)
@@ -216,7 +271,7 @@ public class DriveSubsystem extends SubsystemBase {
 	public double calcAngleStraight(double targetAngle, double currentAngle, double kP) {
 		double errorAngle = (targetAngle - currentAngle) % 360.0;
 		double correction = errorAngle * kP;
-		if (Math.abs(correction) > .5) return 0.01;
+		if (Math.abs(correction) > .5) return Math.signum(correction) * 0.01;
 		return correction;
 	}
 
