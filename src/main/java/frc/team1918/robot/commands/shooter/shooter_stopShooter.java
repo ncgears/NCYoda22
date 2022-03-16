@@ -51,7 +51,7 @@ public class shooter_stopShooter extends CommandBase {
     //stop the shooter
     Helpers.Debug.debug("Shooter: Stop Shooter");
     m_shooter.setShotName(namedShots.NONE);
-    m_shooter.raiseHood(!Constants.Air.stateHoodUp);
+    m_shooter.raiseHood(!Constants.Air.stateHoodUp, !Constants.Air.stateHood2Up);
     m_shooter.stopShooter();
     m_shooter.stopPreShooter();
   }

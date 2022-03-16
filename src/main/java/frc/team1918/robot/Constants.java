@@ -68,7 +68,7 @@ public class Constants {
         public static final class Solenoid {
             public static int collector = 0;
             //public static int unused1 = 1;
-            //public static int unused2 = 2;
+            public static int hood2 = 2;
             public static int whirlygig = 3;
             public static int hood = 4;
             public static int climbhook1 = 5;
@@ -115,11 +115,13 @@ public class Constants {
         public static final boolean isDisabled = false; //Disable compressor
         public static final int id_CollectorSolenoid = ID.Solenoid.collector; //ID of solenoid for collector
         public static final int id_HoodSolenoid = ID.Solenoid.hood; //ID of solenoid for hood control
+        public static final int id_Hood2Solenoid = ID.Solenoid.hood2;
         public static final int id_ClimbHook1Solenoid = ID.Solenoid.climbhook1; //ID of solenoid for climber hook 1
         public static final int id_ClimbHook2Solenoid = ID.Solenoid.climbhook2; //ID of solenoid for climber hook 2
         public static final int id_WhirlyGigSolenoid = ID.Solenoid.whirlygig; //ID of solenoid for whirlygig
         public static final boolean stateCollectorDeployed = false; //State of the solenoid when COLL1 is deployed
         public static final boolean stateHoodUp = true; //State of the solenoid when HOOD is up
+        public static final boolean stateHood2Up = true;
         public static final boolean stateClimbHookLocked = false; //State of the solenoid when the hook is locked
         public static final boolean stateWhirlygigUp = true; //State of the solenoid when CLIMBER is up
     }
@@ -175,18 +177,22 @@ public class Constants {
             public static final class DEFAULT {
                 public static final int kSpeed = 69;
                 public static final boolean kHood = !Air.stateHoodUp;
+                public static final boolean kHood2 = !Air.stateHood2Up;
             }
             public static final class LOW {
                 public static final int kSpeed = 33;
                 public static final boolean kHood = Air.stateHoodUp;
+                public static final boolean kHood2 = !Air.stateHood2Up;
             }
             public static final class BUMPER {
                 public static final int kSpeed = 68;
                 public static final boolean kHood = !Air.stateHoodUp;
+                public static final boolean kHood2 = !Air.stateHood2Up;
             }
             public static final class LINE {
                 public static final int kSpeed = 89;
                 public static final boolean kHood = Air.stateHoodUp;
+                public static final boolean kHood2 = !Air.stateHood2Up;
             }
         }
     }
