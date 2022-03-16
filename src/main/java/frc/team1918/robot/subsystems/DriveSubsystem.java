@@ -50,15 +50,7 @@ public class DriveSubsystem extends SubsystemBase {
 
 	@Override
 	public void periodic() {
-		// Update the odometry in the periodic block
-		m_odometry.update(
-			getHeading(),
-			m_dtFL.getState(),
-			m_dtFR.getState(),
-			m_dtRL.getState(),
-			m_dtRR.getState()
-		);
-
+		updateOdometry();
 		updateDashboard();
 		for (SwerveModule module: modules) {
 			module.updateDashboard();
@@ -111,6 +103,38 @@ public class DriveSubsystem extends SubsystemBase {
 	  zeroHeading();
 	  yawOffset = heading;
 	  m_odometry.resetPosition(pose, Rotation2d.fromDegrees(heading));
+	}
+
+	public void updateOdometry() {
+		//this is the old way
+		/*
+		m_odometry.update(
+			getHeading(),
+			m_dtFL.getState(),
+			m_dtFR.getState(),
+			m_dtRL.getState(),
+			m_dtRR.getState()
+		);
+		*/
+		//this is the new way
+		double[] distances = new double[] {
+			m_dtFL.getDriveDistanceMeters(),
+			m_dtFR.getDriveDistanceMeters(),
+			m_dtRL.getDriveDistanceMeters(),
+			m_dtRR.getDriveDistanceMeters()
+		};
+		double time = timer.get();
+		double dt = time - lastTime;
+		lastTime = time;
+		if (dt == 0) return;
+		m_odometry.updateWithTime(time,
+			getHeading(),
+			new SwerveModuleState((distances[0] - lastDistances[0]) / dt, m_dtFL.getState().angle),
+			new SwerveModuleState((distances[1] - lastDistances[1]) / dt, m_dtFR.getState().angle),
+			new SwerveModuleState((distances[2] - lastDistances[2]) / dt, m_dtRL.getState().angle),
+			new SwerveModuleState((distances[3] - lastDistances[3]) / dt, m_dtRR.getState().angle)
+		);
+		lastDistances = distances;
 	}
 
 	public void lockAngle() {
