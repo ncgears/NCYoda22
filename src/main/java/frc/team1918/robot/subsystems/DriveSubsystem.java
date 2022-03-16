@@ -50,6 +50,12 @@ public class DriveSubsystem extends SubsystemBase {
 	}
 
 	public DriveSubsystem() { //initialize the class
+		m_gyro.calibrate();
+		m_odometry = new SwerveDriveOdometry(Constants.Swerve.kDriveKinematics, getHeading());
+		for (SwerveModule module: modules) {
+			module.resetDistance();
+			module.syncTurningEncoders();
+		}
 	}
 
 	@Override
