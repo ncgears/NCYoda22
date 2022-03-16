@@ -56,6 +56,20 @@ public class DriveSubsystem extends SubsystemBase {
 			module.resetDistance();
 			module.syncTurningEncoders();
 		}
+
+		// m_targetPose = m_odometry.getPoseMeters();
+		// m_thetaController.reset();
+		// m_thetaController.enableContinuousInput(-Math.PI, Math.PI);
+		lastDistances = new double[]{
+			m_dtFL.getDriveDistanceMeters(),
+			m_dtFR.getDriveDistanceMeters(),
+			m_dtRL.getDriveDistanceMeters(),
+			m_dtRR.getDriveDistanceMeters()
+		};
+		timer = new Timer();
+		timer.reset();
+		timer.start();
+		lastTime = 0;
 	}
 
 	@Override
