@@ -36,11 +36,9 @@ public class shooter_startShooterDefault extends CommandBase {
     m_shooter.setShooterSpeed(Constants.Shooter.kDefaultShooterSpeed);
     if (m_hoodup) {
       Helpers.Debug.debug("Shooter: Start Shooter, Hood Up");
-      m_shooter.startPreShooter();
       m_shooter.raiseHood(Constants.Air.stateHoodUp);
     } else {
       Helpers.Debug.debug("Shooter: Start Shooter, Hood Down");
-      m_shooter.startPreShooter();
       m_shooter.raiseHood(!Constants.Air.stateHoodUp);
     }
   }
@@ -55,7 +53,6 @@ public class shooter_startShooterDefault extends CommandBase {
   public void end(boolean interrupted) {
     //stop the shooter
     // Helpers.Debug.debug("Shooter: Stop Shooter");
-    m_shooter.stopPreShooter();
     m_shooter.raiseHood(!Constants.Air.stateHoodUp);
     m_shooter.stopShooter();
   }

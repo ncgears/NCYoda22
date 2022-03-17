@@ -16,7 +16,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class ShooterSubsystem extends SubsystemBase {
   private WPI_TalonFX shoot; // shooter controller
-  private WPI_TalonSRX preShooter;
+  private WPI_TalonFX shootFront; // front shooter controller
   private double m_shooter_rps = 0.0; // Current shooter speed
   private double m_shooter_oldrps = 0.0; // Previous shooter speed
   private double m_shooter_rpm = 0.0; 
@@ -43,12 +43,21 @@ public class ShooterSubsystem extends SubsystemBase {
     // shoot.configNominalOutputReverse(0);
     shoot.configPeakOutputForward(1);
     shoot.configPeakOutputReverse(0); //no reverse output
-    //Setup the Preshooter
-    preShooter = new WPI_TalonSRX(Constants.Shooter.id_Motor2);
-    preShooter.configFactoryDefault();
-    preShooter.set(ControlMode.PercentOutput, 0);
-    preShooter.setNeutralMode(NeutralMode.Coast);
-    // preShooter.setInverted(Constants.Shooter.isInverted_Motor2);
+    //Setup the front shooter
+    shootFront = new WPI_TalonFX(Constants.Shooter.id_Motor2);
+    shootFront.configFactoryDefault();
+    shootFront.setNeutralMode(NeutralMode.Coast);
+    //shootFront.setSensorPhase(Constants.Shooter.isSensorInverted_Motor1);
+    shootFront.setInverted(Constants.Shooter.isInverted_Motor2);
+    shootFront.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
+    shootFront.config_kP(0, Constants.Shooter.kP);
+    shootFront.config_kI(0, Constants.Shooter.kI);
+    shootFront.config_kD(0, Constants.Shooter.kD);
+    shootFront.config_IntegralZone(0, Constants.Shooter.kIZone);
+    // shootFront.configNominalOutputForward(0);
+    // shootFront.configNominalOutputReverse(0);
+    shootFront.configPeakOutputForward(1);
+    shootFront.configPeakOutputReverse(0); //no reverse output
     //Setup the solenoid
     m_hood = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_HoodSolenoid);
   }
@@ -58,6 +67,7 @@ public class ShooterSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run and change the shooter speed if requested
     if (m_shooter_rps != m_shooter_oldrps) {
       shoot.set(ControlMode.Velocity, Helpers.General.rpsToTicksPer100ms(m_shooter_rps, Constants.Shooter.kEncoderFullRotation, Constants.Shooter.kShooterReductionFactor)); //Set the target
+      shootFront.set(ControlMode.Velocity, Helpers.General.rpsToTicksPer100ms(m_shooter_rps, Constants.Shooter.kEncoderFullRotation, Constants.Shooter.kShooterReductionFactor)); //Set the target
       m_shooter_oldrps=m_shooter_rps;
     }
     updateDashboard();
@@ -88,16 +98,9 @@ public class ShooterSubsystem extends SubsystemBase {
     m_shooter_rps = RPS;
   }
 
-  public void startPreShooter() {
-    preShooter.set(ControlMode.PercentOutput,(Constants.Shooter.isInverted_Motor2) ? -Constants.Shooter.kPreShooterSpeed : Constants.Shooter.kPreShooterSpeed);
-  }
-
-  public void stopPreShooter() {
-    preShooter.set(ControlMode.PercentOutput,0);
-  }
-
   public void stopShooter() {
     shoot.set(ControlMode.PercentOutput,0); //just apply 0 power and let it coast.
+    shootFront.set(ControlMode.PercentOutput,0); //just apply 0 power and let it coast.
     m_shooter_oldrps = 0;
     m_shooter_rps = 0;
     m_shooter_rpm = 0;

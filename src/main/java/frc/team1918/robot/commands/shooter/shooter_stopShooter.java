@@ -53,7 +53,6 @@ public class shooter_stopShooter extends CommandBase {
     m_shooter.setShotName(namedShots.NONE);
     m_shooter.raiseHood(!Constants.Air.stateHoodUp);
     m_shooter.stopShooter();
-    m_shooter.stopPreShooter();
   }
 
   // Returns true when the command should end.

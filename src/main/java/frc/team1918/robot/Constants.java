@@ -49,7 +49,6 @@ public class Constants {
             public static int swerve_rr_turn = 11;
             public static int climber_follower = 13;
             public static int climber_master = 14;
-            public static int preshooter = 15;
             public static int intake = 16;
         }
         /**
@@ -61,6 +60,7 @@ public class Constants {
             public static int swerve_rl_drive = 38;
             public static int swerve_fl_drive = 39;
             public static int shooter = 43;
+            public static int shooterFront = 41;
         }
         /**
          * IDs of Solenoids
@@ -154,11 +154,11 @@ public class Constants {
     public static final class Shooter {
         public static final boolean isDisabled = false; //Disable the shooter subsystem
         public static final int id_Motor1 = ID.Falcon.shooter; //ID of the Shooter Motor 1 Controller
-        public static final int id_Motor2 = ID.Talon.preshooter; //ID of the Preshooter Motor Controller
+        public static final int id_Motor2 = ID.Falcon.shooterFront; //ID of the Shooter Motor 2 Controller
         public static final int kEncoderFullRotation = 2048; //Falcon integrated encoder is 2048
         public static final boolean isSensorInverted_Motor1 = true;
         public static final boolean isInverted_Motor1 = true; //Invert motor direction
-        public static final boolean isInverted_Motor2 = true; //Invert motor direction
+        public static final boolean isInverted_Motor2 = false; //Invert motor direction
         public static final int kMaxShooterSpeed = 100; //Max RPS of the Shooter Motor
         public static final double kDefaultShooterSpeed = 76; //Default RPS of the Shooter Motor
         public static final int kMinShooterSpeed = 0; //Min RPM of the Shooter Motor

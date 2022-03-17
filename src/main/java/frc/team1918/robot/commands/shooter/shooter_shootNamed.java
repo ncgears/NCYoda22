@@ -40,28 +40,23 @@ public class shooter_shootNamed extends CommandBase {
       case LOW:
         m_shooter.setShooterSpeed(Constants.Shooter.Shots.LOW.kSpeed);
         m_shooter.raiseHood(Constants.Shooter.Shots.LOW.kHood);
-        m_shooter.startPreShooter();
         break;
       case BUMPER:
         m_shooter.setShooterSpeed(Constants.Shooter.Shots.BUMPER.kSpeed);
         m_shooter.raiseHood(Constants.Shooter.Shots.BUMPER.kHood);
-        m_shooter.startPreShooter();
         break;
       case LINE:
         m_shooter.setShooterSpeed(Constants.Shooter.Shots.LINE.kSpeed);
         m_shooter.raiseHood(Constants.Shooter.Shots.LINE.kHood);
-        m_shooter.startPreShooter();
         break;
       case NONE:
         m_shooter.stopShooter();
         m_shooter.raiseHood(false);
-        m_shooter.stopPreShooter();
         break;
       case DEFAULT:
       default:
         m_shooter.setShooterSpeed(Constants.Shooter.Shots.DEFAULT.kSpeed);
         m_shooter.raiseHood(Constants.Shooter.Shots.DEFAULT.kHood);
-        m_shooter.startPreShooter();
         break;
     }
   }

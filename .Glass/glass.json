@@ -13,6 +13,21 @@
       "open": true
     },
     "SmartDashboard": {
+      "Swerve": {
+        "dtFL": {
+          "open": true
+        },
+        "dtFR": {
+          "open": true
+        },
+        "dtRL": {
+          "open": true
+        },
+        "dtRR": {
+          "open": true
+        },
+        "open": true
+      },
       "Vision": {
         "open": true
       },
