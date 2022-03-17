@@ -13,6 +13,15 @@
       "open": true
     },
     "SmartDashboard": {
+      "Feeder": {
+        "open": true
+      },
+      "SendableChooser[0]": {
+        "open": true
+      },
+      "Shooter": {
+        "open": true
+      },
       "Swerve": {
         "dtFL": {
           "open": true
@@ -25,8 +34,7 @@
         },
         "dtRR": {
           "open": true
-        },
-        "open": true
+        }
       },
       "Vision": {
         "open": true

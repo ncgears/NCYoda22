@@ -243,7 +243,8 @@ public class SwerveModule {
     }
 
     public void homeSwerve() {
-        turn.set(ControlMode.Position, getZeroPositionTicks());
+        turn.set(ControlMode.Position, 0);
+        // turn.set(ControlMode.Position, getZeroPositionTicks());
     }
 
     /**

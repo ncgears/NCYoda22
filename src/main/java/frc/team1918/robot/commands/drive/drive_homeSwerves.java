@@ -24,12 +24,12 @@ public class drive_homeSwerves extends CommandBase {
 
   @Override
   public void initialize() {
-    Helpers.Debug.debug("Drive: Home Swerve Modules");
+    Helpers.Debug.debug("Drive: Home Swerves");
     m_drive.homeSwerves();
   }
 
   @Override
   public boolean isFinished() {
-    return true;
+    return m_drive.swervesAtHome();
   }
 }

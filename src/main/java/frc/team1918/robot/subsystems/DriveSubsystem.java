@@ -268,6 +268,21 @@ public class DriveSubsystem extends SubsystemBase {
 		}
 	}
 
+	public boolean swervesAtHome() {
+		boolean home = true;
+		// boolean[] atHome;
+		// int i = 0;
+		for (SwerveModule module: modules) {
+			// atHome[i] = module.getTurnError() <= Constants.Swerve.DEFAULT_TURN_ALLOWED_ERROR;
+			home &= module.getTurnError() <= Constants.Swerve.DEFAULT_TURN_ALLOWED_ERROR;
+			// i++;
+		}
+		// for (int j=0; j<atHome.length; j++) {
+			
+		// }
+		return home;
+	}
+
 	/**
 	 * This returns and angle correction (in degrees)
 	 * @param targetAngle [double] target angle (heading) of the robot in degrees
