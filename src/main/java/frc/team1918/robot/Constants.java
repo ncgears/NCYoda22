@@ -67,8 +67,8 @@ public class Constants {
          */
         public static final class Solenoid {
             public static int collector = 0;
-            //public static int unused1 = 1;
-            public static int hood2 = 2;
+            public static int hood2 = 1;
+            //public static int unused1 = 2;
             public static int whirlygig = 3;
             public static int hood = 4;
             public static int climbhook1 = 5;
