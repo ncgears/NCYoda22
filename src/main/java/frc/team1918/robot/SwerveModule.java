@@ -75,7 +75,7 @@ public class SwerveModule {
         turn.config_IntegralZone(0, TURN_IZONE);
         turn.overrideLimitSwitchesEnable(false);
         turn.configAllowableClosedloopError(0, TURN_ALLOWED_ERROR); 
-        if(Constants.Swerve.homeOnInit) turn.set(ControlMode.Position, 0);
+        if(Constants.Swerve.homeOnInit) turn.set(ControlMode.Position, getZeroPositionTicks());
 
         drive.configFactoryDefault();
         drive.set(ControlMode.PercentOutput, 0);
@@ -240,6 +240,10 @@ public class SwerveModule {
         int total = (int) turn.getSelectedSensorPosition(0);
         int curr = (int) total & Constants.DriveTrain.DT_TURN_ENCODER_FULL_ROTATION;//0x3ff; //ticks in current rotation
         return total - curr;
+    }
+
+    public void homeSwerve() {
+        turn.set(ControlMode.Position, getZeroPositionTicks());
     }
 
     /**

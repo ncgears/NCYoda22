@@ -20,7 +20,7 @@ public class ShooterSubsystem extends SubsystemBase {
   private double m_shooter_rps = 0.0; // Current shooter speed
   private double m_shooter_oldrps = 0.0; // Previous shooter speed
   private double m_shooter_rpm = 0.0; 
-  private Solenoid m_hood;
+  private Solenoid m_hood, m_hood2;
   public enum namedShots {DEFAULT, LOW, BUMPER, LINE, NONE;}
   public namedShots currentShotName = namedShots.NONE;
   /**
@@ -60,6 +60,7 @@ public class ShooterSubsystem extends SubsystemBase {
     shootFront.configPeakOutputReverse(0); //no reverse output
     //Setup the solenoid
     m_hood = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_HoodSolenoid);
+    m_hood2 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_Hood2Solenoid);
   }
 
   @Override
@@ -76,7 +77,7 @@ public class ShooterSubsystem extends SubsystemBase {
   public void updateDashboard() {
     // Dashboard.Shooter.setCurrentSpeed(getShooterSpeedRPS());
     Dashboard.Shooter.setTargetSpeed(m_shooter_rps);
-    Dashboard.Shooter.setHoodPosition(m_hood.get());
+    Dashboard.Shooter.setHoodPosition(hoodPosition(m_hood.get(),m_hood2.get()));
     Dashboard.Shooter.setShotName(currentShotName.toString());
   }
 
@@ -122,9 +123,26 @@ public class ShooterSubsystem extends SubsystemBase {
     setShooterSpeed(Dashboard.Shooter.getTargetSpeed(0));
   }
 
-  public void raiseHood(boolean up) {
+  public String hoodPosition(boolean hood1up, boolean hood2up) {
+    String pos = "";
+    if (hood1up && hood2up) {
+      pos="UP/UP";
+    } else if (hood1up && !hood2up) {
+      pos="UP/DOWN";
+    } else if (!hood1up && hood2up) {
+      pos="DOWN/UP";
+    } else if (!hood1up && !hood2up) {
+      pos="DOWN/DOWN";
+    } else {
+      pos="UNKNOWN";
+    }
+    return pos;
+  }
+
+  public void raiseHood(boolean hood1up, boolean hood2up) {
     //send command to air to put hood up or down based on boolean
-    m_hood.set(up);
-    Dashboard.Shooter.setHoodPosition(up);
+    m_hood.set(hood1up);
+    m_hood2.set(hood2up);
+    Dashboard.Shooter.setHoodPosition(hoodPosition(hood1up,hood2up));
   }
 }

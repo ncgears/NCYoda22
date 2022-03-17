@@ -11,21 +11,21 @@ import frc.team1918.robot.subsystems.DriveSubsystem;
  * This happens when we have the robot in a known orientation to allow us to track the orientation of the robot.
  * @implNote The reset happens during the end method of the command to ensure that it always executes even if the command completes before the gyro finishes executing the command.
  */
-public class drive_resetGyro extends CommandBase {
+public class drive_homeSwerves extends CommandBase {
   private final DriveSubsystem m_drive;
 
   /**
    * @param subsystem The drive subsystem this command will run on.
    */
-  public drive_resetGyro(DriveSubsystem subsystem) {
+  public drive_homeSwerves(DriveSubsystem subsystem) {
     m_drive = subsystem;
     addRequirements(m_drive);
   }
 
   @Override
-  public void end(boolean interrupted) {
-    Helpers.Debug.debug("Drive: Reset Gyro");
-    m_drive.zeroHeading();
+  public void initialize() {
+    Helpers.Debug.debug("Drive: Home Swerve Modules");
+    m_drive.homeSwerves();
   }
 
   @Override

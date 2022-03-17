@@ -254,13 +254,20 @@ public class DriveSubsystem extends SubsystemBase {
 		}
 	}
 
-	/** Resets the drive encoders to read a position of 0. */
+	/** Resets the drive distances to read 0. */
 	public void resetDistances() {
 		for (SwerveModule module: modules) {
 			module.resetDistance();
 		}
 	}
-	
+
+	/** Moves the swerve modules to their 0 position (in current loop). */
+	public void homeSwerves() {
+		for (SwerveModule module: modules) {
+			module.homeSwerve();
+		}
+	}
+
 	/**
 	 * This returns and angle correction (in degrees)
 	 * @param targetAngle [double] target angle (heading) of the robot in degrees

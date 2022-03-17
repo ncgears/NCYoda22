@@ -180,7 +180,7 @@ public class RobotContainer {
     btn_ShooterStop.whenPressed(new shooter_stopShooter(m_shooter));
     btn_ShooterIncrease.whenPressed(new shooter_increaseThrottle(m_shooter));
     btn_ShooterDecrease.whenPressed(new shooter_decreaseThrottle(m_shooter));
-    btn_GyroReset.whenPressed(new drive_resetGyro(m_drive).andThen(new drive_resetOdometry(m_drive, new Pose2d())));
+    btn_GyroReset.whenPressed(new drive_resetGyro(m_drive).andThen(new drive_homeSwerves(m_drive)).andThen(new drive_resetOdometry(m_drive, new Pose2d())));
     t_VisionShoot.whenActive(new vision_setRinglight(m_vision,true)).whenInactive(new vision_setRinglight(m_vision,false));
     //Music Control Buttons
     // btn_MusicPlay.whenPressed(new orchestra_loadAndPlay(m_orchestra));
