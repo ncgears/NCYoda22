@@ -28,6 +28,7 @@ public class drive_resetOdometry extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     Helpers.Debug.debug("Drive: Reset Odometry");
+    m_drive.resetDistances();
     m_drive.resetOdometry(m_pose.getRotation().getDegrees(), m_pose);
   }
 
