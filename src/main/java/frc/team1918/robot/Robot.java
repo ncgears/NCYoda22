@@ -7,6 +7,7 @@
 
 package frc.team1918.robot;
 
+import edu.wpi.first.util.net.PortForwarder;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -43,6 +44,8 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     //Disable LiveWindow
     LiveWindow.disableAllTelemetry();
+    //Create forwarder for photonvision
+    PortForwarder.add(5800,"photonvision.local",5800);
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
