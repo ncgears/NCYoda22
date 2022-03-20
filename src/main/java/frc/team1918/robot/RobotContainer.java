@@ -83,12 +83,13 @@ public class RobotContainer {
     // Set the default command that is run for the robot. Normally, this is the drive command
     if(!Constants.DriveTrain.isDisabled) {
       m_drive.setDefaultCommand(
-        new drive_defaultDrive(
-          m_drive,
-          () -> Helpers.OI.getAxisFwdValue(true),
-          () -> Helpers.OI.getAxisStrafeValue(true),
-          () -> Helpers.OI.getAxisTurnValue(true)
-        )
+        // new drive_defaultDrive(
+        //   m_drive,
+        //   () -> Helpers.OI.getAxisFwdValue(true),
+        //   () -> Helpers.OI.getAxisStrafeValue(true),
+        //   () -> Helpers.OI.getAxisTurnValue(true)
+        // )
+        new drive_defaultDrive2(m_drive, dj)
       );
     }
   }
