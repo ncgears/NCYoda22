@@ -54,6 +54,7 @@ public class Robot extends TimedRobot {
     } else {
       m_chooser.setDefaultOption("Basic Shooting", m_robotContainer.getRobotCommand("auton_BasicShootingAuto"));
       m_chooser.addOption("Basic Drive", m_robotContainer.getRobotCommand("auton_BasicDriveAuto"));
+      m_chooser.addOption("AR1 3 Ball", m_robotContainer.getRobotCommand("auton_ar1ThreeBall"));
       // m_chooser.addOption("4 Ball Auto", m_robotContainer.getRobotCommand("auton_4BallAuto"));
     }
     SmartDashboard.putData(m_chooser);
