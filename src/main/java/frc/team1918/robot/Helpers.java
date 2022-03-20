@@ -142,7 +142,7 @@ public class Helpers {
     //Helpers for the Operator Interface
     public static final class OI {
         private static Joystick dj = new Joystick(Constants.OI.OI_JOY_DRIVER);
-        private static Joystick oj = new Joystick(Constants.OI.OI_JOY_OPER);
+        // private static Joystick oj = new Joystick(Constants.OI.OI_JOY_OPER);
         //DRIVER CONTROLS
         /**
          * @param useDeadband Boolean value indicating whether to apply deadband to output
@@ -183,9 +183,11 @@ public class Helpers {
          * @return double precision -1 to 1 after applying deadband calculation
          */
         public static final double applyDeadband(double inVal) {
-            double outVal = (Math.abs(inVal) < Constants.OI.OI_JOY_MIN_DEADBAND ) ? 0.0 : inVal;
-            outVal = (outVal > Constants.OI.OI_JOY_MAX_DEADBAND) ? 1.0 : outVal; //positive
-            outVal = (outVal < -Constants.OI.OI_JOY_MAX_DEADBAND) ? -1.0 : outVal; //negative
+            // return (Math.abs(inVal) < Constants.OI.OI_JOY_MIN_DEADBAND ) ? 0.0 : inVal * Math.signum(inVal);
+            double outVal = (Math.abs(inVal) < Constants.OI.OI_JOY_MIN_DEADBAND ) ? 0.0 : inVal * Math.signum(inVal);
+            outVal = (Math.abs(inVal) > Constants.OI.OI_JOY_MAX_DEADBAND ) ? 1.0 * Math.signum(inVal) : inVal;
+            // outVal = (outVal > Constants.OI.OI_JOY_MAX_DEADBAND) ? 1.0 : outVal; //positive
+            // outVal = (outVal < -Constants.OI.OI_JOY_MAX_DEADBAND) ? -1.0 : outVal; //negative
             return outVal;
         }
 

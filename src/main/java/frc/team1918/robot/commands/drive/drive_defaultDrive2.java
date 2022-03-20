@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.team1918.robot.Constants;
 import frc.team1918.robot.Helpers;
 import frc.team1918.robot.subsystems.DriveSubsystem;
-import frc.team1918.robot.subsystems.OrchestraSubsystem;
+// import frc.team1918.robot.subsystems.OrchestraSubsystem;
 
 
 /**
@@ -20,9 +20,7 @@ public class drive_defaultDrive2 extends CommandBase {
   private final Double m_forward;
   private final Double m_strafe;
   private final Double m_rotation;
-  private final OrchestraSubsystem m_orchestra = new OrchestraSubsystem();
-
-
+  // private final OrchestraSubsystem m_orchestra = new OrchestraSubsystem();
 
   /**
    * Creates a new drive_defaultDrive.
@@ -44,7 +42,6 @@ public class drive_defaultDrive2 extends CommandBase {
     if (m_forward != 0 || m_strafe != 0 || m_rotation != 0) {
       if(m_rotation != 0) m_drive.unlockAngle(); //unlock angle if rotating
       //adjust rotation by multiplier, different if moving vs stationary
-      
       double m_rotation_adjusted = (m_forward != 0 || m_strafe != 0) ? m_rotation * Constants.DriveTrain.DT_TURN_MULT_MOVING : m_rotation * Constants.DriveTrain.DT_TURN_MULT_STATIONARY;
       double m_forward_adjusted = (m_forward * Constants.DriveTrain.DT_FWD_MULT);
       double m_strafe_adjusted = (m_strafe * Constants.DriveTrain.DT_STR_MULT);
