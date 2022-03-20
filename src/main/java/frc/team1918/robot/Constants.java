@@ -133,7 +133,7 @@ public class Constants {
         public static final boolean isDisabled = false; //Disable the collector subsystem
         public static final int id_Motor1 = ID.Talon.intake; 
         public static final int id_ColorSensor1 = 4;
-        public static final double kDefaultCollectorSpeed = 0.6;
+        public static final double kDefaultCollectorSpeed = 0.65;
     }
    
     /**
@@ -175,7 +175,7 @@ public class Constants {
 
         public static final class Shots {
             public static final class DEFAULT {
-                public static final int kSpeed = 69;
+                public static final int kSpeed = 54;
                 public static final boolean kHood = !Air.stateHoodUp;
                 public static final boolean kHood2 = !Air.stateHood2Up;
             }
@@ -190,8 +190,8 @@ public class Constants {
                 public static final boolean kHood2 = !Air.stateHood2Up;
             }
             public static final class LINE {
-                public static final int kSpeed = 89;
-                public static final boolean kHood = Air.stateHoodUp;
+                public static final int kSpeed = 61;
+                public static final boolean kHood = !Air.stateHoodUp;
                 public static final boolean kHood2 = !Air.stateHood2Up;
             }
         }
