@@ -43,17 +43,17 @@ def main():
     #     "OneMeterBackward"
     # )
 
-    generator.generate(
-        [[0,0,0],
-        [3.2,0,0]],
-        "TwoMetersForward"
-    )
+    # generator.generate(
+    #     [[0,0,0],
+    #     [3.2,0,0]],
+    #     "TwoMetersForward"
+    # )
 
-    generator.generate(
-        [[0,0,0],
-        [-3.2,0,0]],
-        "TwoMetersBackward"
-    )
+    # generator.generate(
+    #     [[0,0,0],
+    #     [-3.2,0,0]],
+    #     "TwoMetersBackward"
+    # )
 
     # generator.generate(
     #     [[-1.0,0,-0.15],
@@ -67,5 +67,21 @@ def main():
     #     [-0.2,0.5,-0.575]],
     #     "GoHome"
     # )
+
+    generator.generate(
+        [
+            [0,0,0],
+            [-1.5,-0.3,0],
+        ],
+        "ar1BallOne"
+    )
+
+    generator.generate(
+        [
+            [-1.5,-0.3,0],
+            [0.3,-2.3,2.0],
+        ],
+        "ar1BallTwo"
+    )
 
 main()
