@@ -40,7 +40,7 @@ public class cg_auton_AR1ThreeBall extends SequentialCommandGroup {
 
     addCommands(
         //this is a comma separated list of commands, thus, the last one should not have a comma
-        new collector_deployIntake(m_collector), //deploy collector
+        // new collector_deployIntake(m_collector), //deploy collector
         new ParallelDeadlineGroup( //do until trajectory complete
           new drive_followTrajectory(m_drive, new ar1BallOne()),
           new helpers_debugMessage("Auton: followTrajectory - ar1BallOne") //move to ball1
