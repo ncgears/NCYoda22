@@ -179,20 +179,40 @@ public class Constants {
                 public static final boolean kHood = !Air.stateHoodUp;
                 public static final boolean kHood2 = !Air.stateHood2Up;
             }
-            public static final class LOW {
-                public static final int kSpeed = 33;
-                public static final boolean kHood = Air.stateHoodUp;
-                public static final boolean kHood2 = !Air.stateHood2Up;
-            }
-            public static final class BUMPER {
-                public static final int kSpeed = 68;
+            public static final class TARMAC {//Confirmed
+                public static final int kSpeed = 54;
                 public static final boolean kHood = !Air.stateHoodUp;
                 public static final boolean kHood2 = !Air.stateHood2Up;
+            }
+            public static final class LOW {
+                public static final int kSpeed = 28;
+                public static final boolean kHood = Air.stateHoodUp;
+                public static final boolean kHood2 = Air.stateHood2Up;
+            }
+            public static final class BUMPER {//testing for hangar
+                public static final int kSpeed = 73;
+                public static final boolean kHood = Air.stateHoodUp;
+                public static final boolean kHood2 = Air.stateHood2Up;
             }
             public static final class LINE {
                 public static final int kSpeed = 61;
+                public static final boolean kHood = Air.stateHoodUp;
+                public static final boolean kHood2 = Air.stateHood2Up;
+            }
+            public static final class AR1ONE {
+                public static final int kSpeed = 61;
                 public static final boolean kHood = !Air.stateHoodUp;
-                public static final boolean kHood2 = !Air.stateHood2Up;
+                public static final boolean kHood2 = Air.stateHood2Up;
+            }
+            public static final class OUTER {
+                public static final int kSpeed = 61;
+                public static final boolean kHood = !Air.stateHoodUp;
+                public static final boolean kHood2 = Air.stateHood2Up;
+            }
+            public static final class WALL {//Confirmed
+                public static final int kSpeed = 61;
+                public static final boolean kHood = Air.stateHoodUp;
+                public static final boolean kHood2 = Air.stateHood2Up;
             }
         }
     }
@@ -213,7 +233,7 @@ public class Constants {
         public static final boolean isInvertedFromMaster_Motor2 = true; //false for same direction as master
         public static final boolean isSensorInverted_Motor1 = false;
         public static final boolean isSensorNotContinuous = false;
-        public static final double kClimberSpeed = 0.9; //Speed at which the climber controllers operate (in fixed speed mode)
+        public static final double kClimberSpeed = 1.0; //Speed at which the climber controllers operate (in fixed speed mode)
         public static final double kHookReleaseTime = 1.25; //Time in seconds to wait before re-locking hook after unlocking
         public static final double kHookCaptureTime = 0.15; //Time to wait before hook is considered captured
         public static final double kP = 0.2;

@@ -83,13 +83,13 @@ public class RobotContainer {
     // Set the default command that is run for the robot. Normally, this is the drive command
     if(!Constants.DriveTrain.isDisabled) {
       m_drive.setDefaultCommand(
-        // new drive_defaultDrive(
-        //   m_drive,
-        //   () -> Helpers.OI.getAxisFwdValue(true),
-        //   () -> Helpers.OI.getAxisStrafeValue(true),
-        //   () -> Helpers.OI.getAxisTurnValue(true)
-        // )
-        new drive_defaultDrive2(m_drive, dj)
+        new drive_defaultDrive(
+          m_drive,
+          () -> Helpers.OI.getAxisFwdValue(true),
+          () -> Helpers.OI.getAxisStrafeValue(true),
+          () -> Helpers.OI.getAxisTurnValue(true)
+        )
+        // new drive_defaultDrive2(m_drive, dj)
       );
     }
   }
@@ -132,14 +132,17 @@ public class RobotContainer {
       private JoystickButton btn_ReleaseHook1 = new JoystickButton(oj, Constants.OI.Logitech.BTN_L);
       private JoystickButton btn_ReleaseHook2 = new JoystickButton(oj, Constants.OI.Logitech.BTN_R);
       //Intake
-      private JoystickButton btn_IntakeReverse = new JoystickButton(oj, Constants.OI.Logitech.BTN_LB);
-      private JoystickButton btn_IntakeForward = new JoystickButton(oj, Constants.OI.Logitech.BTN_RB);
+      // private JoystickButton btn_IntakeReverse = new JoystickButton(oj, Constants.OI.Logitech.BTN_LB);
+      // private JoystickButton btn_IntakeForward = new JoystickButton(oj, Constants.OI.Logitech.BTN_RB);
       //Shooting
-      private JoystickButton btn_ShootLow = new JoystickButton(oj, Constants.OI.Logitech.BTN_A);
+      private JoystickButton btn_ShootLow = new JoystickButton(oj, Constants.OI.Logitech.BTN_RB);
       private JoystickButton btn_ShootBumper = new JoystickButton(oj, Constants.OI.Logitech.BTN_X);
       private JoystickButton btn_ShootDefault = new JoystickButton(oj, Constants.OI.Logitech.BTN_Y);
       private JoystickButton btn_ShootLine = new JoystickButton(oj, Constants.OI.Logitech.BTN_B);
       private JoystickButton btn_ShootStop = new JoystickButton(oj, Constants.OI.Logitech.BTN_R);
+      private JoystickButton btn_ShootOuter = new JoystickButton(oj, Constants.OI.Logitech.BTN_A);
+      private Trigger t_IntakeForward = new Trigger(() -> oj.getRawAxis(Constants.OI.Logitech.AXIS_RT)>0.3);
+      private Trigger t_IntakeReverse = new Trigger(() -> oj.getRawAxis(Constants.OI.Logitech.AXIS_LT)>0.3);
       // private POVButton btn_COLLECTOR_UP = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_UP);
       // private POVButton btn_COLLECTOR_DOWN = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_DOWN);
       // private JoystickButton btn_COLLECTOR_TOGGLE = new JoystickButton(oj, Constants.OI.Operator.BTN_TOG_MIDDOWN);
@@ -167,13 +170,15 @@ public class RobotContainer {
       btn_LockHooks.whenPressed(new climber_lockHook(m_climber, 1).alongWith(new climber_lockHook(m_climber, 2)));
     }
     // btn_IntakeForward.whenPressed(new feeder_advanceToShooter(m_feeder));
-    btn_IntakeForward.whenPressed(new cg_collector_intakeAndFeed(m_collector, m_feeder)).whenReleased(new collector_intakeStop(m_collector).andThen(new collector_retractIntake(m_collector)));
-    btn_IntakeReverse.whileHeld(new collector_intakeReverse(m_collector));
+    t_IntakeForward.whenActive(new cg_collector_intakeAndFeed(m_collector, m_feeder)).whenInactive(new collector_intakeStop(m_collector).andThen(new collector_retractIntake(m_collector)));
+    t_IntakeReverse.whenActive(new collector_intakeReverse(m_collector));
     btn_ShootLow.whenPressed(new shooter_shootNamed(m_shooter, namedShots.LOW));
     btn_ShootBumper.whenPressed(new shooter_shootNamed(m_shooter, namedShots.BUMPER));
     btn_ShootLine.whenPressed(new shooter_shootNamed(m_shooter, namedShots.LINE));
     btn_ShootDefault.whenPressed(new shooter_shootNamed(m_shooter, namedShots.DEFAULT));
+    btn_ShootOuter.whenPressed(new shooter_shootNamed(m_shooter, namedShots.OUTER));
     btn_ShootStop.whenPressed(new shooter_stopShooter(m_shooter));
+
     
     //These are the driver buttons
     btn_CollectorToggle.whenPressed(new collector_toggleIntake(m_collector));
