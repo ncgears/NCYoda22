@@ -7,6 +7,9 @@
 
 package frc.team1918.robot.commandgroups;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 // import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
@@ -17,6 +20,7 @@ import frc.team1918.paths.*;
 import frc.team1918.robot.commands.auton.*;
 import frc.team1918.robot.commands.collector.*;
 import frc.team1918.robot.commands.drive.drive_followTrajectory;
+import frc.team1918.robot.commands.drive.drive_resetOdometry;
 import frc.team1918.robot.commands.shooter.*;
 import frc.team1918.robot.commands.feeder.*;
 import frc.team1918.robot.commands.helpers.helpers_debugMessage;
@@ -41,6 +45,9 @@ public class cg_auton_AR1ThreeBall extends SequentialCommandGroup {
 
     addCommands(
         //this is a comma separated list of commands, thus, the last one should not have a comma
+        //setup the odometry in a starting position from the center of the field (negative is right/back)
+        //rotation is the initial rotation of the robot from the downstream direction
+        // new drive_resetOdometry(drive, new Pose2d(new Translation2d(-0.7, 0), Rotation2d.fromDegrees(-90.0))),
         new shooter_shootNamed(m_shooter, namedShots.DEFAULT), //shoot from the ball 2 position
         new WaitCommand(1.0), //wait for shooter to be at speed
         // // new feeder_shootAllBalls(m_feeder), //advance all balls to shooter - this has built in delay

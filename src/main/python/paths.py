@@ -20,8 +20,8 @@ def main():
     generator = trajectory_generator(drive)
 
     # array points are [xMeters,yMeters,rotationInRadians]
-    # X is length of field, so -X is toward driver station, +X is away from driver station
-    # Y is width of field, so -Y is left, +Y is right (from driver view) //TO BE VERIFIED
+    # X is width of field, so -X is left, +X is right (from driver view)
+    # Y is length of field, so -Y is toward driver station, +Y is away from driver station
     # Rotation is in radians, so 2pi/180 = 6.28rad, or a full rotation
     # if we setup offset from rotational zero, we need to account for this in our auton
 

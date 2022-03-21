@@ -81,7 +81,7 @@ public class DriveSubsystem extends SubsystemBase {
 		}
 	}
 
-	public static void updateDashboard() {
+	public void updateDashboard() {
 		Dashboard.DriveTrain.setHeading(getHeading().getDegrees());
 		Dashboard.DriveTrain.setX(getPose().getX());
 		Dashboard.DriveTrain.setY(getPose().getY());
@@ -94,7 +94,7 @@ public class DriveSubsystem extends SubsystemBase {
      * Returns the heading of the robot.
      * @return the robot's heading as a Rotation2d
      */
-	public static Rotation2d getHeading() {
+	public Rotation2d getHeading() {
 		double raw_yaw = m_gyro.getYaw() - (double)yawOffset;  //always subtract the offset
 		double calc_yaw = raw_yaw;
 		if (0.0 > raw_yaw) { //yaw is negative
@@ -113,7 +113,7 @@ public class DriveSubsystem extends SubsystemBase {
 	 * Returns the currently-estimated pose of the robot.
 	 * @return The pose.
 	 */
-	public static Pose2d getPose() {
+	public Pose2d getPose() {
 		return m_odometry.getPoseMeters();
 	}
 
