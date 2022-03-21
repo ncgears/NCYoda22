@@ -77,6 +77,7 @@ def main():
     #     "ar1BallOne"
     # )
 
+# could also maybe use math.radians(degrees) for theta
     generator.generate(
         [
             [1.8,0.4,0],
