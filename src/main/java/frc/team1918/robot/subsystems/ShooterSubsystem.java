@@ -3,6 +3,7 @@ package frc.team1918.robot.subsystems;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team1918.robot.Constants;
 import frc.team1918.robot.Dashboard;
@@ -21,12 +22,16 @@ public class ShooterSubsystem extends SubsystemBase {
   private double m_shooter_oldrps = 0.0; // Previous shooter speed
   private double m_shooter_rpm = 0.0; 
   private Solenoid m_hood, m_hood2;
-  public enum namedShots {DEFAULT, LOW, BUMPER, LINE, OUTER, WALL, TARMAC, AR1ONE, AR1TWO, NONE;}
+  public enum namedShots {DEFAULT, LOW, BUMPER, LINE, OUTER, WALL, TARMAC, AR1ONE, AR1TWO, DASHBOARD, NONE;}
   public namedShots currentShotName = namedShots.NONE;
   /**
    * Creates a new ExampleSubsystem.
    */
   public ShooterSubsystem() {
+    //Store the defaults for shooter debugging in the dashboard
+    SmartDashboard.putNumber("Debug/Shooter Speed",Constants.Shooter.Shots.DEFAULT.kSpeed);
+    SmartDashboard.putBoolean("Debug/Shooter Hood1",Constants.Shooter.Shots.DEFAULT.kHood);
+    SmartDashboard.putBoolean("Debug/Shooter Hood2",Constants.Shooter.Shots.DEFAULT.kHood2);
     //Setup the SparkMAX controller as desired
     shoot = new WPI_TalonFX(Constants.Shooter.id_Motor1);
     shoot.configFactoryDefault();

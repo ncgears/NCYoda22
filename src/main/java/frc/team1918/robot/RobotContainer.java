@@ -136,6 +136,7 @@ public class RobotContainer {
       // private JoystickButton btn_IntakeForward = new JoystickButton(oj, Constants.OI.Logitech.BTN_RB);
       //Shooting
       private JoystickButton btn_ShootLow = new JoystickButton(oj, Constants.OI.Logitech.BTN_RB);
+      private JoystickButton btn_ShootDashboard = new JoystickButton(oj, Constants.OI.Logitech.BTN_LB);
       private JoystickButton btn_ShootBumper = new JoystickButton(oj, Constants.OI.Logitech.BTN_X);
       private JoystickButton btn_ShootDefault = new JoystickButton(oj, Constants.OI.Logitech.BTN_Y);
       private JoystickButton btn_ShootLine = new JoystickButton(oj, Constants.OI.Logitech.BTN_B);
@@ -172,6 +173,7 @@ public class RobotContainer {
     // btn_IntakeForward.whenPressed(new feeder_advanceToShooter(m_feeder));
     t_IntakeForward.whenActive(new cg_collector_intakeAndFeed(m_collector, m_feeder)).whenInactive(new collector_intakeStop(m_collector).andThen(new collector_retractIntake(m_collector)));
     t_IntakeReverse.whenActive(new collector_intakeReverse(m_collector));
+    btn_ShootDashboard.whenPressed(new shooter_shootNamed(m_shooter, namedShots.DASHBOARD));
     btn_ShootLow.whenPressed(new shooter_shootNamed(m_shooter, namedShots.LOW));
     btn_ShootBumper.whenPressed(new shooter_shootNamed(m_shooter, namedShots.BUMPER));
     btn_ShootLine.whenPressed(new shooter_shootNamed(m_shooter, namedShots.LINE));

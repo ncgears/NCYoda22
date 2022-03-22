@@ -11,6 +11,7 @@ import frc.team1918.robot.Constants;
 import frc.team1918.robot.Helpers;
 import frc.team1918.robot.subsystems.ShooterSubsystem;
 import frc.team1918.robot.subsystems.ShooterSubsystem.namedShots;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -64,6 +65,14 @@ public class shooter_shootNamed extends CommandBase {
       case AR1TWO:
         m_shooter.setShooterSpeed(Constants.Shooter.Shots.AR1TWO.kSpeed);
         m_shooter.raiseHood(Constants.Shooter.Shots.AR1TWO.kHood, Constants.Shooter.Shots.AR1TWO.kHood2);
+        break;
+      case DASHBOARD:
+        double speed = SmartDashboard.getNumber("Debug/Shooter Speed", Constants.Shooter.Shots.DEFAULT.kSpeed);
+        boolean hood1 = SmartDashboard.getBoolean("Debug/Shooter Hood1", Constants.Shooter.Shots.DEFAULT.kHood);
+        boolean hood2 = SmartDashboard.getBoolean("Debug/Shooter Hood2", Constants.Shooter.Shots.DEFAULT.kHood2);
+        Helpers.Debug.debug("Shooter: speed="+speed+" hood1="+hood1+" hood2="+hood2);
+        m_shooter.setShooterSpeed(speed);
+        m_shooter.raiseHood(hood1,hood2);
         break;
       case NONE:
         m_shooter.stopShooter();
