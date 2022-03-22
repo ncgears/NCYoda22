@@ -49,6 +49,22 @@ public class shooter_shootNamed extends CommandBase {
         m_shooter.setShooterSpeed(Constants.Shooter.Shots.LINE.kSpeed);
         m_shooter.raiseHood(Constants.Shooter.Shots.LINE.kHood, Constants.Shooter.Shots.LINE.kHood2);
         break;
+      case WALL:
+        m_shooter.setShooterSpeed(Constants.Shooter.Shots.WALL.kSpeed);
+        m_shooter.raiseHood(Constants.Shooter.Shots.WALL.kHood, Constants.Shooter.Shots.WALL.kHood2);
+        break;
+      case TARMAC:
+        m_shooter.setShooterSpeed(Constants.Shooter.Shots.TARMAC.kSpeed);
+        m_shooter.raiseHood(Constants.Shooter.Shots.TARMAC.kHood, Constants.Shooter.Shots.TARMAC.kHood2);
+        break;
+      case AR1ONE:
+        m_shooter.setShooterSpeed(Constants.Shooter.Shots.AR1ONE.kSpeed);
+        m_shooter.raiseHood(Constants.Shooter.Shots.AR1ONE.kHood, Constants.Shooter.Shots.AR1ONE.kHood2);
+        break;
+      case AR1TWO:
+        m_shooter.setShooterSpeed(Constants.Shooter.Shots.AR1TWO.kSpeed);
+        m_shooter.raiseHood(Constants.Shooter.Shots.AR1TWO.kHood, Constants.Shooter.Shots.AR1TWO.kHood2);
+        break;
       case NONE:
         m_shooter.stopShooter();
         m_shooter.raiseHood(false, false);

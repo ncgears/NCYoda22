@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.team1918.paths.*;
+import frc.team1918.robot.Constants;
 import frc.team1918.robot.commands.auton.*;
 import frc.team1918.robot.commands.collector.*;
 import frc.team1918.robot.commands.drive.drive_followTrajectory;
@@ -49,8 +50,7 @@ public class cg_auton_AR1ThreeBall extends SequentialCommandGroup {
         //rotation is the initial rotation of the robot from the downstream direction
         // new drive_resetOdometry(drive, new Pose2d(new Translation2d(0, 0), Rotation2d.fromDegrees(-85.0))),
         new shooter_shootNamed(m_shooter, namedShots.DEFAULT), //shoot from the ball 2 position
-        new WaitCommand(1.0), //wait for shooter to be at speed
-        // // new feeder_shootAllBalls(m_feeder), //advance all balls to shooter - this has built in delay
+        new WaitCommand(Constants.Shooter.kSpinupSeconds), 
         new feeder_advance(m_feeder), //start advancing the feeder
         new WaitCommand(1.0), //give time for shot
         new shooter_stopShooter(m_shooter), //stop shooter
@@ -62,32 +62,21 @@ public class cg_auton_AR1ThreeBall extends SequentialCommandGroup {
           new helpers_debugMessage("Auton: followTrajectory - ar1BallOne"), //move to ball1
           new collector_intakeForward(m_collector) //start collector
         ),
-        
-        new shooter_shootNamed(m_shooter, namedShots.OUTER), //shoot from the home position
-        new WaitCommand(0.5), //wait for shooter to be at speed
-        // // new feeder_shootAllBalls(m_feeder), //advance all balls to shooter - this has built in delay
+        new shooter_shootNamed(m_shooter, namedShots.AR1ONE), //shoot from the home position
+        new WaitCommand(Constants.Shooter.kSpinupSeconds), 
         new feeder_advance(m_feeder), //start advancing the feeder
         new WaitCommand(1.0), //give time for shot
         new shooter_stopShooter(m_shooter), //stop shooter
         new shooter_hoodDown(m_shooter), //lower the hood
         new feeder_stop(m_feeder), //stop the feeder -- should be handled by shootAllBalls
-      // new collector_intakeStop(m_collector), //stop collector
-        // new collector_retractIntake(m_collector),  //retract collector
-        // new shooter_shootNamed(m_shooter, namedShots.LOW), //shoot from the ball 2 position
-        // new WaitCommand(1.0), //wait for shooter to be at speed
-        // // // new feeder_shootAllBalls(m_feeder), //advance all balls to shooter - this has built in delay
-        // new shooter_stopShooter(m_shooter), //stop shooter
-        // new shooter_hoodDown(m_shooter), //lower the hood
-        // new feeder_stop(m_feeder), //stop the feeder -- should be handled by shootAllBalls
-        // new collector_deployIntake(m_collector), //deploy collector
         new ParallelDeadlineGroup( //do until trajectory complete
-          new drive_followTrajectory(m_drive, new ar1BallTwo()), //This goes to human station for 4th ball, via 3rd ball
+          new drive_followTrajectory(m_drive, new ar1BallTwo()), //Go to 2nd ball
           // new WaitCommand(0.5),
           new helpers_debugMessage("Auton: followTrajectory - ar1BallTwo"),
           new SequentialCommandGroup( //do until trajectory complete
-            new collector_intakeStop(m_collector), //stop collector
-            new collector_retractIntake(m_collector),  //retract collector
-            new ParallelRaceGroup( //Advance the feeder for 1.25s or to shooter, whichever comes first
+            new collector_intakeStop(m_collector),
+            new collector_retractIntake(m_collector),
+            new ParallelRaceGroup( //Advance the feeder for 1.5s or to shooter, whichever comes first
               new feeder_advanceToShooter(m_feeder),
               new WaitCommand(1.5)
             ),
@@ -96,19 +85,17 @@ public class cg_auton_AR1ThreeBall extends SequentialCommandGroup {
             )
         ),
         new SequentialCommandGroup( //do until trajectory complete
-          new collector_intakeStop(m_collector), //stop collector
-          new collector_retractIntake(m_collector),  //retract collector
-          new ParallelRaceGroup( //Advance the feeder for 1.25s or to shooter, whichever comes first
+          new collector_intakeStop(m_collector),
+          new collector_retractIntake(m_collector),
+          new ParallelRaceGroup( //Advance the feeder for 1.5s or to shooter, whichever comes first
             new feeder_advanceToShooter(m_feeder),
-            new WaitCommand(1.0)
+            new WaitCommand(1.5)
           )
         ),
-        // new collector_intakeStop(m_collector), //stop collector
-        // new collector_retractIntake(m_collector),  //retract collector
-        // new helpers_debugMessage("Auton: followTrajectory - GoHome"),
-        // new drive_followTrajectory(m_drive, new GoHome()), //go to home shooting position from ball 4
-        new shooter_shootNamed(m_shooter, namedShots.LINE), //shoot from the home position
-        // // new feeder_shootAllBalls(m_feeder), //advance all balls to shooter - this has built in delay
+        new helpers_debugMessage("Auton: followTrajectory - ar1B2ShootingPosition"),
+        new drive_followTrajectory(m_drive, new ar1B2ShootingPosition()),
+        new shooter_shootNamed(m_shooter, namedShots.AR1TWO),
+        new WaitCommand(Constants.Shooter.kSpinupSeconds), 
         new feeder_advance(m_feeder), //start advancing the feeder
         new WaitCommand(1.25), //give time for shot
         new shooter_stopShooter(m_shooter), //stop shooter

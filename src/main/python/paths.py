@@ -68,6 +68,7 @@ def main():
     #     "GoHome"
     # )
 
+    # ## This is validated on 2022-03-21, do not update.
     # generator.generate(
     #     [
     #         [0,0,0],
@@ -78,15 +79,21 @@ def main():
     # )
 
 # could also maybe use math.radians(degrees) for theta
+    # generator.generate(
+    #     [
+    #         [-0.4,1.6,0],
+    #         [-0.75,0.8,-1.0],
+    #         [-4.3,0.6,-1.0],
+    #     ],
+    #     "ar1BallTwo"
+    # )
+
     generator.generate(
         [
-            [-0.4,1.6,0],
-            [-0.75,0.8,-1.0],
             [-4.3,0.6,-1.0],
-             [-4.3,0.6,0],
-           
+            [-4.0,0.7,-0.5],
         ],
-        "ar1BallTwo"
+        "ar1B2ShootingPosition"
     )
 
 main()

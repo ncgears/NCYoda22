@@ -218,8 +218,10 @@ public class RobotContainer {
         return new cg_resetRobot(m_collector, m_climber, m_feeder, m_shooter);
       case "auton_4BallAuto":
         return new cg_auton_4BallAuto(m_drive, m_collector, m_feeder, m_shooter);
-      case "auton_ar1ThreeBall":
+        case "auton_ar1ThreeBall":
         return new cg_auton_AR1ThreeBall(m_drive, m_collector, m_feeder, m_shooter);
+        case "auton_ar2TwoBall":
+        return new cg_auton_AR2TwoBall(m_drive, m_collector, m_feeder, m_shooter);
       case "auton_BasicShootingAuto":
         return new cg_auton_BasicShootingAuto(m_drive, m_collector, m_feeder, m_shooter);
       case "auton_BasicDriveAuto":
