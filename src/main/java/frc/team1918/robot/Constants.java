@@ -59,7 +59,7 @@ public class Constants {
             public static int swerve_rr_drive = 37;
             public static int swerve_rl_drive = 38;
             public static int swerve_fl_drive = 39;
-            public static int shooter = 43;
+            public static int shooter = 42;
             public static int shooterFront = 41;
         }
         /**
@@ -239,7 +239,7 @@ public class Constants {
         public static final boolean isInvertedFromMaster_Motor2 = true; //false for same direction as master
         public static final boolean isSensorInverted_Motor1 = false;
         public static final boolean isSensorNotContinuous = false;
-        public static final double kClimberSpeed = 1.0; //Speed at which the climber controllers operate (in fixed speed mode)
+        public static final double kClimberSpeed = 0.9; //Speed at which the climber controllers operate (in fixed speed mode)
         public static final double kHookReleaseTime = 1.25; //Time in seconds to wait before re-locking hook after unlocking
         public static final double kHookCaptureTime = 0.15; //Time to wait before hook is considered captured
         public static final double kP = 0.2;
