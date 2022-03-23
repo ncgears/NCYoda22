@@ -62,9 +62,13 @@ public class shooter_shootNamed extends CommandBase {
         m_shooter.setShooterSpeed(Constants.Shooter.Shots.AR1ONE.kSpeed);
         m_shooter.raiseHood(Constants.Shooter.Shots.AR1ONE.kHood, Constants.Shooter.Shots.AR1ONE.kHood2);
         break;
-      case AR1TWO:
+        case AR1TWO:
         m_shooter.setShooterSpeed(Constants.Shooter.Shots.AR1TWO.kSpeed);
         m_shooter.raiseHood(Constants.Shooter.Shots.AR1TWO.kHood, Constants.Shooter.Shots.AR1TWO.kHood2);
+        break;
+      case AR1THREE:
+        m_shooter.setShooterSpeed(Constants.Shooter.Shots.AR1THREE.kSpeed);
+        m_shooter.raiseHood(Constants.Shooter.Shots.AR1THREE.kHood, Constants.Shooter.Shots.AR1THREE.kHood2);
         break;
       case DASHBOARD:
         double speed = SmartDashboard.getNumber("Debug/Shooter Speed", Constants.Shooter.Shots.DEFAULT.kSpeed);

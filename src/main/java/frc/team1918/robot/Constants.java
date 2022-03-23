@@ -196,18 +196,23 @@ public class Constants {
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
             public static final class LINE {
-                public static final int kSpeed = 61;
+                public static final int kSpeed = 63;
                 public static final boolean kHood = Air.stateHoodUp;
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
             public static final class AR1ONE {
-                public static final int kSpeed = 61;
+                public static final int kSpeed = 63;
                 public static final boolean kHood = !Air.stateHoodUp;
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
             public static final class AR1TWO {
-                public static final int kSpeed = 61;
-                public static final boolean kHood = !Air.stateHoodUp;
+                public static final int kSpeed = 63;
+                public static final boolean kHood = Air.stateHoodUp;
+                public static final boolean kHood2 = Air.stateHood2Up;
+            }
+            public static final class AR1THREE {
+                public static final int kSpeed = 65;
+                public static final boolean kHood = Air.stateHoodUp;
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
             public static final class OUTER {
@@ -216,7 +221,7 @@ public class Constants {
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
             public static final class WALL {//Confirmed
-                public static final int kSpeed = 61;
+                public static final int kSpeed = 63;
                 public static final boolean kHood = Air.stateHoodUp;
                 public static final boolean kHood2 = Air.stateHood2Up;
             }

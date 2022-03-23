@@ -78,7 +78,7 @@ def main():
     #     "ar1BallOne"
     # )
 
-# could also maybe use math.radians(degrees) for theta
+    # ## This is validated on 2022-03-21, do not update.
     # generator.generate(
     #     [
     #         [-0.4,1.6,0],
@@ -88,12 +88,21 @@ def main():
     #     "ar1BallTwo"
     # )
 
+    # ## This is validated on 2022-03-21, do not update.
+    # generator.generate(
+    #     [
+    #         [-4.3,0.6,-1.0],
+    #         [-3.7,0.4,-0.4],
+    #     ],
+    #     "ar1B2ShootingPosition"
+    # )
+
     generator.generate(
         [
-            [-4.3,0.6,-1.0],
-            [-4.0,0.7,-0.5],
+            [0,0,0],
+            [-1.3,-1.0,0],
         ],
-        "ar1B2ShootingPosition"
+        "al1BallOne"
     )
 
 main()

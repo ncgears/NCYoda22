@@ -31,13 +31,13 @@ import frc.team1918.robot.subsystems.FeederSubsystem;
 import frc.team1918.robot.subsystems.ShooterSubsystem;
 import frc.team1918.robot.subsystems.ShooterSubsystem.namedShots;
 
-public class cg_auton_AR2TwoBall extends SequentialCommandGroup {
+public class cg_auton_AL1TwoBall extends SequentialCommandGroup {
   private final CollectorSubsystem m_collector;
   private final DriveSubsystem m_drive;
   private final FeederSubsystem m_feeder;
   private final ShooterSubsystem m_shooter;
 
-  public cg_auton_AR2TwoBall(DriveSubsystem drive, CollectorSubsystem collector, FeederSubsystem feeder, ShooterSubsystem shooter) {
+  public cg_auton_AL1TwoBall(DriveSubsystem drive, CollectorSubsystem collector, FeederSubsystem feeder, ShooterSubsystem shooter) {
     m_collector = collector;
     m_drive = drive;
     m_feeder = feeder;
@@ -58,8 +58,8 @@ public class cg_auton_AR2TwoBall extends SequentialCommandGroup {
         new feeder_stop(m_feeder),
         new collector_deployIntake(m_collector),
         new ParallelDeadlineGroup( //do until trajectory complete
-          new drive_followTrajectory(m_drive, new ar1BallOne()),
-          new helpers_debugMessage("Auton: followTrajectory - ar1BallOne"),
+          new drive_followTrajectory(m_drive, new al1BallOne()),
+          new helpers_debugMessage("Auton: followTrajectory - al1BallOne"),
           new collector_intakeForward(m_collector)
         ),
         new WaitCommand(0.5),

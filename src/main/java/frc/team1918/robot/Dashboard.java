@@ -46,7 +46,7 @@ public class Dashboard {
         public static final void setTurnZeroPosition(String module, double value) { SmartDashboard.putNumber("Swerve/"+module+"/Zero Position", value); }
         public static final void setDriveVelocity(String module, double value) { SmartDashboard.putNumber("Swerve/"+module+"/Drive Velocity", value); }
         public static final void setDriveDistance(String module, double value) { SmartDashboard.putNumber("Swerve/"+module+"/Drive Distance", value); }
-        public static final void setHeading(double value) { SmartDashboard.putNumber("Heading", value); }
+        public static final void setHeading(double value) { SmartDashboard.putNumber("Heading", Helpers.General.roundDouble(value,2)); }
         public static final void setX(double value) { SmartDashboard.putNumber("Current X", value); }
         public static final void setY(double value) { SmartDashboard.putNumber("Current Y", value); }
         public static final void setCurrentAngle(double value) { SmartDashboard.putNumber("Current Angle", value); }

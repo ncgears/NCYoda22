@@ -48,7 +48,7 @@ public class cg_auton_AR1ThreeBall extends SequentialCommandGroup {
         //this is a comma separated list of commands, thus, the last one should not have a comma
         //setup the odometry in a starting position from the center of the field (negative is right/back)
         //rotation is the initial rotation of the robot from the downstream direction
-        // new drive_resetOdometry(drive, new Pose2d(new Translation2d(0, 0), Rotation2d.fromDegrees(-85.0))),
+        new drive_resetOdometry(drive, new Pose2d(new Translation2d(0, 0), Rotation2d.fromDegrees(-100.0))),
         new shooter_shootNamed(m_shooter, namedShots.DEFAULT), //shoot from the ball 2 position
         new WaitCommand(Constants.Shooter.kSpinupSeconds), 
         new feeder_advance(m_feeder), //start advancing the feeder
@@ -94,7 +94,7 @@ public class cg_auton_AR1ThreeBall extends SequentialCommandGroup {
         ),
         new helpers_debugMessage("Auton: followTrajectory - ar1B2ShootingPosition"),
         new drive_followTrajectory(m_drive, new ar1B2ShootingPosition()),
-        new shooter_shootNamed(m_shooter, namedShots.AR1TWO),
+        new shooter_shootNamed(m_shooter, namedShots.AR1THREE),
         new WaitCommand(Constants.Shooter.kSpinupSeconds), 
         new feeder_advance(m_feeder), //start advancing the feeder
         new WaitCommand(1.25), //give time for shot
