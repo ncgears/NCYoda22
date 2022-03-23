@@ -86,7 +86,7 @@ class trajectory_generator:
       trajectory_util.draw_trajectory(xs,ys,thetas,waypoints,self.drive,name)
       # trajectory_util.animate_trajectory(xs,ys,thetas,waypoints,self.drive,0.02,"trajectory")
 
-      plt.show()
+      # plt.show()
 
    def add_boundry_constraint(self):
       for k in [-1, 0]:
