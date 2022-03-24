@@ -48,8 +48,8 @@ public class cg_auton_AL1TwoBall extends SequentialCommandGroup {
         //this is a comma separated list of commands, thus, the last one should not have a comma
         //setup the odometry in a starting position from the center of the field (negative is right/back)
         //rotation is the initial rotation of the robot from the downstream direction
-        new drive_resetOdometry(drive, new Pose2d(new Translation2d(0, 0), Rotation2d.fromDegrees(-100.0))),
-        new shooter_shootNamed(m_shooter, namedShots.DEFAULT), //shoot from starting position
+        new drive_resetOdometry(drive, new Pose2d(new Translation2d(0, 0), Rotation2d.fromDegrees(-211.0))),
+        new shooter_shootNamed(m_shooter, namedShots.AL1ONE), //shoot from starting position
         new WaitCommand(Constants.Shooter.kSpinupSeconds), //wait for shooter to be at speed
         new feeder_advance(m_feeder), //start advancing the feeder
         new WaitCommand(1.0), //give time for shot
@@ -71,7 +71,7 @@ public class cg_auton_AL1TwoBall extends SequentialCommandGroup {
             new WaitCommand(1.5)
           )
         ),
-        new shooter_shootNamed(m_shooter, namedShots.AR1ONE),
+        new shooter_shootNamed(m_shooter, namedShots.AL1TWO),
         new WaitCommand(Constants.Shooter.kSpinupSeconds), 
         new feeder_advance(m_feeder),
         new WaitCommand(1.0), //give time for shot

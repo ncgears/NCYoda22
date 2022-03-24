@@ -172,7 +172,7 @@ public class Constants {
         public static final double kArbitraryFeedForward = 1/kMaxShooterSpeed;
         public static final double kPreShooterSpeed = 1.0; //speed of the preshooter
         public static final double kShooterReductionFactor = 0.58;
-        public static final double kSpinupSeconds = 0.5; //seconds to wait for shooter to be at speed (during auton)
+        public static final double kSpinupSeconds = 0.3; //seconds to wait for shooter to be at speed (during auton)
 
         public static final class Shots {
             public static final class DEFAULT {
@@ -207,6 +207,26 @@ public class Constants {
             }
             public static final class AR1TWO {
                 public static final int kSpeed = 63;
+                public static final boolean kHood = Air.stateHoodUp;
+                public static final boolean kHood2 = Air.stateHood2Up;
+            }
+            public static final class AR4ONE {
+                public static final int kSpeed = 67;
+                public static final boolean kHood = Air.stateHoodUp;
+                public static final boolean kHood2 = Air.stateHood2Up;
+            }
+            public static final class AR4TWO {
+                public static final int kSpeed = 67;
+                public static final boolean kHood = Air.stateHoodUp;
+                public static final boolean kHood2 = Air.stateHood2Up;
+            }
+            public static final class AL1ONE {
+                public static final int kSpeed = 63;
+                public static final boolean kHood = !Air.stateHoodUp;
+                public static final boolean kHood2 = Air.stateHood2Up;
+            }
+            public static final class AL1TWO {
+                public static final int kSpeed = 66;
                 public static final boolean kHood = Air.stateHoodUp;
                 public static final boolean kHood2 = Air.stateHood2Up;
             }

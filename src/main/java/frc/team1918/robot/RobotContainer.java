@@ -188,7 +188,7 @@ public class RobotContainer {
     btn_ShooterStop.whenPressed(new shooter_stopShooter(m_shooter));
     btn_ShooterIncrease.whenPressed(new shooter_increaseThrottle(m_shooter));
     btn_ShooterDecrease.whenPressed(new shooter_decreaseThrottle(m_shooter));
-    btn_GyroReset.whenPressed(new drive_resetGyro(m_drive).andThen(new drive_homeSwerves(m_drive)).andThen(new drive_resetOdometry(m_drive, new Pose2d())));
+    btn_GyroReset.whenPressed(new drive_resetGyro(m_drive).andThen(new drive_resetOdometry(m_drive, new Pose2d()))); //.andThen(new drive_homeSwerves(m_drive))
     t_VisionShoot.whenActive(new vision_setRinglight(m_vision,true)).whenInactive(new vision_setRinglight(m_vision,false));
     //Music Control Buttons
     // btn_MusicPlay.whenPressed(new orchestra_loadAndPlay(m_orchestra));
@@ -224,7 +224,11 @@ public class RobotContainer {
         return new cg_auton_AR1ThreeBall(m_drive, m_collector, m_feeder, m_shooter);
       case "auton_ar2TwoBall":
         return new cg_auton_AR2TwoBall(m_drive, m_collector, m_feeder, m_shooter);
-      case "auton_al2TwoBall":
+      case "auton_ar3FourBall":
+        return new cg_auton_AR3FourBall(m_drive, m_collector, m_feeder, m_shooter);
+      case "auton_ar4FourBall2":
+        return new cg_auton_AR4FourBall2(m_drive, m_collector, m_feeder, m_shooter);
+      case "auton_al1TwoBall":
         return new cg_auton_AL1TwoBall(m_drive, m_collector, m_feeder, m_shooter);
       case "auton_BasicShootingAuto":
         return new cg_auton_BasicShootingAuto(m_drive, m_collector, m_feeder, m_shooter);

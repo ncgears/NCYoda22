@@ -4,7 +4,7 @@ import frc.team1918.lib.control.SwerveTrajectory;
 
 public class ar1B2ShootingPosition extends Path {
    private final static double[][] points = {
-       {0,-4.3,0.6,-1.0,-0.0,0.0,0.0},
+       {0,-4.3,0.6,-1.0,0.0,0.0,0.0},
        {0.0152,-4.3,0.6,-1.0,0.0158,-0.0053,0.015},
        {0.0304,-4.2998,0.5999,-0.9998,0.0316,-0.0106,0.03},
        {0.0456,-4.2993,0.5998,-0.9993,0.0474,-0.0158,0.0449},

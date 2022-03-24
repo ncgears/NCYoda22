@@ -62,13 +62,29 @@ public class shooter_shootNamed extends CommandBase {
         m_shooter.setShooterSpeed(Constants.Shooter.Shots.AR1ONE.kSpeed);
         m_shooter.raiseHood(Constants.Shooter.Shots.AR1ONE.kHood, Constants.Shooter.Shots.AR1ONE.kHood2);
         break;
-        case AR1TWO:
+      case AR1TWO:
         m_shooter.setShooterSpeed(Constants.Shooter.Shots.AR1TWO.kSpeed);
         m_shooter.raiseHood(Constants.Shooter.Shots.AR1TWO.kHood, Constants.Shooter.Shots.AR1TWO.kHood2);
+        break;
+      case AL1ONE:
+        m_shooter.setShooterSpeed(Constants.Shooter.Shots.AL1ONE.kSpeed);
+        m_shooter.raiseHood(Constants.Shooter.Shots.AL1ONE.kHood, Constants.Shooter.Shots.AL1ONE.kHood2);
+        break;
+      case AL1TWO:
+        m_shooter.setShooterSpeed(Constants.Shooter.Shots.AL1TWO.kSpeed);
+        m_shooter.raiseHood(Constants.Shooter.Shots.AL1TWO.kHood, Constants.Shooter.Shots.AL1TWO.kHood2);
         break;
       case AR1THREE:
         m_shooter.setShooterSpeed(Constants.Shooter.Shots.AR1THREE.kSpeed);
         m_shooter.raiseHood(Constants.Shooter.Shots.AR1THREE.kHood, Constants.Shooter.Shots.AR1THREE.kHood2);
+        break;
+      case AR4ONE:
+        m_shooter.setShooterSpeed(Constants.Shooter.Shots.AR4ONE.kSpeed);
+        m_shooter.raiseHood(Constants.Shooter.Shots.AR4ONE.kHood, Constants.Shooter.Shots.AR4ONE.kHood2);
+        break;
+      case AR4TWO:
+        m_shooter.setShooterSpeed(Constants.Shooter.Shots.AR4TWO.kSpeed);
+        m_shooter.raiseHood(Constants.Shooter.Shots.AR4TWO.kHood, Constants.Shooter.Shots.AR4TWO.kHood2);
         break;
       case DASHBOARD:
         double speed = SmartDashboard.getNumber("Debug/Shooter Speed", Constants.Shooter.Shots.DEFAULT.kSpeed);
