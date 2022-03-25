@@ -201,7 +201,7 @@ public class Constants {
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
             public static final class AR1ONE {
-                public static final int kSpeed = 63;
+                public static final int kSpeed = 65;
                 public static final boolean kHood = !Air.stateHoodUp;
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
