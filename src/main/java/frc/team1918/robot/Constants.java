@@ -146,7 +146,7 @@ public class Constants {
         public static final int id_FeederSwitch = ID.DIO.feeder_switch; //ID of the Shoe Switch
         public static final int id_Motor1 = ID.Talon.feeder; //ID of the Feeder Motor 1 Controller
         public static final boolean isInverted_Motor1 = true; //Invert motor direction
-        public static final double speed_Motor1 = 1.0; //Feeder Motor 1 Speed
+        public static final double speed_Motor1 = 0.8; //Feeder Motor 1 Speed
         public static final double debounce_delay = 3.0; //Seconds to wait for feeder beams
     }
 
@@ -191,7 +191,7 @@ public class Constants {
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
             public static final class BUMPER {//testing for hangar
-                public static final int kSpeed = 73;
+                public static final int kSpeed = 76;  //protected shot +3 - 3/24/22
                 public static final boolean kHood = Air.stateHoodUp;
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
