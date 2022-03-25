@@ -76,7 +76,7 @@ public class ShooterSubsystem extends SubsystemBase {
       shootFront.set(ControlMode.Velocity, Helpers.General.rpsToTicksPer100ms(m_shooter_rps, Constants.Shooter.kEncoderFullRotation, Constants.Shooter.kShooterReductionFactor)); //Set the target
       m_shooter_oldrps=m_shooter_rps;
     }
-    updateDashboard();
+    // updateDashboard();
   }
 
   public void updateDashboard() {

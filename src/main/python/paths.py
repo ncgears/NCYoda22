@@ -89,13 +89,13 @@ def main():
     # )
 
     # ## This is validated on 2022-03-23, do not update.
-    # generator.generate(
-    #     [
-    #         [-4.6,0.4,-1.0],
-    #         [-3.4,0.2,-0.4],
-    #     ],
-    #     "ar1B2ShootingPosition"
-    # )
+    generator.generate(
+        [
+            [-4.6,0.4,-1.0],
+            [-3.4,0.2,-0.6],
+        ],
+        "ar1B2ShootingPosition"
+    )
 
     # ## This is validated on 2022-03-23, do not update.
     # generator.generate(
