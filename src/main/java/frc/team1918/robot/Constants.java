@@ -221,9 +221,9 @@ public class Constants {
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
             public static final class AL1ONE {
-                public static final int kSpeed = 63;
+                public static final int kSpeed = 54;
                 public static final boolean kHood = !Air.stateHoodUp;
-                public static final boolean kHood2 = Air.stateHood2Up;
+                public static final boolean kHood2 = !Air.stateHood2Up;
             }
             public static final class AL1TWO {
                 public static final int kSpeed = 66;
