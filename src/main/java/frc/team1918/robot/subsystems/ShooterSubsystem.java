@@ -22,6 +22,8 @@ public class ShooterSubsystem extends SubsystemBase {
   private double m_shooter_oldrps = 0.0; // Previous shooter speed
   private double m_shooter_rpm = 0.0; 
   private Solenoid m_hood, m_hood2;
+  public enum telemetryLevel {DEBUG, BASIC, NONE; }
+  public telemetryLevel telemetry = telemetryLevel.NONE;
   public enum namedShots {DEFAULT, LOW, BUMPER, LINE, OUTER, WALL, TARMAC, AL1ONE, AL1TWO, AR1ONE, AR1TWO, AR1THREE, AR4ONE, AR4TWO, DASHBOARD, NONE;}
   public namedShots currentShotName = namedShots.NONE;
   /**
@@ -76,14 +78,24 @@ public class ShooterSubsystem extends SubsystemBase {
       shootFront.set(ControlMode.Velocity, Helpers.General.rpsToTicksPer100ms(m_shooter_rps, Constants.Shooter.kEncoderFullRotation, Constants.Shooter.kShooterReductionFactor)); //Set the target
       m_shooter_oldrps=m_shooter_rps;
     }
-    // updateDashboard();
+    updateDashboard();
   }
 
   public void updateDashboard() {
-    // Dashboard.Shooter.setCurrentSpeed(getShooterSpeedRPS());
-    Dashboard.Shooter.setTargetSpeed(m_shooter_rps);
-    Dashboard.Shooter.setHoodPosition(hoodPosition(m_hood.get(),m_hood2.get()));
-    Dashboard.Shooter.setShotName(currentShotName.toString());
+    switch (telemetry) {
+      case DEBUG:
+        // Dashboard.Shooter.setCurrentSpeed(getShooterSpeedRPS());
+        Dashboard.Shooter.setTargetSpeed(m_shooter_rps);
+        Dashboard.Shooter.setHoodPosition(hoodPosition(m_hood.get(),m_hood2.get()));
+        Dashboard.Shooter.setShotName(currentShotName.toString());
+        break;
+      case BASIC:
+        break;
+      case NONE:
+      default:
+        //nothing to do
+        break;
+    }
   }
 
   public void setShotName(namedShots shotName) {
