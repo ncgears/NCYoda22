@@ -62,10 +62,10 @@ public class cg_auton_AR1ThreeBall extends SequentialCommandGroup {
           new helpers_debugMessage("Auton: followTrajectory - ar1BallOne"), //move to ball1
           new collector_intakeForward(m_collector) //start collector
         ),
-        new shooter_shootNamed(m_shooter, namedShots.AR1ONE), //shoot from the home position
+        new shooter_shootNamed(m_shooter, namedShots.AR1TWO), //shoot from the home position
         new collector_intakeStop(m_collector),
         new collector_retractIntake(m_collector),
-        new WaitCommand(0.4), //Constants.Shooter.kSpinupSeconds), 
+        new WaitCommand(0.5), //Constants.Shooter.kSpinupSeconds), 
         new feeder_advance(m_feeder), //start advancing the feeder
         new WaitCommand(1.0), //give time for shot
         new shooter_stopShooter(m_shooter), //stop shooter
