@@ -49,16 +49,16 @@ public class cg_auton_AR4FourBall2 extends SequentialCommandGroup {
         //setup the odometry in a starting position from the center of the field (negative is right/back)
         //rotation is the initial rotation of the robot from the downstream direction
         new drive_resetOdometry(drive, new Pose2d(new Translation2d(0, 0), Rotation2d.fromDegrees(-96.0))),
-        new shooter_shootNamed(m_shooter, namedShots.DEFAULT), //shoot from the ball 2 position
+        new shooter_shootNamed(m_shooter, namedShots.DEFAULT), 
         new WaitCommand(Constants.Shooter.kSpinupSeconds), 
-        new feeder_advance(m_feeder), //start advancing the feeder
-        new WaitCommand(0.25), //give time for shot
-        new collector_deployIntake(m_collector), //deploy collector
+        new feeder_advance(m_feeder), 
+        new WaitCommand(0.25), 
+        new collector_deployIntake(m_collector),
         new ParallelDeadlineGroup( //do until trajectory complete
           new drive_followTrajectory(m_drive, new ar4BallOneAndTwo()),
-          new helpers_debugMessage("Auton: followTrajectory - ar4BallOneAndTwo"), //move to ball1
-          new collector_intakeForward(m_collector), //start collector
-          new shooter_shootNamed(m_shooter, namedShots.AR4ONE), //shoot from the home position            
+          new helpers_debugMessage("Auton: followTrajectory - ar4BallOneAndTwo"),
+          new collector_intakeForward(m_collector),
+          new shooter_shootNamed(m_shooter, namedShots.AR4ONE),             
           new feeder_advanceToShooter(m_feeder)
         ),
         new feeder_advance(m_feeder),
