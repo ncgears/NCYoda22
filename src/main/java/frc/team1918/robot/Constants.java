@@ -161,7 +161,7 @@ public class Constants {
         public static final boolean isSensorInverted_Motor1 = true;
         public static final boolean isInverted_Motor1 = false; //Invert motor direction
         public static final boolean isInverted_Motor2 = true; //Invert motor direction
-        public static final int kMaxShooterSpeed = 100; //Max RPS of the Shooter Motor
+        public static final int kMaxShooterSpeed = 150; //Max RPS of the Shooter Motor
         public static final double kDefaultShooterSpeed = 76; //Default RPS of the Shooter Motor
         public static final int kMinShooterSpeed = 0; //Min RPM of the Shooter Motor
         public static final double kSpeedIncrementSize = 1; //RPMs to change the shooter speed per increment
@@ -171,7 +171,7 @@ public class Constants {
         public static final double kIZone = 0.0;
         public static final double kArbitraryFeedForward = 1/kMaxShooterSpeed;
         public static final double kPreShooterSpeed = 1.0; //speed of the preshooter
-        public static final double kShooterReductionFactor = 0.58;
+        public static final double kShooterReductionFactor = 70.0/82.0;
         public static final double kSpinupSeconds = 0.3; //seconds to wait for shooter to be at speed (during auton)
 
         public static final class Shots {
@@ -191,7 +191,7 @@ public class Constants {
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
             public static final class BUMPER {//testing for hangar
-                public static final int kSpeed = 78;  //protected shot +5 - 3/24/22
+                public static final int kSpeed = 70;  //protected shot +5 - 3/24/22
                 public static final boolean kHood = Air.stateHoodUp;
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
@@ -206,7 +206,12 @@ public class Constants {
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
             public static final class AR1TWO {
-                public static final int kSpeed = 66;
+                public static final int kSpeed = 62;
+                public static final boolean kHood = Air.stateHoodUp;
+                public static final boolean kHood2 = Air.stateHood2Up;
+            }
+            public static final class AR1THREE {
+                public static final int kSpeed = 59;
                 public static final boolean kHood = Air.stateHoodUp;
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
@@ -227,11 +232,6 @@ public class Constants {
             }
             public static final class AL1TWO {
                 public static final int kSpeed = 66;
-                public static final boolean kHood = Air.stateHoodUp;
-                public static final boolean kHood2 = Air.stateHood2Up;
-            }
-            public static final class AR1THREE {
-                public static final int kSpeed = 64;
                 public static final boolean kHood = Air.stateHoodUp;
                 public static final boolean kHood2 = Air.stateHood2Up;
             }

@@ -125,6 +125,7 @@ public class Helpers {
          * @return
          */
         public final static double rpsToTicksPer100ms(double rps, int fullRotationTicks, double factor) {
+            factor = 0.58;
             return ((rps * fullRotationTicks) / 10 / factor);
         }
 

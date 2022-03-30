@@ -23,7 +23,7 @@ public class ShooterSubsystem extends SubsystemBase {
   private double m_shooter_rpm = 0.0; 
   private Solenoid m_hood, m_hood2;
   public enum telemetryLevel {DEBUG, BASIC, NONE; }
-  public telemetryLevel telemetry = telemetryLevel.NONE;
+  public telemetryLevel telemetry = telemetryLevel.BASIC;
   public enum namedShots {DEFAULT, LOW, BUMPER, LINE, OUTER, WALL, TARMAC, AL1ONE, AL1TWO, AR1ONE, AR1TWO, AR1THREE, AR4ONE, AR4TWO, DASHBOARD, NONE;}
   public namedShots currentShotName = namedShots.NONE;
   /**
@@ -90,6 +90,7 @@ public class ShooterSubsystem extends SubsystemBase {
         Dashboard.Shooter.setShotName(currentShotName.toString());
         break;
       case BASIC:
+        Dashboard.Shooter.setCurrentSpeed(getShooterSpeedRPS());
         break;
       case NONE:
       default:

@@ -83,19 +83,19 @@ def main():
     #     [
     #         [-0.6,1.8,0],
     #         [-0.9,0.6,-1.0],
-    #         [-4.6,0.4,-1.0],
+    #         [-4.6,0.6,-1.0],
     #     ],
     #     "ar1BallTwo"
     # )
 
     # ## This is validated on 2022-03-23, do not update.
-    # generator.generate(
-    #     [
-    #         [-4.6,0.4,-1.0],
-    #         [-3.4,0.2,-0.6],
-    #     ],
-    #     "ar1B2ShootingPosition"
-    # )
+    generator.generate(
+        [
+            [-4.6,0.6,-1.0],
+            [-4.6,0.5,-0.75],
+        ],
+        "ar1B2ShootingPosition"
+    )
 
     # ## This is validated on 2022-03-23, do not update.
     # generator.generate(
@@ -124,17 +124,17 @@ def main():
     #     "al1BallOne"
     # )
 
-    generator.generate(
-        [
-            [0,0,0],
-            [0.3, 1.1, -1.4],
-            [0.3, 1.3, -1.4],
-            [-1.2, 1.4, -1.5],
-            [-1.8, -0.7, -1.5],
-            [-4.4, -0.7, -1.5],
-            [-4.1, -0.8, -0.7],
-        ],
-        "ar4BallOneAndTwo"
-    )
+    # generator.generate(
+    #     [
+    #         [0,0,0],
+    #         [0.3, 1.1, -1.4],
+    #         [0.3, 1.3, -1.4],
+    #         [-1.2, 1.4, -1.5],
+    #         [-1.8, -0.7, -1.5],
+    #         [-4.4, -0.7, -1.5],
+    #         [-4.1, -0.8, -0.80],
+    #     ],
+    #     "ar4BallOneAndTwo"
+    # )
 
 main()

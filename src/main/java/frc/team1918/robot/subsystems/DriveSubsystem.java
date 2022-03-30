@@ -75,7 +75,7 @@ public class DriveSubsystem extends SubsystemBase {
 	@Override
 	public void periodic() {
 		updateOdometry();
-		// updateDashboard();
+		updateDashboard();
 		for (SwerveModule module: modules) {
 			// module.updateDashboard();
 		}
