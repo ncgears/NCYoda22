@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team1918.robot.Constants;
 import frc.team1918.robot.Dashboard;
 import frc.team1918.robot.Helpers;
+import frc.team1918.robot.utils.CANTalonUtil;
+import frc.team1918.robot.utils.CANTalonUtil.Usage;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -56,15 +58,19 @@ public class ShooterSubsystem extends SubsystemBase {
     shootFront.setNeutralMode(NeutralMode.Coast);
     //shootFront.setSensorPhase(Constants.Shooter.isSensorInverted_Motor1);
     shootFront.setInverted(Constants.Shooter.isInverted_Motor2);
-    shootFront.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
-    shootFront.config_kP(0, Constants.Shooter.kP);
-    shootFront.config_kI(0, Constants.Shooter.kI);
-    shootFront.config_kD(0, Constants.Shooter.kD);
-    shootFront.config_IntegralZone(0, Constants.Shooter.kIZone);
-    // shootFront.configNominalOutputForward(0);
-    // shootFront.configNominalOutputReverse(0);
-    shootFront.configPeakOutputForward(1);
-    shootFront.configPeakOutputReverse(0); //no reverse output
+    // shootFront.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0);
+    // shootFront.config_kP(0, Constants.Shooter.kP);
+    // shootFront.config_kI(0, Constants.Shooter.kI);
+    // shootFront.config_kD(0, Constants.Shooter.kD);
+    // shootFront.config_IntegralZone(0, Constants.Shooter.kIZone);
+    // // shootFront.configNominalOutputForward(0);
+    // // shootFront.configNominalOutputReverse(0);
+    // shootFront.configPeakOutputForward(1);
+    // shootFront.configPeakOutputReverse(0); //no reverse output
+
+    shootFront.follow(shoot); //follow the other one
+    // CANTalonUtil.SetTalonCANUsage(shootFront, Usage.kPrimaryPidOnly, true);
+    
     //Setup the solenoid
     m_hood = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_HoodSolenoid);
     m_hood2 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_Hood2Solenoid);
@@ -75,7 +81,7 @@ public class ShooterSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run and change the shooter speed if requested
     if (m_shooter_rps != m_shooter_oldrps) {
       shoot.set(ControlMode.Velocity, Helpers.General.rpsToTicksPer100ms(m_shooter_rps, Constants.Shooter.kEncoderFullRotation, Constants.Shooter.kShooterReductionFactor)); //Set the target
-      shootFront.set(ControlMode.Velocity, Helpers.General.rpsToTicksPer100ms(m_shooter_rps, Constants.Shooter.kEncoderFullRotation, Constants.Shooter.kShooterReductionFactor)); //Set the target
+      // shootFront.set(ControlMode.Velocity, Helpers.General.rpsToTicksPer100ms(m_shooter_rps, Constants.Shooter.kEncoderFullRotation, Constants.Shooter.kShooterReductionFactor)); //Set the target
       m_shooter_oldrps=m_shooter_rps;
     }
     updateDashboard();
