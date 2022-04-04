@@ -36,8 +36,7 @@ public class ShooterSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Debug/Shooter Speed",Constants.Shooter.Shots.DEFAULT.kSpeed);
     SmartDashboard.putBoolean("Debug/Shooter Hood1",Constants.Shooter.Shots.DEFAULT.kHood);
     SmartDashboard.putBoolean("Debug/Shooter Hood2",Constants.Shooter.Shots.DEFAULT.kHood2);
-    //Setup the SparkMAX controller as desired
-    shoot = new WPI_TalonFX(Constants.Shooter.id_Motor1);
+    shoot = new WPI_TalonFX(Constants.Shooter.id_Motor1, Constants.Shooter.canBus);
     shoot.configFactoryDefault();
     shoot.set(ControlMode.PercentOutput, 0);
     shoot.setNeutralMode(NeutralMode.Coast);
@@ -53,7 +52,7 @@ public class ShooterSubsystem extends SubsystemBase {
     shoot.configPeakOutputForward(1);
     shoot.configPeakOutputReverse(0); //no reverse output
     //Setup the front shooter
-    shootFront = new WPI_TalonFX(Constants.Shooter.id_Motor2);
+    shootFront = new WPI_TalonFX(Constants.Shooter.id_Motor2, Constants.Shooter.canBus);
     shootFront.configFactoryDefault();
     shootFront.setNeutralMode(NeutralMode.Coast);
     //shootFront.setSensorPhase(Constants.Shooter.isSensorInverted_Motor1);
