@@ -12,12 +12,15 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 
 public class ClimberSubsystem extends SubsystemBase {
   private WPI_TalonSRX climber_1;
   private WPI_TalonSRX climber_2;
+  // private WPI_TalonFX climber_1;
+  // private WPI_TalonFX climber_2;
   private Solenoid hook_release_1;
   private Solenoid hook_release_2;
   private Solenoid whirlySolenoid; 
@@ -54,6 +57,8 @@ public class ClimberSubsystem extends SubsystemBase {
     m_hook2CaptureSwitch = new DigitalInput(Constants.Climber.id_CaptureHook2);
     climber_1 = new WPI_TalonSRX(Constants.Climber.id_Motor1);
     climber_2 = new WPI_TalonSRX(Constants.Climber.id_Motor2);
+    // climber_1 = new WPI_TalonFX(Constants.Climber.id_Motor1, Constants.Climber.canBus);
+    // climber_2 = new WPI_TalonFX(Constants.Climber.id_Motor2, Constants.Climber.canBus);
     hook_release_1 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_ClimbHook1Solenoid);
     hook_release_2 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_ClimbHook2Solenoid);
     whirlySolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_WhirlyGigSolenoid);

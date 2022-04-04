@@ -154,6 +154,7 @@ public class Constants {
      * Constants for the Shooter subsystem
      */
     public static final class Shooter {
+        public static final String canBus = "rio"; //name of canbus for swerve modules, if not "rio"
         public static final boolean isDisabled = false; //Disable the shooter subsystem
         public static final int id_Motor1 = ID.Falcon.shooter; //ID of the Shooter Motor 1 Controller
         public static final int id_Motor2 = ID.Falcon.shooterFront; //ID of the Shooter Motor 2 Controller
@@ -252,6 +253,7 @@ public class Constants {
      * Constants for the Climber subsystem
      */
     public static final class Climber {
+        public static final String canBus = "rio"; //name of canbus for swerve modules, if not "rio"
         public static final boolean isDisabled = false; //Disable the climber subsystem
         public static final boolean useAutoClimb = true; //Enable autoclimb function
         public static final boolean requireCaptureBothSides = true; //Require left+right capture to start autoclimb
@@ -276,6 +278,7 @@ public class Constants {
      * Constants for the Swerve Modules
      */
     public static final class Swerve {
+        public static final String canBus = "rio"; //name of canbus for swerve modules, if not "rio"
         public static final boolean homeOnInit = true; //true to go to zero position on init
         public static final boolean USE_OPTIMIZATION = true; //false to disable shortest path optimization
         public static final boolean USE_DRIVE_PID = false; //true to enable PID based drive control

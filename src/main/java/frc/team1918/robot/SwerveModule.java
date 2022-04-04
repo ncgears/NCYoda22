@@ -38,7 +38,7 @@ public class SwerveModule {
 	 */
     public SwerveModule(String name, SwerveModuleConstants moduleConstants){
         moduleName = name;
-        drive = new WPI_TalonFX(moduleConstants.idDriveMotor);
+        drive = new WPI_TalonFX(moduleConstants.idDriveMotor, Constants.Swerve.canBus);
         turn = new WPI_TalonSRX(moduleConstants.idTurnMotor);
         isDrivePowerInverted = false;
         TURN_P = moduleConstants.turnP;
