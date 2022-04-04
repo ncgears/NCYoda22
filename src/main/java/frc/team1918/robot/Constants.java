@@ -47,9 +47,8 @@ public class Constants {
             public static int swerve_fl_turn = 7;
             public static int swerve_rl_turn = 8;
             public static int swerve_rr_turn = 11;
-            public static int climber_follower = 13;
-            public static int climber_master = 14;
             public static int intake = 16;
+
         }
         /**
          * IDs of Falcons
@@ -61,6 +60,8 @@ public class Constants {
             public static int swerve_fl_drive = 39;
             public static int shooter = 42;
             public static int shooterFront = 41;
+            public static int climber_master = 33;
+            public static int climber_follower = 35;
         }
         /**
          * IDs of Solenoids
@@ -257,12 +258,13 @@ public class Constants {
         public static final boolean isDisabled = false; //Disable the climber subsystem
         public static final boolean useAutoClimb = true; //Enable autoclimb function
         public static final boolean requireCaptureBothSides = true; //Require left+right capture to start autoclimb
-        public static final int id_Motor1 = ID.Talon.climber_master;
-        public static final int id_Motor2 = ID.Talon.climber_follower; //follower of Motor1
+        public static final int id_Motor1 = ID.Falcon.climber_master;
+        public static final int id_Motor2 = ID.Falcon.climber_follower; //follower of Motor1
         public static final int id_CaptureHook1Left = ID.DIO.whirly_hook1_capture_left; //DIO for hook1 capture left
         public static final int id_CaptureHook1Right = ID.DIO.whirly_hook1_capture_right; //DIO for hook1 capture right
         public static final int id_CaptureHook2 = ID.DIO.whirly_hook2_capture; //DIO for hook2 capture
         public static final boolean isInverted_Motor1 = true;
+        public static final boolean isInverted_Motor2 = false;
         public static final boolean isInvertedFromMaster_Motor2 = true; //false for same direction as master
         public static final boolean isSensorInverted_Motor1 = false;
         public static final boolean isSensorNotContinuous = false;
