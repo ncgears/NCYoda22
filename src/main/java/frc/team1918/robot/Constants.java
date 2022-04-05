@@ -193,12 +193,12 @@ public class Constants {
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
             public static final class BUMPER {//testing for hangar
-                public static final int kSpeed = 70;  //protected shot +5 - 3/24/22
+                public static final int kSpeed = 73;  //protected shot +5 - 3/24/22
                 public static final boolean kHood = Air.stateHoodUp;
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
             public static final class LINE {
-                public static final int kSpeed = 65;
+                public static final int kSpeed = 63;
                 public static final boolean kHood = Air.stateHoodUp;
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
@@ -238,7 +238,7 @@ public class Constants {
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
             public static final class OUTER {
-                public static final int kSpeed = 63;
+                public static final int kSpeed = 67;
                 public static final boolean kHood = !Air.stateHoodUp;
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
