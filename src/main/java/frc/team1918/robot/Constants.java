@@ -269,8 +269,8 @@ public class Constants {
         public static final boolean isSensorInverted_Motor1 = false;
         public static final boolean isSensorNotContinuous = false;
         public static final double kClimberSpeed = 1.0; //Speed at which the climber controllers operate (in fixed speed mode)
-        public static final double kHookReleaseTime = 1.25; //Time in seconds to wait before re-locking hook after unlocking
-        public static final double kHookCaptureTime = 0.15; //Time to wait before hook is considered captured
+        public static final double kHookReleaseTime = 1.0; //Time in seconds to wait before re-locking hook after unlocking
+        public static final double kHookCaptureTime = 0.18; //Time to wait before hook is considered captured
         public static final double kP = 0.2;
         public static final double kI = 0.0;
         public static final double kD = 0.0;

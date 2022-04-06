@@ -106,6 +106,7 @@ public class RobotContainer {
       private JoystickButton btn_FeederFwd = new JoystickButton(dj, Constants.OI.Logitech.BTN_RB);
       private Trigger t_RingLight = new Trigger(() -> dj.getRawAxis(Constants.OI.Logitech.AXIS_RT)>0.3);
       private JoystickButton btn_VisionShoot = new JoystickButton(dj, Constants.OI.Logitech.BTN_A);
+      private JoystickButton btn_ShootDashboard = new JoystickButton(dj, Constants.OI.Logitech.BTN_B);
       //Music Control
       // private JoystickButton btn_MusicPlay = new JoystickButton(dj, Constants.OI.Logitech.BTN_Y);
       // private JoystickButton btn_MusicStop = new JoystickButton(dj, Constants.OI.Logitech.BTN_R);
@@ -175,7 +176,7 @@ public class RobotContainer {
     // btn_IntakeForward.whenPressed(new feeder_advanceToShooter(m_feeder));
     t_IntakeForward.whenActive(new cg_collector_intakeAndFeed(m_collector, m_feeder)).whenInactive(new collector_intakeStop(m_collector).andThen(new collector_retractIntake(m_collector)));
     t_IntakeReverse.whenActive(new collector_intakeReverse(m_collector));
-    // btn_ShootDashboard.whenPressed(new shooter_shootNamed(m_shooter, namedShots.DASHBOARD));
+    btn_ShootDashboard.whenPressed(new shooter_shootNamed(m_shooter, namedShots.DASHBOARD));
     btn_ShootLow.whenPressed(new shooter_shootNamed(m_shooter, namedShots.LOW));
     btn_ShootBumper.whenPressed(new shooter_shootNamed(m_shooter, namedShots.BUMPER));
     btn_ShootLine.whenPressed(new shooter_shootNamed(m_shooter, namedShots.LINE));
