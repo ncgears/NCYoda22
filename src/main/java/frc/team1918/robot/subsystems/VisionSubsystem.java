@@ -133,4 +133,11 @@ public class VisionSubsystem extends SubsystemBase {
     table.getEntry("desiredColor").setString(desired);
   }
 
+  public double getVisionTurn() {
+    //-1.0 .. 0.0 .. 1.0 == ccw .. neutral .. cw
+    double turn = 1.0;
+    
+    return turn * Constants.Vision.kTurnP;
+  }
+
 }

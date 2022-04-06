@@ -18,7 +18,7 @@ public class Dashboard {
     public static final class Shooter {
         public static final void setCurrentSpeed(double speed) { SmartDashboard.putNumber("Shooter/Shooter Speed",speed); }
         public static final void setHoodPosition(String value) { SmartDashboard.putString("Shooter/Hood Position", value); }
-        public static final void setTargetSpeed(double speed) { SmartDashboard.putNumber("Shooter/Target Speed",speed); }
+        public static final void setTargetSpeed(double speed) { SmartDashboard.putNumber("Shooter/TargetSpeed",speed); }
         public static final void setShotName(String value) { SmartDashboard.putString("Shooter/Shot Name",value); }
         public static final double getTargetSpeed(double default_val) { return (double) SmartDashboard.getNumber("Shooter/Target Speed",default_val); }
     }

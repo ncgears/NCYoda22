@@ -193,11 +193,21 @@ public class Constants {
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
             public static final class BUMPER {//testing for hangar
-                public static final int kSpeed = 73;  //protected shot +5 - 3/24/22
+                public static final int kSpeed = 73;  //73
                 public static final boolean kHood = Air.stateHoodUp;
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
             public static final class LINE {
+                public static final int kSpeed = 65;
+                public static final boolean kHood = Air.stateHoodUp;
+                public static final boolean kHood2 = Air.stateHood2Up;
+            }
+            public static final class OUTER {
+                public static final int kSpeed = 67;
+                public static final boolean kHood = !Air.stateHoodUp;
+                public static final boolean kHood2 = Air.stateHood2Up;
+            }
+            public static final class WALL {//Confirmed
                 public static final int kSpeed = 63;
                 public static final boolean kHood = Air.stateHoodUp;
                 public static final boolean kHood2 = Air.stateHood2Up;
@@ -234,16 +244,6 @@ public class Constants {
             }
             public static final class AL1TWO {
                 public static final int kSpeed = 66;
-                public static final boolean kHood = Air.stateHoodUp;
-                public static final boolean kHood2 = Air.stateHood2Up;
-            }
-            public static final class OUTER {
-                public static final int kSpeed = 67;
-                public static final boolean kHood = !Air.stateHoodUp;
-                public static final boolean kHood2 = Air.stateHood2Up;
-            }
-            public static final class WALL {//Confirmed
-                public static final int kSpeed = 63;
                 public static final boolean kHood = Air.stateHoodUp;
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
@@ -433,6 +433,7 @@ public class Constants {
         public static final boolean isDisabled = false;
         public static final int id_RingLight = ID.Relay.ringlight; //Relay ID of Ringlight SS Relay
         public static final double kErrorCorrection_P = 0.65; //Proportional value for multiplying vision angle correction
+        public static final double kTurnP = 1.0;
     }
     /**
      * Constants for the Operator Interface

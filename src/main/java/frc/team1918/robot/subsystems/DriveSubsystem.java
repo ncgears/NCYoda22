@@ -30,6 +30,7 @@ public class DriveSubsystem extends SubsystemBase {
 	private double lastTime;
 	private final Timer timer;
 	private static double yawOffset = 0.0; //offset to account for different starting positions
+	public boolean visionTargeting = false;
 
 	//initialize 4 swerve modules
 	private static SwerveModule m_dtFL = new SwerveModule("dtFL", Constants.Swerve.FL.constants); // Front Left
@@ -88,6 +89,10 @@ public class DriveSubsystem extends SubsystemBase {
 		Dashboard.DriveTrain.setCurrentAngle(getPose().getRotation().getDegrees());
 		Dashboard.DriveTrain.setDesiredAngle(desiredAngle);
 		// Dashboard.DriveTrain.setTargetAngle(m_targetPose.getRotation().getRadians());
+	}
+
+	public void setVisionTargeting(boolean enabled) {
+		visionTargeting = enabled;
 	}
 
 		/**
