@@ -47,9 +47,8 @@ public class Constants {
             public static int swerve_fl_turn = 7;
             public static int swerve_rl_turn = 8;
             public static int swerve_rr_turn = 11;
-            public static int climber_follower = 13;
-            public static int climber_master = 14;
             public static int intake = 16;
+
         }
         /**
          * IDs of Falcons
@@ -61,6 +60,8 @@ public class Constants {
             public static int swerve_fl_drive = 39;
             public static int shooter = 42;
             public static int shooterFront = 41;
+            public static int climber_master = 33;
+            public static int climber_follower = 35;
         }
         /**
          * IDs of Solenoids
@@ -192,7 +193,7 @@ public class Constants {
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
             public static final class BUMPER {//testing for hangar
-                public static final int kSpeed = 70;  //protected shot +5 - 3/24/22
+                public static final int kSpeed = 73;  //73
                 public static final boolean kHood = Air.stateHoodUp;
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
@@ -201,10 +202,20 @@ public class Constants {
                 public static final boolean kHood = Air.stateHoodUp;
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
-            public static final class AR1ONE {
+            public static final class OUTER {
                 public static final int kSpeed = 65;
-                public static final boolean kHood = !Air.stateHoodUp;
+                public static final boolean kHood = Air.stateHoodUp;
+                public static final boolean kHood2 = !Air.stateHood2Up;
+            }
+            public static final class WALL {//Confirmed
+                public static final int kSpeed = 63;
+                public static final boolean kHood = Air.stateHoodUp;
                 public static final boolean kHood2 = Air.stateHood2Up;
+            }
+            public static final class AR1ONE {
+                public static final int kSpeed = 59;
+                public static final boolean kHood = !Air.stateHoodUp;
+                public static final boolean kHood2 = !Air.stateHood2Up;
             }
             public static final class AR1TWO {
                 public static final int kSpeed = 62;
@@ -227,7 +238,7 @@ public class Constants {
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
             public static final class AL1ONE {
-                public static final int kSpeed = 54;
+                public static final int kSpeed = 56;
                 public static final boolean kHood = !Air.stateHoodUp;
                 public static final boolean kHood2 = !Air.stateHood2Up;
             }
@@ -236,13 +247,13 @@ public class Constants {
                 public static final boolean kHood = Air.stateHoodUp;
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
-            public static final class OUTER {
-                public static final int kSpeed = 63;
+            public static final class AL2ONE {
+                public static final int kSpeed = 60;
                 public static final boolean kHood = !Air.stateHoodUp;
-                public static final boolean kHood2 = Air.stateHood2Up;
+                public static final boolean kHood2 = !Air.stateHood2Up;
             }
-            public static final class WALL {//Confirmed
-                public static final int kSpeed = 63;
+            public static final class AL2TWO {
+                public static final int kSpeed = 73;
                 public static final boolean kHood = Air.stateHoodUp;
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
@@ -257,18 +268,19 @@ public class Constants {
         public static final boolean isDisabled = false; //Disable the climber subsystem
         public static final boolean useAutoClimb = true; //Enable autoclimb function
         public static final boolean requireCaptureBothSides = true; //Require left+right capture to start autoclimb
-        public static final int id_Motor1 = ID.Talon.climber_master;
-        public static final int id_Motor2 = ID.Talon.climber_follower; //follower of Motor1
+        public static final int id_Motor1 = ID.Falcon.climber_master;
+        public static final int id_Motor2 = ID.Falcon.climber_follower; //follower of Motor1
         public static final int id_CaptureHook1Left = ID.DIO.whirly_hook1_capture_left; //DIO for hook1 capture left
         public static final int id_CaptureHook1Right = ID.DIO.whirly_hook1_capture_right; //DIO for hook1 capture right
         public static final int id_CaptureHook2 = ID.DIO.whirly_hook2_capture; //DIO for hook2 capture
         public static final boolean isInverted_Motor1 = true;
+        public static final boolean isInverted_Motor2 = false;
         public static final boolean isInvertedFromMaster_Motor2 = true; //false for same direction as master
         public static final boolean isSensorInverted_Motor1 = false;
         public static final boolean isSensorNotContinuous = false;
         public static final double kClimberSpeed = 1.0; //Speed at which the climber controllers operate (in fixed speed mode)
-        public static final double kHookReleaseTime = 1.25; //Time in seconds to wait before re-locking hook after unlocking
-        public static final double kHookCaptureTime = 0.15; //Time to wait before hook is considered captured
+        public static final double kHookReleaseTime = 1.0; //Time in seconds to wait before re-locking hook after unlocking
+        public static final double kHookCaptureTime = 0.18; //Time to wait before hook is considered captured
         public static final double kP = 0.2;
         public static final double kI = 0.0;
         public static final double kD = 0.0;
@@ -406,8 +418,8 @@ public class Constants {
         public static final double kMaxMetersPerSecond = 3.677; //limit full stick speed meters to 12.0fps
         public static final double kMaxRotationRadiansPerSecond = 3.4; //Multiplier for omega of turning the robot
         ////Turn Tuning
-        public static final double DT_TURN_MULT_STATIONARY = 1.0; //Turn speed multiplier while not moving
-        public static final double DT_TURN_MULT_MOVING = 1.0; //Turn speed multiplier while moving
+        public static final double DT_TURN_MULT_STATIONARY = 1.3; //Turn speed multiplier while not moving
+        public static final double DT_TURN_MULT_MOVING = 1.3; //Turn speed multiplier while moving
         public static final boolean DT_TURN_MULT_BEFORE_DB = true; //Apply turn multiplier before deadband
         public static final int DT_TURN_ENCODER_FULL_ROTATION = 1023; //This is for the lamprey, not the integrated SRX mag encoder
         public static final int kTurnEncoderFullRotation = 4096; //This is for the integrated SRX mag encoder in the gearboxes, not the lamprey
@@ -431,6 +443,7 @@ public class Constants {
         public static final boolean isDisabled = false;
         public static final int id_RingLight = ID.Relay.ringlight; //Relay ID of Ringlight SS Relay
         public static final double kErrorCorrection_P = 0.65; //Proportional value for multiplying vision angle correction
+        public static final double kTurnP = 1.0;
     }
     /**
      * Constants for the Operator Interface

@@ -12,7 +12,7 @@ def main():
         # Mass (kg)/moi (kg/m^2)
         54.4, 5.6,
         # Max velocity (RPS)/force (Nm) at 60A, adjusted for gearing
-        95, 1.10,
+        95, 2.2, #1.1
         # 50, 1,
         # Wheel radius (meters)
         0.071)
@@ -89,13 +89,13 @@ def main():
     # )
 
     # ## This is validated on 2022-03-23, do not update.
-    generator.generate(
-        [
-            [-4.6,0.6,-1.0],
-            [-4.6,0.5,-0.75],
-        ],
-        "ar1B2ShootingPosition"
-    )
+    # generator.generate(
+    #     [
+    #         [-4.6,0.6,-1.0],
+    #         [-4.5,0.5,-0.55],
+    #     ],
+    #     "ar1B2ShootingPosition"
+    # )
 
     # ## This is validated on 2022-03-23, do not update.
     # generator.generate(
@@ -123,6 +123,16 @@ def main():
     #     ],
     #     "al1BallOne"
     # )
+
+    # ## This is validated on 2022-04-06, do not update.
+    generator.generate(
+        [
+            [0.0,0.0,0.0],
+            [-2.5,-0.5,0.4],
+            [-1.4,-1.9,-0.18],
+        ],
+        "al2BallOne"
+    )
 
     # generator.generate(
     #     [

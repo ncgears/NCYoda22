@@ -77,7 +77,8 @@ public class RobotContainer {
     // Enable the camera server and start capture
     if(Constants.Global.CAMERA_ENABLED) {
       UsbCamera camera = CameraServer.startAutomaticCapture();
-      camera.setResolution(640, 480);
+      camera.setResolution(320, 240);
+      camera.setFPS(25);
     }
 
     // Set the default command that is run for the robot. Normally, this is the drive command
@@ -103,7 +104,9 @@ public class RobotContainer {
       private POVButton btn_ShooterDecrease = new POVButton(dj, Constants.OI.Logitech.DPAD_DN);
       private JoystickButton btn_ShooterStop = new JoystickButton(dj, Constants.OI.Logitech.BTN_LB);
       private JoystickButton btn_FeederFwd = new JoystickButton(dj, Constants.OI.Logitech.BTN_RB);
-      private Trigger t_VisionShoot = new Trigger(() -> dj.getRawAxis(Constants.OI.Logitech.AXIS_RT)>0.3);
+      private Trigger t_RingLight = new Trigger(() -> dj.getRawAxis(Constants.OI.Logitech.AXIS_RT)>0.3);
+      private JoystickButton btn_VisionShoot = new JoystickButton(dj, Constants.OI.Logitech.BTN_A);
+      private JoystickButton btn_ShootDashboard = new JoystickButton(dj, Constants.OI.Logitech.BTN_B);
       //Music Control
       // private JoystickButton btn_MusicPlay = new JoystickButton(dj, Constants.OI.Logitech.BTN_Y);
       // private JoystickButton btn_MusicStop = new JoystickButton(dj, Constants.OI.Logitech.BTN_R);
@@ -136,11 +139,11 @@ public class RobotContainer {
       // private JoystickButton btn_IntakeForward = new JoystickButton(oj, Constants.OI.Logitech.BTN_RB);
       //Shooting
       private JoystickButton btn_ShootLow = new JoystickButton(oj, Constants.OI.Logitech.BTN_RB);
-      private JoystickButton btn_ShootDashboard = new JoystickButton(oj, Constants.OI.Logitech.BTN_LB);
+      // private JoystickButton btn_ShootDashboard = new JoystickButton(oj, Constants.OI.Logitech.BTN_LB);
       private JoystickButton btn_ShootBumper = new JoystickButton(oj, Constants.OI.Logitech.BTN_X);
       private JoystickButton btn_ShootDefault = new JoystickButton(oj, Constants.OI.Logitech.BTN_Y);
       private JoystickButton btn_ShootLine = new JoystickButton(oj, Constants.OI.Logitech.BTN_B);
-      // private JoystickButton btn_ShootStop = new JoystickButton(oj, Constants.OI.Logitech.BTN_LB);
+      private JoystickButton btn_ShootStop = new JoystickButton(oj, Constants.OI.Logitech.BTN_LB);
       private JoystickButton btn_ShootOuter = new JoystickButton(oj, Constants.OI.Logitech.BTN_A);
       private Trigger t_IntakeForward = new Trigger(() -> oj.getRawAxis(Constants.OI.Logitech.AXIS_RT)>0.3);
       private Trigger t_IntakeReverse = new Trigger(() -> oj.getRawAxis(Constants.OI.Logitech.AXIS_LT)>0.3);
@@ -179,7 +182,7 @@ public class RobotContainer {
     btn_ShootLine.whenPressed(new shooter_shootNamed(m_shooter, namedShots.LINE));
     btn_ShootDefault.whenPressed(new shooter_shootNamed(m_shooter, namedShots.DEFAULT));
     btn_ShootOuter.whenPressed(new shooter_shootNamed(m_shooter, namedShots.OUTER));
-    // btn_ShootStop.whenPressed(new shooter_stopShooter(m_shooter));
+    btn_ShootStop.whenPressed(new shooter_stopShooter(m_shooter));
 
     
     //These are the driver buttons
@@ -189,7 +192,8 @@ public class RobotContainer {
     btn_ShooterIncrease.whenPressed(new shooter_increaseThrottle(m_shooter));
     btn_ShooterDecrease.whenPressed(new shooter_decreaseThrottle(m_shooter));
     btn_GyroReset.whenPressed(new drive_resetGyro(m_drive).andThen(new drive_resetOdometry(m_drive, new Pose2d()))); //.andThen(new drive_homeSwerves(m_drive))
-    t_VisionShoot.whenActive(new vision_setRinglight(m_vision,true)).whenInactive(new vision_setRinglight(m_vision,false));
+    btn_VisionShoot.whileHeld(new vision_findTarget(m_drive,m_vision));
+    t_RingLight.whenActive(new vision_setRinglight(m_vision, true)).whenInactive(new vision_setRinglight(m_vision, false));
     //Music Control Buttons
     // btn_MusicPlay.whenPressed(new orchestra_loadAndPlay(m_orchestra));
     // btn_MusicStop.whenPressed(new orchestra_stop(m_orchestra));
@@ -222,6 +226,8 @@ public class RobotContainer {
         return new cg_auton_4BallAuto(m_drive, m_collector, m_feeder, m_shooter);
       case "auton_al1TwoBall":
         return new cg_auton_AL1TwoBall(m_drive, m_collector, m_feeder, m_shooter);
+      case "auton_al2TwoBall":
+        return new cg_auton_AL2TwoBall(m_drive, m_collector, m_feeder, m_shooter);
       case "auton_ac1OneBall":
         return new cg_auton_AC1OneBall(m_drive, m_collector, m_feeder, m_shooter);
       case "auton_ar1ThreeBall":

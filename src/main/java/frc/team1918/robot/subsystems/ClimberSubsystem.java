@@ -17,10 +17,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 
 public class ClimberSubsystem extends SubsystemBase {
-  private WPI_TalonSRX climber_1;
-  private WPI_TalonSRX climber_2;
-  // private WPI_TalonFX climber_1;
-  // private WPI_TalonFX climber_2;
+  private WPI_TalonFX climber_1;
+  private WPI_TalonFX climber_2;
   private Solenoid hook_release_1;
   private Solenoid hook_release_2;
   private Solenoid whirlySolenoid; 
@@ -55,17 +53,15 @@ public class ClimberSubsystem extends SubsystemBase {
     m_hook1CaptureSwitchLeft = new DigitalInput(Constants.Climber.id_CaptureHook1Left);
     m_hook1CaptureSwitchRight = new DigitalInput(Constants.Climber.id_CaptureHook1Right);
     m_hook2CaptureSwitch = new DigitalInput(Constants.Climber.id_CaptureHook2);
-    climber_1 = new WPI_TalonSRX(Constants.Climber.id_Motor1);
-    climber_2 = new WPI_TalonSRX(Constants.Climber.id_Motor2);
-    // climber_1 = new WPI_TalonFX(Constants.Climber.id_Motor1, Constants.Climber.canBus);
-    // climber_2 = new WPI_TalonFX(Constants.Climber.id_Motor2, Constants.Climber.canBus);
+    climber_1 = new WPI_TalonFX(Constants.Climber.id_Motor1, Constants.Climber.canBus);
+    climber_2 = new WPI_TalonFX(Constants.Climber.id_Motor2, Constants.Climber.canBus);
     hook_release_1 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_ClimbHook1Solenoid);
     hook_release_2 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_ClimbHook2Solenoid);
     whirlySolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_WhirlyGigSolenoid);
 
     climber_1.configFactoryDefault(); 
     climber_1.set(ControlMode.PercentOutput, 0);
-    climber_1.setNeutralMode(NeutralMode.Brake); 
+    climber_1.setNeutralMode(NeutralMode.Coast); 
     climber_1.config_kP(0,Constants.Climber.kP); //P value for PID_PRIMARY
     climber_1.config_kI(0,Constants.Climber.kI); //I value for PID_PRIMARY
     climber_1.config_kD(0,Constants.Climber.kD); //D value for PID_PRIMARY
@@ -76,11 +72,20 @@ public class ClimberSubsystem extends SubsystemBase {
     climber_1.setSelectedSensorPosition(0);
 
     climber_2.configFactoryDefault(); 
-    climber_2.setNeutralMode(NeutralMode.Brake); 
-    climber_2.follow(climber_1);
-    climber_2.setInverted((Constants.Climber.isInvertedFromMaster_Motor2) ? InvertType.OpposeMaster : InvertType.FollowMaster);
+    climber_2.set(ControlMode.PercentOutput, 0);
+    climber_2.setNeutralMode(NeutralMode.Coast); 
+    climber_2.config_kP(0,Constants.Climber.kP); //P value for PID_PRIMARY
+    climber_2.config_kI(0,Constants.Climber.kI); //I value for PID_PRIMARY
+    climber_2.config_kD(0,Constants.Climber.kD); //D value for PID_PRIMARY
+    climber_2.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,0,30);
+    climber_2.configFeedbackNotContinuous(Constants.Climber.isSensorNotContinuous, 0);
+    climber_2.setSensorPhase(Constants.Climber.isSensorInverted_Motor1); 
+    climber_2.setInverted(Constants.Climber.isInverted_Motor2);
+    climber_2.setSelectedSensorPosition(0);
+    // climber_2.setNeutralMode(NeutralMode.Coast);
+    // climber_2.follow(climber_1);
+    // climber_2.setInverted((Constants.Climber.isInvertedFromMaster_Motor2) ? InvertType.OpposeMaster : InvertType.FollowMaster);
   }
-
   /**
    * This function raises the Whirlygig. This cannot be undone except for releasing air pressure to reset.
    */
@@ -138,6 +143,7 @@ public class ClimberSubsystem extends SubsystemBase {
    */
   public void climberForward() {
     climber_1.set(ControlMode.PercentOutput, Constants.Climber.kClimberSpeed);
+    climber_2.set(ControlMode.PercentOutput, Constants.Climber.kClimberSpeed);
     currentWhirlyDirection = whirlyDirection.FORWARD;
   }
 
@@ -146,6 +152,7 @@ public class ClimberSubsystem extends SubsystemBase {
    */
   public void climberReverse() {
     climber_1.set(ControlMode.PercentOutput, Constants.Climber.kClimberSpeed * -1);
+    climber_2.set(ControlMode.PercentOutput, Constants.Climber.kClimberSpeed * -1);
     currentWhirlyDirection = whirlyDirection.REVERSE;
   }
 
@@ -154,6 +161,7 @@ public class ClimberSubsystem extends SubsystemBase {
    */
   public void climberStop() {
     climber_1.set(ControlMode.PercentOutput, 0);
+    climber_2.set(ControlMode.PercentOutput, 0);
     currentWhirlyDirection = whirlyDirection.STOPPED;
   }
 
