@@ -51,10 +51,10 @@ public class Helpers {
         }
         
         public static double encoderToMeters(double encoder, double wheelDiam) {
-            return (double) encoder * (Constants.DriveTrain.DT_DRIVE_CONVERSION_FACTOR * wheelDiam * Math.PI) / Constants.DriveTrain.DT_DRIVE_ENCODER_FULL_ROTATION / 1000.0; //This is for 2022 Rapid React bot and should be cleaned up for constants
+            return (double) encoder * (Constants.DriveTrain.DT_DRIVE_CONVERSION_FACTOR * wheelDiam * Math.PI) / Constants.DriveTrain.DT_DRIVE_ENCODER_FULL_ROTATION / 1000.0;
         }
         public static double metersToEncoder(double meters, double wheelDiam) {
-            return (double) meters * 1000.0 * Constants.DriveTrain.DT_DRIVE_ENCODER_FULL_ROTATION / (Constants.DriveTrain.DT_DRIVE_CONVERSION_FACTOR * wheelDiam * Math.PI); //This is for 2022 Rapid React bot and should be cleaned up for constants
+            return (double) meters * 1000.0 * Constants.DriveTrain.DT_DRIVE_ENCODER_FULL_ROTATION / (Constants.DriveTrain.DT_DRIVE_CONVERSION_FACTOR * wheelDiam * Math.PI);
         }
         
         public final static double roundDouble(double val, int decimals) {
