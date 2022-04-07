@@ -42,9 +42,9 @@ public class shooter_shootNamed extends CommandBase {
         m_shooter.setShooterSpeed(Constants.Shooter.Shots.LOW.kSpeed);
         m_shooter.raiseHood(Constants.Shooter.Shots.LOW.kHood, Constants.Shooter.Shots.LOW.kHood2);
         break;
-      case BUMPER:
-        m_shooter.setShooterSpeed(Constants.Shooter.Shots.BUMPER.kSpeed);
-        m_shooter.raiseHood(Constants.Shooter.Shots.BUMPER.kHood, Constants.Shooter.Shots.BUMPER.kHood2);
+      case PROTECTED:
+        m_shooter.setShooterSpeed(Constants.Shooter.Shots.PROTECTED.kSpeed);
+        m_shooter.raiseHood(Constants.Shooter.Shots.PROTECTED.kHood, Constants.Shooter.Shots.PROTECTED.kHood2);
         break;
       case LINE:
         m_shooter.setShooterSpeed(Constants.Shooter.Shots.LINE.kSpeed);

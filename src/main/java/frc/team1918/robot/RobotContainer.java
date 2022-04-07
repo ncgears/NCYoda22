@@ -140,11 +140,11 @@ public class RobotContainer {
       //Shooting
       private JoystickButton btn_ShootLow = new JoystickButton(oj, Constants.OI.Logitech.BTN_RB);
       // private JoystickButton btn_ShootDashboard = new JoystickButton(oj, Constants.OI.Logitech.BTN_LB);
-      private JoystickButton btn_ShootBumper = new JoystickButton(oj, Constants.OI.Logitech.BTN_X);
+      private JoystickButton btn_ShootProtected = new JoystickButton(oj, Constants.OI.Logitech.BTN_X);
       private JoystickButton btn_ShootDefault = new JoystickButton(oj, Constants.OI.Logitech.BTN_Y);
-      private JoystickButton btn_ShootLine = new JoystickButton(oj, Constants.OI.Logitech.BTN_B);
+      private JoystickButton btn_ShootLine = new JoystickButton(oj, Constants.OI.Logitech.BTN_A);
       private JoystickButton btn_ShootStop = new JoystickButton(oj, Constants.OI.Logitech.BTN_LB);
-      private JoystickButton btn_ShootOuter = new JoystickButton(oj, Constants.OI.Logitech.BTN_A);
+      private JoystickButton btn_ShootWall = new JoystickButton(oj, Constants.OI.Logitech.BTN_B);
       private Trigger t_IntakeForward = new Trigger(() -> oj.getRawAxis(Constants.OI.Logitech.AXIS_RT)>0.3);
       private Trigger t_IntakeReverse = new Trigger(() -> oj.getRawAxis(Constants.OI.Logitech.AXIS_LT)>0.3);
       // private POVButton btn_COLLECTOR_UP = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_UP);
@@ -178,10 +178,10 @@ public class RobotContainer {
     t_IntakeReverse.whenActive(new collector_intakeReverse(m_collector));
     btn_ShootDashboard.whenPressed(new shooter_shootNamed(m_shooter, namedShots.DASHBOARD));
     btn_ShootLow.whenPressed(new shooter_shootNamed(m_shooter, namedShots.LOW));
-    btn_ShootBumper.whenPressed(new shooter_shootNamed(m_shooter, namedShots.BUMPER));
+    btn_ShootProtected.whenPressed(new shooter_shootNamed(m_shooter, namedShots.PROTECTED));
     btn_ShootLine.whenPressed(new shooter_shootNamed(m_shooter, namedShots.LINE));
     btn_ShootDefault.whenPressed(new shooter_shootNamed(m_shooter, namedShots.DEFAULT));
-    btn_ShootOuter.whenPressed(new shooter_shootNamed(m_shooter, namedShots.OUTER));
+    btn_ShootWall.whenPressed(new shooter_shootNamed(m_shooter, namedShots.WALL));
     btn_ShootStop.whenPressed(new shooter_stopShooter(m_shooter));
 
     

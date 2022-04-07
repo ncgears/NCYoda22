@@ -27,7 +27,7 @@ public class ShooterSubsystem extends SubsystemBase {
   private Solenoid m_hood, m_hood2;
   public enum telemetryLevel {DEBUG, BASIC, NONE; }
   public telemetryLevel telemetry = telemetryLevel.DEBUG;
-  public enum namedShots {DEFAULT, LOW, BUMPER, LINE, OUTER, WALL, TARMAC, AL1ONE, AL1TWO, AL2ONE, AL2TWO, AR1ONE, AR1TWO, AR1THREE, AR4ONE, AR4TWO, DASHBOARD, NONE;}
+  public enum namedShots {DEFAULT, LOW, PROTECTED , LINE, OUTER, WALL, TARMAC, AL1ONE, AL1TWO, AL2ONE, AL2TWO, AR1ONE, AR1TWO, AR1THREE, AR4ONE, AR4TWO, DASHBOARD, NONE;}
   public namedShots currentShotName = namedShots.NONE;
   /**
    * Creates a new ExampleSubsystem.
