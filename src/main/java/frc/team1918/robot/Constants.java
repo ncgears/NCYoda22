@@ -200,7 +200,7 @@ public class Constants {
             public static final class LINE {
                 public static final int kSpeed = 65;
                 public static final boolean kHood = Air.stateHoodUp;
-                public static final boolean kHood2 = Air.stateHood2Up;
+                public static final boolean kHood2 = !Air.stateHood2Up;
             }
             public static final class OUTER {
                 public static final int kSpeed = 65;
