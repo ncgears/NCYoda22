@@ -203,9 +203,9 @@ public class Constants {
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
             public static final class OUTER {
-                public static final int kSpeed = 67;
-                public static final boolean kHood = !Air.stateHoodUp;
-                public static final boolean kHood2 = Air.stateHood2Up;
+                public static final int kSpeed = 65;
+                public static final boolean kHood = Air.stateHoodUp;
+                public static final boolean kHood2 = !Air.stateHood2Up;
             }
             public static final class WALL {//Confirmed
                 public static final int kSpeed = 63;
@@ -213,9 +213,9 @@ public class Constants {
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
             public static final class AR1ONE {
-                public static final int kSpeed = 65;
+                public static final int kSpeed = 59;
                 public static final boolean kHood = !Air.stateHoodUp;
-                public static final boolean kHood2 = Air.stateHood2Up;
+                public static final boolean kHood2 = !Air.stateHood2Up;
             }
             public static final class AR1TWO {
                 public static final int kSpeed = 62;
@@ -238,12 +238,22 @@ public class Constants {
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
             public static final class AL1ONE {
-                public static final int kSpeed = 54;
+                public static final int kSpeed = 56;
                 public static final boolean kHood = !Air.stateHoodUp;
                 public static final boolean kHood2 = !Air.stateHood2Up;
             }
             public static final class AL1TWO {
                 public static final int kSpeed = 66;
+                public static final boolean kHood = Air.stateHoodUp;
+                public static final boolean kHood2 = Air.stateHood2Up;
+            }
+            public static final class AL2ONE {
+                public static final int kSpeed = 60;
+                public static final boolean kHood = !Air.stateHoodUp;
+                public static final boolean kHood2 = !Air.stateHood2Up;
+            }
+            public static final class AL2TWO {
+                public static final int kSpeed = 73;
                 public static final boolean kHood = Air.stateHoodUp;
                 public static final boolean kHood2 = Air.stateHood2Up;
             }
@@ -408,8 +418,8 @@ public class Constants {
         public static final double kMaxMetersPerSecond = 3.677; //limit full stick speed meters to 12.0fps
         public static final double kMaxRotationRadiansPerSecond = 3.4; //Multiplier for omega of turning the robot
         ////Turn Tuning
-        public static final double DT_TURN_MULT_STATIONARY = 1.0; //Turn speed multiplier while not moving
-        public static final double DT_TURN_MULT_MOVING = 1.0; //Turn speed multiplier while moving
+        public static final double DT_TURN_MULT_STATIONARY = 1.3; //Turn speed multiplier while not moving
+        public static final double DT_TURN_MULT_MOVING = 1.3; //Turn speed multiplier while moving
         public static final boolean DT_TURN_MULT_BEFORE_DB = true; //Apply turn multiplier before deadband
         public static final int DT_TURN_ENCODER_FULL_ROTATION = 1023; //This is for the lamprey, not the integrated SRX mag encoder
         public static final int kTurnEncoderFullRotation = 4096; //This is for the integrated SRX mag encoder in the gearboxes, not the lamprey
