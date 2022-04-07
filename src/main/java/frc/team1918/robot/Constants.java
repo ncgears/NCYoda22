@@ -336,7 +336,7 @@ public class Constants {
          * Constants for Front Left Swerve Module
          */
         public static final class FL {
-            public static final boolean isDisabled = false;
+            public static final boolean isDisabled = true;
             public static final int DRIVE_MC_ID = ID.Falcon.swerve_fl_drive; //Falcon500 Motor Controller ID
             public static final double DRIVE_wheelDiamMM = 75.8; //actual diameter of larger wheel in mm
             public static final boolean DRIVE_isInverted = false;

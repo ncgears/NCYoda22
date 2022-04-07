@@ -27,12 +27,12 @@ private TalonFX[] motors = { new TalonFX(Constants.Swerve.FL.DRIVE_MC_ID), new T
 
     public void stopMusic(){
         if(orchestra != null) orchestra.stop();
-        orchestraPlaying = false;
+        // orchestraPlaying = false;
         Helpers.Debug.debug("Orchestra: Stopped Playing");
     }
 
     public void enableOrchestra(){
-        orchestraPlaying = true;
+        // orchestraPlaying = true;
         Helpers.Debug.debug("Orchestra: Prepared to Play");
     }
     
@@ -46,7 +46,7 @@ private TalonFX[] motors = { new TalonFX(Constants.Swerve.FL.DRIVE_MC_ID), new T
       }
 
     public void playMusic(){
-        m_drive.brake();
+        // m_drive.brake();
         if(orchestra != null) orchestra.play();
         Helpers.Debug.debug("Orchestra: Playing " +songs[songSelection]);
     }
