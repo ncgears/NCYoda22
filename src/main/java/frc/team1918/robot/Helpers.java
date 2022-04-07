@@ -49,7 +49,14 @@ public class Helpers {
         public final static int minChange(int a, int b, int wrap) {
             return (int) Math.IEEEremainder(a - b, wrap);
         }
-
+        
+        public static double encoderToMeters(double encoder, double wheelDiam) {
+            return (double) encoder * (Constants.DriveTrain.DT_DRIVE_CONVERSION_FACTOR * wheelDiam * Math.PI) / Constants.DriveTrain.DT_DRIVE_ENCODER_FULL_ROTATION / 1000.0;
+        }
+        public static double metersToEncoder(double meters, double wheelDiam) {
+            return (double) meters * 1000.0 * Constants.DriveTrain.DT_DRIVE_ENCODER_FULL_ROTATION / (Constants.DriveTrain.DT_DRIVE_CONVERSION_FACTOR * wheelDiam * Math.PI);
+        }
+        
         public final static double roundDouble(double val, int decimals) {
             return Math.round(val * Math.pow(10,decimals)) / Math.pow(10,decimals);
             // final DecimalFormat df = new DecimalFormat(format);
@@ -112,29 +119,31 @@ public class Helpers {
         }
 
         /**
-         * Converts RPM to Ticks per 100ms
-         * @param rpm - RPM to convert
+         * Converts RPS to Ticks per 100ms
+         * @param rps - RPS to convert
          * @param fullRotationTicks - Number of ticks in a full rotation (encoder dependent)
          * @return
          */
-        public final static double rpmToTicksPer100ms(double rpm, int fullRotationTicks) {
-            return ((rpm * fullRotationTicks) / 600);
+        public final static double rpsToTicksPer100ms(double rps, int fullRotationTicks, double factor) {
+            factor = 0.58;
+            return ((rps * fullRotationTicks) / 10 / factor);
         }
 
         /**
-         * Converts Ticks per 100ms to RPM
+         * Converts Ticks per 100ms to RPS
          * @param ticks - Ticks per 100ms to convert
          * @param fullRotationTicks - Number of ticks in a full rotation (encoder dependent)
+         * @param factor - Factor to multiple by (for getting rpm at wheel)
          * @return
          */
-        public final static double ticksPer100msToRPM(double ticks, int fullRotationTicks) {
-            return ((ticks / fullRotationTicks) * 600);
+        public final static double ticksPer100msToRPS(double ticks, int fullRotationTicks, double factor) {
+            return ((ticks / fullRotationTicks) * 10 * factor);
         }
     }
     //Helpers for the Operator Interface
     public static final class OI {
         private static Joystick dj = new Joystick(Constants.OI.OI_JOY_DRIVER);
-        private static Joystick oj = new Joystick(Constants.OI.OI_JOY_OPER);
+        // private static Joystick oj = new Joystick(Constants.OI.OI_JOY_OPER);
         //DRIVER CONTROLS
         /**
          * @param useDeadband Boolean value indicating whether to apply deadband to output
@@ -175,9 +184,11 @@ public class Helpers {
          * @return double precision -1 to 1 after applying deadband calculation
          */
         public static final double applyDeadband(double inVal) {
-            double outVal = (Math.abs(inVal) < Constants.OI.OI_JOY_MIN_DEADBAND ) ? 0.0 : inVal;
-            outVal = (outVal > Constants.OI.OI_JOY_MAX_DEADBAND) ? 1.0 : outVal; //positive
-            outVal = (outVal < -Constants.OI.OI_JOY_MAX_DEADBAND) ? -1.0 : outVal; //negative
+            // return (Math.abs(inVal) < Constants.OI.OI_JOY_MIN_DEADBAND ) ? 0.0 : inVal * Math.signum(inVal);
+            double outVal = (Math.abs(inVal) < Constants.OI.OI_JOY_MIN_DEADBAND ) ? 0.0 : inVal * Math.signum(inVal);
+            outVal = (Math.abs(inVal) > Constants.OI.OI_JOY_MAX_DEADBAND ) ? 1.0 * Math.signum(inVal) : inVal;
+            // outVal = (outVal > Constants.OI.OI_JOY_MAX_DEADBAND) ? 1.0 : outVal; //positive
+            // outVal = (outVal < -Constants.OI.OI_JOY_MAX_DEADBAND) ? -1.0 : outVal; //negative
             return outVal;
         }
 

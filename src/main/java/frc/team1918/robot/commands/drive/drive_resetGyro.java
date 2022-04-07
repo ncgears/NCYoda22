@@ -2,6 +2,7 @@
 package frc.team1918.robot.commands.drive;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.team1918.robot.Helpers;
 //import subsystem
 import frc.team1918.robot.subsystems.DriveSubsystem;
 
@@ -23,7 +24,8 @@ public class drive_resetGyro extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    m_drive.resetGyro();
+    Helpers.Debug.debug("Drive: Reset Gyro");
+    m_drive.zeroHeading();
   }
 
   @Override

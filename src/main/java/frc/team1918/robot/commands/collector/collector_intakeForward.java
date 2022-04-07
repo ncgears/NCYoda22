@@ -9,6 +9,7 @@ package frc.team1918.robot.commands.collector;
 
 import frc.team1918.robot.Helpers;
 import frc.team1918.robot.subsystems.CollectorSubsystem;
+import frc.team1918.robot.subsystems.CollectorSubsystem.intakeDirection;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -31,6 +32,7 @@ public class collector_intakeForward extends CommandBase {
   @Override
   public void initialize() {
     Helpers.Debug.debug("Collector: Intake Forward");
+    m_collector.setIntakeDirection(intakeDirection.FORWARD);
     m_collector.startIntake(false);
   }
 

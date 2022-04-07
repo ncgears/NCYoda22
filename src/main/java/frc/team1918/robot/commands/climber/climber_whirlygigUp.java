@@ -31,7 +31,7 @@ public class climber_whirlygigUp extends CommandBase {
   @Override
   public void initialize() {
     Helpers.Debug.debug("Climber: Raise Whirlygig");
-    m_climber.raiseWhirlygig();
+    m_climber.raiseWhirlygig(true);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -47,6 +47,6 @@ public class climber_whirlygigUp extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

@@ -1,9 +1,6 @@
 package frc.team1918.robot.commands.orchestra;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import com.ctre.phoenix.music.Orchestra;
-
-import frc.team1918.robot.Helpers;
 import frc.team1918.robot.subsystems.OrchestraSubsystem;
 
 public class orchestra_stop extends CommandBase {
@@ -15,6 +12,12 @@ public class orchestra_stop extends CommandBase {
       addRequirements(subsystem);
     }
 
+    // Allow the command to run while disabled
+    @Override
+    public boolean runsWhenDisabled() {
+      return true;
+    }
+      
     @Override
     public void initialize() {
       m_orchestra.stopMusic();

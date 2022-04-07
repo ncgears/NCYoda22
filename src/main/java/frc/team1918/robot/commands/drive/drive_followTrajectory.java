@@ -2,7 +2,7 @@
 package frc.team1918.robot.commands.drive;
 
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
+// import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -23,7 +23,7 @@ public class drive_followTrajectory extends CommandBase {
   private DriveSubsystem m_drive;
   private SwerveTrajectory m_trajectory;
   private PIDController m_xController, m_yController, m_thetaController;
-  private Rotation2d m_offset;
+  // private Rotation2d m_offset;
   private double m_lastTime = 0;
   private Timer m_timer = new Timer();
   
@@ -40,8 +40,9 @@ public class drive_followTrajectory extends CommandBase {
   public void initialize() {
     m_timer.reset();
     m_timer.start();
-    m_drive.resetOdometry(m_trajectory.getInitialPose());
-    m_offset = (m_drive.getHeadingAsRotation2d()).minus(m_trajectory.getInitialPose().getRotation()); //may also add vision offset?
+    // m_drive.resetOdometry(m_trajectory.getInitialPose());
+    // m_offset = (m_drive.getHeading()).minus(m_trajectory.getInitialPose().getRotation()); //may also add vision offset?
+    // dont think we need this, since getHeading already accounts for the offset.
 
     m_xController = new PIDController(Constants.Auton.kPTranslationController, 0, 0);
     m_yController = new PIDController(Constants.Auton.kPTranslationController, 0, 0);
@@ -67,7 +68,8 @@ public class drive_followTrajectory extends CommandBase {
     double vy = m_yController.calculate(currentPose.getY(), dt) + refState.velocity.y;
     double omega = -m_thetaController.calculate(currentPose.getRotation().getRadians(), dt) - refState.velocity.z;
 
-    m_drive.drive(ChassisSpeeds.fromFieldRelativeSpeeds(vx, vy, omega, m_drive.getHeadingAsRotation2d().minus(m_offset)), true);
+    // m_drive.drive(ChassisSpeeds.fromFieldRelativeSpeeds(vx, vy, omega, m_drive.getHeading().minus(m_offset)), true);
+    m_drive.drive(ChassisSpeeds.fromFieldRelativeSpeeds(vx, vy, omega, m_drive.getHeading()), true);
     m_lastTime = time;
   }
 

@@ -9,6 +9,7 @@ package frc.team1918.robot.commands.collector;
 
 import frc.team1918.robot.Helpers;
 import frc.team1918.robot.subsystems.CollectorSubsystem;
+import frc.team1918.robot.subsystems.CollectorSubsystem.intakeDirection;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -30,13 +31,20 @@ public class collector_intakeStop extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    Helpers.Debug.debug("Collector: Intake Stop");
+    m_collector.setIntakeDirection(intakeDirection.STOP);
+    m_collector.stopIntake();
+  }
+  
+  // Allow the command to run while disabled
+  @Override
+  public boolean runsWhenDisabled() {
+    return true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Helpers.Debug.debug("Collector: Intake Stop");
-    m_collector.setIntakeSpeed(0);
   }
 
   // Called once the command ends or is interrupted.

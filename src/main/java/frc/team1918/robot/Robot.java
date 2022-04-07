@@ -7,13 +7,18 @@
 
 package frc.team1918.robot;
 
+import edu.wpi.first.util.net.PortForwarder;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
+// import frc.team1918.robot.subsystems.ClimberSubsystem;
+// import frc.team1918.robot.subsystems.CollectorSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -24,8 +29,10 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   public Alliance m_alliance;
   private Command m_autonomousCommand;
+  private Command m_disableCommand;
   // private Command m_initOdom;
   // private Command m_resetGyro;
+  private SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   private RobotContainer m_robotContainer;
 
@@ -35,9 +42,28 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    //Disable LiveWindow
+    LiveWindow.disableAllTelemetry();
+    //Create forwarder for photonvision
+    PortForwarder.add(5800,"photonvision.local",5800);
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    if(Constants.Auton.isDisabled) {
+      m_chooser.setDefaultOption("Auton Disabled", m_robotContainer.getRobotCommand("auton_disabled"));
+    } else {
+      m_chooser.setDefaultOption("AR1 3 Ball", m_robotContainer.getRobotCommand("auton_ar1ThreeBall"));
+      m_chooser.addOption("AR2 2 Ball", m_robotContainer.getRobotCommand("auton_ar2TwoBall"));
+      m_chooser.addOption("AR3 4 Ball", m_robotContainer.getRobotCommand("auton_ar3FourBall"));
+      m_chooser.addOption("AR4 4 Ball #2", m_robotContainer.getRobotCommand("auton_ar4FourBall2"));
+      m_chooser.addOption("AC1 1 Ball", m_robotContainer.getRobotCommand("auton_ac1OneBall"));
+      m_chooser.addOption("AL1 2 Ball", m_robotContainer.getRobotCommand("auton_al1TwoBall"));
+      m_chooser.addOption("AL2 2 Ball #2", m_robotContainer.getRobotCommand("auton_al2TwoBall"));
+      // m_chooser.addOption("4 Ball Auto", m_robotContainer.getRobotCommand("auton_4BallAuto"));
+      m_chooser.addOption("Basic Drive", m_robotContainer.getRobotCommand("auton_BasicDriveAuto"));
+      m_chooser.addOption("Basic Shooting", m_robotContainer.getRobotCommand("auton_BasicShootingAuto"));
+    }
+    SmartDashboard.putData(m_chooser);
   }
 
   /**
@@ -61,6 +87,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    m_disableCommand = m_robotContainer.getRobotCommand("resetRobot");
+    if (m_disableCommand != null) m_disableCommand.schedule();
+    // m_dc1 = m_robotContainer.getDisableCommand(1);
+    // if (m_dc1 != null) m_dc1.schedule();
+    // m_dc2 = m_robotContainer.getDisableCommand(2);
+    // if (m_dc2 != null) m_dc2.schedule();
   }
 
   @Override
@@ -79,8 +111,10 @@ public class Robot extends TimedRobot {
     // m_initOdom = m_robotContainer.getInitOdomCommand(); 
     // if (m_initOdom != null) m_initOdom.schedule();
 
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    if (m_autonomousCommand != null) m_autonomousCommand.schedule();
+    // Helpers.Debug.debug("Getting Auton Command for "+Constants.Auton.autonToRun);
+    // m_autonomousCommand = m_robotContainer.getRobotCommand(Constants.Auton.autonToRun);
+    m_autonomousCommand = m_chooser.getSelected();
+    if (m_autonomousCommand != null && !Constants.Auton.isDisabled) m_autonomousCommand.schedule();
   }
 
   /**

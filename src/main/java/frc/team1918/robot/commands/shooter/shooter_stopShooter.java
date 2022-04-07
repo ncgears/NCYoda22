@@ -10,6 +10,7 @@ package frc.team1918.robot.commands.shooter;
 import frc.team1918.robot.Constants;
 import frc.team1918.robot.Helpers;
 import frc.team1918.robot.subsystems.ShooterSubsystem;
+import frc.team1918.robot.subsystems.ShooterSubsystem.namedShots;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -36,14 +37,21 @@ public class shooter_stopShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-}
+  }
+
+  // Allow the command to run while disabled
+  @Override
+  public boolean runsWhenDisabled() {
+    return true;
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     //stop the shooter
     Helpers.Debug.debug("Shooter: Stop Shooter");
-    m_shooter.raiseHood(!Constants.Air.stateHoodUp);
+    m_shooter.setShotName(namedShots.NONE);
+    m_shooter.raiseHood(!Constants.Air.stateHoodUp, !Constants.Air.stateHood2Up);
     m_shooter.stopShooter();
   }
 

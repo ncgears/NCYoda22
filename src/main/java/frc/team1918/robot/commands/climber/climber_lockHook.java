@@ -7,6 +7,7 @@
 
 package frc.team1918.robot.commands.climber;
 
+import frc.team1918.robot.Constants;
 import frc.team1918.robot.Helpers;
 import frc.team1918.robot.subsystems.ClimberSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -27,14 +28,14 @@ public class climber_lockHook extends CommandBase {
     m_climber = subsystem;
     m_hookNumber = hooknumber;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    // addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     Helpers.Debug.debug("Climber: Lock Hook "+m_hookNumber);
-    m_climber.setHookMode(m_hookNumber,false);
+    m_climber.setHookMode(m_hookNumber,Constants.Air.stateClimbHookLocked);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

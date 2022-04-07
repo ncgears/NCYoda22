@@ -27,6 +27,12 @@ public class collector_retractIntake extends CommandBase {
     addRequirements(subsystem);
   }
 
+  // Allow the command to run while disabled
+  @Override
+  public boolean runsWhenDisabled() {
+    return true;
+  }
+  
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {

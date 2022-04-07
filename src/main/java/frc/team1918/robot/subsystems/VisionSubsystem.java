@@ -6,6 +6,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.team1918.robot.Constants;
+import frc.team1918.robot.Dashboard;
 import frc.team1918.robot.Helpers;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
@@ -25,7 +26,7 @@ public class VisionSubsystem extends SubsystemBase {
   boolean angleLocked = false;
   double totalPixel =500;
   double FOV = 60;
-  Relay m_ringlight;
+  Relay m_ringlight = new Relay(Constants.Vision.id_RingLight);
 
   private static AHRS m_gyro = new AHRS(SPI.Port.kMXP);
   
@@ -39,6 +40,10 @@ public class VisionSubsystem extends SubsystemBase {
   
   @Override
   public void periodic() {
+
+    updateDashboard();
+
+    /* //Disabled all telemetry for ball detection/intake vision
     // This method will be called once per scheduler run and change the shooter speed if requested
     double t1x = table.getEntry("target1x").getDouble(defaultValue);
     double t1y = table.getEntry("target1y").getDouble(defaultValue);
@@ -63,8 +68,13 @@ public class VisionSubsystem extends SubsystemBase {
       // Helpers.Debug.debug("Vision: T"+(i+1)+"(x:"+target[0]+" y:"+target[1]+" color: "+target[2]+" size: "+target[3]+")");
     }
     // Helpers.Debug.debug(Double.toString(((t1x-250)/250)*FOV));
-
+    */
   }
+
+  public void updateDashboard() {
+    Dashboard.Vision.setVisionRinglight(m_ringlight.get()==Value.kReverse);
+  }
+
   public void lockAngle() {
 		desiredAngle = Helpers.General.roundDouble(m_gyro.getAngle(), 3);
 		angleLocked = true;
@@ -76,7 +86,7 @@ public class VisionSubsystem extends SubsystemBase {
 		angleLocked = false;
 	}
   public double calcAngleStraight() {
-    double kP =Constants.DriveTrain.DT_DRIVESTRAIGHT_P;
+    double kP = Constants.Vision.kErrorCorrection_P;
 		double errorAngle = ((Math.abs(t1x-250)/250)*30);
     // double errorAngle = Math.toRadians((Math.abs(t1x-250)/250)*FOV);
 // 
@@ -94,9 +104,19 @@ public class VisionSubsystem extends SubsystemBase {
   //     }
   //   }
   // }
+  
+  /**
+   * This enables or disables the ring light
+   * @param enabled - true to turn on light, false to turn it off
+   */
   public void setRinglight(boolean enabled) {
-    m_ringlight.set((enabled) ? Value.kForward : Value.kOff);
+    m_ringlight.set((enabled) ? Value.kReverse : Value.kOff);
   }
+
+  /**
+   * This sets the desired color for vision tracking
+   * @param color - color of balls to track: "blue", "red", "both", or "none"
+   */
   public void setDesiredColor(String color) {
     String desired ;
 
@@ -111,6 +131,13 @@ public class VisionSubsystem extends SubsystemBase {
     }
     // desired = "blue";
     table.getEntry("desiredColor").setString(desired);
+  }
+
+  public double getVisionTurn() {
+    //-1.0 .. 0.0 .. 1.0 == ccw .. neutral .. cw
+    double turn = 1.0;
+    
+    return turn * Constants.Vision.kTurnP;
   }
 
 }

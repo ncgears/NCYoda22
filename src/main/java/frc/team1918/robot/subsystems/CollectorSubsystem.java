@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team1918.robot.Constants;
+import frc.team1918.robot.Dashboard;
+import frc.team1918.robot.Helpers;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -13,15 +15,28 @@ public class CollectorSubsystem extends SubsystemBase {
   private WPI_TalonSRX coll; //collector controller
   private Solenoid m_coll1; //collector solenoid 1
   private boolean m_collector_deployed = false;
+  public enum intakeDirection {STOP, FORWARD, REVERSE;}
+  public intakeDirection currentIntakeDirection = intakeDirection.STOP;
 
   public CollectorSubsystem() {
     coll = new WPI_TalonSRX(Constants.Collector.id_Motor1);
-    m_coll1 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_CollectorSolonoid);
+    m_coll1 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_CollectorSolenoid);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    updateDashboard();
+  }
+
+  public void updateDashboard() {
+    Dashboard.Collector.setIntakeDirection(currentIntakeDirection.toString());
+    // Dashboard.Feeder.setFeederSpeed();
+    Dashboard.Collector.setIntakeDeployed(isCollectorDeployed());
+  }
+
+  public void setIntakeDirection(intakeDirection direction) {
+    currentIntakeDirection = direction;
   }
 
   public void setIntakeSpeed(double speed) {

@@ -1,17 +1,12 @@
 {
   "HALProvider": {
+    "DIO": {
+      "window": {
+        "visible": true
+      }
+    },
     "Other Devices": {
-      "Talon SRX[7]": {
-        "header": {
-          "open": true
-        }
-      },
-      "Talon SRX[7]/Analog In": {
-        "header": {
-          "open": true
-        }
-      },
-      "navX-Sensor[0]": {
+      "Talon FX[39]/Integrated Sensor": {
         "header": {
           "open": true
         }
@@ -26,6 +21,11 @@
       "window": {
         "visible": true
       }
+    },
+    "Solenoids": {
+      "window": {
+        "visible": true
+      }
     }
   },
   "NTProvider": {
@@ -37,9 +37,14 @@
       "/LiveWindow/DriveSubsystem": "Subsystem",
       "/LiveWindow/FeederSubsystem": "Subsystem",
       "/LiveWindow/MixerSubsystem": "Subsystem",
+      "/LiveWindow/OrchestraSubsystem": "Subsystem",
       "/LiveWindow/ShooterSubsystem": "Subsystem",
       "/LiveWindow/Ungrouped/DigitalInput[0]": "Digital Input",
       "/LiveWindow/Ungrouped/DigitalInput[1]": "Digital Input",
+      "/LiveWindow/Ungrouped/DigitalInput[2]": "Digital Input",
+      "/LiveWindow/Ungrouped/DigitalInput[3]": "Digital Input",
+      "/LiveWindow/Ungrouped/DigitalInput[4]": "Digital Input",
+      "/LiveWindow/Ungrouped/DigitalInput[5]": "Digital Input",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
       "/LiveWindow/Ungrouped/Talon FX [14]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon FX [16]": "Motor Controller",
@@ -47,8 +52,17 @@
       "/LiveWindow/Ungrouped/Talon FX [32]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon FX [33]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon FX [35]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [36]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [37]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [38]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [39]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [43]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [6]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [11]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon SRX [13]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon SRX [14]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [15]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon SRX [16]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [17]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [1]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [2]": "Motor Controller",
@@ -56,7 +70,8 @@
       "/LiveWindow/Ungrouped/Talon SRX [7]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [8]": "Motor Controller",
       "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
-      "/LiveWindow/VisionSubsystem": "Subsystem"
+      "/LiveWindow/VisionSubsystem": "Subsystem",
+      "/SmartDashboard/SendableChooser[0]": "String Chooser"
     }
   },
   "NetworkTables": {
@@ -64,51 +79,26 @@
       "AutonSubsystem": {
         "open": true
       },
+      "Ungrouped": {
+        "open": true
+      }
+    },
+    "SmartDashboard": {
+      "Vision": {
+        "open": true
+      },
       "open": true
     },
     "Usage": {
       "Client": {
+        "Dashboard": {
+          "open": true
+        },
         "open": true
-      },
+      }
+    },
+    "VisionInfo": {
       "open": true
-    }
-  },
-  "Plot": {
-    "Plot <0>": {
-      "plots": [
-        {
-          "height": 272,
-          "series": [
-            {
-              "color": [
-                0.2980392277240753,
-                0.44705885648727417,
-                0.6901960968971252,
-                1.0
-              ],
-              "id": "NT:/SmartDashboard/dtFL Position Error"
-            },
-            {
-              "color": [
-                0.8666667342185974,
-                0.5176470875740051,
-                0.32156863808631897,
-                1.0
-              ],
-              "id": "NT:/SmartDashboard/dtFL Position"
-            },
-            {
-              "color": [
-                0.3333333432674408,
-                0.658823549747467,
-                0.4078431725502014,
-                1.0
-              ],
-              "id": "NT:/SmartDashboard/dtFL Setpoint"
-            }
-          ]
-        }
-      ]
     }
   }
 }
