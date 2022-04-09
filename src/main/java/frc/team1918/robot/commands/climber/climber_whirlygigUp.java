@@ -32,6 +32,7 @@ public class climber_whirlygigUp extends CommandBase {
   public void initialize() {
     Helpers.Debug.debug("Climber: Raise Whirlygig");
     m_climber.raiseWhirlygig(true);
+    m_climber.setBrakeMode(true); //set brake mode for whirlygig
   }
 
   // Called every time the scheduler runs while the command is scheduled.

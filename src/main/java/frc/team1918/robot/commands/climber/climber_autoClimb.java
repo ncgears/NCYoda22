@@ -72,7 +72,6 @@ public class climber_autoClimb extends CommandBase {
   public void execute() {
     switch (m_climber.getLatchState()) { //Normal start of climb
       case NONE:
-        m_climber.setBrakeMode(true); //set brake mode
         if(m_climber.getHookLatch(2)) { //This shouldn't happen unless the robot is already latched or setup wrong
           Helpers.Debug.debug("Auto-climb: Unexpected trigger of Hook 2. Aborting.");
           m_climber.setLatchState(latchState.ABORTED);
