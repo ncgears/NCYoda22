@@ -49,6 +49,7 @@ public class cg_auton_AL2TwoBall extends SequentialCommandGroup {
         //setup the odometry in a starting position from the center of the field (negative is right/back)
         //rotation is the initial rotation of the robot from the downstream direction
         new drive_resetOdometry(drive, new Pose2d(new Translation2d(0, 0), Rotation2d.fromDegrees(-227.0))),
+        new collector_deployRetractor(m_collector, false),
         new shooter_shootNamed(m_shooter, namedShots.AL2ONE), //shoot from starting position
         new WaitCommand(Constants.Shooter.kSpinupSeconds), //wait for shooter to be at speed
         new feeder_advance(m_feeder), //start advancing the feeder

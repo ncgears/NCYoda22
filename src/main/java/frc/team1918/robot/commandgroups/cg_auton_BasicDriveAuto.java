@@ -41,6 +41,7 @@ public class cg_auton_BasicDriveAuto extends SequentialCommandGroup {
         new helpers_debugMessage("Auton: Executing Auton BasicDriveAuto"),
         //this is a comma separated list of commands, thus, the last one should not have a comma
         new helpers_debugMessage("Auton: Deploy Intake"),
+        new collector_deployRetractor(m_collector, false),
         new collector_deployIntake(m_collector), //deploy collector
         new ParallelDeadlineGroup( //do until trajectory complete
           // new WaitCommand(3.0), //placeholder for trajectory follower

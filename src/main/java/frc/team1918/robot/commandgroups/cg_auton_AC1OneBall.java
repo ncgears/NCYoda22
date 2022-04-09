@@ -47,6 +47,7 @@ public class cg_auton_AC1OneBall extends SequentialCommandGroup {
         new helpers_debugMessage("Auton: Executing Auton AC1 One Ball"),
         //this is a comma separated list of commands, thus, the last one should not have a comma
         new drive_resetOdometry(drive, new Pose2d(new Translation2d(0, 0), Rotation2d.fromDegrees(-0.0))),
+        new collector_deployRetractor(m_collector, false),
         new shooter_shootNamed(m_shooter, namedShots.DEFAULT), //shoot from the ball 2 position
         new WaitCommand(Constants.Shooter.kSpinupSeconds), 
         new feeder_advance(m_feeder), //start advancing the feeder

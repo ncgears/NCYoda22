@@ -19,6 +19,7 @@ import frc.team1918.robot.commands.shooter.shooter_stopShooter;
 import frc.team1918.robot.commands.climber.climber_whirlygigDown;
 import frc.team1918.robot.Constants.Feeder;
 import frc.team1918.robot.commands.climber.climber_resetClimb;
+import frc.team1918.robot.commands.collector.collector_deployRetractor;
 import frc.team1918.robot.commands.collector.collector_intakeStop;
 
 
@@ -54,6 +55,7 @@ public class cg_resetRobot extends SequentialCommandGroup {
         new climber_whirlygigDown(m_climber),
         new collector_intakeStop(m_collector),
         new collector_retractIntake(m_collector),
+        new collector_deployRetractor(m_collector, true),
         new climber_resetClimb(m_climber),
         new shooter_stopShooter(m_shooter),
         new feeder_stop(m_feeder)

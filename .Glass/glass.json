@@ -40,7 +40,8 @@
       },
       "Vision": {
         "open": true
-      }
+      },
+      "open": true
     },
     "photonvision": {
       "PiCam": {

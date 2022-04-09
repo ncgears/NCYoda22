@@ -158,6 +158,11 @@ public class RobotContainer {
       // private JoystickButton btn_MECHZERO_KEY2 = new JoystickButton(oj, Constants.OI.Operator.BTN_MECHZERO);
       // private AndButton andbtn_MECHZERO = new AndButton(btn_MECHZERO_KEY1,btn_MECHZERO_KEY2); //AndButton requires both to be true
 
+
+  // public static void setAirDisabled(boolean disabled) {
+  //   if(disabled) { m_air.disable(); } else { m_air.enabled(); }
+  // }
+    
   private void configureButtonBindings() {
     //The buttons here are named based on their functional purpose. This abstracts the purpose from which controller it is attached to.
     //These are the operator buttons

@@ -29,6 +29,7 @@ public class cg_collector_intakeAndFeed extends SequentialCommandGroup {
     addCommands(
         //this is a comma separated list of commands, thus, the last one should not have a comma
         // new helpers_debugMessage("Auton: followTrajectory - OnePointEightMetersForward"), //move to ball1
+        new collector_deployRetractor(m_collector, false),
         new collector_deployIntake(m_collector), //deploy collector
         new WaitCommand(0.2), //wait for collector
         new collector_intakeForward(m_collector), //start collector

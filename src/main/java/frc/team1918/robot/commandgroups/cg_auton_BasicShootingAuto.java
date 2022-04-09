@@ -41,6 +41,7 @@ public class cg_auton_BasicShootingAuto extends SequentialCommandGroup {
     addCommands(
         new helpers_debugMessage("Auton: Executing Auton BasicShootingAuto"),
         //this is a comma separated list of commands, thus, the last one should not have a comma
+        new collector_deployRetractor(m_collector, false),
         new helpers_debugMessage("Auton: Start shooter, tarmac"),
         new ParallelDeadlineGroup( //do until trajectory complete
           new SequentialCommandGroup(
