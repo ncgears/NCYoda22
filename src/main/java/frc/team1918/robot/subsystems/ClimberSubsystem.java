@@ -110,6 +110,11 @@ public class ClimberSubsystem extends SubsystemBase {
     }
   }
 
+  public void setBrakeMode(boolean brake) {
+    climber_1.setNeutralMode((brake)?NeutralMode.Brake:NeutralMode.Coast);
+    climber_2.setNeutralMode((brake)?NeutralMode.Brake:NeutralMode.Coast);
+  }
+
   /**
    * This moves the climber to a specific position using the encoder
    * @param target - Encoder position to move to

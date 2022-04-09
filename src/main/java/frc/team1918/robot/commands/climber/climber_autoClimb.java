@@ -72,6 +72,7 @@ public class climber_autoClimb extends CommandBase {
   public void execute() {
     switch (m_climber.getLatchState()) { //Normal start of climb
       case NONE:
+        m_climber.setBrakeMode(true); //set brake mode
         if(m_climber.getHookLatch(2)) { //This shouldn't happen unless the robot is already latched or setup wrong
           Helpers.Debug.debug("Auto-climb: Unexpected trigger of Hook 2. Aborting.");
           m_climber.setLatchState(latchState.ABORTED);
@@ -87,6 +88,8 @@ public class climber_autoClimb extends CommandBase {
         }
         break;
       case BAR2LATCH:
+        m_climber.setBrakeMode(false); //set coast mode
+        // RobotContainer.setAirDisabled(true); //disable the compressor now that we have latched bar2
         if(m_captureDebounce.calculate(m_climber.getHookLatch(2))) {
           Helpers.Debug.debug("Auto-climb: Bar3 Latched");
           Helpers.Debug.debug("Auto-climb: Bar2 Do Release");
