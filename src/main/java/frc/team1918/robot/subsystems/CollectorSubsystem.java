@@ -14,6 +14,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 public class CollectorSubsystem extends SubsystemBase {
   private WPI_TalonSRX coll; //collector controller
   private Solenoid m_coll1; //collector solenoid 1
+  private Solenoid m_retractor; //retractor solenoid
   private boolean m_collector_deployed = false;
   public enum intakeDirection {STOP, FORWARD, REVERSE;}
   public intakeDirection currentIntakeDirection = intakeDirection.STOP;
@@ -21,6 +22,7 @@ public class CollectorSubsystem extends SubsystemBase {
   public CollectorSubsystem() {
     coll = new WPI_TalonSRX(Constants.Collector.id_Motor1);
     m_coll1 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_CollectorSolenoid);
+    m_retractor = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_RetratorSolenoid);
   }
 
   @Override
@@ -53,6 +55,10 @@ public class CollectorSubsystem extends SubsystemBase {
 
   public boolean isCollectorDeployed() {
     return m_collector_deployed;
+  }
+
+  public void setRetractorPosition(boolean retracted) {
+    m_retractor.set((retracted)?Constants.Air.stateRetractorRectracted:!Constants.Air.stateRetractorRectracted);
   }
 
   public void setCollectorPosition(String position) {

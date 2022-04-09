@@ -129,7 +129,7 @@ public class RobotContainer {
       private Joystick oj = new Joystick(Constants.OI.OI_JOY_OPER);
       //Whirly
       private JoystickButton btn_WhirlyUp = new JoystickButton(oj, Constants.OI.Logitech.BTN_START);
-      private JoystickButton btn_LockHooks = new JoystickButton(oj, Constants.OI.Logitech.BTN_BACK);
+      //private JoystickButton btn_LockHooks = new JoystickButton(oj, Constants.OI.Logitech.BTN_BACK);
       private POVButton btn_WhirlyRev = new POVButton(oj, Constants.OI.Logitech.DPAD_LEFT);
       private POVButton btn_WhirlyFwd = new POVButton(oj, Constants.OI.Logitech.DPAD_RIGHT);
       private JoystickButton btn_ReleaseHook1 = new JoystickButton(oj, Constants.OI.Logitech.BTN_L);
@@ -146,7 +146,9 @@ public class RobotContainer {
       private JoystickButton btn_ShootStop = new JoystickButton(oj, Constants.OI.Logitech.BTN_LB);
       private JoystickButton btn_ShootWall = new JoystickButton(oj, Constants.OI.Logitech.BTN_B);
       private Trigger t_IntakeForward = new Trigger(() -> oj.getRawAxis(Constants.OI.Logitech.AXIS_RT)>0.3);
-      private Trigger t_IntakeReverse = new Trigger(() -> oj.getRawAxis(Constants.OI.Logitech.AXIS_LT)>0.3);
+      private Trigger t_IntakeRetractor = new Trigger(() -> oj.getRawAxis(Constants.OI.Logitech.AXIS_LT)>0.3);
+      private JoystickButton btn_IntakeReverse = new JoystickButton(oj, Constants.OI.Logitech.BTN_BACK);
+      // private Trigger t_IntakeReverse = new Trigger(() -> oj.getRawAxis(Constants.OI.Logitech.AXIS_LT)>0.3);
       // private POVButton btn_COLLECTOR_UP = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_UP);
       // private POVButton btn_COLLECTOR_DOWN = new POVButton(oj, Constants.OI.Operator.DPAD_COLLECTOR_DOWN);
       // private JoystickButton btn_COLLECTOR_TOGGLE = new JoystickButton(oj, Constants.OI.Operator.BTN_TOG_MIDDOWN);
@@ -171,11 +173,13 @@ public class RobotContainer {
       btn_WhirlyRev.whileHeld(new climber_rotateRev(m_climber));
       btn_ReleaseHook1.whenPressed(new climber_lockHook(m_climber,1).beforeStarting(new climber_unlockHook(m_climber,1).andThen(new WaitCommand(Constants.Climber.kHookReleaseTime))));
       btn_ReleaseHook2.whenPressed(new climber_lockHook(m_climber,2).beforeStarting(new climber_unlockHook(m_climber,2).andThen(new WaitCommand(Constants.Climber.kHookReleaseTime))));
-      btn_LockHooks.whenPressed(new climber_lockHook(m_climber, 1).alongWith(new climber_lockHook(m_climber, 2)));
+      // btn_LockHooks.whenPressed(new climber_lockHook(m_climber, 1).alongWith(new climber_lockHook(m_climber, 2)));
     }
     // btn_IntakeForward.whenPressed(new feeder_advanceToShooter(m_feeder));
     t_IntakeForward.whenActive(new cg_collector_intakeAndFeed(m_collector, m_feeder)).whenInactive(new collector_intakeStop(m_collector).andThen(new collector_retractIntake(m_collector)));
-    t_IntakeReverse.whenActive(new collector_intakeReverse(m_collector));
+    t_IntakeRetractor.whenActive(new collector_deployRetractor(m_collector,true)).whenInactive(new collector_deployRetractor(m_collector, false));
+    // t_IntakeReverse.whenActive(new collector_intakeReverse(m_collector));
+    btn_IntakeReverse.whileHeld(new collector_intakeReverse(m_collector));
     btn_ShootDashboard.whenPressed(new shooter_shootNamed(m_shooter, namedShots.DASHBOARD));
     btn_ShootLow.whenPressed(new shooter_shootNamed(m_shooter, namedShots.LOW));
     btn_ShootProtected.whenPressed(new shooter_shootNamed(m_shooter, namedShots.PROTECTED));
