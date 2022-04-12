@@ -446,7 +446,8 @@ public class Constants {
         public static final boolean isDisabled = false;
         public static final int id_RingLight = ID.Relay.ringlight; //Relay ID of Ringlight SS Relay
         public static final double kErrorCorrection_P = 0.65; //Proportional value for multiplying vision angle correction
-        public static final double kTurnP = 1.0;
+        public static final double kTurnP = 0.001;
+        public static final double kTurnD = 0.0;
     }
     /**
      * Constants for the Operator Interface

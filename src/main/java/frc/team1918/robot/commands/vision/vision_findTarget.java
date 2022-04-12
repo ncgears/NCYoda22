@@ -1,6 +1,7 @@
 
 package frc.team1918.robot.commands.vision;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.DoubleSupplier;
 //import constants and subsystem
@@ -48,6 +49,7 @@ public class vision_findTarget extends CommandBase {
   @Override
   public void execute() {
     m_rotation = m_vision.getVisionTurn();
+    SmartDashboard.putNumber("Vision/TurnValue", m_rotation);
     if(m_rotation != 0) m_drive.unlockAngle(); //unlock angle if rotating
     m_drive.drive(m_forward, m_strafe, m_rotation, Constants.DriveTrain.useFieldCentric);
   }

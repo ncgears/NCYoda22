@@ -29,6 +29,11 @@ public class collector_deployRetractor extends CommandBase {
     //addRequirements(subsystem);
   }
 
+  @Override
+  public boolean runsWhenDisabled() {
+    return true;
+  }
+  
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {

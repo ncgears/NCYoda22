@@ -2,6 +2,7 @@
 package frc.team1918.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -9,9 +10,14 @@ import frc.team1918.robot.Constants;
 import frc.team1918.robot.Dashboard;
 import frc.team1918.robot.Helpers;
 import com.kauailabs.navx.frc.AHRS;
+
+import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.PhotonTrackedTarget;
+
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Relay.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class VisionSubsystem extends SubsystemBase {
@@ -27,6 +33,8 @@ public class VisionSubsystem extends SubsystemBase {
   double totalPixel =500;
   double FOV = 60;
   Relay m_ringlight = new Relay(Constants.Vision.id_RingLight);
+  PhotonCamera m_camera = new PhotonCamera("PiCam");
+  PIDController turnController = new PIDController(Constants.Vision.kTurnP, 0, Constants.Vision.kTurnD);
 
   private static AHRS m_gyro = new AHRS(SPI.Port.kMXP);
   
@@ -135,9 +143,17 @@ public class VisionSubsystem extends SubsystemBase {
 
   public double getVisionTurn() {
     //-1.0 .. 0.0 .. 1.0 == ccw .. neutral .. cw
-    double turn = 1.0;
-    
-    return turn * Constants.Vision.kTurnP;
+    double turn = 0.1;
+    var result = m_camera.getLatestResult();
+    SmartDashboard.putBoolean("Vision/HasTargets", result.hasTargets());
+    if (result.hasTargets()) {
+      turn = -turnController.calculate(result.getBestTarget().getYaw(), 0);
+      SmartDashboard.putNumber("Vision/turnContol",turn);
+    } else {
+      turn = 0.0;
+    }
+        
+    return turn;
   }
 
 }
