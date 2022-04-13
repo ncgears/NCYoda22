@@ -29,6 +29,7 @@ import frc.team1918.robot.subsystems.ClimberSubsystem;
 import frc.team1918.robot.subsystems.CollectorSubsystem;
 import frc.team1918.robot.subsystems.DriveSubsystem;
 import frc.team1918.robot.subsystems.FeederSubsystem;
+import frc.team1918.robot.subsystems.OrchestraSubsystem;
 import frc.team1918.robot.subsystems.ShooterSubsystem;
 import frc.team1918.robot.subsystems.ShooterSubsystem.namedShots;
 // import frc.team1918.robot.subsystems.OrchestraSubsystem;
@@ -39,6 +40,7 @@ import frc.team1918.robot.commands.climber.*;
 import frc.team1918.robot.commands.collector.*;
 import frc.team1918.robot.commands.drive.*;
 import frc.team1918.robot.commands.feeder.*;
+import frc.team1918.robot.commands.orchestra.orchestra_loadAndPlay;
 import frc.team1918.robot.commands.shooter.*;
 // import frc.team1918.robot.commands.orchestra.*;
 import frc.team1918.robot.commands.vision.*;
@@ -62,6 +64,7 @@ public class RobotContainer {
     private final ShooterSubsystem m_shooter = new ShooterSubsystem();
     private final DriveSubsystem m_drive = new DriveSubsystem();
     private final VisionSubsystem m_vision = new VisionSubsystem();
+    private final OrchestraSubsystem m_orchestra = new OrchestraSubsystem();
     // private final OrchestraSubsystem m_orchestra = new OrchestraSubsystem();
 
    /**
@@ -181,7 +184,7 @@ public class RobotContainer {
     btn_ShootBumper.whenPressed(new shooter_shootNamed(m_shooter, namedShots.BUMPER));
     btn_ShootLine.whenPressed(new shooter_shootNamed(m_shooter, namedShots.LINE));
     btn_ShootDefault.whenPressed(new shooter_shootNamed(m_shooter, namedShots.DEFAULT));
-    btn_ShootOuter.whenPressed(new shooter_shootNamed(m_shooter, namedShots.OUTER));
+    btn_ShootOuter.whenPressed(new orchestra_loadAndPlay(m_orchestra));
     btn_ShootStop.whenPressed(new shooter_stopShooter(m_shooter));
 
     
