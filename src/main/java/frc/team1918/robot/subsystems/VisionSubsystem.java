@@ -35,6 +35,7 @@ public class VisionSubsystem extends SubsystemBase {
   Relay m_ringlight = new Relay(Constants.Vision.id_RingLight);
   PhotonCamera m_camera = new PhotonCamera("PiCam");
   PIDController turnController = new PIDController(Constants.Vision.kTurnP, 0, Constants.Vision.kTurnD);
+  double photonLatency = 0.0;
 
   private static AHRS m_gyro = new AHRS(SPI.Port.kMXP);
   
@@ -143,12 +144,22 @@ public class VisionSubsystem extends SubsystemBase {
 
   public double getVisionTurn() {
     //-1.0 .. 0.0 .. 1.0 == ccw .. neutral .. cw
-    double turn = 0.1;
+    double turn = 0.0;
     var result = m_camera.getLatestResult();
+    if(result.getLatencyMillis() == photonLatency) { //same as last loop, assume we lost photon
+      return 0.0;
+    }
+    photonLatency = result.getLatencyMillis();
     SmartDashboard.putBoolean("Vision/HasTargets", result.hasTargets());
     if (result.hasTargets()) {
-      turn = -turnController.calculate(result.getBestTarget().getYaw(), 0);
-      SmartDashboard.putNumber("Vision/turnContol",turn);
+      // turn = -turnController.calculate(result.getBestTarget().getYaw(), 0);
+      var target = result.getBestTarget().getYaw() +8.0;
+      if(Math.abs(target) >= 30.0) {
+        turn = 0.0; //over 15deg then skip aiming
+      } else {
+        turn = target/30.0;
+      }
+      SmartDashboard.putNumber("Vision/turnControl",turn);
     } else {
       turn = 0.0;
     }
