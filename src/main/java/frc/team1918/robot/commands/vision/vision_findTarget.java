@@ -43,7 +43,7 @@ public class vision_findTarget extends CommandBase {
   public void initialize() {
     Helpers.Debug.debug("Vision: Start Target Assist");
     m_drive.setVisionTargeting(true);
-    m_vision.setRinglight(true);
+    m_vision.setRinglight(Constants.Vision.stateLightOn);
   }
 
   @Override
