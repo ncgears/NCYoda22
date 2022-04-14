@@ -29,6 +29,7 @@ import frc.team1918.robot.subsystems.CollectorSubsystem;
 import frc.team1918.robot.subsystems.DriveSubsystem;
 import frc.team1918.robot.subsystems.FeederSubsystem;
 import frc.team1918.robot.subsystems.ShooterSubsystem;
+import frc.team1918.robot.subsystems.VisionSubsystem;
 import frc.team1918.robot.subsystems.ShooterSubsystem.namedShots;
 
 public class cg_auton_AR1ThreeBall extends SequentialCommandGroup {
@@ -36,12 +37,14 @@ public class cg_auton_AR1ThreeBall extends SequentialCommandGroup {
   private final DriveSubsystem m_drive;
   private final FeederSubsystem m_feeder;
   private final ShooterSubsystem m_shooter;
+  private final VisionSubsystem m_vision;
 
-  public cg_auton_AR1ThreeBall(DriveSubsystem drive, CollectorSubsystem collector, FeederSubsystem feeder, ShooterSubsystem shooter) {
+  public cg_auton_AR1ThreeBall(DriveSubsystem drive, CollectorSubsystem collector, FeederSubsystem feeder, ShooterSubsystem shooter, VisionSubsystem vision) {
     m_collector = collector;
     m_drive = drive;
     m_feeder = feeder;
     m_shooter = shooter;
+    m_vision = vision;
     addRequirements(m_collector, m_drive, m_feeder, m_shooter);
 
     addCommands(

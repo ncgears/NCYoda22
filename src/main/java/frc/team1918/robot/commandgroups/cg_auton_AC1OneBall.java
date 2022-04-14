@@ -28,6 +28,7 @@ import frc.team1918.robot.subsystems.CollectorSubsystem;
 import frc.team1918.robot.subsystems.DriveSubsystem;
 import frc.team1918.robot.subsystems.FeederSubsystem;
 import frc.team1918.robot.subsystems.ShooterSubsystem;
+import frc.team1918.robot.subsystems.VisionSubsystem;
 import frc.team1918.robot.subsystems.ShooterSubsystem.namedShots;
 
 public class cg_auton_AC1OneBall extends SequentialCommandGroup {
@@ -35,12 +36,14 @@ public class cg_auton_AC1OneBall extends SequentialCommandGroup {
   private final DriveSubsystem m_drive;
   private final FeederSubsystem m_feeder;
   private final ShooterSubsystem m_shooter;
+  private final VisionSubsystem m_vision;
 
-  public cg_auton_AC1OneBall(DriveSubsystem drive, CollectorSubsystem collector, FeederSubsystem feeder, ShooterSubsystem shooter) {
+  public cg_auton_AC1OneBall(DriveSubsystem drive, CollectorSubsystem collector, FeederSubsystem feeder, ShooterSubsystem shooter, VisionSubsystem vision) {
     m_collector = collector;
     m_drive = drive;
     m_feeder = feeder;
     m_shooter = shooter;
+    m_vision = vision;
     addRequirements(m_collector, m_drive, m_feeder, m_shooter);
 
     addCommands(
@@ -48,7 +51,7 @@ public class cg_auton_AC1OneBall extends SequentialCommandGroup {
         //this is a comma separated list of commands, thus, the last one should not have a comma
         new drive_resetOdometry(drive, new Pose2d(new Translation2d(0, 0), Rotation2d.fromDegrees(-0.0))),
         new collector_deployRetractor(m_collector, false),
-        new shooter_shootNamed(m_shooter, namedShots.DEFAULT), //shoot from the ball 2 position
+        new shooter_shootNamed(m_shooter, namedShots.AL1ONE), //shoot from the ball 2 position
         new WaitCommand(Constants.Shooter.kSpinupSeconds), 
         new feeder_advance(m_feeder), //start advancing the feeder
         new WaitCommand(1.0), //give time for shot

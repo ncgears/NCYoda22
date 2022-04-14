@@ -18,17 +18,20 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.team1918.paths.*;
 import frc.team1918.robot.Constants;
+import frc.team1918.robot.Constants.Vision;
 import frc.team1918.robot.commands.auton.*;
 import frc.team1918.robot.commands.collector.*;
 import frc.team1918.robot.commands.drive.drive_followTrajectory;
 import frc.team1918.robot.commands.drive.drive_resetOdometry;
 import frc.team1918.robot.commands.shooter.*;
+import frc.team1918.robot.commands.vision.vision_findTarget;
 import frc.team1918.robot.commands.feeder.*;
 import frc.team1918.robot.commands.helpers.helpers_debugMessage;
 import frc.team1918.robot.subsystems.CollectorSubsystem;
 import frc.team1918.robot.subsystems.DriveSubsystem;
 import frc.team1918.robot.subsystems.FeederSubsystem;
 import frc.team1918.robot.subsystems.ShooterSubsystem;
+import frc.team1918.robot.subsystems.VisionSubsystem;
 import frc.team1918.robot.subsystems.ShooterSubsystem.namedShots;
 
 public class cg_auton_AL2TwoBall extends SequentialCommandGroup {
@@ -36,12 +39,14 @@ public class cg_auton_AL2TwoBall extends SequentialCommandGroup {
   private final DriveSubsystem m_drive;
   private final FeederSubsystem m_feeder;
   private final ShooterSubsystem m_shooter;
+  private final VisionSubsystem m_vision;
 
-  public cg_auton_AL2TwoBall(DriveSubsystem drive, CollectorSubsystem collector, FeederSubsystem feeder, ShooterSubsystem shooter) {
+  public cg_auton_AL2TwoBall(DriveSubsystem drive, CollectorSubsystem collector, FeederSubsystem feeder, ShooterSubsystem shooter, VisionSubsystem vision) {
     m_collector = collector;
     m_drive = drive;
     m_feeder = feeder;
     m_shooter = shooter;
+    m_vision = vision;
     addRequirements(m_collector, m_drive, m_feeder, m_shooter);
 
     addCommands(
@@ -61,6 +66,10 @@ public class cg_auton_AL2TwoBall extends SequentialCommandGroup {
           new collector_intakeForward(m_collector),
           new shooter_shootNamed(m_shooter, namedShots.AL2TWO)
           ),
+        new ParallelDeadlineGroup(
+          new WaitCommand(0.5),
+          new vision_findTarget(m_drive, m_vision)
+        ),
         new collector_intakeStop(m_collector),
         new collector_retractIntake(m_collector),
         new feeder_advance(m_feeder), //start advancing the feeder
