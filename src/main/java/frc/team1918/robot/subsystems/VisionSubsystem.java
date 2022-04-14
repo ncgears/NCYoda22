@@ -153,7 +153,7 @@ public class VisionSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("Vision/HasTargets", result.hasTargets());
     if (result.hasTargets()) {
       // turn = -turnController.calculate(result.getBestTarget().getYaw(), 0);
-      var target = result.getBestTarget().getYaw() +8.0;
+      var target = result.getBestTarget().getYaw() + Constants.Vision.kOffsetDegrees;
       if(Math.abs(target) >= 30.0) {
         turn = 0.0; //over 15deg then skip aiming
       } else {
