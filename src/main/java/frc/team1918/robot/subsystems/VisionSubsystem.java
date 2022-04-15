@@ -2,18 +2,19 @@
 package frc.team1918.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
+// import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.team1918.robot.Constants;
 import frc.team1918.robot.Dashboard;
 import frc.team1918.robot.Helpers;
+import frc.team1918.robot.subsystems.ShooterSubsystem.namedShots;
+
 import com.kauailabs.navx.frc.AHRS;
 
 import org.photonvision.PhotonCamera;
 import org.photonvision.common.hardware.VisionLEDMode;
-import org.photonvision.targeting.PhotonTrackedTarget;
+// import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Relay;
@@ -35,18 +36,15 @@ public class VisionSubsystem extends SubsystemBase {
   double FOV = 60;
   Relay m_ringlight = new Relay(Constants.Vision.id_RingLight);
   PhotonCamera m_camera = new PhotonCamera("PiCam");
-  PIDController turnController = new PIDController(Constants.Vision.kTurnP, 0, Constants.Vision.kTurnD);
   double photonLatency = 0.0;
 
   private static AHRS m_gyro = new AHRS(SPI.Port.kMXP);
   
   //horizontal field of view/ diagonal field of view 68.5 degrees
 
-
   public VisionSubsystem() {
     table = NetworkTableInstance.getDefault().getTable("VisionInfo");
   }
-
   
   @Override
   public void periodic() {
@@ -120,7 +118,7 @@ public class VisionSubsystem extends SubsystemBase {
    * @param enabled - true to turn on light, false to turn it off
    */
   public void setRinglight(boolean enabled) {
-    m_ringlight.set((enabled) ? Value.kReverse : Value.kOff);
+    // m_ringlight.set((enabled) ? Value.kReverse : Value.kOff);
     m_camera.setLED((enabled) ? VisionLEDMode.kOn : VisionLEDMode.kOff);
   }
 
@@ -146,6 +144,7 @@ public class VisionSubsystem extends SubsystemBase {
 
   public double getVisionTurn() {
     //-1.0 .. 0.0 .. 1.0 == ccw .. neutral .. cw
+    double fovLimit = 20.0; //+ or - yaw from center
     double turn = 0.0;
     var result = m_camera.getLatestResult();
     if(result.getLatencyMillis() == photonLatency) { //same as last loop, assume we lost photon
@@ -154,19 +153,65 @@ public class VisionSubsystem extends SubsystemBase {
     photonLatency = result.getLatencyMillis();
     SmartDashboard.putBoolean("Vision/HasTargets", result.hasTargets());
     if (result.hasTargets()) {
-      // turn = -turnController.calculate(result.getBestTarget().getYaw(), 0);
       var target = result.getBestTarget().getYaw() + Constants.Vision.kOffsetDegrees;
-      if(Math.abs(target) >= 30.0) {
+      if(Math.abs(target) >= fovLimit) {
+        Helpers.Debug.debug("Vision: target outside fov limit");
         turn = 0.0; //over 15deg then skip aiming
       } else {
-        turn = target/30.0;
+        turn = target/fovLimit;
       }
       SmartDashboard.putNumber("Vision/turnControl",turn);
     } else {
       turn = 0.0;
     }
-        
     return turn;
+  }
+
+  public double getVisionPitch() {
+    double pitch = 0.0;
+    var result = m_camera.getLatestResult();
+    if(result.getLatencyMillis() == photonLatency) { //same as last loop, assume we lost photon
+      return 0.0;
+    }
+    photonLatency = result.getLatencyMillis();
+    SmartDashboard.putBoolean("Vision/HasTargets", result.hasTargets());
+    if (result.hasTargets()) {
+      pitch = result.getBestTarget().getPitch();
+      SmartDashboard.putNumber("Vision/Pitch",pitch);
+    } else {
+      pitch = 0.0;
+    }
+    return pitch;
+  }
+
+  public namedShots selectShot(double pitch) {
+    final double pitchMax = 25.0;
+    final double pitchMinProtected = 22.0;
+    final double pitchMinWall = 19.0;
+    final double pitchMinLine = 16.0;
+    final double pitchMinTarmac = 13.0;
+    final double pitchMin = 10.0;
+    if(pitch < pitchMin || pitch > pitchMax) {
+      Helpers.Debug.debug("Vision: too close/far for auto shot selection");
+      //TODO: Rumble controller
+      return namedShots.NONE;
+    }
+
+    if (pitch > pitchMinProtected) { //Protected shot
+      Helpers.Debug.debug("Vision: Auto selecting PROTECTED shot");
+      return namedShots.OUTER;
+    } else if (pitch > pitchMinWall){ //Wall shot
+      Helpers.Debug.debug("Vision: Auto selecting WALL shot");
+      return namedShots.WALL;
+    } else if (pitch > pitchMinLine) { //Line shot
+      Helpers.Debug.debug("Vision: Auto selecting LINE shot");
+      return namedShots.LINE;
+    } else if (pitch > pitchMinTarmac) { //Tarmac shot
+      Helpers.Debug.debug("Vision: Auto selecting TARMAC shot");
+      return namedShots.TARMAC;
+    } else {
+      return namedShots.NONE;
+    }
   }
 
 }
