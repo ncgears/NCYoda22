@@ -12,6 +12,7 @@ import frc.team1918.robot.Helpers;
 import com.kauailabs.navx.frc.AHRS;
 
 import org.photonvision.PhotonCamera;
+import org.photonvision.common.hardware.VisionLEDMode;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.wpilibj.SPI;
@@ -120,6 +121,7 @@ public class VisionSubsystem extends SubsystemBase {
    */
   public void setRinglight(boolean enabled) {
     m_ringlight.set((enabled) ? Value.kReverse : Value.kOff);
+    m_camera.setLED((enabled) ? VisionLEDMode.kOn : VisionLEDMode.kOff);
   }
 
   /**

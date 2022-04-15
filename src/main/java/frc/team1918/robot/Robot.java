@@ -45,9 +45,14 @@ public class Robot extends TimedRobot {
     //Disable LiveWindow
     LiveWindow.disableAllTelemetry();
     //Create forwarder for photonvision
+    //pi4
     PortForwarder.add(5800,"photonvision.local",5800);
     PortForwarder.add(1181,"photonvision.local",1181);
     PortForwarder.add(1182,"photonvision.local",1182);
+    //limelight
+    // PortForwarder.add(5800,"gloworm.local",5800);
+    // PortForwarder.add(1181,"gloworm.local",1181);
+    // PortForwarder.add(1182,"gloworm.local",1182);
 
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.

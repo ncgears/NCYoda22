@@ -67,7 +67,7 @@ public class cg_auton_AL2TwoBall extends SequentialCommandGroup {
           new shooter_shootNamed(m_shooter, namedShots.AL2TWO)
           ),
         new ParallelDeadlineGroup(
-          new WaitCommand(0.5),
+          new WaitCommand(1.0),
           new vision_findTarget(m_drive, m_vision)
         ),
         new collector_intakeStop(m_collector),
