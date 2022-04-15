@@ -193,7 +193,7 @@ public class VisionSubsystem extends SubsystemBase {
     final double pitchMin = 10.0;
     if(pitch < pitchMin || pitch > pitchMax) {
       Helpers.Debug.debug("Vision: too close/far for auto shot selection");
-      //TODO: Rumble controller
+      // Helpers.OI.rumble(true);
       return namedShots.NONE;
     }
 

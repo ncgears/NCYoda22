@@ -1,6 +1,7 @@
 package frc.team1918.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 
 public class Helpers {
     //Helpers for Debugging
@@ -167,6 +168,11 @@ public class Helpers {
          */
         public final static double getAxisTurnValue(boolean useDeadband) {
             return (useDeadband) ? applyDeadband(dj.getRawAxis(Constants.OI.Driver.AXIS_TURN)) : dj.getRawAxis(Constants.OI.Driver.AXIS_TURN);
+        }
+
+        public static void rumble(boolean rumble) {
+            dj.setRumble(RumbleType.kLeftRumble, (rumble)?1.0:0.0);
+            dj.setRumble(RumbleType.kRightRumble, (rumble)?1.0:0.0);
         }
 
         //OPERATOR CONTROLS
