@@ -35,7 +35,7 @@ public class VisionSubsystem extends SubsystemBase {
   double totalPixel =500;
   double FOV = 60;
   Relay m_ringlight = new Relay(Constants.Vision.id_RingLight);
-  PhotonCamera m_camera = new PhotonCamera("PiCam");
+  PhotonCamera m_camera = new PhotonCamera("gloworm");
   double photonLatency = 0.0;
 
   private static AHRS m_gyro = new AHRS(SPI.Port.kMXP);
@@ -93,6 +93,7 @@ public class VisionSubsystem extends SubsystemBase {
 		if(angleLocked) Helpers.Debug.debug("Angle Unlocked");
 		angleLocked = false;
 	}
+  
   public double calcAngleStraight() {
     double kP = Constants.Vision.kErrorCorrection_P;
 		double errorAngle = ((Math.abs(t1x-250)/250)*30);
@@ -144,7 +145,7 @@ public class VisionSubsystem extends SubsystemBase {
 
   public double getVisionTurn() {
     //-1.0 .. 0.0 .. 1.0 == ccw .. neutral .. cw
-    double fovLimit = 20.0; //+ or - yaw from center
+    double fovLimit = 29.0; //+ or - yaw from center
     double turn = 0.0;
     var result = m_camera.getLatestResult();
     if(result.getLatencyMillis() == photonLatency) { //same as last loop, assume we lost photon
@@ -159,6 +160,7 @@ public class VisionSubsystem extends SubsystemBase {
         turn = 0.0; //over 15deg then skip aiming
       } else {
         turn = target/fovLimit;
+        // turn = Math.min(1.0, Math.abs(turn)) * Math.signum(turn);
       }
       SmartDashboard.putNumber("Vision/turnControl",turn);
     } else {

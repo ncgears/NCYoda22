@@ -447,7 +447,7 @@ public class Constants {
         public static final boolean stateLightOn = true;
         public static final int id_RingLight = ID.Relay.ringlight; //Relay ID of Ringlight SS Relay
         public static final double kErrorCorrection_P = 0.65; //Proportional value for multiplying vision angle correction
-        public static final double kTurnP = 0.1;
+        public static final double kTurnP = 0.17;
         public static final double kTurnD = 0.0;
         public static final double kOffsetDegrees = 0.0; //Manual offset adjustment; +right; -left
     }

@@ -172,7 +172,7 @@ public class Helpers {
 
         public static void rumble(boolean rumble) {
             dj.setRumble(RumbleType.kLeftRumble, (rumble)?1.0:0.0);
-            dj.setRumble(RumbleType.kRightRumble, (rumble)?1.0:0.0);
+            dj.setRumble(RumbleType.kRightRumble, (rumble)?0.0:1.0);
         }
 
         //OPERATOR CONTROLS
