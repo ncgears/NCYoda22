@@ -108,7 +108,7 @@ public class RobotContainer {
       private JoystickButton btn_VisionAim = new JoystickButton(dj, Constants.OI.Logitech.BTN_LB);
       private JoystickButton btn_VisionShoot = new JoystickButton(dj, Constants.OI.Logitech.BTN_B);
       private JoystickButton btn_ShootDashboard = new JoystickButton(dj, Constants.OI.Logitech.BTN_Y);
-      private JoystickButton btn_RumbleTest = new JoystickButton(dj, Constants.OI.Logitech.BTN_X);
+      private JoystickButton btn_ResetClimb = new JoystickButton(dj, Constants.OI.Logitech.BTN_X);
       //Music Control
       // private JoystickButton btn_MusicPlay = new JoystickButton(dj, Constants.OI.Logitech.BTN_Y);
       // private JoystickButton btn_MusicStop = new JoystickButton(dj, Constants.OI.Logitech.BTN_R);
@@ -206,7 +206,7 @@ public class RobotContainer {
     btn_VisionAim.whileHeld(new vision_findTarget(m_drive,m_vision));
     btn_VisionShoot.whileHeld(new vision_findTargetAndShot(m_drive, m_vision, m_shooter));
     t_RingLight.whenActive(new vision_setRinglight(m_vision, Constants.Vision.stateLightOn)).whenInactive(new vision_setRinglight(m_vision, !Constants.Vision.stateLightOn));
-    btn_RumbleTest.whenPressed(new cg_djRumble(m_vision));
+    btn_ResetClimb.whenPressed(new climber_resetClimb(m_climber));
     //Music Control Buttons
     // btn_MusicPlay.whenPressed(new orchestra_loadAndPlay(m_orchestra));
     // btn_MusicStop.whenPressed(new orchestra_stop(m_orchestra));
