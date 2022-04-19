@@ -9,6 +9,8 @@ import frc.team1918.robot.Dashboard;
 import frc.team1918.robot.Helpers;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class CollectorSubsystem extends SubsystemBase {
@@ -23,6 +25,13 @@ public class CollectorSubsystem extends SubsystemBase {
     coll = new WPI_TalonSRX(Constants.Collector.id_Motor1);
     m_coll1 = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_CollectorSolenoid);
     m_retractor = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Air.id_RetratorSolenoid);
+
+    coll.configFactoryDefault(); 
+    coll.set(ControlMode.PercentOutput, 0);
+    coll.setNeutralMode(NeutralMode.Coast); 
+    coll.setInverted(Constants.Collector.isInverted_Motor1);
+    // SupplyCurrentLimitConfiguration(enabled,peak,trigger threshold current,trigger threshold time(s))
+    // coll.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true,25.0,20.0,1.0));
   }
 
   @Override

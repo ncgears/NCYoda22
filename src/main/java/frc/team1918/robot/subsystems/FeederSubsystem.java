@@ -36,6 +36,8 @@ public class FeederSubsystem extends SubsystemBase {
     m_feeder.set(ControlMode.PercentOutput, 0);
     m_feeder.setNeutralMode(NeutralMode.Brake);
     m_feeder.setInverted(Constants.Feeder.isInverted_Motor1);
+    // SupplyCurrentLimitConfiguration(enabled,peak,trigger threshold current,trigger threshold time(s))
+    // m_feeder.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true,25.0,20.0,1.0));
   }
 
   @Override

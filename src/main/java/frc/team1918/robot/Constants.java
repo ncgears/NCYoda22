@@ -136,6 +136,7 @@ public class Constants {
     public static final class Collector {
         public static final boolean isDisabled = false; //Disable the collector subsystem
         public static final int id_Motor1 = ID.Talon.intake; 
+        public static final boolean isInverted_Motor1 = false;
         public static final int id_ColorSensor1 = 4;
         public static final double kDefaultCollectorSpeed = 0.65;
     }
