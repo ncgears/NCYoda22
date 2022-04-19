@@ -303,6 +303,8 @@ public class Constants {
         public static final double DEFAULT_TURN_D = 0.0; //PID D
         public static final int DEFAULT_TURN_IZONE = 0; //PID IZone
         public static final int DEFAULT_TURN_ALLOWED_ERROR = 3; //PID Allowed Error
+        public static final int DEFAULT_TURN_CURRENT_LIMIT = 20; //Maximum current limit for turn
+        public static final int DEFAULT_DRIVE_CURRENT_LIMIT = 60; //Maximum current limit for drive
         public static final double DEFAULT_WHEEL_DIAM_MM = 76.2; //Wheel Diameter of 3in colson
         // swerve control definitions
         public static final double kHomeOffsetRadians = 0.0; //3 * (Math.PI/4); //135 - radians to offset the zero point of the wheels
@@ -341,7 +343,7 @@ public class Constants {
         public static final class FL {
             public static final boolean isDisabled = false;
             public static final int DRIVE_MC_ID = ID.Falcon.swerve_fl_drive; //Falcon500 Motor Controller ID
-            public static final double DRIVE_wheelDiamMM = 75.8; //actual diameter of larger wheel in mm
+            public static final double DRIVE_wheelDiamMM = 74.0; //actual diameter of larger wheel in mm
             public static final boolean DRIVE_isInverted = false;
             public static final int TURN_MC_ID = ID.Talon.swerve_fl_turn; //TalonSRX Motor Controller ID
             public static final boolean TURN_sensorPhase = true; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
@@ -359,7 +361,7 @@ public class Constants {
         public static final class FR {
             public static final boolean isDisabled = false; 
             public static final int DRIVE_MC_ID = ID.Falcon.swerve_fr_drive; //Falcon500 Motor Controller ID
-            public static final double DRIVE_wheelDiamMM = 75.8; //actual diameter of larger wheel in mm
+            public static final double DRIVE_wheelDiamMM = 74.0; //actual diameter of larger wheel in mm
             public static final boolean DRIVE_isInverted = false;
             public static final int TURN_MC_ID = ID.Talon.swerve_fr_turn; //TalonSRX Motor Controller ID
             public static final boolean TURN_sensorPhase = true; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
@@ -377,7 +379,7 @@ public class Constants {
         public static final class RL {
             public static final boolean isDisabled = false;
             public static final int DRIVE_MC_ID = ID.Falcon.swerve_rl_drive; //Falcon500 Motor Controller ID
-            public static final double DRIVE_wheelDiamMM = 75.8; //actual diameter of larger wheel in mm
+            public static final double DRIVE_wheelDiamMM = 73.0; //actual diameter of larger wheel in mm
             public static final boolean DRIVE_isInverted = false;
             public static final int TURN_MC_ID = ID.Talon.swerve_rl_turn; //TalonSRX Motor Controller ID
             public static final boolean TURN_sensorPhase = true; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
@@ -395,7 +397,7 @@ public class Constants {
         public static final class RR { //Rear Right
             public static final boolean isDisabled = false;
             public static final int DRIVE_MC_ID = ID.Falcon.swerve_rr_drive; //Falcon500 Motor Controller ID
-            public static final double DRIVE_wheelDiamMM = 75.8; //actual diameter of larger wheel in mm
+            public static final double DRIVE_wheelDiamMM = 72.0; //actual diameter of larger wheel in mm
             public static final boolean DRIVE_isInverted = false;
             public static final int TURN_MC_ID = ID.Talon.swerve_rr_turn; //TalonSRX Motor Controller ID
             public static final boolean TURN_sensorPhase = true; //When forward/reverse of controller doesn't match forward/reverse of sensor, set to true
