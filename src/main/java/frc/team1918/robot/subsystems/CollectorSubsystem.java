@@ -31,8 +31,12 @@ public class CollectorSubsystem extends SubsystemBase {
     coll.setNeutralMode(NeutralMode.Coast); 
     coll.setInverted(Constants.Collector.isInverted_Motor1);
     // SupplyCurrentLimitConfiguration(enabled,peak,trigger threshold current,trigger threshold time(s))
-    // coll.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true,25.0,20.0,1.0));
-  }
+    coll.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(
+      Constants.Collector.isCurrentLimitEnabled,
+      Constants.Collector.kCurrentLimitAmps,
+      Constants.Collector.kCurrentThresholdAmps,
+      Constants.Collector.kCurrentThresholdSecs));
+}
 
   @Override
   public void periodic() {

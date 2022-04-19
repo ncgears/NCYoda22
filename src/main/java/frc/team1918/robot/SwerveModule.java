@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 
 //WPILib
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -76,9 +77,12 @@ public class SwerveModule {
         turn.overrideLimitSwitchesEnable(false);
         turn.configAllowableClosedloopError(0, TURN_ALLOWED_ERROR); 
         if(Constants.Swerve.homeOnInit) turn.set(ControlMode.Position, getZeroPositionTicks());
-        // SupplyCurrentLimitConfiguration(enabled,peak,limit,limit threshold)
-        // turn.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true,25.0,20.0,1.0));
-
+        // SupplyCurrentLimitConfiguration(enabled,peak,trigger threshold current,trigger threshold time(s))
+        turn.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(
+            Constants.Swerve.isTurnCurrentLimitEnabled,
+            Constants.Swerve.kTurnCurrentLimitAmps,
+            Constants.Swerve.kTurnCurrentThresholdAmps,
+            Constants.Swerve.kTurnCurrentThresholdSecs));
 
         drive.configFactoryDefault();
         drive.set(ControlMode.PercentOutput, 0);
@@ -90,8 +94,12 @@ public class SwerveModule {
         drive.config_IntegralZone(0, 4740);
         // SupplyCurrentLimitConfiguration(enabled,peak,trigger threshold current,trigger threshold time(s))
         // drive.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true,60.0,45.0,1.0));
-        // drive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true,60.0,45.0,0.5));
-
+        drive.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(
+            Constants.Swerve.isDriveCurrentLimitEnabled,
+            Constants.Swerve.kDriveCurrentLimitAmps,
+            Constants.Swerve.kDriveCurrentThresholdAmps,
+            Constants.Swerve.kDriveCurrentThresholdSecs));
+            
         // m_drive_pidController = drive.getPIDController();
         // m_drive_pidController.setP(0.0005); //PID P
         // m_drive_pidController.setI(0.0); //PID I

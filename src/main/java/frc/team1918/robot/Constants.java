@@ -139,6 +139,10 @@ public class Constants {
         public static final boolean isInverted_Motor1 = false;
         public static final int id_ColorSensor1 = 4;
         public static final double kDefaultCollectorSpeed = 0.65;
+        public static final boolean isCurrentLimitEnabled = false;
+        public static final int kCurrentLimitAmps = 20;
+        public static final int kCurrentThresholdAmps = 25;
+        public static final double kCurrentThresholdSecs = 0.1;
     }
    
     /**
@@ -153,6 +157,10 @@ public class Constants {
         public static final boolean isInverted_Motor1 = true; //Invert motor direction
         public static final double speed_Motor1 = 0.8; //Feeder Motor 1 Speed
         public static final double debounce_delay = 3.0; //Seconds to wait for feeder beams
+        public static final boolean isCurrentLimitEnabled = false;
+        public static final int kCurrentLimitAmps = 20;
+        public static final int kCurrentThresholdAmps = 25;
+        public static final double kCurrentThresholdSecs = 0.1;
     }
 
     /**
@@ -303,10 +311,19 @@ public class Constants {
         public static final double DEFAULT_TURN_I = 0.0; //PID I
         public static final double DEFAULT_TURN_D = 0.0; //PID D
         public static final int DEFAULT_TURN_IZONE = 0; //PID IZone
-        public static final int DEFAULT_TURN_ALLOWED_ERROR = 3; //PID Allowed Error
-        public static final int DEFAULT_TURN_CURRENT_LIMIT = 20; //Maximum current limit for turn
-        public static final int DEFAULT_DRIVE_CURRENT_LIMIT = 60; //Maximum current limit for drive
+        public static final int DEFAULT_TURN_ALLOWED_ERROR = 5; //PID Allowed Error
         public static final double DEFAULT_WHEEL_DIAM_MM = 76.2; //Wheel Diameter of 3in colson
+        // current limits
+        // Swerve current limiting //TODO: Needs tuning, this was borrowed from Team364 example
+        // See {@link https://github.com/Team364/BaseFalconSwerve/blob/main/src/main/java/frc/robot/CTREConfigs.java}
+        public static final boolean isTurnCurrentLimitEnabled = false;
+        public static final int kTurnCurrentLimitAmps = 25;
+        public static final int kTurnCurrentThresholdAmps = 40;
+        public static final double kTurnCurrentThresholdSecs = 0.1;
+        public static final boolean isDriveCurrentLimitEnabled = false;
+        public static final int kDriveCurrentLimitAmps = 35;
+        public static final int kDriveCurrentThresholdAmps = 60;
+        public static final double kDriveCurrentThresholdSecs = 0.3;
         // swerve control definitions
         public static final double kHomeOffsetRadians = 0.0; //3 * (Math.PI/4); //135 - radians to offset the zero point of the wheels
         public static final double kMaxModuleAngularSpeedRadiansPerSecond = 2 * Math.PI;
@@ -319,16 +336,6 @@ public class Constants {
         public static final double driveKS = (0.667 / 12); //Static Gain //divide by 12 to convert from volts to percent output for CTRE
         public static final double driveKV = (2.44 / 12); //Velocity Gain
         public static final double driveKA = (0.27 / 12); //Acceleration Gain
-        // Swerve current limiting //TODO: Needs tuning, this was borrowed from Team364 example
-        // See {@link https://github.com/Team364/BaseFalconSwerve/blob/main/src/main/java/frc/robot/CTREConfigs.java}
-        public static final int angleContinuousCurrentLimit = 25;
-        public static final int anglePeakCurrentLimit = 40;
-        public static final double anglePeakCurrentDuration = 0.1;
-        public static final boolean angleEnableCurrentLimit = true;
-        public static final int driveContinuousCurrentLimit = 35;
-        public static final int drivePeakCurrentLimit = 60;
-        public static final double drivePeakCurrentDuration = 0.1;
-        public static final boolean driveEnableCurrentLimit = true;
 
         //Forward Positive, Left Positive, Up Positive (NWU Convention)
         public static final SwerveDriveKinematics kDriveKinematics =

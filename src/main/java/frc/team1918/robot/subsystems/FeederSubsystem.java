@@ -3,6 +3,7 @@ package frc.team1918.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.math.filter.Debouncer;
@@ -37,7 +38,11 @@ public class FeederSubsystem extends SubsystemBase {
     m_feeder.setNeutralMode(NeutralMode.Brake);
     m_feeder.setInverted(Constants.Feeder.isInverted_Motor1);
     // SupplyCurrentLimitConfiguration(enabled,peak,trigger threshold current,trigger threshold time(s))
-    // m_feeder.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true,25.0,20.0,1.0));
+    m_feeder.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(
+      Constants.Feeder.isCurrentLimitEnabled,
+      Constants.Feeder.kCurrentLimitAmps,
+      Constants.Feeder.kCurrentThresholdAmps,
+      Constants.Feeder.kCurrentThresholdSecs));
   }
 
   @Override
