@@ -62,14 +62,14 @@ public class Robot extends TimedRobot {
     } else {
       m_chooser.setDefaultOption("AR1 3 Ball", m_robotContainer.getRobotCommand("auton_ar1ThreeBall"));
       m_chooser.addOption("AR2 2 Ball", m_robotContainer.getRobotCommand("auton_ar2TwoBall"));
-      m_chooser.addOption("AR3 4 Ball", m_robotContainer.getRobotCommand("auton_ar3FourBall"));
-      m_chooser.addOption("AR4 4 Ball #2", m_robotContainer.getRobotCommand("auton_ar4FourBall2"));
+      // m_chooser.addOption("AR3 4 Ball", m_robotContainer.getRobotCommand("auton_ar3FourBall"));
+      // m_chooser.addOption("AR4 4 Ball #2", m_robotContainer.getRobotCommand("auton_ar4FourBall2"));
       m_chooser.addOption("AC1 1 Ball", m_robotContainer.getRobotCommand("auton_ac1OneBall"));
       m_chooser.addOption("AL1 2 Ball", m_robotContainer.getRobotCommand("auton_al1TwoBall"));
       m_chooser.addOption("AL2 2 Ball #2", m_robotContainer.getRobotCommand("auton_al2TwoBall"));
       // m_chooser.addOption("4 Ball Auto", m_robotContainer.getRobotCommand("auton_4BallAuto"));
-      m_chooser.addOption("Basic Drive", m_robotContainer.getRobotCommand("auton_BasicDriveAuto"));
-      m_chooser.addOption("Basic Shooting", m_robotContainer.getRobotCommand("auton_BasicShootingAuto"));
+      // m_chooser.addOption("Basic Drive", m_robotContainer.getRobotCommand("auton_BasicDriveAuto"));
+      // m_chooser.addOption("Basic Shooting", m_robotContainer.getRobotCommand("auton_BasicShootingAuto"));
     }
     SmartDashboard.putData(m_chooser);
   }
