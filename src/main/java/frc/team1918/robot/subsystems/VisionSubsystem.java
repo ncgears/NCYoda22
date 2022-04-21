@@ -166,7 +166,7 @@ public class VisionSubsystem extends SubsystemBase {
     } else {
       turn = 0.0;
     }
-    return turn;
+    return Math.max(Constants.Vision.kMinTurnPower,turn); //minimum of 25%
   }
 
   public double getVisionPitch() {
@@ -191,26 +191,27 @@ public class VisionSubsystem extends SubsystemBase {
     final double pitchMaxProtected = 1.6;
     final double pitchMaxWall = 11.8;
     final double pitchMaxLine = 18.0; //TBD
-    final double pitchMaxTarmac = 25.0; //TBD
-    final double pitchMax = 30.0; //TBD
+    final double pitchMaxTarmac = 21.5; //TBD
+    final double pitchMax = 21.8; //TBD
     if(pitch < pitchMin || pitch > pitchMax) {
       Helpers.Debug.debug("Vision: too close/far for auto shot selection");
       // Helpers.OI.rumble(true);
       return namedShots.NONE;
     }
 
-    if (pitch < pitchMaxProtected) { //Protected shot
-      Helpers.Debug.debug("Vision: Auto selecting PROTECTED shot");
-      return namedShots.OUTER;
+    // if (pitch < pitchMaxTarmac) { //Tarmac shot
+    //   Helpers.Debug.debug("Vision: Auto selecting TARMAC shot");
+    //   return namedShots.TARMAC;
+  // } else 
+    if (pitch < pitchMaxLine) { //Line shot
+      Helpers.Debug.debug("Vision: Auto selecting LINE shot");
+      return namedShots.LINE;
     } else if (pitch < pitchMaxWall){ //Wall shot
       Helpers.Debug.debug("Vision: Auto selecting WALL shot");
       return namedShots.WALL;
-    // } else if (pitch < pitchMaxLine) { //Line shot
-    //   Helpers.Debug.debug("Vision: Auto selecting LINE shot");
-    //   return namedShots.LINE;
-    // } else if (pitch < pitchMaxTarmac) { //Tarmac shot
-    //   Helpers.Debug.debug("Vision: Auto selecting TARMAC shot");
-    //   return namedShots.TARMAC;
+    } else if (pitch < pitchMaxProtected) { //Protected shot
+      Helpers.Debug.debug("Vision: Auto selecting PROTECTED shot");
+      return namedShots.PROTECTED;
     } else {
       return namedShots.NONE;
     }
