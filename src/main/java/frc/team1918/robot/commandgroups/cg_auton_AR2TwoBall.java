@@ -79,11 +79,11 @@ public class cg_auton_AR2TwoBall extends SequentialCommandGroup {
         new shooter_shootNamed(m_shooter, namedShots.AR1ONE),
         new WaitCommand(Constants.Shooter.kSpinupSeconds), 
         new ParallelDeadlineGroup(
-          new WaitCommand(0.5),
+          new WaitCommand(1.0),
           new vision_findTarget(m_drive, m_vision)
         ),
         new feeder_advance(m_feeder),
-        new WaitCommand(1.0), //give time for shot
+        new WaitCommand(1.5), //give time for shot
         new shooter_stopShooter(m_shooter),
         new shooter_hoodDown(m_shooter),
         new feeder_stop(m_feeder),
