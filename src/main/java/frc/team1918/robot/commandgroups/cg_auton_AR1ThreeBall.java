@@ -23,6 +23,7 @@ import frc.team1918.robot.commands.collector.*;
 import frc.team1918.robot.commands.drive.drive_followTrajectory;
 import frc.team1918.robot.commands.drive.drive_resetOdometry;
 import frc.team1918.robot.commands.shooter.*;
+import frc.team1918.robot.commands.vision.vision_findTarget;
 import frc.team1918.robot.commands.feeder.*;
 import frc.team1918.robot.commands.helpers.helpers_debugMessage;
 import frc.team1918.robot.subsystems.CollectorSubsystem;
@@ -97,6 +98,10 @@ public class cg_auton_AR1ThreeBall extends SequentialCommandGroup {
         new drive_followTrajectory(m_drive, new ar1B2ShootingPosition()),
         // new shooter_shootNamed(m_shooter, namedShots.AR1THREE),
         // new WaitCommand(Constants.Shooter.kSpinupSeconds), 
+        new ParallelDeadlineGroup(
+          new WaitCommand(1.0),
+          new vision_findTarget(m_drive, m_vision)
+        ),
         new feeder_advance(m_feeder), //start advancing the feeder
         new WaitCommand(1.25), //give time for shot
         new shooter_stopShooter(m_shooter), //stop shooter
