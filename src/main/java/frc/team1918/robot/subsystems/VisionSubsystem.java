@@ -1,6 +1,7 @@
 
 package frc.team1918.robot.subsystems;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.NetworkTable;
 // import edu.wpi.first.networktables.NetworkTableEntry;
@@ -8,6 +9,8 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.team1918.robot.Constants;
 import frc.team1918.robot.Dashboard;
 import frc.team1918.robot.Helpers;
+import frc.team1918.robot.RobotContainer;
+import frc.team1918.robot.commandgroups.cg_djRumble;
 import frc.team1918.robot.subsystems.ShooterSubsystem.namedShots;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -37,6 +40,7 @@ public class VisionSubsystem extends SubsystemBase {
   Relay m_ringlight = new Relay(Constants.Vision.id_RingLight);
   PhotonCamera m_camera = new PhotonCamera("gloworm");
   double photonLatency = 0.0;
+  // Command m_rumbleCommand = new cg_djRumble(this);
 
   private static AHRS m_gyro = new AHRS(SPI.Port.kMXP);
   
@@ -179,14 +183,15 @@ public class VisionSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("Vision/HasTargets", result.hasTargets());
     if (result.hasTargets()) {
       pitch = result.getBestTarget().getPitch();
-      SmartDashboard.putNumber("Vision/Pitch",pitch);
     } else {
-      pitch = 0.0;
+      pitch = -100.0;
     }
+    SmartDashboard.putNumber("Vision/Pitch",pitch);
     return pitch;
   }
 
   public namedShots selectShot(double pitch) {
+    Helpers.Debug.debug("Vision: Selecting shot for pitch "+pitch);
     final double pitchMin = -2.0;
     final double pitchMaxProtected = 1.6;
     final double pitchMaxWall = 11.8;
@@ -196,22 +201,24 @@ public class VisionSubsystem extends SubsystemBase {
     if(pitch < pitchMin || pitch > pitchMax) {
       Helpers.Debug.debug("Vision: too close/far for auto shot selection");
       // Helpers.OI.rumble(true);
+      // m_rumbleCommand.schedule();
       return namedShots.NONE;
     }
 
-    // if (pitch < pitchMaxTarmac) { //Tarmac shot
+    // else if (pitch < pitchMaxTarmac) { //Tarmac shot
     //   Helpers.Debug.debug("Vision: Auto selecting TARMAC shot");
     //   return namedShots.TARMAC;
-  // } else 
-    if (pitch < pitchMaxLine) { //Line shot
-      Helpers.Debug.debug("Vision: Auto selecting LINE shot");
-      return namedShots.LINE;
+    // } 
+    else if (pitch < pitchMaxProtected) { //Protected shot
+      Helpers.Debug.debug("Vision: Auto selecting PROTECTED shot");
+      return namedShots.PROTECTED;
     } else if (pitch < pitchMaxWall){ //Wall shot
       Helpers.Debug.debug("Vision: Auto selecting WALL shot");
       return namedShots.WALL;
-    } else if (pitch < pitchMaxProtected) { //Protected shot
-      Helpers.Debug.debug("Vision: Auto selecting PROTECTED shot");
-      return namedShots.PROTECTED;
+    } else if (pitch < pitchMaxLine) { //Line shot
+      Helpers.Debug.debug("Vision: Auto selecting LINE shot");
+      // m_rumbleCommand.schedule();
+      return namedShots.LINE;
     } else {
       return namedShots.NONE;
     }

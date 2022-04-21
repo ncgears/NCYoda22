@@ -234,7 +234,9 @@ public class RobotContainer {
     //This selects a command (or command group) to return
     switch (name) {
       case "resetRobot":
-        return new cg_resetRobot(m_collector, m_climber, m_feeder, m_shooter);
+        return new cg_resetRobot(m_collector, m_climber, m_feeder, m_shooter, m_vision);
+      case "rumbleNotify":
+        return new cg_djRumble(m_vision);
       case "auton_4BallAuto":
         return new cg_auton_4BallAuto(m_drive, m_collector, m_feeder, m_shooter);
       case "auton_al1TwoBall":

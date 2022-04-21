@@ -22,7 +22,7 @@ public class climber_autoClimb extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"}) //Dont add "unused" under normal operation
   private final ClimberSubsystem m_climber;
   private final Debouncer m_releaseDebounce;
-  private final Debouncer m_captureDebounce;
+  private final Debouncer m_captureDebounce, m_captureDebounce2;
 
   /**
    * @param subsystem The subsystem used by this command.
@@ -31,6 +31,7 @@ public class climber_autoClimb extends CommandBase {
     m_climber = climb;
     m_releaseDebounce = new Debouncer(Constants.Climber.kHookReleaseTime, DebounceType.kRising);
     m_captureDebounce = new Debouncer(Constants.Climber.kHookCaptureTime, DebounceType.kFalling);
+    m_captureDebounce2 = new Debouncer(Constants.Climber.kHookCaptureTime +0.5, DebounceType.kFalling);
     // Use addRequirements() here to declare subsystem dependencies.
     // addRequirements(subsystem);
   }
@@ -104,7 +105,7 @@ public class climber_autoClimb extends CommandBase {
         }
         break;
       case BAR3LATCH:
-        if(m_captureDebounce.calculate(m_climber.getHookLatch(1))) {
+        if(m_captureDebounce2.calculate(m_climber.getHookLatch(1))) {
           Helpers.Debug.debug("Auto-climb: Bar4 Latch");
           Helpers.Debug.debug("Auto-climb: Bar3 Do Release");
           m_climber.setHookMode(2, true);
