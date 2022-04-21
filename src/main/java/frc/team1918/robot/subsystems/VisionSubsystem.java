@@ -174,10 +174,10 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   public double getVisionPitch() {
-    double pitch = 0.0;
+    double pitch = -100.0;
     var result = m_camera.getLatestResult();
     if(result.getLatencyMillis() == photonLatency) { //same as last loop, assume we lost photon
-      return 0.0;
+      return -100.0;
     }
     photonLatency = result.getLatencyMillis();
     SmartDashboard.putBoolean("Vision/HasTargets", result.hasTargets());

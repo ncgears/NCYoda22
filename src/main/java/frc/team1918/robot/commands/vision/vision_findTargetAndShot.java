@@ -67,6 +67,7 @@ public class vision_findTargetAndShot extends CommandBase {
   public void end(boolean interrupted) {
     Helpers.Debug.debug("Vision: Stop Target and Shot Assist");
     namedShots m_name = m_vision.selectShot(m_pitch);
+    Helpers.Debug.debug("Vision: Selected shot is "+m_name);
     m_shooter.setShotName(m_name);
     switch (m_name) {
       case LOW:
@@ -89,9 +90,10 @@ public class vision_findTargetAndShot extends CommandBase {
         m_shooter.setShooterSpeed(Constants.Shooter.Shots.TARMAC.kSpeed);
         m_shooter.raiseHood(Constants.Shooter.Shots.TARMAC.kHood, Constants.Shooter.Shots.TARMAC.kHood2);
         break;
+      case NONE:
       default:
-        m_shooter.setShooterSpeed(Constants.Shooter.Shots.DEFAULT.kSpeed);
-        m_shooter.raiseHood(Constants.Shooter.Shots.DEFAULT.kHood, Constants.Shooter.Shots.DEFAULT.kHood2);
+        m_shooter.stopShooter();
+        m_shooter.raiseHood(false, false);
         break;  
     }
     m_drive.brake();
