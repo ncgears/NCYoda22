@@ -59,6 +59,7 @@ public class cg_auton_AL2TwoBall extends SequentialCommandGroup {
         new WaitCommand(Constants.Shooter.kSpinupSeconds), //wait for shooter to be at speed
         new feeder_advance(m_feeder), //start advancing the feeder
         new WaitCommand(0.5), //give time for shot
+        new collector_intakeForward(m_collector),
         new collector_deployIntake(m_collector),
         new ParallelDeadlineGroup( //do until trajectory complete
           new drive_followTrajectory(m_drive, new al2BallOne()),

@@ -61,6 +61,7 @@ public class cg_auton_AL1TwoBall extends SequentialCommandGroup {
         new shooter_stopShooter(m_shooter),
         new shooter_hoodDown(m_shooter),
         new feeder_stop(m_feeder),
+        new collector_intakeForward(m_collector),
         new collector_deployIntake(m_collector),
         new ParallelDeadlineGroup( //do until trajectory complete
           new drive_followTrajectory(m_drive, new al1BallOne()),

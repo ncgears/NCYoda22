@@ -107,6 +107,7 @@ public class cg_auton_AR1ThreeBall extends SequentialCommandGroup {
         new shooter_stopShooter(m_shooter), //stop shooter
         new shooter_hoodDown(m_shooter), //lower the hood
         new feeder_stop(m_feeder), //stop the feeder -- should be handled by shootAllBalls
+        new collector_intakeForward(m_collector),
         new collector_intakeStop(m_collector), //stop collector
         new collector_retractIntake(m_collector),  //retract collector
         new helpers_debugMessage("Auton: Done with auton")
