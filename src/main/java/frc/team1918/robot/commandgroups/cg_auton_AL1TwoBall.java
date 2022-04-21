@@ -79,7 +79,7 @@ public class cg_auton_AL1TwoBall extends SequentialCommandGroup {
         new shooter_shootNamed(m_shooter, namedShots.AL1TWO),
         new WaitCommand(Constants.Shooter.kSpinupSeconds), 
         new ParallelDeadlineGroup(
-          new WaitCommand(0.5),
+          new WaitCommand(1.0),
           new vision_findTarget(m_drive, m_vision)
         ),
         new feeder_advance(m_feeder),
