@@ -160,13 +160,13 @@ public class VisionSubsystem extends SubsystemBase {
         turn = 0.0; //over 15deg then skip aiming
       } else {
         turn = target/fovLimit;
-        // turn = Math.min(1.0, Math.abs(turn)) * Math.signum(turn);
+        turn = (Math.abs(turn) >= 0.05) ? Math.max(Constants.Vision.kMinTurnPower,Math.abs(turn)) * Math.signum(turn) : 0.0; //minimum turn speed
       }
       SmartDashboard.putNumber("Vision/turnControl",turn);
     } else {
       turn = 0.0;
     }
-    return Math.max(Constants.Vision.kMinTurnPower,turn); //minimum of 25%
+    return turn;
   }
 
   public double getVisionPitch() {
