@@ -187,12 +187,12 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   public namedShots selectShot(double pitch) {
-    final double pitchMax = 25.0;
-    final double pitchMinProtected = 22.0;
-    final double pitchMinWall = 19.0;
-    final double pitchMinLine = 16.0;
-    final double pitchMinTarmac = 13.0;
-    final double pitchMin = 10.0;
+    final double pitchMax = -2.0;
+    final double pitchMinProtected = 1.6;
+    final double pitchMinWall = 11.8;
+    final double pitchMinLine = 18.0;
+    final double pitchMinTarmac = 25.0;
+    final double pitchMin = 30.0;
     if(pitch < pitchMin || pitch > pitchMax) {
       Helpers.Debug.debug("Vision: too close/far for auto shot selection");
       // Helpers.OI.rumble(true);
