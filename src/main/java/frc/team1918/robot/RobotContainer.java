@@ -244,6 +244,8 @@ public class RobotContainer {
         return new cg_auton_AL1TwoBall(m_drive, m_collector, m_feeder, m_shooter, m_vision);
       case "auton_al2TwoBall":
         return new cg_auton_AL2TwoBall(m_drive, m_collector, m_feeder, m_shooter, m_vision);
+      case "auton_al3TwoBall":
+        return new cg_auton_AL3TwoBall(m_drive, m_collector, m_feeder, m_shooter, m_vision);
       case "auton_ac1OneBall":
         return new cg_auton_AC1OneBall(m_drive, m_collector, m_feeder, m_shooter, m_vision);
       case "auton_ar1ThreeBall":

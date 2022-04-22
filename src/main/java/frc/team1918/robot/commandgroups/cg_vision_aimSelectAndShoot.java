@@ -7,7 +7,9 @@
 
 package frc.team1918.robot.commandgroups;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 // import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -15,7 +17,11 @@ import frc.team1918.robot.Constants;
 import frc.team1918.robot.Constants.Feeder;
 import frc.team1918.robot.commands.feeder.feeder_advance;
 import frc.team1918.robot.commands.feeder.feeder_advanceIfTarget;
+import frc.team1918.robot.commands.feeder.feeder_stop;
+import frc.team1918.robot.commands.shooter.shooter_stopShooter;
 import frc.team1918.robot.commands.vision.vision_aimAndSelectShot;
+import frc.team1918.robot.commands.vision.vision_findTarget;
+import frc.team1918.robot.commands.vision.vision_selectShot;
 import frc.team1918.robot.subsystems.DriveSubsystem;
 import frc.team1918.robot.subsystems.FeederSubsystem;
 import frc.team1918.robot.subsystems.ShooterSubsystem;
@@ -42,11 +48,13 @@ public class cg_vision_aimSelectAndShoot extends SequentialCommandGroup {
      */
     addCommands(
         //this is a comma separated list of commands, thus, the last one should not have a comma
-        new vision_aimAndSelectShot(m_drive, m_vision, m_shooter),
-        new ParallelDeadlineGroup(
-          new feeder_advanceIfTarget(m_feeder, m_vision),
-          new WaitCommand(Constants.Shooter.kSpinupSeconds)
-        )
+        new vision_findTarget(m_drive, m_vision),
+        new vision_selectShot(m_vision, m_shooter),
+        new WaitCommand(Constants.Shooter.kSpinupSeconds),
+        new feeder_advanceIfTarget(m_feeder, m_vision),
+        new WaitCommand(2.0),
+        new feeder_stop(m_feeder),
+        new shooter_stopShooter(m_shooter)
     );
   }
 }

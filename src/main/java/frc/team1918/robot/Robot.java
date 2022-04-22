@@ -67,6 +67,7 @@ public class Robot extends TimedRobot {
       m_chooser.addOption("AC1 1 Ball", m_robotContainer.getRobotCommand("auton_ac1OneBall"));
       m_chooser.addOption("AL1 2 Ball", m_robotContainer.getRobotCommand("auton_al1TwoBall"));
       m_chooser.addOption("AL2 2 Ball #2", m_robotContainer.getRobotCommand("auton_al2TwoBall"));
+      m_chooser.addOption("AL3 2 Ball #3", m_robotContainer.getRobotCommand("auton_al3TwoBall"));
       // m_chooser.addOption("4 Ball Auto", m_robotContainer.getRobotCommand("auton_4BallAuto"));
       // m_chooser.addOption("Basic Drive", m_robotContainer.getRobotCommand("auton_BasicDriveAuto"));
       m_chooser.addOption("Basic Shooting", m_robotContainer.getRobotCommand("auton_BasicShootingAuto"));
