@@ -461,6 +461,7 @@ public class Constants {
         public static final double kTurnD = 0.0;
         public static final double kOffsetDegrees = 0.0; //Manual offset adjustment; +right; -left
         public static final double kMinTurnPower = 0.25; //Minimum power for turning during vision
+        public static final double kCloseEnough = 0.04; //Percentage of allowed error
     }
     /**
      * Constants for the Operator Interface

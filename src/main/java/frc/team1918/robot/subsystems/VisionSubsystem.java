@@ -41,6 +41,8 @@ public class VisionSubsystem extends SubsystemBase {
   PhotonCamera m_camera = new PhotonCamera("gloworm");
   double photonLatency = 0.0;
   double m_pitch = -100.0;
+  boolean targetAquired = false;
+  boolean visionTracking = false;
   // Command m_rumbleCommand = new cg_djRumble(this);
 
   private static AHRS m_gyro = new AHRS(SPI.Port.kMXP);
@@ -154,6 +156,7 @@ public class VisionSubsystem extends SubsystemBase {
     double turn = 0.0;
     var result = m_camera.getLatestResult();
     if(result.getLatencyMillis() == photonLatency) { //same as last loop, assume we lost photon
+      targetAquired = false;
       return 0.0;
     }
     photonLatency = result.getLatencyMillis();
@@ -164,18 +167,33 @@ public class VisionSubsystem extends SubsystemBase {
         Helpers.Debug.debug("Vision: target outside fov limit");
         turn = 0.0; //over 15deg then skip aiming
         m_pitch = -100.0;
+        targetAquired = false;
       } else {
         turn = target/fovLimit;
-        turn = (Math.abs(turn) >= 0.05) ? Math.max(Constants.Vision.kMinTurnPower,Math.abs(turn)) * Math.signum(turn) : 0.0; //minimum turn speed
+        turn = (Math.abs(turn) >= Constants.Vision.kCloseEnough) ? Math.max(Constants.Vision.kMinTurnPower,Math.abs(turn)) * Math.signum(turn) : 0.0; //minimum turn speed
         m_pitch = result.getBestTarget().getPitch();
+        targetAquired = true;
       }
       // SmartDashboard.putNumber("Vision/turnControl",turn);
       // SmartDashboard.putNumber("Vision/targetPitch",m_pitch);
     } else {
       turn = 0.0;
       m_pitch = -100.0;
+      targetAquired = false;
     }
     return turn;
+  }
+
+  public boolean isTargetAcquired() {
+    return targetAquired;
+  }
+
+  public boolean isVisionTracking() {
+    return visionTracking;
+  }
+
+  public void setVisionTracking(boolean tracking) {
+    visionTracking = tracking;
   }
 
   // public void updateVisionPitch() {

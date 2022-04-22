@@ -105,8 +105,8 @@ public class RobotContainer {
       private JoystickButton btn_ShooterStop = new JoystickButton(dj, Constants.OI.Logitech.BTN_A);
       private JoystickButton btn_FeederFwd = new JoystickButton(dj, Constants.OI.Logitech.BTN_RB);
       private Trigger t_RingLight = new Trigger(() -> dj.getRawAxis(Constants.OI.Logitech.AXIS_RT)>0.3);
-      private JoystickButton btn_VisionAim = new JoystickButton(dj, Constants.OI.Logitech.BTN_LB);
-      private JoystickButton btn_VisionShoot = new JoystickButton(dj, Constants.OI.Logitech.BTN_B);
+      private JoystickButton btn_AimSelectShoot = new JoystickButton(dj, Constants.OI.Logitech.BTN_B);
+      private JoystickButton btn_AimSelect = new JoystickButton(dj, Constants.OI.Logitech.BTN_LB);
       private JoystickButton btn_ShootDashboard = new JoystickButton(dj, Constants.OI.Logitech.BTN_Y);
       private JoystickButton btn_ResetClimb = new JoystickButton(dj, Constants.OI.Logitech.BTN_X);
       //Music Control
@@ -203,8 +203,9 @@ public class RobotContainer {
     btn_ShooterIncrease.whenPressed(new shooter_increaseThrottle(m_shooter));
     btn_ShooterDecrease.whenPressed(new shooter_decreaseThrottle(m_shooter));
     btn_GyroReset.whenPressed(new drive_resetGyro(m_drive).andThen(new drive_resetOdometry(m_drive, new Pose2d()))); //.andThen(new drive_homeSwerves(m_drive))
-    btn_VisionAim.whileHeld(new vision_findTarget(m_drive,m_vision));
-    btn_VisionShoot.whileHeld(new vision_findTargetAndShot(m_drive, m_vision, m_shooter));
+    // btn_AimSelectShoot.whileHeld(new cg_vision_aimSelectAndShoot(m_drive, m_feeder, m_shooter, m_vision)).whenReleased(new feeder_stop(m_feeder).andThen(new shooter_stopShooter(m_shooter)));
+    btn_AimSelectShoot.whileHeld(new vision_findTargetAndShot(m_drive, m_vision, m_shooter));
+    btn_AimSelect.whileHeld(new vision_findTargetAndShot(m_drive, m_vision, m_shooter));
     t_RingLight.whenActive(new vision_setRinglight(m_vision, Constants.Vision.stateLightOn)).whenInactive(new vision_setRinglight(m_vision, !Constants.Vision.stateLightOn));
     btn_ResetClimb.whenPressed(new climber_resetClimb(m_climber));
     //Music Control Buttons
