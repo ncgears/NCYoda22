@@ -66,6 +66,7 @@ public class vision_findTargetAndShot extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     Helpers.Debug.debug("Vision: Stop Target and Shot Assist");
+    Helpers.Debug.debug("current pitch"+m_pitch);
     namedShots m_name = m_vision.selectShot(m_pitch);
     Helpers.Debug.debug("Vision: Selected shot is "+m_name);
     m_shooter.setShotName(m_name);

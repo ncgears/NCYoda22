@@ -195,7 +195,7 @@ public class VisionSubsystem extends SubsystemBase {
     final double pitchMin = -2.0;
     final double pitchMaxProtected = 1.6;
     final double pitchMaxWall = 11.8;
-    final double pitchMaxLine = 18.0; //TBD
+    final double pitchMaxLine = 20; //TBD
     final double pitchMaxTarmac = 21.5; //TBD
     final double pitchMax = 21.8; //TBD
     if(pitch < pitchMin || pitch > pitchMax) {
