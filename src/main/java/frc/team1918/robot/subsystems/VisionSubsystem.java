@@ -40,6 +40,7 @@ public class VisionSubsystem extends SubsystemBase {
   Relay m_ringlight = new Relay(Constants.Vision.id_RingLight);
   PhotonCamera m_camera = new PhotonCamera("gloworm");
   double photonLatency = 0.0;
+  double m_pitch = -100.0;
   // Command m_rumbleCommand = new cg_djRumble(this);
 
   private static AHRS m_gyro = new AHRS(SPI.Port.kMXP);
@@ -162,32 +163,40 @@ public class VisionSubsystem extends SubsystemBase {
       if(Math.abs(target) >= fovLimit) {
         Helpers.Debug.debug("Vision: target outside fov limit");
         turn = 0.0; //over 15deg then skip aiming
+        m_pitch = -100.0;
       } else {
         turn = target/fovLimit;
         turn = (Math.abs(turn) >= 0.05) ? Math.max(Constants.Vision.kMinTurnPower,Math.abs(turn)) * Math.signum(turn) : 0.0; //minimum turn speed
+        m_pitch = result.getBestTarget().getPitch();
       }
-      SmartDashboard.putNumber("Vision/turnControl",turn);
+      // SmartDashboard.putNumber("Vision/turnControl",turn);
+      // SmartDashboard.putNumber("Vision/targetPitch",m_pitch);
     } else {
       turn = 0.0;
+      m_pitch = -100.0;
     }
     return turn;
   }
 
+  // public void updateVisionPitch() {
+  //   double pitch = -100.0;
+  //   var result = m_camera.getLatestResult();
+  //   if(result.getLatencyMillis() == photonLatency) { //same as last loop, assume we lost photon
+  //     m_pitch = -100.0;
+  //   }
+  //   photonLatency = result.getLatencyMillis();
+  //   SmartDashboard.putBoolean("Vision/HasTargets", result.hasTargets());
+  //   if (result.hasTargets()) {
+  //     pitch = result.getBestTarget().getPitch();
+  //   } else {
+  //     pitch = -100.0;
+  //   }
+  //   SmartDashboard.putNumber("Vision/Pitch",pitch);
+  //   if (pitch != 0.0) m_pitch = pitch;
+  // }
+
   public double getVisionPitch() {
-    double pitch = -100.0;
-    var result = m_camera.getLatestResult();
-    if(result.getLatencyMillis() == photonLatency) { //same as last loop, assume we lost photon
-      return -100.0;
-    }
-    photonLatency = result.getLatencyMillis();
-    SmartDashboard.putBoolean("Vision/HasTargets", result.hasTargets());
-    if (result.hasTargets()) {
-      pitch = result.getBestTarget().getPitch();
-    } else {
-      pitch = -100.0;
-    }
-    SmartDashboard.putNumber("Vision/Pitch",pitch);
-    return pitch;
+    return m_pitch;
   }
 
   public namedShots selectShot(double pitch) {

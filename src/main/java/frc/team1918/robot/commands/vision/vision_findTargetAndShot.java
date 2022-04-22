@@ -55,11 +55,11 @@ public class vision_findTargetAndShot extends CommandBase {
 
   @Override
   public void execute() {
+    m_pitch = m_vision.getVisionPitch();
     m_rotation = m_vision.getVisionTurn();
     SmartDashboard.putNumber("Vision/TurnValue", m_rotation);
     if(m_rotation != 0) m_drive.unlockAngle(); //unlock angle if rotating
     m_drive.drive(m_forward, m_strafe, m_rotation, Constants.DriveTrain.useFieldCentric);
-    m_pitch = m_vision.getVisionPitch();
   }
 
   // Called once the command ends or is interrupted.
