@@ -261,6 +261,10 @@ public class SwerveModule {
         // turn.set(ControlMode.Position, getZeroPositionTicks());
     }
 
+    public void defensiveLock(double position) {
+        turn.set(ControlMode.Position, position);
+    }
+
     /**
      * Returns a rotation2d object representing the current location of the turn sensor
      * @return Rotation2d object of the current position
