@@ -423,7 +423,7 @@ public class Constants {
      * Constants for the DriveTrain subsystem
      */
     public static final class DriveTrain {
-        public static final boolean isDisabled = false; 
+        public static final boolean isDisabled = true; 
         ////Global Tuning
         public static final boolean useDriveStraight = true; //enable driveStraight functionality in drive() method
         public static final boolean useFieldCentric = true; //use field-centric drive. This should always be true except for testing?
@@ -441,7 +441,7 @@ public class Constants {
         ////Drive Tuning
         public static final double DT_FWD_MULT = 1.0; //Fwd throttle multiplier
         public static final double DT_STR_MULT = 1.0; //Str throttle multiplier
-        public static final boolean DT_DRIVE_DISABLED = false; //Set to true to disable the drive motors (for lab)
+        public static final boolean DT_DRIVE_DISABLED = true; //Set to true to disable the drive motors (for lab)
         public static final double DT_WHEEL_DIAM_MM = 76.2; //diameter of drive wheels in millimeters
         public static final int DT_DRIVE_ENCODER_FULL_ROTATION = 2048; //falcon integrated encoder is 2048
         //Falcon500 = 6380RPM  free speed : 945RPM Calculated
