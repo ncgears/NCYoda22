@@ -29,6 +29,7 @@ import frc.team1918.robot.subsystems.ClimberSubsystem;
 import frc.team1918.robot.subsystems.CollectorSubsystem;
 import frc.team1918.robot.subsystems.DriveSubsystem;
 import frc.team1918.robot.subsystems.FeederSubsystem;
+import frc.team1918.robot.subsystems.OrchestraSubsystem;
 import frc.team1918.robot.subsystems.ShooterSubsystem;
 import frc.team1918.robot.subsystems.ShooterSubsystem.namedShots;
 // import frc.team1918.robot.subsystems.OrchestraSubsystem;
@@ -40,7 +41,7 @@ import frc.team1918.robot.commands.collector.*;
 import frc.team1918.robot.commands.drive.*;
 import frc.team1918.robot.commands.feeder.*;
 import frc.team1918.robot.commands.shooter.*;
-// import frc.team1918.robot.commands.orchestra.*;
+import frc.team1918.robot.commands.orchestra.*;
 import frc.team1918.robot.commands.vision.*;
 //CommandGroup imports
 import frc.team1918.robot.commandgroups.*;
@@ -62,6 +63,7 @@ public class RobotContainer {
     private final ShooterSubsystem m_shooter = new ShooterSubsystem();
     private final DriveSubsystem m_drive = new DriveSubsystem();
     private final VisionSubsystem m_vision = new VisionSubsystem();
+    private final OrchestraSubsystem m_orchestra = new OrchestraSubsystem();
     // private final OrchestraSubsystem m_orchestra = new OrchestraSubsystem();
 
    /**
@@ -107,14 +109,14 @@ public class RobotContainer {
       private Trigger t_RingLight = new Trigger(() -> dj.getRawAxis(Constants.OI.Logitech.AXIS_RT)>0.3);
       private JoystickButton btn_AimSelectShoot = new JoystickButton(dj, Constants.OI.Logitech.BTN_B);
       private JoystickButton btn_AimSelect = new JoystickButton(dj, Constants.OI.Logitech.BTN_LB);
-      private JoystickButton btn_ShootDashboard = new JoystickButton(dj, Constants.OI.Logitech.BTN_Y);
-      private JoystickButton btn_ResetClimb = new JoystickButton(dj, Constants.OI.Logitech.BTN_X);
+      // private JoystickButton btn_ShootDashboard = new JoystickButton(dj, Constants.OI.Logitech.BTN_Y);
+      // private JoystickButton btn_ResetClimb = new JoystickButton(dj, Constants.OI.Logitech.BTN_X);
       //Music Control
-      // private JoystickButton btn_MusicPlay = new JoystickButton(dj, Constants.OI.Logitech.BTN_Y);
-      // private JoystickButton btn_MusicStop = new JoystickButton(dj, Constants.OI.Logitech.BTN_R);
-      // private JoystickButton btn_MusicFwd = new JoystickButton(dj, Constants.OI.Logitech.BTN_B);
-      // private JoystickButton btn_MusicBack = new JoystickButton(dj, Constants.OI.Logitech.BTN_X);
-      // private JoystickButton btn_MusicReady = new JoystickButton (dj, Constants.OI.Logitech.BTN_A);
+      private JoystickButton btn_MusicPlay = new JoystickButton(dj, Constants.OI.Logitech.BTN_L);
+      private JoystickButton btn_MusicStop = new JoystickButton(dj, Constants.OI.Logitech.BTN_R);
+      private JoystickButton btn_MusicFwd = new JoystickButton(dj, Constants.OI.Logitech.BTN_X);
+      private JoystickButton btn_MusicBack = new JoystickButton(dj, Constants.OI.Logitech.BTN_Y);
+      private JoystickButton btn_MusicReady = new JoystickButton (dj, Constants.OI.Logitech.BTN_R);
       // private Trigger t_PlayMusic = new Trigger(() -> dj.getRawAxis(Constants.OI.Logitech.AXIS_LT)>0.3);
       // private POVButton btn_THROTUP_UP = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UP);
       //   private POVButton btn_THROTUP_UL = new POVButton(dj, Constants.OI.Driver.DPAD_THROTUP_UL);
@@ -187,7 +189,7 @@ public class RobotContainer {
     t_IntakeRetractor.whenActive(new collector_deployRetractor(m_collector,true)).whenInactive(new collector_deployRetractor(m_collector, false));
     // t_IntakeReverse.whenActive(new collector_intakeReverse(m_collector));
     btn_IntakeReverse.whileHeld(new collector_intakeReverse(m_collector));
-    btn_ShootDashboard.whenPressed(new shooter_shootNamed(m_shooter, namedShots.DASHBOARD));
+    // btn_ShootDashboard.whenPressed(new shooter_shootNamed(m_shooter, namedShots.DASHBOARD));
     btn_ShootLow.whenPressed(new shooter_shootNamed(m_shooter, namedShots.LOW));
     btn_ShootProtected.whenPressed(new shooter_shootNamed(m_shooter, namedShots.PROTECTED));
     btn_ShootLine.whenPressed(new shooter_shootNamed(m_shooter, namedShots.LINE));
@@ -207,12 +209,12 @@ public class RobotContainer {
     btn_AimSelectShoot.whileHeld(new vision_findTargetAndShot(m_drive, m_vision, m_shooter));
     btn_AimSelect.whileHeld(new vision_findTargetAndShot(m_drive, m_vision, m_shooter));
     t_RingLight.whenActive(new vision_setRinglight(m_vision, Constants.Vision.stateLightOn)).whenInactive(new vision_setRinglight(m_vision, !Constants.Vision.stateLightOn));
-    btn_ResetClimb.whenPressed(new climber_resetClimb(m_climber));
+    // btn_ResetClimb.whenPressed(new climber_resetClimb(m_climber));
     //Music Control Buttons
-    // btn_MusicPlay.whenPressed(new orchestra_loadAndPlay(m_orchestra));
-    // btn_MusicStop.whenPressed(new orchestra_stop(m_orchestra));
-    // btn_MusicFwd.whenPressed(new orchestra_increaseSong(m_orchestra));
-    // btn_MusicBack.whenPressed(new orchestra_decreaseSong(m_orchestra));
+    btn_MusicPlay.whenPressed(new orchestra_loadAndPlay(m_orchestra));
+    btn_MusicStop.whenPressed(new orchestra_stop(m_orchestra));
+    btn_MusicFwd.whenPressed(new orchestra_increaseSong(m_orchestra));
+    btn_MusicBack.whenPressed(new orchestra_decreaseSong(m_orchestra));
     // btn_MusicReady.whenPressed(new orchestra_primeToPlay(m_orchestra));
     // t_PlayMusic.whenActive(new orchestra_loadAndPlay(m_orchestra));
     // t_PlayMusic.whenActive(new orchestra_stop(m_orchestra));
